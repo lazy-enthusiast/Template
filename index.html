@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
 <style>
-/* ⛔ [系統核心樣式 v31.5] */
+/* ⛔ [系統核心樣式 v31.6] */
 :root {
     --bg-body: #f2e8d5; --bg-card: #fdfaf3; 
     --text-main: #5c0d09; --text-sub: #177263; 
@@ -52,7 +52,10 @@ main { flex: 1; overflow-y: hidden; position: relative; }
 .timeline-item::before { content: ''; position: absolute; left: -6px; top: 20px; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; z-index: 2; border: 2px solid var(--bg-body); box-shadow: 0 0 0 2px var(--accent); }
 .card { background-color: var(--bg-card); border-radius: 16px; padding: 20px; padding-right: 50px; box-shadow: var(--shadow); cursor: pointer; position: relative; transition: transform 0.2s; border: 1px solid var(--border); min-height: auto; display: flex; flex-direction: column; justify-content: center; border-left: none; }
 .card:active { transform: scale(0.98); opacity: 0.9; }
-.card-nav-btn { position: absolute; top: 20px; right: 20px; width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.03); color: var(--text-main); display: flex; justify-content: center; align-items: center; font-size: 1rem; border: none; }
+
+/* ✨ Fixed: Nav Button Vertically Centered */
+.card-nav-btn { position: absolute; top: 50%; right: 20px; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.03); color: var(--text-main); display: flex; justify-content: center; align-items: center; font-size: 1rem; border: none; }
+
 .card-title { font-size: 1.1rem; font-weight: 700; margin: 0 0 8px 0; line-height: 1.3; font-family: var(--font-heading); color: var(--text-main); letter-spacing: 0.2px; }
 .card-time { font-size: 0.8rem; color: var(--accent); font-weight: 700; margin-bottom: 6px; display: block; font-family: var(--font-body); letter-spacing: 0.5px; text-transform: uppercase;}
 .card-tag { font-size: 0.65rem; background: rgba(0,0,0,0.05); padding: 4px 10px; border-radius: 12px; color: var(--text-sub); font-weight: 600; border: none; letter-spacing: 0.5px; display: inline-block; margin-right: 5px; }
@@ -109,6 +112,12 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
 .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(3px); } .sidebar-overlay.open { opacity: 1; pointer-events: all; }
 .sidebar { position: fixed; top: 0; right: 0; width: 85%; max-width: 320px; height: 100%; background: var(--bg-card); color: var(--text-main); z-index: 1001; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); overflow-y: auto; padding: 25px 25px 100px 25px; border-left: 1px solid var(--border); } .sidebar.open { transform: translateX(0); }
 .tool-box { background: var(--bg-card); padding: 20px; border-radius: 16px; border: 1px solid var(--border); margin-bottom: 15px; } .curr-input { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 1.2rem; text-align: center; background: var(--bg-body); font-weight: 600; color: var(--text-main); }
+/* ✨ Fixed: Hidden by default to prevent "關閉" ghost text */
+.phrase-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); z-index: 5000; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s; } 
+.phrase-overlay.active { display: flex; opacity: 1; pointer-events: all; }
+.phrase-content { text-align: center; width: 85%; } .phrase-big { font-size: 2.2rem; font-weight: 700; color: var(--accent); line-height: 1.3; margin-bottom: 25px; word-break: break-word; font-family: var(--font-heading); } 
+.close-phrase { position: absolute; bottom: 100px; left: 50%; transform: translateX(-50%); border: 1px solid var(--border); padding: 12px 40px; border-radius: 30px; color: var(--text-main); cursor: pointer; background: var(--bg-card); font-weight: 600; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+
 @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 </style>
 </head>
@@ -135,11 +144,9 @@ const THEME_CONFIG = {
 //   🗺️ 2. [DATA]
 // ============================================
 const CONFIG = { startDate: "2026-09-25", duration: 6 };
-// Changed Timezone to Hong Kong as requested
 const DESTINATION = { name: "Hong Kong", lat: -8.5069, lon: 115.2625, timezone: "Asia/Hong_Kong", currency: "idr", currencyLabel: "IDR", baseCurrency: "HKD", appTitle: "烏布香薰慢活之旅" };
 const TRIP_INFO = { visa: { type: "VoA", number: "Rp 500k", note: "建議事先申請 e-VOA" } };
 
-// ✨ [Fixed: Restored ALL original itinerary items]
 const USER_ITINERARY = {
     "day1": { 
         "events": [
@@ -150,6 +157,7 @@ const USER_ITINERARY = {
             { time: "20:30", title: "飯店陽台休息", type: "休息", price: "-", address: "Tegal Sari Accommodation", coords: [-8.5196, 115.2632], note: "泡茶，聽蟲鳴，享受第一晚的寧靜。", tags: ["休息"], moodColor: "#177263" }
         ],
         "inspiration": [
+            { title: "按摩備案 (In-room)", tag: "TIRED", type: "SPA", price: "Rp 150k+", time: "10:00 - 22:00", address: "Tegal Sari Accommodation", coords: [-8.5196, 115.2632], note: "如果搭機太累不想出門，直接請飯店安排房內按摩。\n推薦 Balinese Massage (60mins)。" },
             { title: "KAFE", tag: "SOLO", type: "Cafe", price: "Rp 100k", time: "07:30 - 23:00", address: "Jl. Hanoman No.44B, Ubud", coords: [-8.516, 115.264], note: "非常安全的社交中心，充滿數位遊牧者。有機食物很棒，適合一個人看書、寫日記。" }
         ],
         "shopping": ["防蚊液", "大瓶水"]
@@ -353,6 +361,8 @@ let currentEventData = null;
 let exchangeRate = 0.0005; // IDR to HKD approx
 let weatherCache = null;
 let shopState = {}; 
+// ✨ Global Event Store to fix quote issues in onClick
+let globalEventStore = {};
 
 function init() { 
     document.getElementById('app-title').innerHTML = DESTINATION.appTitle;
@@ -418,7 +428,13 @@ function openMapQuery(address) { const query = encodeURIComponent(address + " Ub
 function copyToClipboard(text) { navigator.clipboard.writeText(text).then(() => { showToast("已複製"); }); }
 function showToast(msg) { const t = document.getElementById('toast'); document.getElementById('toast-msg').innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
 
-// ✨ [Fixed OpenModal Logic for ALL Card Types]
+// ✨ [Fixed OpenModal Logic using Global Store]
+function openModalById(eventId) {
+    const data = globalEventStore[eventId];
+    if(!data) return;
+    openModal(data);
+}
+
 function openModal(data) { 
     currentEventData = data; 
     document.getElementById('modal-title').innerText = data.title; 
@@ -485,13 +501,16 @@ function selectDay(dayKey, chipEl) { currentDay = dayKey; document.querySelector
 
 function renderTimeline(dayKey) { 
     const container = document.getElementById('timeline-container'); container.innerHTML = ''; 
-    (scheduleData[dayKey].events || []).forEach(event => { 
+    (scheduleData[dayKey].events || []).forEach((event, index) => { 
         const item = document.createElement('div'); item.className = 'timeline-item'; 
         let tags = event.tags.map(t => `<span class="card-tag ${t==='必去'||t==='安全'?'highlight':''} ${t==='必辦'?'alert':''}">${t}</span>`).join(''); 
         const colorStyle = event.moodColor ? `border-left: 4px solid ${event.moodColor};` : ''; 
-        // Safe JSON stringify
-        const eventStr = JSON.stringify(event).replace(/'/g, "'");
-        item.innerHTML = `<div class="card" style="${colorStyle}" onclick='openModal(${eventStr})'><div class="card-nav-btn" onclick="event.stopPropagation(); openMapQuery('${event.address}')"><i class="fa-solid fa-location-arrow"></i></div><span class="card-time">${event.time}</span><h3 class="card-title">${event.title}</h3><div class="tags">${tags}</div></div>`; 
+        
+        // ✨ Safe Event Storing
+        const eventId = `evt-${dayKey}-${index}`;
+        globalEventStore[eventId] = event;
+
+        item.innerHTML = `<div class="card" style="${colorStyle}" onclick="openModalById('${eventId}')"><div class="card-nav-btn" onclick="event.stopPropagation(); openMapQuery('${event.address}')"><i class="fa-solid fa-location-arrow"></i></div><span class="card-time">${event.time}</span><h3 class="card-title">${event.title}</h3><div class="tags">${tags}</div></div>`; 
         container.appendChild(item); 
     }); 
     if(!scheduleData[dayKey].events.length) container.innerHTML = "<div style='text-align:center; padding:50px; color:var(--text-sub);'>本日無行程，自由探索！</div>"; 
@@ -499,10 +518,12 @@ function renderTimeline(dayKey) {
 
 function renderInspiration(dayKey) { 
     const container = document.getElementById('inspiration-container'); container.innerHTML = ''; 
-    (scheduleData[dayKey].inspiration || []).forEach(item => { 
-        // Always clickable now
-        const itemStr = JSON.stringify(item).replace(/'/g, "'");
-        container.innerHTML += `<div class="inspire-card" data-tag="${item.tag}" onclick='openModal(${itemStr})'><div class="inspire-nav-btn"><i class="fa-solid fa-chevron-right"></i></div><div class="inspire-badge">${item.tag}</div><h3 class="inspire-title">${item.title}</h3><p class="inspire-note">${item.note}</p></div>`; 
+    (scheduleData[dayKey].inspiration || []).forEach((item, index) => { 
+        // ✨ Safe Event Storing for Inspiration too
+        const eventId = `insp-${dayKey}-${index}`;
+        globalEventStore[eventId] = item;
+
+        container.innerHTML += `<div class="inspire-card" data-tag="${item.tag}" onclick="openModalById('${eventId}')"><div class="inspire-nav-btn"><i class="fa-solid fa-chevron-right"></i></div><div class="inspire-badge">${item.tag}</div><h3 class="inspire-title">${item.title}</h3><p class="inspire-note">${item.note}</p></div>`; 
     }); 
     if(!scheduleData[dayKey].inspiration.length) container.innerHTML = "<div style='text-align:center; padding:30px; color:var(--text-sub);'>本日無靈感筆記</div>"; 
 }
