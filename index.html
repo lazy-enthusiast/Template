@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Bangkok 2026 (Compact Mode)</title>
+<title>Bangkok 2026 (Final Layout)</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
@@ -23,11 +23,18 @@
     --header-bg: rgba(26, 26, 46, 0.95);
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     
-    /* [緊湊版面變數 Compact Layout Variables] */
+    /* [版面高度計算] */
     --safe-top: env(safe-area-inset-top);
     --safe-bottom: env(safe-area-inset-bottom);
-    --header-height: calc(55px + var(--safe-top)); /* Header 稍微變矮 */
-    --date-bar-height: 50px; /* 日期列大幅壓扁 */
+    
+    /* 固定元件高度 */
+    --header-height: calc(55px + var(--safe-top)); 
+    --date-bar-height: 50px; 
+    
+    /* 頁面內容起始位置 (Header + DateBar + Buffer) */
+    /* 修正：增加 10px 緩衝，確保內容完全露出 */
+    --content-start-y: calc(var(--header-height) + var(--date-bar-height) + 10px);
+    
     --nav-height: calc(55px + var(--safe-bottom));
 }
 
@@ -46,12 +53,12 @@ h1, h2, h3, .weather-temp-lg, .day-num, .phrase-big, .page-title {
     font-family: "Playfair Display", serif;
 }
 
-/* --- Header (Fixed) --- */
+/* --- Header (Fixed Layer 1) --- */
 header {
     position: fixed;
     top: 0; left: 0; width: 100%;
     height: var(--header-height);
-    padding: var(--safe-top) 15px 0 15px; /* 左右內距減少 */
+    padding: var(--safe-top) 15px 0 15px;
     background-color: var(--header-bg);
     -webkit-backdrop-filter: blur(15px); backdrop-filter: blur(15px);
     border-bottom: 1px solid var(--border);
@@ -67,6 +74,31 @@ header h1 { margin: 0; font-size: 1.1rem; font-weight: 700; letter-spacing: 1px;
     display: flex; justify-content: center; align-items: center;
 }
 
+/* --- Date Selector (Fixed Layer 2) --- */
+.date-selector-container { 
+    position: fixed;
+    top: var(--header-height); /* 緊貼 Header */
+    left: 0; width: 100%;
+    height: var(--date-bar-height);
+    background: var(--bg-body); /* 不透明背景，防止內容透視 */
+    border-bottom: 1px solid var(--border); 
+    z-index: 950; 
+    display: none; /* JS 切換 */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.date-selector { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; height: 100%; align-items: stretch; }
+.date-chip { 
+    flex: 1 0 auto; min-width: 65px; 
+    padding: 0; 
+    cursor: pointer; color: var(--text-sub); 
+    display: flex; flex-direction: column; align-items: center; justify-content: center; 
+    background: transparent; border-bottom: 2px solid transparent; 
+    transition: all 0.2s;
+}
+.date-chip.active { background: rgba(212, 175, 55, 0.1); color: var(--accent); border-bottom-color: var(--accent); }
+.day-num { font-weight: 700; font-size: 0.95rem; margin-bottom: 2px;} 
+.day-week { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; }
+
 /* --- Sidebar --- */
 .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
 .sidebar-overlay.open { opacity: 1; pointer-events: all; }
@@ -75,7 +107,6 @@ header h1 { margin: 0; font-size: 1.1rem; font-weight: 700; letter-spacing: 1px;
 .sidebar-section-title { font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; margin-top: 25px; font-weight: 700; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
 
 .nav-launcher { display: flex; align-items: center; gap: 12px; background: var(--bg-card); border: 1px solid var(--border); padding: 12px; border-radius: 6px; margin-bottom: 8px; cursor: pointer; }
-.nav-launcher:active { background: var(--border); transform: scale(0.98); }
 .nav-launcher-icon { font-size: 1.2rem; color: var(--accent); width: 25px; text-align: center; }
 .nav-launcher h3 { margin: 0; font-size: 0.95rem; font-weight: 700; color: var(--text-main); }
 .nav-launcher p { margin: 2px 0 0 0; font-size: 0.7rem; color: var(--text-sub); }
@@ -91,59 +122,39 @@ header h1 { margin: 0; font-size: 1.1rem; font-weight: 700; letter-spacing: 1px;
 .curr-icon { text-align: center; color: var(--text-sub); font-size: 0.8rem; margin-top: 15px;} 
 .memo-area { width: 100%; height: 80px; padding: 8px; border: 1px solid var(--border); border-radius: 4px; font-family: inherit; font-size: 0.85rem; resize: none; background: var(--bg-input); color: var(--text-main); }
 
-/* --- Compact Date Selector (Fixed Layer 2) --- */
-.date-selector-container { 
-    position: fixed;
-    top: var(--header-height);
-    left: 0; width: 100%;
-    height: var(--date-bar-height);
-    background: var(--bg-body); 
-    border-bottom: 1px solid var(--border); 
-    z-index: 950; display: none; 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    padding: 0; /* Remove padding to be compact */
-}
-.date-selector { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; height: 100%; align-items: stretch; }
-.date-chip { 
-    flex: 1 0 auto; min-width: 65px; 
-    padding: 0; /* Full height clickable */
-    cursor: pointer; color: var(--text-sub); 
-    display: flex; flex-direction: column; align-items: center; justify-content: center; 
-    background: transparent; border-bottom: 2px solid transparent; 
-    transition: all 0.2s;
-}
-.date-chip.active { background: rgba(212, 175, 55, 0.1); color: var(--accent); border-bottom-color: var(--accent); }
-.day-num { font-weight: 700; font-size: 0.95rem; margin-bottom: 2px;} 
-.day-week { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; }
-
 /* --- Main Layout --- */
 main { flex: 1; overflow-y: hidden; position: relative; }
 
 .page { 
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
     overflow-y: auto; -webkit-overflow-scrolling: touch;
-    padding: 15px 0 calc(15px + var(--nav-height)) 0;
-    /* Default top padding for pages WITHOUT date bar */
+    
+    /* 預設: 只有 Header 的頁面 (天氣、資訊) */
     padding-top: calc(var(--header-height) + 15px);
+    
+    padding-bottom: calc(20px + var(--nav-height));
     display: none; opacity: 0; transition: opacity 0.2s ease; background-color: var(--bg-body); 
 }
-/* Pages WITH date bar get extra top padding */
+
+/* 修正：有日期列的頁面 (行程、靈感、購物)，往下推更多 */
 .page.with-date-bar {
-    padding-top: calc(var(--header-height) + var(--date-bar-height));
+    padding-top: var(--content-start-y); 
 }
+
 .page.active { display: block; opacity: 1; z-index: 10; }
 
 .page-header { padding: 0 15px; margin-bottom: 15px; text-align: center;}
 .page-title { font-size: 1.5rem; font-weight: 700; margin: 0; color: var(--text-main); letter-spacing: 1px; position: relative; display: inline-block; }
 .page-title::after { content: ''; display: block; width: 30px; height: 2px; background: var(--accent); margin: 8px auto 0 auto; }
 
-/* Sticky Filter Bar (No Gaps) */
+/* Filter Bar (Sticky) */
+/* 修正：在靈感頁面，Filter Bar 吸附在 0 的位置 (相對於 Page 的 padding box) */
+/* 因為 Page 已經 padding-top 了，所以 top:0 會剛好接在 DateBar 下方 */
 .filter-bar-container { 
-    padding: 10px 15px 10px 15px; 
+    padding: 0 15px 10px 15px; 
     position: sticky; top: 0; z-index: 800; 
-    background: var(--bg-body); 
+    background: var(--bg-body); /* 遮擋捲動內容 */
     overflow-x: auto; white-space: nowrap; scrollbar-width: none; 
-    /* Negative margin to pull it up against the date bar visually */
     margin-bottom: 5px;
 }
 .filter-chip { display: inline-block; padding: 6px 14px; margin-right: 6px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; font-size: 0.75rem; color: var(--text-sub); cursor: pointer; transition: all 0.2s; }
@@ -151,14 +162,13 @@ main { flex: 1; overflow-y: hidden; position: relative; }
 
 /* --- Compact Timeline Cards --- */
 .timeline-container { padding: 0 15px; max-width: 800px; margin: 0 auto; }
-.timeline-item { position: relative; padding-left: 24px; padding-bottom: 12px; /* tighter gap */ border-left: 1px solid rgba(255,255,255,0.15); }
+.timeline-item { position: relative; padding-left: 24px; padding-bottom: 12px; border-left: 1px solid rgba(255,255,255,0.15); }
 .timeline-item:last-child { border-left: 1px solid transparent; }
 .timeline-item::before { content: ''; position: absolute; left: -5px; top: 18px; width: 9px; height: 9px; background: var(--bg-body); border: 2px solid var(--accent); border-radius: 50%; box-shadow: 0 0 0 3px var(--bg-body); z-index: 2; }
 
 .card { 
     background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; 
-    /* Very Compact Padding */
-    padding: 12px 45px 12px 12px; 
+    padding: 12px 45px 12px 12px; /* 右側預留空間給按鈕 */
     box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
     cursor: pointer; position: relative; transition: transform 0.2s; 
 }
@@ -179,7 +189,7 @@ main { flex: 1; overflow-y: hidden; position: relative; }
 .inspiration-grid { padding: 0 15px; display: grid; gap: 10px; }
 .inspire-card { 
     background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; 
-    padding: 15px; /* Reduced padding */
+    padding: 15px; 
     color: var(--text-main); position: relative; display: block; 
     cursor: pointer; transition: transform 0.2s;
 } 
