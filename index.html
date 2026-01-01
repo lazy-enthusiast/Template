@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Ubud Slow Living v31.4 (Full Details)</title>
+<title>烏布香氛慢活之旅</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
 <style>
-/* ⛔ [系統核心樣式 v31.4] */
+/* ⛔ [系統核心樣式 v31.5] */
 :root {
     --bg-body: #f2e8d5; --bg-card: #fdfaf3; 
     --text-main: #5c0d09; --text-sub: #177263; 
@@ -24,8 +24,8 @@ body { font-family: var(--font-body); background-color: var(--bg-body); color: v
 
 /* Header */
 header { background-color: var(--bg-body); opacity: 0.98; backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 20px; padding-top: var(--safe-top); height: calc(64px + var(--safe-top)); display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; position: relative; z-index: 200; }
-header h1 { margin: 0; font-size: 1.3rem; font-weight: 700; letter-spacing: 0.5px; color: var(--accent); font-family: var(--font-heading); text-transform: capitalize; line-height: 1; }
-#local-clock { font-size: 0.75rem; color: var(--text-sub); font-weight: 500; letter-spacing: 1px; margin-top: 4px; font-variant-numeric: tabular-nums; }
+header h1 { margin: 0; font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; color: var(--accent); font-family: var(--font-heading); text-transform: capitalize; line-height: 1.2; }
+#local-clock { font-size: 0.75rem; color: var(--text-sub); font-weight: 600; letter-spacing: 1px; margin-top: 4px; font-variant-numeric: tabular-nums; }
 
 .header-actions { display: flex; align-items: center; gap: 12px; }
 .header-btn { font-size: 1.1rem; cursor: pointer; color: var(--text-main); border-radius: 50%; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; background: transparent; transition: background 0.2s; }
@@ -57,6 +57,7 @@ main { flex: 1; overflow-y: hidden; position: relative; }
 .card-time { font-size: 0.8rem; color: var(--accent); font-weight: 700; margin-bottom: 6px; display: block; font-family: var(--font-body); letter-spacing: 0.5px; text-transform: uppercase;}
 .card-tag { font-size: 0.65rem; background: rgba(0,0,0,0.05); padding: 4px 10px; border-radius: 12px; color: var(--text-sub); font-weight: 600; border: none; letter-spacing: 0.5px; display: inline-block; margin-right: 5px; }
 .card-tag.highlight { background: var(--accent); color: var(--accent-text); }
+.card-tag.alert { border: 1px solid var(--accent); color: var(--accent); background: transparent; }
 
 /* Inspiration (Backup Plan) Cards */
 .filter-bar-container { padding: 0 20px 15px 20px; position: sticky; top: 0; z-index: 50; background: var(--bg-body); overflow-x: auto; white-space: nowrap; scrollbar-width: none; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
@@ -134,19 +135,21 @@ const THEME_CONFIG = {
 //   🗺️ 2. [DATA]
 // ============================================
 const CONFIG = { startDate: "2026-09-25", duration: 6 };
-const DESTINATION = { name: "Ubud, Bali", lat: -8.5069, lon: 115.2625, timezone: "Asia/Makassar", currency: "idr", currencyLabel: "IDR", baseCurrency: "HKD", appTitle: "Ubud <span>Slow Living</span>" };
+// Changed Timezone to Hong Kong as requested
+const DESTINATION = { name: "Hong Kong", lat: -8.5069, lon: 115.2625, timezone: "Asia/Hong_Kong", currency: "idr", currencyLabel: "IDR", baseCurrency: "HKD", appTitle: "烏布香薰慢活之旅" };
 const TRIP_INFO = { visa: { type: "VoA", number: "Rp 500k", note: "建議事先申請 e-VOA" } };
 
-// ✨ [Enriched Data for Full Details Modal]
+// ✨ [Fixed: Restored ALL original itinerary items]
 const USER_ITINERARY = {
     "day1": { 
         "events": [
             { time: "15:00", title: "抵達峇里島機場 (DPS)", type: "交通", price: "-", address: "Ngurah Rai International Airport", coords: [-8.74817, 115.167], note: "尋找舉著 'Tegal Sari' 牌子的司機。若延誤，透過 WhatsApp 聯繫飯店。", tags: ["移動"], moodColor: "#d44601" },
             { time: "17:30", title: "入住 Tegal Sari", type: "住宿", price: "Paid", address: "Jl. Hanoman, Padang Tegal, Ubud", coords: [-8.5196, 115.2632], note: "確認房間為 'Upper Floor' 且面向稻田。檢查門鎖與保險箱。", tags: ["入住", "安全"], moodColor: "#177263" },
-            { time: "19:00", title: "晚餐：Pison Ubud", type: "餐飲", price: "HKD 100", address: "Jl. Hanoman No. 10X", coords: [-8.5178, 115.2637], note: "稻田景觀咖啡廳，週五晚氣氛佳。適合單身女性，環境安全。", tags: ["晚餐", "Chill"], moodColor: "#d44601" }
+            { time: "18:00", title: "Coco Supermarket 採買", type: "購物", price: "Rp 300k", address: "Jl. Raya Pengosekan", coords: [-8.5179, 115.2635], note: "買水、水果、防蚊液、優格。", tags: ["購物"], shopping_items: ["紅酒", "起司", "水果", "飲用水", "防蚊噴霧"] },
+            { time: "19:00", title: "晚餐：Pison Ubud", type: "餐飲", price: "HKD 100", address: "Jl. Hanoman No. 10X", coords: [-8.5178, 115.2637], note: "稻田景觀咖啡廳，週五晚氣氛佳。適合單身女性，環境安全。", tags: ["晚餐", "Chill"], moodColor: "#d44601" },
+            { time: "20:30", title: "飯店陽台休息", type: "休息", price: "-", address: "Tegal Sari Accommodation", coords: [-8.5196, 115.2632], note: "泡茶，聽蟲鳴，享受第一晚的寧靜。", tags: ["休息"], moodColor: "#177263" }
         ],
         "inspiration": [
-            { title: "按摩備案", tag: "TIRED", type: "SPA", price: "Rp 150k+", time: "10:00 - 22:00", address: "Tegal Sari Accommodation (In-room)", coords: [-8.5196, 115.2632], note: "如果搭機太累不想出門，直接請飯店安排房內按摩。\n推薦 Balinese Massage (60mins)。" },
             { title: "KAFE", tag: "SOLO", type: "Cafe", price: "Rp 100k", time: "07:30 - 23:00", address: "Jl. Hanoman No.44B, Ubud", coords: [-8.516, 115.264], note: "非常安全的社交中心，充滿數位遊牧者。有機食物很棒，適合一個人看書、寫日記。" }
         ],
         "shopping": ["防蚊液", "大瓶水"]
@@ -154,8 +157,13 @@ const USER_ITINERARY = {
     "day2": {
         "events": [
             { time: "09:30", title: "包車出發", type: "交通", price: "-", address: "Tegal Sari Lobby", coords: [-8.5196, 115.2632], note: "攜帶泳衣(若要下水)、毛巾、水。", tags: ["包車"], moodColor: "#d44601" },
+            { time: "09:45", title: "BMC Money Changer", type: "換匯", price: "-", address: "Jl. Raya Pengosekan Ubud No.108", coords: [-8.5179, 115.2635], note: "匯率較好且安全，保留收據。", tags: ["必辦"], moodColor: "#177263" },
             { time: "10:30", title: "Gunung Kawi Sebatu", type: "體驗", price: "Rp 50k", address: "Sebatu, Tegallalang", coords: [-8.3844, 115.293], note: "水淨化儀式 (Melukat)。遊客較少，能量乾淨清涼。", tags: ["淨化", "必去"], moodColor: "#177263" },
-            { time: "13:30", title: "Svasensa Perfume Workshop", type: "活動", price: "Rp 459k", address: "Toya Ubud Eco Park", coords: [-8.439, 115.281], note: "初階調香 (90 mins)。學習香氛基礎，製作個人樣本。", tags: ["調香", "必去"], moodColor: "#d44601" }
+            { time: "12:00", title: "午餐：景觀餐廳", type: "餐飲", price: "-", address: "Kintamani Area", coords: [-8.283, 115.364], note: "請司機推薦風景好、乾淨的餐廳 (Nasi Goreng / Satay)。", tags: ["午餐"], moodColor: "#d44601" },
+            { time: "13:30", title: "Svasensa Perfume Workshop", type: "活動", price: "Rp 459k", address: "Toya Ubud Eco Park", coords: [-8.439, 115.281], note: "初階調香 (90 mins)。學習香氛基礎，製作個人樣本。", tags: ["調香", "必去"], moodColor: "#d44601" },
+            { time: "16:00", title: "面具博物館", type: "文化", price: "Donation", address: "Setia Darma House of Mask", coords: [-8.5342, 115.2792], note: "環境極為清幽，數千件傳統收藏。", tags: ["博物館"], moodColor: "#177263" },
+            { time: "17:30", title: "返回飯店放戰利品", type: "交通", price: "-", address: "Tegal Sari", coords: [-8.5196, 115.2632], note: "稍作休息。", tags: ["休息"], moodColor: "#177263" },
+            { time: "18:30", title: "晚餐：The Yoga Barn", type: "餐飲", price: "Rp 100k", address: "Jl. Hanoman", coords: [-8.5193, 115.2653], note: "Garden Kafe. 有機健康料理，環境放鬆。", tags: ["健康"], moodColor: "#d44601" }
         ],
         "inspiration": [
             { title: "Ganesha Bookshop", tag: "RAINY", type: "文化", price: "-", time: "09:00 - 18:00", address: "Jl. Raya Ubud, Ubud", coords: [-8.506, 115.262], note: "如果下雨，這裡是躲避的好地方。專賣印尼文化書籍，也有二手書，氣氛安靜。" },
@@ -166,7 +174,11 @@ const USER_ITINERARY = {
     "day3": {
         "events": [
             { time: "09:30", title: "ARMA Museum", type: "藝術", price: "Rp 150k", address: "Jl. Raya Pengosekan", coords: [-8.5229, 115.2632], note: "在皇家花園般的博物館散步，欣賞傳統繪畫。", tags: ["藝術"], moodColor: "#177263" },
-            { time: "14:00", title: "午餐：髒鴨飯總店", type: "餐飲", price: "Rp 200k", address: "Bebek Bengil, Jl. Hanoman", coords: [-8.5178, 115.2637], note: "就在飯店旁邊。稻田涼亭位，經典必吃。", tags: ["美食"], moodColor: "#d44601" }
+            { time: "11:30", title: "Andong 古董街", type: "購物", price: "-", address: "Jalan Raya Andong", coords: [-8.5077, 115.2710], note: "搭車去上游，慢慢逛下來。木雕、復古小物。", tags: ["購物"], moodColor: "#d44601" },
+            { time: "13:30", title: "返回飯店附近", type: "交通", price: "-", address: "Tegal Sari", coords: [-8.5196, 115.2632], note: "放下戰利品。", tags: ["休息"], moodColor: "#177263" },
+            { time: "14:00", title: "午餐：髒鴨飯總店", type: "餐飲", price: "Rp 200k", address: "Bebek Bengil, Jl. Hanoman", coords: [-8.5178, 115.2637], note: "就在飯店旁邊。稻田涼亭位，經典必吃。", tags: ["美食"], moodColor: "#d44601" },
+            { time: "16:00", title: "按摩：Jaens Spa", type: "SPA", price: "Rp 300k+", address: "Jl. Raya Pengosekan", coords: [-8.517, 115.263], note: "Balinese Massage 90mins. 就在附近，走路可到。", tags: ["放鬆"], moodColor: "#177263" },
+            { time: "18:30", title: "晚餐：Kebun Bistro", type: "餐飲", price: "Rp 200k", address: "Jl. Hanoman No.44", coords: [-8.5136, 115.2642], note: "法式鄉村風，紅白酒豐富。適合獨酌。", tags: ["微醺"], moodColor: "#d44601" }
         ],
         "inspiration": [
             { title: "找個 Balian", tag: "SPIRIT", type: "玄學", price: "隨喜 (約Rp 300k)", time: "需預約", address: "Ubud Area (Ask Driver)", coords: [-8.5069, 115.2625], note: "如果對命理有興趣，可嘗試當地的傳統治療師 (Balian)。\n請司機推薦可靠的師傅，通常包含手相或能量解讀。" },
@@ -178,18 +190,25 @@ const USER_ITINERARY = {
         "events": [
             { time: "08:00", title: "Ubud Morning Market", type: "市集", price: "-", address: "Jl. Raya Ubud", coords: [-8.5065, 115.2625], note: "感受當地生活，買新鮮芒果、山竹。", tags: ["早起"], moodColor: "#d44601" },
             { time: "09:30", title: "Blue Stone Botanicals", type: "購物", price: "-", address: "Jl. Dewi Sita", coords: [-8.5100, 115.2640], note: "天然精油，雨林靈感。", tags: ["香氛"], moodColor: "#177263" },
+            { time: "10:15", title: "Bohe Bali Perfumery", type: "購物", price: "-", address: "Jl. Monkey Forest", coords: [-8.5124, 115.2609], note: "精緻包裝香水，適合送禮。", tags: ["香氛"], moodColor: "#177263" },
+            { time: "11:00", title: "OILAND", type: "購物", price: "-", address: "Jl. Hanoman No.30a", coords: [-8.5196, 115.2632], note: "天然身體護膚油。", tags: ["香氛"], moodColor: "#177263" },
+            { time: "11:30", title: "午餐：Taco Casa / 休息", type: "餐飲", price: "Rp 60k", address: "Jl. Pengosekan", coords: [-8.531, 115.264], note: "簡單午餐，回飯店休息避暑。", tags: ["午餐"], moodColor: "#d44601" },
+            { time: "14:00", title: "按摩：Putri Bali Spa 2", type: "SPA", price: "Rp 150k", address: "Jl. Hanoman", coords: [-8.513, 115.263], note: "飯店附近的平價優質選擇 (替換 Karsa Spa)，省去舟車勞頓。", tags: ["放鬆"], moodColor: "#177263" },
             { time: "18:30", title: "晚餐：Laminak", type: "餐飲", price: "Rp 250k", address: "Jl. Raya Pengosekan", coords: [-8.517, 115.263], note: "巴斯克/西班牙料理，氣氛溫馨，Tapas。", tags: ["晚餐"], moodColor: "#d44601" }
         ],
         "inspiration": [
             { title: "Threads of Life", tag: "PHOTO", type: "文化/購物", price: "-", time: "10:00 - 19:00", address: "Jl. Kajeng No.24", coords: [-8.504, 115.263], note: "一家像博物館的紡織品店。支持偏鄉婦女的手工藝，非常精緻，拍照很美，但單價較高。" },
             { title: "Room 4 Dessert", tag: "FOOD", type: "甜點", price: "Rp 400k+", time: "16:00 - 22:00", address: "Jl. Raya Sanggingan", coords: [-8.495, 115.253], note: "如果有空位，去試試這家上過 Netflix 的甜點 Fine Dining。適合慶祝或犒賞自己。" }
         ],
-        "shopping": ["熱帶水果", "天然精油"]
+        "shopping": ["熱帶水果", "天然精油", "護膚油"]
     },
     "day5": {
         "events": [
-            { time: "12:30", title: "Svasensa Atelier", type: "活動", price: "Rp 600k", address: "Toya Ubud Eco Park", coords: [-8.439, 115.281], note: "進階調香 Session (3.5hrs)。製作大師級香精。", tags: ["調香"], moodColor: "#177263" },
-            { time: "17:30", title: "Sayan House 夕陽晚餐", type: "餐飲", price: "Rp 400k", address: "Jl. Raya Sayan No.70", coords: [-8.5002, 115.2382], note: "懸崖邊看日落，日式拉丁融合菜。一定要訂位。", tags: ["日落", "必去"], moodColor: "#d44601" }
+            { time: "11:00", title: "最後採買 (Coco Supermarket)", type: "購物", price: "-", address: "Coco Supermarket", coords: [-8.5179, 115.2635], note: "補齊伴手禮：巧克力、香氛小物。", tags: ["購物"], moodColor: "#d44601" },
+            { time: "12:00", title: "包車接送", type: "交通", price: "-", address: "Tegal Sari", coords: [-8.5196, 115.2632], note: "Private Car.", tags: ["包車"], moodColor: "#d44601" },
+            { time: "12:30", title: "Svasensa Atelier", type: "活動", price: "Rp 600k", address: "Toya Ubud Eco Park", coords: [-8.439, 115.281], note: "進階調香 Session (3.5hrs)。製作大師級香精。", tags: ["調香", "深度"], moodColor: "#177263" },
+            { time: "17:30", title: "Sayan House 夕陽晚餐", type: "餐飲", price: "Rp 400k", address: "Jl. Raya Sayan No.70", coords: [-8.5002, 115.2382], note: "懸崖邊看日落，日式拉丁融合菜。一定要訂位。", tags: ["日落", "必去"], moodColor: "#d44601" },
+            { time: "20:00", title: "返回飯店", type: "交通", price: "-", address: "Tegal Sari", coords: [-8.5196, 115.2632], note: "整理行李。", tags: ["整理"], moodColor: "#177263" }
         ],
         "inspiration": [
             { title: "Hujan Locale", tag: "RAINY", type: "餐飲", price: "Rp 300k", time: "12:00 - 15:00, 17:30 - 22:00", address: "Jl. Sri Wedari No.5", coords: [-8.505, 115.264], note: "如果下雨看不到夕陽，改吃這家著名的印尼菜 (店名意思就是'雨')。創意現代印尼料理。" },
@@ -200,7 +219,8 @@ const USER_ITINERARY = {
     "day6": {
         "events": [
             { time: "09:00", title: "飯店早餐 & 收拾", type: "休息", price: "-", address: "Tegal Sari", coords: [-8.5196, 115.2632], note: "在陽台享受最後的寧靜，檢查抽屜。", tags: ["整理"], moodColor: "#177263" },
-            { time: "11:00", title: "前往機場 (DPS)", type: "交通", price: "-", address: "DPS Airport", coords: [-8.7481, 115.167], note: "CX784 (16:10 起飛)。預留 2 小時以上。", tags: ["移動"], moodColor: "#d44601" }
+            { time: "11:00", title: "前往機場 (DPS)", type: "交通", price: "-", address: "DPS Airport", coords: [-8.7481, 115.167], note: "CX784 (16:10 起飛)。預留 2 小時以上。", tags: ["移動"], moodColor: "#d44601" },
+            { time: "13:30", title: "機場免稅店", type: "購物", price: "-", address: "DPS Duty Free", coords: [-8.7481, 115.167], note: "消耗剩下的印尼盾。", tags: ["購物"], moodColor: "#d44601" }
         ],
         "inspiration": [
             { title: "Seniman Coffee", tag: "TIRED", type: "Cafe", price: "Rp 50k", time: "07:30 - 22:00", address: "Jl. Sri Wedari No.5", coords: [-8.505, 115.264], note: "如果時間還早，去喝烏布最強咖啡再走。著名的搖搖椅座位。" }
@@ -213,7 +233,7 @@ const USER_ITINERARY = {
 <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-msg">Action Completed</span></div>
 <header>
     <div>
-        <h1 id="app-title">Ubud Slow Living</h1>
+        <h1 id="app-title">烏布香氛慢活之旅</h1>
         <div id="local-clock">--:--</div>
     </div>
     <div class="header-actions">
@@ -362,8 +382,8 @@ function init() {
 function updateLocalClock() {
     if(!DESTINATION.timezone) return;
     const options = { timeZone: DESTINATION.timezone, hour: '2-digit', minute: '2-digit', hour12: false };
-    const timeString = new Date().toLocaleTimeString('en-US', options);
-    document.getElementById('local-clock').innerText = `${DESTINATION.name.split(',')[0]} ${timeString}`;
+    const timeString = new Date().toLocaleTimeString('en-HK', options);
+    document.getElementById('local-clock').innerText = `${DESTINATION.name} ${timeString}`;
 }
 function convertCurrency() { const val = parseFloat(document.getElementById('curr-jpy').value); if(!isNaN(val)) { document.getElementById('curr-hkd').value = (val * exchangeRate).toFixed(1); } else { document.getElementById('curr-hkd').value = ""; } }
 function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebar-overlay').classList.toggle('open'); }
@@ -467,10 +487,10 @@ function renderTimeline(dayKey) {
     const container = document.getElementById('timeline-container'); container.innerHTML = ''; 
     (scheduleData[dayKey].events || []).forEach(event => { 
         const item = document.createElement('div'); item.className = 'timeline-item'; 
-        let tags = event.tags.map(t => `<span class="card-tag ${t==='必去'||t==='安全'?'highlight':''}">${t}</span>`).join(''); 
+        let tags = event.tags.map(t => `<span class="card-tag ${t==='必去'||t==='安全'?'highlight':''} ${t==='必辦'?'alert':''}">${t}</span>`).join(''); 
         const colorStyle = event.moodColor ? `border-left: 4px solid ${event.moodColor};` : ''; 
         // Safe JSON stringify
-        const eventStr = JSON.stringify(event).replace(/'/g, "&#39;");
+        const eventStr = JSON.stringify(event).replace(/'/g, "'");
         item.innerHTML = `<div class="card" style="${colorStyle}" onclick='openModal(${eventStr})'><div class="card-nav-btn" onclick="event.stopPropagation(); openMapQuery('${event.address}')"><i class="fa-solid fa-location-arrow"></i></div><span class="card-time">${event.time}</span><h3 class="card-title">${event.title}</h3><div class="tags">${tags}</div></div>`; 
         container.appendChild(item); 
     }); 
@@ -481,7 +501,7 @@ function renderInspiration(dayKey) {
     const container = document.getElementById('inspiration-container'); container.innerHTML = ''; 
     (scheduleData[dayKey].inspiration || []).forEach(item => { 
         // Always clickable now
-        const itemStr = JSON.stringify(item).replace(/'/g, "&#39;");
+        const itemStr = JSON.stringify(item).replace(/'/g, "'");
         container.innerHTML += `<div class="inspire-card" data-tag="${item.tag}" onclick='openModal(${itemStr})'><div class="inspire-nav-btn"><i class="fa-solid fa-chevron-right"></i></div><div class="inspire-badge">${item.tag}</div><h3 class="inspire-title">${item.title}</h3><p class="inspire-note">${item.note}</p></div>`; 
     }); 
     if(!scheduleData[dayKey].inspiration.length) container.innerHTML = "<div style='text-align:center; padding:30px; color:var(--text-sub);'>本日無靈感筆記</div>"; 
