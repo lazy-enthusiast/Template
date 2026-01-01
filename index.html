@@ -19,7 +19,7 @@
     --accent: #D4AF37; 
     --accent-hover: #B5932A;
     --border: rgba(255, 255, 255, 0.1);
-    --header-bg: #1A1A2E;
+    --header-bg: rgba(26, 26, 46, 0.95); /* 毛玻璃背景 */
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     --safe-top: env(safe-area-inset-top);
     --safe-bottom: env(safe-area-inset-bottom);
@@ -40,24 +40,30 @@ h1, h2, h3, .weather-temp-lg, .day-num, .phrase-big, .page-title {
     font-family: "Playfair Display", serif;
 }
 
-/* --- Header --- */
+/* --- Header (FIXED & VISIBLE) --- */
 header {
     padding: 0 20px;
     padding-top: var(--safe-top);
     background-color: var(--header-bg);
+    backdrop-filter: blur(10px); /* 質感模糊 */
     color: var(--accent);
     border-bottom: 1px solid var(--border);
     display: flex; justify-content: space-between; align-items: center;
-    height: calc(60px + var(--safe-top)); flex-shrink: 0; position: relative; z-index: 200;
+    height: calc(60px + var(--safe-top)); 
+    flex-shrink: 0; 
+    position: relative; 
+    z-index: 500; /* 強制置頂 */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 header h1 { margin: 0; font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; color: var(--accent); }
-.header-actions { display: flex; align-items: center; gap: 8px; }
+.header-actions { display: flex; align-items: center; gap: 15px; }
 .header-btn { 
-    font-size: 1.2rem; cursor: pointer; color: var(--text-main); 
+    font-size: 1.3rem; cursor: pointer; color: var(--text-main); 
     border-radius: 50%; width: 40px; height: 40px;
     display: flex; justify-content: center; align-items: center;
     transition: background 0.2s;
 }
+.header-btn:active { background: rgba(255,255,255,0.1); }
 
 /* --- Navigation --- */
 nav.bottom-nav { 
@@ -66,7 +72,7 @@ nav.bottom-nav {
     display: flex; justify-content: space-around; 
     padding: 12px 0 calc(20px + var(--safe-bottom)) 0; 
     border-top: 1px solid var(--border); 
-    z-index: 100; box-shadow: 0 -5px 20px rgba(0,0,0,0.2); 
+    z-index: 400; box-shadow: 0 -5px 20px rgba(0,0,0,0.2); 
 }
 .nav-item { color: var(--text-sub); text-align: center; font-size: 0.7rem; cursor: pointer; width: 20%; transition: color 0.2s; }
 .nav-item i { display: block; font-size: 1.3rem; margin-bottom: 4px; }
@@ -189,7 +195,7 @@ main { flex: 1; overflow-y: hidden; position: relative; }
 .phrase-big { font-size: 2.5rem; font-weight: 700; color: var(--accent); line-height: 1.3; margin-bottom: 20px; }
 .close-phrase { position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); border: 1px solid var(--accent); padding: 12px 30px; border-radius: 30px; color: var(--accent); cursor: pointer; background: transparent; font-weight: 600; letter-spacing: 1px; }
 
-/* Modal (Backdrop + Swipe) */
+/* Modal (Swipeable & Dark) */
 .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 3000; justify-content: center; align-items: end; backdrop-filter: blur(5px); cursor: pointer; }
 .modal.open { display: flex; }
 .modal-content { 
@@ -197,11 +203,9 @@ main { flex: 1; overflow-y: hidden; position: relative; }
     border-radius: 20px 20px 0 0; padding: 30px; overflow-y: auto; 
     animation: slideUp 0.3s ease; display: flex; flex-direction: column; 
     border: 1px solid var(--border); border-bottom: none; cursor: default; 
-    /* Important for smooth drag */
-    touch-action: pan-y;
+    touch-action: pan-y; /* Crucial for swipe */
 }
 @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-/* Handle Bar for Visual Cue */
 .modal-handle { width: 40px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; margin: 0 auto 20px auto; flex-shrink: 0; }
 
 #modal-mini-map { width: 100%; height: 200px; background: #111; border-radius: 12px; margin-bottom: 25px; border: 1px solid var(--border); flex-shrink: 0;}
@@ -214,7 +218,7 @@ main { flex: 1; overflow-y: hidden; position: relative; }
 .btn-outline { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
 .btn-close-modal { background: rgba(255,255,255,0.1); color: #FFF; margin-top: 10px; }
 
-/* Leaflet Filter */
+/* Leaflet Filter for Night Mode */
 .leaflet-layer { filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%); }
 </style>
 </head>
@@ -682,7 +686,6 @@ function renderInspiration(dayKey) {
     const items = scheduleData[dayKey].inspiration || [];
     if(items.length===0) container.innerHTML = "<div style='text-align:center; padding:30px; color:#999;'>本日無靈感筆記</div>";
     items.forEach(item => { 
-        // Note: added onclick to enable modal opening
         container.innerHTML += `<div class="inspire-card" data-tag="${item.tag}" onclick='openModal(${JSON.stringify(item).replace(/'/g, "'")})'><div class="inspire-badge">${item.tag}</div><h3>${item.title}</h3><p style="margin:5px 0 0 0; font-size:0.9rem; color:#A0A0A0;">${item.note}</p></div>`; 
     });
 }
@@ -722,7 +725,6 @@ function openModal(data) {
         actionsContainer.innerHTML += `<button class="btn-action btn-outline" onclick="searchGmail('${data.title}')">🔍 搜尋預約信</button>`; 
     } 
     
-    // Taxi Card (Thai Address)
     if(data.address_local) {
         actionsContainer.innerHTML += `<button class="btn-action btn-black" onclick="showPhrase('${data.address_local}', '請載我去這裡')">🚕 給司機看 (泰文)</button>`;
     } else {
@@ -732,8 +734,7 @@ function openModal(data) {
     const modal = document.getElementById('detail-modal');
     const modalContent = modal.querySelector('.modal-content');
     modal.classList.add('open');
-    // Reset transform for new open
-    modalContent.style.transform = '';
+    modalContent.style.transform = ''; // Reset transform
 
     setTimeout(() => { 
         if(modalMap) modalMap.remove(); 
@@ -749,11 +750,9 @@ function openModal(data) {
 function closeModal() { 
     const modal = document.getElementById('detail-modal');
     modal.classList.remove('open'); 
-    // Reset any drag transform
     modal.querySelector('.modal-content').style.transform = '';
 }
 
-// Backdrop Click Close
 document.getElementById('detail-modal').addEventListener('click', function(e) { 
     if (e.target === this) closeModal(); 
 });
@@ -764,18 +763,18 @@ let startY = 0;
 let isDragging = false;
 
 modalContent.addEventListener('touchstart', (e) => {
-    if (modalContent.scrollTop > 0) return; // Only if at top
+    if (modalContent.scrollTop > 0) return;
     startY = e.touches[0].clientY;
     isDragging = true;
-    modalContent.style.transition = 'none'; // Instant follow
+    modalContent.style.transition = 'none';
 });
 
 modalContent.addEventListener('touchmove', (e) => {
     if (!isDragging) return;
     const currentY = e.touches[0].clientY;
     const diff = currentY - startY;
-    if (diff > 0) { // Only drag down
-        e.preventDefault(); // Stop scrolling
+    if (diff > 0) { 
+        e.preventDefault(); 
         modalContent.style.transform = `translateY(${diff}px)`;
     }
 });
@@ -786,10 +785,10 @@ modalContent.addEventListener('touchend', (e) => {
     modalContent.style.transition = 'transform 0.3s ease-out';
     const currentY = e.changedTouches[0].clientY;
     const diff = currentY - startY;
-    if (diff > 150) { // Threshold to close
+    if (diff > 150) { 
         closeModal();
     } else {
-        modalContent.style.transform = ''; // Snap back
+        modalContent.style.transform = '';
     }
 });
 
