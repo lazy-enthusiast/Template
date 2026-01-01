@@ -157,7 +157,11 @@ main { flex: 1; overflow-y: hidden; position: relative; }
 .filter-chip { display: inline-block; padding: 8px 18px; margin-right: 8px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; font-size: 0.85rem; color: var(--text-sub); cursor: pointer; transition: all 0.2s; }
 .filter-chip.active { background: var(--accent); color: #000; border-color: var(--accent); }
 .inspiration-grid { padding: 0 20px; display: grid; gap: 15px; }
-.inspire-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 25px; color: var(--text-main); position: relative; display: block; box-shadow: var(--shadow); cursor: pointer; } 
+.inspire-card { 
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 25px; 
+    color: var(--text-main); position: relative; display: block; box-shadow: var(--shadow); 
+    cursor: pointer; transition: transform 0.2s;
+} 
 .inspire-card:active { transform: scale(0.98); background: #2A2A40; }
 .inspire-card.hidden { display: none; }
 .inspire-badge { background: var(--accent); color: #000; padding: 2px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; position: absolute; top: -10px; left: 20px; letter-spacing: 1px; }
@@ -359,7 +363,7 @@ main { flex: 1; overflow-y: hidden; position: relative; }
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-// --- DATA: Original Scent & Stroll Itinerary (Restored & Augmented) ---
+// --- DATA: Original Scent & Stroll Itinerary ---
 const scheduleData = {
 "day1": { 
     "date": "2026-04-03", "display": "Apr 03", "weekday": "週五", 
@@ -372,9 +376,9 @@ const scheduleData = {
         { time: "21:00", title: "Asia Herb Association", type: "Spa", price: "฿1,500+", open_hours: "09-02", address: "Asia Herb Association Thong Lo", address_local: "เอเชีย เฮิร์บ แอสโซซิเอชั่น ทองหล่อ", coords: [13.7258, 100.5783], note: "通羅站 3 號出口。推薦 100% 純精油按摩。", tags: ["按摩"] }
     ], 
     "inspiration": [
-        {title:"Organika House", type:"Spa/Cafe", tag:"RELAX", price:"฿800+", open_hours:"10-20", address:"Sukhumvit 49", coords:[13.7352, 100.5756], note:"秘密花園玻璃屋，視覺與嗅覺的雙重饗宴，適合休息與拍照。"},
-        {title:"Wat Pathum Wanaram", type:"寺廟", tag:"SOLO", price:"免費", open_hours:"09-17", address:"Rama I Rd", coords:[13.7461, 100.5372], note:"Siam 鬧區中的靜土，適合獨自沉澱心靈，觀察建築細節。"},
-        {title:"008 Bar", type:"酒吧", tag:"RELAX", price:"฿400+", open_hours:"19-01", address:"Eight Thonglor", coords:[13.7317, 100.5826], note:"隱藏式爵士酒吧，復古氛圍濃厚，適合獨酌一杯 Old Fashioned。"}
+        {title:"Organika House", type:"Spa/Cafe", tag:"RELAX", price:"฿800+", open_hours:"10-20", address:"Sukhumvit 49", address_local:"โครงการ Piman 49", coords:[13.7352, 100.5756], note:"秘密花園玻璃屋，視覺與嗅覺的雙重饗宴，適合休息與拍照。"},
+        {title:"Wat Pathum Wanaram", type:"寺廟", tag:"EXPLORE", price:"免費", open_hours:"09-17", address:"Rama I Rd", address_local:"วัดปทุมวนาราม", coords:[13.7461, 100.5372], note:"Siam 鬧區中的靜土，適合獨自沉澱心靈，觀察建築細節。"},
+        {title:"008 Bar", type:"酒吧", tag:"RELAX", price:"฿400+", open_hours:"19-01", address:"Eight Thonglor", address_local:"ตึก Eight Thonglor", coords:[13.7317, 100.5826], note:"隱藏式爵士酒吧，復古氛圍濃厚，適合獨酌一杯 Old Fashioned。"}
     ], 
     "shopping": ["Journal 沉香香水", "芒果糯米香水", "Copenn. 護手霜"] 
 },
@@ -389,9 +393,9 @@ const scheduleData = {
         { time: "19:30", title: "Paper Plane Project", type: "高空酒吧 (40F)", price: "฿500+", open_hours: "09-01:30", address: "T-One Building", address_local: "อาคาร ที-วัน (ชั้น 40)", coords: [13.7229, 100.5807], note: "離飯店走路3分鐘。推薦泰國精釀啤酒。", tags: ["Bar"] }
     ], 
     "inspiration": [
-        {title:"DD Mall", type:"商場", tag:"RAINY", price:"-", open_hours:"10-20", address:"Bangsue Junction", coords:[13.8005, 100.5492], note:"恰圖恰對面紅色建築。冷氣開放的古董與二手傢俱天堂，挖寶必去。"},
-        {title:"Factory Coffee", type:"Cafe", tag:"RELAX", price:"฿150", open_hours:"08-17", address:"Phaya Thai", coords:[13.7578, 100.5348], note:"曼谷冠軍咖啡，回程順路。推薦 Supreme 特調。"},
-        {title:"Yunomori Onsen", type:"溫泉", tag:"RELAX", price:"฿550", open_hours:"09-24", address:"Sukhumvit 26", coords:[13.7252, 100.5705], note:"走累了的最佳去處。日式溫泉結合泰式按摩，徹底放鬆肌肉。"}
+        {title:"DD Mall", type:"商場", tag:"RAINY", price:"-", open_hours:"10-20", address:"Bangsue Junction", address_local:"ตึกแดง จตุจักร", coords:[13.8005, 100.5492], note:"恰圖恰對面紅色建築。冷氣開放的古董與二手傢俱天堂，挖寶必去。"},
+        {title:"Factory Coffee", type:"Cafe", tag:"RELAX", price:"฿150", open_hours:"08-17", address:"Phaya Thai", address_local:"พญาไท", coords:[13.7578, 100.5348], note:"曼谷冠軍咖啡，回程順路。推薦 Supreme 特調。"},
+        {title:"Yunomori Onsen", type:"溫泉", tag:"RELAX", price:"฿550", open_hours:"09-24", address:"Sukhumvit 26", address_local:"ยูโนโมริ ออนเซ็น", coords:[13.7252, 100.5705], note:"走累了的最佳去處。日式溫泉結合泰式按摩，徹底放鬆肌肉。"}
     ], 
     "shopping": ["Hem Aroma 香氛木", "二手古董", "手工飾品"] 
 },
@@ -405,9 +409,9 @@ const scheduleData = {
         { time: "21:00", title: "Asia Herb Association", type: "Spa", price: "-", open_hours: "09-02", address: "Asia Herb Association Thong Lo", address_local: "เอเชีย เฮิร์บ แอสโซซิเอชั่น ทองหล่อ", coords: [13.7258, 100.5783], note: "加強肩頸與背部按摩。", tags: ["按摩"] }
     ], 
     "inspiration": [
-        {title:"Talaad Noi (小市場)", type:"古蹟", tag:"EXPLORE", price:"-", open_hours:"24H", address:"Talaad Noi", coords:[13.7346, 100.5146], note:"穿梭在百年華人古宅與充滿藝術感的巷弄，非常適合底片相機。"},
-        {title:"Lakshmi Shrine", type:"祈福", tag:"EXPLORE", price:"-", open_hours:"10-18", address:"Gaysorn 4F", coords:[13.7444, 100.5404], note:"吉祥天女(財富女神)，求財運與投資靈驗，就在 Paste 樓上。"},
-        {title:"Tep Bar", type:"酒吧", tag:"RELAX", price:"฿400", open_hours:"18-24", address:"Soi Nana", coords:[13.7394, 100.5131], note:"隱身舊城的「泰式居酒屋」，現場演奏泰國傳統樂器，喝的是泰國藥草酒。"}
+        {title:"Talaad Noi (小市場)", type:"古蹟", tag:"EXPLORE", price:"-", open_hours:"24H", address:"Talaad Noi", address_local:"ตลาดน้อย", coords:[13.7346, 100.5146], note:"穿梭在百年華人古宅與充滿藝術感的巷弄，非常適合底片相機。"},
+        {title:"Lakshmi Shrine", type:"祈福", tag:"EXPLORE", price:"-", open_hours:"10-18", address:"Gaysorn 4F", address_local:"ศาลพระแม่ลักษมี", coords:[13.7444, 100.5404], note:"吉祥天女(財富女神)，求財運與投資靈驗，就在 Paste 樓上。"},
+        {title:"Tep Bar", type:"酒吧", tag:"RELAX", price:"฿400", open_hours:"18-24", address:"Soi Nana", address_local:"เทพบาร์", coords:[13.7394, 100.5131], note:"隱身舊城的「泰式居酒屋」，現場演奏泰國傳統樂器，喝的是泰國藥草酒。"}
     ], 
     "shopping": ["River City 藝術明信片", "古玩欣賞"] 
 },
@@ -421,9 +425,9 @@ const scheduleData = {
         { time: "19:00", title: "The Commons Thong Lo", type: "文青社區", price: "-", open_hours: "08-01", address: "The Commons Thong Lo", address_local: "เดอะคอมมอนส์ ทองหล่อ", coords: [13.7348, 100.5822], note: "巷口搭紅色小巴(฿8)進來。去 The Beer Cap 喝一杯。", tags: ["放鬆"] }
     ], 
     "inspiration": [
-        {title:"Open House", type:"書店", tag:"RELAX", price:"-", open_hours:"10-22", address:"Central Embassy", coords:[13.7437, 100.5463], note:"曼谷最美書店。挑高空間與落地窗，點杯酒看本書，享受一個人的午後。"},
-        {title:"Panpuri Wellness", type:"Spa", tag:"RELAX", price:"฿1500+", open_hours:"10-22", address:"Gaysorn 12F", coords:[13.7444, 100.5404], note:"擁有無敵景觀的有機溫泉，俯瞰曼谷天際線。"},
-        {title:"Sing Sing Theater", type:"夜店", tag:"EXPLORE", price:"฿500", open_hours:"21-02", address:"Sukhumvit 45", coords:[13.7323, 100.5735], note:"由 Ashley Sutton 設計的魔幻中式風格夜店，視覺衝擊力極強。"}
+        {title:"Open House", type:"書店", tag:"RELAX", price:"-", open_hours:"10-22", address:"Central Embassy", address_local:"Central Embassy ชั้น 6", coords:[13.7437, 100.5463], note:"曼谷最美書店。挑高空間與落地窗，點杯酒看本書，享受一個人的午後。"},
+        {title:"Panpuri Wellness", type:"Spa", tag:"RELAX", price:"฿1500+", open_hours:"10-22", address:"Gaysorn 12F", address_local:"Gaysorn Tower ชั้น 12", coords:[13.7444, 100.5404], note:"擁有無敵景觀的有機溫泉，俯瞰曼谷天際線。"},
+        {title:"Sing Sing Theater", type:"夜店", tag:"EXPLORE", price:"฿500", open_hours:"21-02", address:"Sukhumvit 45", address_local:"Sing Sing Theater", coords:[13.7323, 100.5735], note:"由 Ashley Sutton 設計的魔幻中式風格夜店，視覺衝擊力極強。"}
     ], 
     "shopping": ["Erb 訂製香水", "藍象調理包", "手標茶", "水果乾"] 
 },
@@ -435,8 +439,8 @@ const scheduleData = {
         { time: "14:30", title: "前往機場 (BKK)", type: "交通", price: "-", open_hours: "-", address: "Suvarnabhumi Airport", address_local: "ท่าอากาศยานสุวรรณภูมิ", coords: [13.6900, 100.7501], note: "回飯店取行李。BTS 轉 ARL。建議起飛前 3 小時抵達。", tags: ["回程"] }
     ], 
     "inspiration": [
-        {title:"Velaa Sindhorn", type:"社區", tag:"EXPLORE", price:"-", open_hours:"10-22", address:"Sindhorn Village", coords:[13.7388, 100.5457], note:"Saneh Jaan 所在的社區，環境清幽，有許多精緻 Cafe，適合最後整理心情。"},
-        {title:"Kinokuniya", type:"書店", tag:"SOLO", price:"-", open_hours:"10-22", address:"Siam Paragon", coords:[13.7461, 100.5349], note:"東南亞最大的紀伊國屋書店，選書品味極佳，適合消磨登機前時光。"}
+        {title:"Velaa Sindhorn", type:"社區", tag:"EXPLORE", price:"-", open_hours:"10-22", address:"Sindhorn Village", address_local:"โครงการ Velaa Sindhorn", coords:[13.7388, 100.5457], note:"Saneh Jaan 所在的社區，環境清幽，有許多精緻 Cafe，適合最後整理心情。"},
+        {title:"Kinokuniya", type:"書店", tag:"SOLO", price:"-", open_hours:"10-22", address:"Siam Paragon", address_local:"สยามพารากอน", coords:[13.7461, 100.5349], note:"東南亞最大的紀伊國屋書店，選書品味極佳，適合消磨登機前時光。"}
     ], 
     "shopping": ["機場免稅酒", "Jo Malone"] 
 }
@@ -666,7 +670,10 @@ function renderInspiration(dayKey) {
     document.querySelector('.filter-chip').classList.add('active');
     const items = scheduleData[dayKey].inspiration || [];
     if(items.length===0) container.innerHTML = "<div style='text-align:center; padding:30px; color:#999;'>本日無靈感筆記</div>";
-    items.forEach(item => { container.innerHTML += `<div class="inspire-card" data-tag="${item.tag}" onclick='openModal(${JSON.stringify(item).replace(/'/g, "'")})'><div class="inspire-badge">${item.tag}</div><h3>${item.title}</h3><p style="margin:5px 0 0 0; font-size:0.9rem; color:#A0A0A0;">${item.note}</p></div>`; });
+    items.forEach(item => { 
+        // Important: Add onclick to open modal for inspiration items too
+        container.innerHTML += `<div class="inspire-card" data-tag="${item.tag}" onclick='openModal(${JSON.stringify(item).replace(/'/g, "'")})'><div class="inspire-badge">${item.tag}</div><h3>${item.title}</h3><p style="margin:5px 0 0 0; font-size:0.9rem; color:#A0A0A0;">${item.note}</p></div>`; 
+    });
 }
 function filterInspiration(tag, btn) {
     document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); btn.classList.add('active');
@@ -700,7 +707,7 @@ function openModal(data) {
     actionsContainer.innerHTML = '';
     
     actionsContainer.innerHTML += `<button class="btn-action btn-outline" onclick="openMapQuery('${data.address}')"><i class="fa-solid fa-location-arrow"></i> Google Maps 導航</button>`; 
-    if (data.type && (data.type.includes('晚餐') || data.type.includes('午餐') || data.type.includes('按摩') || data.type.includes('美食'))) { 
+    if (data.type && (data.type.includes('晚餐') || data.type.includes('午餐') || data.type.includes('按摩') || data.type.includes('美食') || data.type.includes('Spa'))) { 
         actionsContainer.innerHTML += `<button class="btn-action btn-outline" onclick="searchGmail('${data.title}')">🔍 搜尋預約信</button>`; 
     } 
     
