@@ -20,13 +20,14 @@
     --accent: #D4AF37; 
     --accent-hover: #B5932A;
     --border: rgba(255, 255, 255, 0.1);
-    --header-bg: rgba(26, 26, 46, 0.9); /* 高對比毛玻璃 */
+    --header-bg: rgba(26, 26, 46, 0.92); /* 提高不透明度，防止文字混雜 */
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     
-    /* Dynamic Heights */
+    /* [核心佈局變數] */
     --safe-top: env(safe-area-inset-top);
     --safe-bottom: env(safe-area-inset-bottom);
     --header-height: calc(60px + var(--safe-top));
+    --date-bar-height: 65px; /* 日期選擇器高度 */
     --nav-height: calc(60px + var(--safe-bottom));
 }
 
@@ -45,7 +46,7 @@ h1, h2, h3, .weather-temp-lg, .day-num, .phrase-big, .page-title {
     font-family: "Playfair Display", serif;
 }
 
-/* --- Header (Fixed Top) --- */
+/* --- Header (Fixed Layer 1) --- */
 header {
     position: fixed;
     top: 0; left: 0; width: 100%;
@@ -53,10 +54,9 @@ header {
     padding: var(--safe-top) 20px 0 20px;
     background-color: var(--header-bg);
     -webkit-backdrop-filter: blur(15px); backdrop-filter: blur(15px);
-    color: var(--accent);
     border-bottom: 1px solid var(--border);
     display: flex; justify-content: space-between; align-items: center;
-    z-index: 1000; /* Highest priority */
+    z-index: 1000; /* 最高層級 */
     box-shadow: 0 2px 20px rgba(0,0,0,0.3);
 }
 header h1 { margin: 0; font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; color: var(--accent); }
@@ -74,14 +74,12 @@ header h1 { margin: 0; font-size: 1.2rem; font-weight: 700; letter-spacing: 1px;
 .sidebar.open { transform: translateX(0); }
 .sidebar-section-title { font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; margin-top: 30px; font-weight: 700; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
 
-/* Navigation Launchers */
 .nav-launcher { display: flex; align-items: center; gap: 12px; background: var(--bg-card); border: 1px solid var(--border); padding: 15px; border-radius: 8px; margin-bottom: 10px; cursor: pointer; }
 .nav-launcher:active { background: var(--border); transform: scale(0.98); }
 .nav-launcher-icon { font-size: 1.3rem; color: var(--accent); width: 30px; text-align: center; }
 .nav-launcher h3 { margin: 0; font-size: 1rem; font-weight: 700; color: var(--text-main); }
 .nav-launcher p { margin: 2px 0 0 0; font-size: 0.75rem; color: var(--text-sub); }
 
-/* Tools */
 .whatsapp-box { background: rgba(37, 211, 102, 0.1); border: 1px solid rgba(37, 211, 102, 0.3); color: var(--text-main); padding: 15px; border-radius: 8px; margin-bottom: 10px; margin-top: 10px; }
 .wa-input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid var(--border); border-radius: 4px; font-size: 0.95rem; font-family: inherit; background: var(--bg-input); color: white; }
 .wa-btn { width: 100%; background: #25D366; color: white; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 0.9rem; }
@@ -93,38 +91,55 @@ header h1 { margin: 0; font-size: 1.2rem; font-weight: 700; letter-spacing: 1px;
 .curr-icon { text-align: center; color: var(--text-sub); font-size: 0.9rem; margin-top: 15px;} 
 .memo-area { width: 100%; height: 100px; padding: 10px; border: 1px solid var(--border); border-radius: 4px; font-family: inherit; font-size: 0.9rem; resize: none; background: var(--bg-input); color: var(--text-main); }
 
-/* --- Main Layout --- */
-/* Date Selector: Pushed down by header height */
+/* --- Date Selector (Fixed Layer 2) --- */
 .date-selector-container { 
-    margin-top: var(--header-height); /* Critical Fix */
-    background: var(--bg-card); padding: 15px; border-bottom: 1px solid var(--border); 
-    width: 100%; flex-shrink: 0; position: relative; z-index: 900; display: block; 
+    position: fixed;
+    top: var(--header-height); /* 緊貼標題列下方 */
+    left: 0;
+    width: 100%;
+    height: var(--date-bar-height);
+    background: var(--bg-body); /* 實色背景遮擋內容 */
+    border-bottom: 1px solid var(--border); 
+    z-index: 950; 
+    display: none; /* JS 控制顯示 */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
-.date-selector { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; padding-bottom: 5px; }
-.date-chip { flex: 1 0 auto; min-width: 75px; padding: 12px 0; border-radius: 4px; cursor: pointer; color: var(--text-sub); display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-body); border: 1px solid transparent; transition: all 0.2s; }
+.date-selector { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; padding: 0 15px; height: 100%; align-items: center; }
+.date-chip { flex: 1 0 auto; min-width: 75px; padding: 8px 0; border-radius: 4px; cursor: pointer; color: var(--text-sub); display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-card); border: 1px solid transparent; transition: all 0.2s; }
 .date-chip.active { background: var(--accent); color: #000; border-color: var(--accent); box-shadow: 0 0 10px rgba(212, 175, 55, 0.4); }
 .day-num { font-weight: 700; font-size: 1rem; margin-bottom: 2px;} 
 .day-week { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; }
 
+/* --- Main Layout --- */
 main { flex: 1; overflow-y: hidden; position: relative; }
-/* Page: Scrollable area */
+
+/* Page: Scrollable Area */
 .page { 
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
     overflow-y: auto; -webkit-overflow-scrolling: touch;
-    padding: 20px 0 calc(20px + var(--nav-height)) 0; /* Pad bottom for nav */
+    /* 預設 Padding (無日期列時): Header + 20px */
+    padding-top: calc(var(--header-height) + 20px);
+    padding-bottom: calc(20px + var(--nav-height));
     display: none; opacity: 0; transition: opacity 0.2s ease; background-color: var(--bg-body); 
 }
+/* 當頁面需要顯示日期列時，透過 CSS 類別增加 Padding */
+.page.with-date-bar {
+    padding-top: calc(var(--header-height) + var(--date-bar-height) + 15px);
+}
 .page.active { display: block; opacity: 1; z-index: 10; }
+
 .page-header { padding: 0 20px; margin-bottom: 20px; text-align: center;}
 .page-title { font-size: 1.8rem; font-weight: 700; margin: 0; color: var(--text-main); letter-spacing: 1px; position: relative; display: inline-block; }
 .page-title::after { content: ''; display: block; width: 40px; height: 2px; background: var(--accent); margin: 10px auto 0 auto; }
 
-/* Filter Bar: Sticky inside Page */
+/* Filter Bar (Sticky) */
+/* 靈感頁的標籤列：吸附在可捲動區域的頂部 */
 .filter-bar-container { 
     padding: 0 20px 15px 20px; 
     position: sticky; top: 0; z-index: 800; 
-    background: var(--bg-body); /* Covers content when scrolling */
+    background: var(--bg-body); /* 捲動時遮擋下方內容 */
     overflow-x: auto; white-space: nowrap; scrollbar-width: none; 
+    margin-top: -10px; /* 微調以抵銷部分 padding */
 }
 .filter-chip { display: inline-block; padding: 8px 18px; margin-right: 8px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; font-size: 0.85rem; color: var(--text-sub); cursor: pointer; transition: all 0.2s; }
 .filter-chip.active { background: var(--accent); color: #000; border-color: var(--accent); }
@@ -142,6 +157,12 @@ main { flex: 1; overflow-y: hidden; position: relative; }
 .card-tag { font-size: 0.7rem; background: var(--bg-body); padding: 4px 12px; border-radius: 20px; color: var(--text-sub); border: 1px solid var(--border); }
 .card-nav-btn { position: absolute; top: 50%; right: 15px; transform: translateY(-50%); width: 34px; height: 34px; border-radius: 50%; background: var(--bg-body); color: var(--accent); display: flex; justify-content: center; align-items: center; font-size: 0.9rem; border: 1px solid var(--border); z-index: 5; }
 
+.inspiration-grid { padding: 0 20px; display: grid; gap: 15px; }
+.inspire-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 25px; color: var(--text-main); position: relative; display: block; box-shadow: var(--shadow); cursor: pointer; transition: transform 0.2s; } 
+.inspire-card:active { transform: scale(0.98); background: #2A2A40; }
+.inspire-card.hidden { display: none; }
+.inspire-badge { background: var(--accent); color: #000; padding: 2px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; position: absolute; top: -10px; left: 20px; letter-spacing: 1px; }
+
 /* Weather */
 .weather-main-card { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); color: var(--accent); border-radius: 12px; padding: 25px; margin: 0 20px 20px 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); text-align: center; position: relative; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); }
 .weather-icon-lg { font-size: 3.5rem; margin: 15px 0; color: #FFF; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); }
@@ -150,14 +171,7 @@ main { flex: 1; overflow-y: hidden; position: relative; }
 .weather-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 0 20px; }
 .weather-stat-card { background: var(--bg-card); border: 1px solid var(--border); padding: 15px; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: var(--shadow); }
 
-/* Inspiration Grid */
-.inspiration-grid { padding: 0 20px; display: grid; gap: 15px; }
-.inspire-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 25px; color: var(--text-main); position: relative; display: block; box-shadow: var(--shadow); cursor: pointer; transition: transform 0.2s; } 
-.inspire-card:active { transform: scale(0.98); background: #2A2A40; }
-.inspire-card.hidden { display: none; }
-.inspire-badge { background: var(--accent); color: #000; padding: 2px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; position: absolute; top: -10px; left: 20px; letter-spacing: 1px; }
-
-/* Shopping List */
+/* Shopping */
 .shopping-list { padding: 0 20px; }
 .shop-item { background: var(--bg-card); padding: 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 15px; border-radius: 8px; margin-bottom: 10px; box-shadow: var(--shadow); }
 .shop-item.checked { opacity: 0.4; }
@@ -182,7 +196,7 @@ main { flex: 1; overflow-y: hidden; position: relative; }
 .phrase-big { font-size: 2.5rem; font-weight: 700; color: var(--accent); line-height: 1.3; margin-bottom: 20px; }
 .close-phrase { position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); border: 1px solid var(--accent); padding: 12px 30px; border-radius: 30px; color: var(--accent); cursor: pointer; background: transparent; font-weight: 600; letter-spacing: 1px; }
 
-/* Modal (Swipe to Close) */
+/* Modal */
 .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 3000; justify-content: center; align-items: end; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); cursor: pointer; }
 .modal.open { display: flex; }
 .modal-content { background: var(--bg-card); color: var(--text-main); width: 100%; max-width: 600px; max-height: 90vh; border-radius: 20px 20px 0 0; padding: 30px; overflow-y: auto; animation: slideUp 0.3s ease; display: flex; flex-direction: column; border: 1px solid var(--border); border-bottom: none; cursor: default; touch-action: pan-y; }
@@ -204,7 +218,6 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
 .nav-item i { display: block; font-size: 1.3rem; margin-bottom: 4px; }
 .nav-item.active { color: var(--accent); }
 
-/* Leaflet Filter */
 .leaflet-layer { filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%); }
 </style>
 </head>
@@ -225,7 +238,6 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
         <input type="tel" id="wa-phone" class="wa-input" placeholder="對方電話 (如 85291234567)">
         <button class="wa-btn" id="wa-btn" onclick="sendWhatsApp()"><i class="fa-solid fa-paper-plane"></i> 發送位置</button>
     </div>
-
     <div class="sidebar-section-title">快捷功能</div>
     <div class="nav-launcher" onclick="navigateTo('phrases')">
         <div class="nav-launcher-icon"><i class="fa-solid fa-comments"></i></div>
@@ -235,7 +247,6 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
         <div class="nav-launcher-icon"><i class="fa-solid fa-suitcase"></i></div>
         <div><h3>旅程資訊</h3><p>飯店、航班、緊急電話</p></div>
     </div>
-
     <div class="sidebar-section-title">工具箱</div>
     <div class="tool-box">
         <div style="font-weight:bold; margin-bottom:15px; color:var(--text-main);"><i class="fa-solid fa-coins"></i> 匯率 (THB ⇄ HKD)</div>
@@ -262,8 +273,11 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
 </div>
 
 <main>
-    <div id="page-itinerary" class="page active"><div class="timeline-container" id="timeline-container"></div></div>
-    <div id="page-inspiration" class="page">
+    <div id="page-itinerary" class="page active with-date-bar">
+        <div class="timeline-container" id="timeline-container"></div>
+    </div>
+
+    <div id="page-inspiration" class="page with-date-bar">
         <div class="filter-bar-container">
             <span class="filter-chip active" onclick="filterInspiration('all', this)">全部</span>
             <span class="filter-chip" onclick="filterInspiration('RAINY', this)">🌧️ 雨天/室內</span>
@@ -272,7 +286,12 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
         </div>
         <div id="inspiration-container" class="inspiration-grid"></div>
     </div>
-    <div id="page-shopping" class="page"><div class="page-header"><h2 class="page-title">購物清單</h2></div><div id="shopping-container" class="shopping-list"></div></div>
+
+    <div id="page-shopping" class="page with-date-bar">
+        <div class="page-header"><h2 class="page-title">購物清單</h2></div>
+        <div id="shopping-container" class="shopping-list"></div>
+    </div>
+
     <div id="page-phrases" class="page">
         <div class="page-header"><h2 class="page-title">泰語溝通卡</h2></div>
         <div class="sidebar-section-title" style="margin-left:20px; border:none;">🍴 餐廳飲食</div>
@@ -297,6 +316,7 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
             <div class="phrase-card" onclick="showPhrase('ลดได้ไหม?', '可以便宜點嗎? (Lot Dai Mai)')"><div class="phrase-jp">ลดได้ไหม?</div><div class="phrase-zh">便宜點?</div></div>
         </div>
     </div>
+    
     <div id="page-weather" class="page">
         <div id="weather-content"><div style="text-align:center; padding:50px; opacity:0.5;"><i class="fa-solid fa-spinner fa-spin fa-2x"></i><p>載入中...</p></div></div>
         <div id="weather-fallback-msg" style="text-align:center; padding:0 20px; color:var(--accent); font-size:0.8rem; display:none;"><i class="fa-solid fa-circle-info"></i> 使用智慧歷史數據</div>
@@ -335,6 +355,7 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
+// --- DATA: Original Scent & Stroll Itinerary ---
 const scheduleData = {
 "day1": { 
     "date": "2026-04-03", "display": "Apr 03", "weekday": "週五", 
@@ -528,8 +549,15 @@ function switchMainPage(pageId, navEl) {
         if(pageId=='weather') document.querySelectorAll('.nav-item')[3].classList.add('active');
         if(pageId=='info') document.querySelectorAll('.nav-item')[4].classList.add('active');
     }
+    
+    // JS Control for Date Selector Visibility
     const ds = document.querySelector('.date-selector-container');
-    if(['itinerary','shopping','inspiration','weather'].includes(pageId)) ds.style.display = 'block'; else ds.style.display = 'none';
+    if(['itinerary','shopping','inspiration'].includes(pageId)) {
+        ds.style.display = 'block';
+    } else {
+        ds.style.display = 'none';
+    }
+    
     if(pageId === 'weather') fetchWeather();
 }
 
@@ -588,7 +616,8 @@ function filterInspiration(tag, btn) {
 }
 function renderShopping(dayKey) {
     const container = document.getElementById('shopping-container'); container.innerHTML = '';
-    (scheduleData[dayKey].shopping || []).forEach((item, idx) => { 
+    const items = scheduleData[dayKey].shopping || [];
+    items.forEach((item, idx) => { 
         const uid = `${dayKey}-${idx}`; const chk = shopState[uid] ? 'checked' : '';
         container.innerHTML += `<div class="shop-item ${chk}"><input type="checkbox" id="${uid}" ${chk} onchange="toggleShopItem(this, '${uid}')"><label for="${uid}">${item}</label></div>`; 
     });
@@ -613,7 +642,9 @@ function openModal(data) {
     actionsContainer.innerHTML = '';
     
     actionsContainer.innerHTML += `<button class="btn-action btn-outline" onclick="openMapQuery('${data.address}')"><i class="fa-solid fa-location-arrow"></i> Google Maps 導航</button>`; 
-    if (data.type && (data.type.includes('晚餐') || data.type.includes('午餐') || data.type.includes('按摩'))) { actionsContainer.innerHTML += `<button class="btn-action btn-outline" onclick="searchGmail('${data.title}')">🔍 搜尋預約信</button>`; } 
+    if (data.type && (data.type.includes('晚餐') || data.type.includes('午餐') || data.type.includes('按摩') || data.type.includes('美食') || data.type.includes('Spa'))) { 
+        actionsContainer.innerHTML += `<button class="btn-action btn-outline" onclick="searchGmail('${data.title}')">🔍 搜尋預約信</button>`; 
+    } 
     
     if(data.address_local) { actionsContainer.innerHTML += `<button class="btn-action btn-black" onclick="showPhrase('${data.address_local}', '請載我去這裡')">🚕 給司機看 (泰文)</button>`; } 
     else { actionsContainer.innerHTML += `<button class="btn-action btn-black" onclick="showPhrase('${data.address}', '請載我去這裡')">🚕 給司機看 (英文)</button>`; }
