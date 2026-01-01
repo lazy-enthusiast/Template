@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Travel App v31.1 (Compact)</title>
+<title>Travel App v31.1 (Compact - Fixed)</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
@@ -168,7 +168,6 @@ const THEME_CONFIG = {
 
 // ============================================
 //   🗺️ 2. [旅程資料核心]
-//   這裡的資料可以替換成其他旅程
 // ============================================
 const CONFIG = {
     startDate: "2026-01-07", // 旅程開始 YYYY-MM-DD
@@ -525,18 +524,29 @@ function switchMainPage(pageId, navEl) {
         }
     }
 }
+
+// ----------------------------------------
+// ⚠️ FIX APPLIED: Google Maps Link Logic
+// ----------------------------------------
 function sendWhatsApp() { 
     let phone = document.getElementById('wa-phone').value.replace(/\D/g, ''); 
     if(!phone) { alert("請輸入電話"); return; } 
     if (navigator.geolocation) { 
         navigator.geolocation.getCurrentPosition((pos) => { 
-            // Correct Maps URL
-            const mapLink = `https://www.google.com/maps/search/?api=1&query=${pos.coords.latitude},${pos.coords.longitude}`; 
+            // Fix: Use Standard Google Maps URL with Template Literal
+            const mapLink = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`; 
             const text = `我平安抵達了！位置：${mapLink}`;
             window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`; 
         }, (err) => { alert("無法定位: " + err.message); }); 
     } else alert("瀏覽器不支援定位"); 
 }
+
+function openMapQuery(address) { 
+    // Fix: Use Standard Google Maps Search URL
+    window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`, '_blank'); 
+}
+// ----------------------------------------
+
 function callNumber(num) { window.location.href = `tel:${num}`; }
 function copyToClipboard(text) { navigator.clipboard.writeText(text).then(() => { showToast("已複製"); }); }
 function searchGmail(query) { window.open(`https://mail.google.com/mail/u/0/#search/${encodeURIComponent(query)}`, '_blank'); }
@@ -570,8 +580,7 @@ function openModal(data) {
     document.getElementById('detail-modal').classList.add('open'); 
     setTimeout(() => { if(modalMap) modalMap.remove(); modalMap = L.map('modal-mini-map', {zoomControl:false, dragging:false, attributionControl: false}).setView(data.coords, 15); L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png').addTo(modalMap); L.marker(data.coords, {icon: L.divIcon({className:'custom-div-icon',html:"<div style='background:black;width:12px;height:12px;border-radius:50%;border:2px solid white;box-shadow:0 2px 5px rgba(0,0,0,0.3);'></div>",iconSize:[12,12]})}).addTo(modalMap); modalMap.invalidateSize(); }, 150); 
 }
-// 修正後的地圖查詢函數
-function openMapQuery(address) { window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`, '_blank'); }
+
 function closeModal() { document.getElementById('detail-modal').classList.remove('open'); document.querySelector('.modal-content').style.transform = ''; }
 document.getElementById('detail-modal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 function initSwipeClose() {
