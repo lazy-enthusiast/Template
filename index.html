@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Bangkok 2026 (Final Layout)</title>
+<title>Bangkok 2026 (Comfort)</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
@@ -15,27 +15,25 @@
     --bg-body: #1A1A2E; 
     --bg-card: #232336; 
     --bg-input: #2E2E42;
-    --text-main: #EEEEEE; 
-    --text-sub: #A0A0A0; 
+    --text-main: #F5F5F5; /* 更亮的白，提升對比 */
+    --text-sub: #B0B0B0; 
     --accent: #D4AF37; 
     --accent-hover: #B5932A;
-    --border: rgba(255, 255, 255, 0.1);
+    --border: rgba(255, 255, 255, 0.12);
     --header-bg: rgba(26, 26, 46, 0.95);
-    --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    --shadow: 0 6px 25px rgba(0, 0, 0, 0.45);
     
-    /* [版面高度計算] */
+    /* [版面高度] - 稍微放寬 */
     --safe-top: env(safe-area-inset-top);
     --safe-bottom: env(safe-area-inset-bottom);
     
-    /* 固定元件高度 */
-    --header-height: calc(55px + var(--safe-top)); 
-    --date-bar-height: 50px; 
+    --header-height: calc(60px + var(--safe-top)); 
+    --date-bar-height: 60px; /* 從 50px 增加到 60px，更易點擊 */
     
-    /* 頁面內容起始位置 (Header + DateBar + Buffer) */
-    /* 修正：增加 10px 緩衝，確保內容完全露出 */
-    --content-start-y: calc(var(--header-height) + var(--date-bar-height) + 10px);
+    /* 內容起始位置 (Header + DateBar + Buffer) */
+    --content-start-y: calc(var(--header-height) + var(--date-bar-height) + 15px);
     
-    --nav-height: calc(55px + var(--safe-bottom));
+    --nav-height: calc(65px + var(--safe-bottom));
 }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
@@ -47,6 +45,9 @@ body {
     margin: 0; padding: 0;
     height: 100vh;
     display: flex; flex-direction: column; overflow: hidden;
+    /* 基礎字體稍微調大 */
+    font-size: 16px; 
+    line-height: 1.5;
 }
 
 h1, h2, h3, .weather-temp-lg, .day-num, .phrase-big, .page-title {
@@ -58,69 +59,70 @@ header {
     position: fixed;
     top: 0; left: 0; width: 100%;
     height: var(--header-height);
-    padding: var(--safe-top) 15px 0 15px;
+    padding: var(--safe-top) 20px 0 20px;
     background-color: var(--header-bg);
-    -webkit-backdrop-filter: blur(15px); backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
     display: flex; justify-content: space-between; align-items: center;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.3);
 }
-header h1 { margin: 0; font-size: 1.1rem; font-weight: 700; letter-spacing: 1px; color: var(--accent); }
-.header-actions { display: flex; align-items: center; gap: 12px; }
+header h1 { margin: 0; font-size: 1.3rem; font-weight: 700; letter-spacing: 1px; color: var(--accent); }
+.header-actions { display: flex; align-items: center; gap: 18px; }
 .header-btn { 
-    font-size: 1.2rem; cursor: pointer; color: var(--text-main); 
-    background: transparent; border-radius: 50%; width: 40px; height: 40px;
+    font-size: 1.5rem; cursor: pointer; color: var(--text-main); 
+    background: transparent; border-radius: 50%; width: 44px; height: 44px;
     display: flex; justify-content: center; align-items: center;
 }
 
 /* --- Date Selector (Fixed Layer 2) --- */
 .date-selector-container { 
     position: fixed;
-    top: var(--header-height); /* 緊貼 Header */
+    top: var(--header-height);
     left: 0; width: 100%;
     height: var(--date-bar-height);
-    background: var(--bg-body); /* 不透明背景，防止內容透視 */
+    background: var(--bg-body); 
     border-bottom: 1px solid var(--border); 
     z-index: 950; 
-    display: none; /* JS 切換 */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    display: none; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
 .date-selector { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; height: 100%; align-items: stretch; }
 .date-chip { 
-    flex: 1 0 auto; min-width: 65px; 
+    flex: 1 0 auto; min-width: 80px; /* 稍微加寬 */
     padding: 0; 
     cursor: pointer; color: var(--text-sub); 
     display: flex; flex-direction: column; align-items: center; justify-content: center; 
-    background: transparent; border-bottom: 2px solid transparent; 
+    background: transparent; border-bottom: 3px solid transparent; 
     transition: all 0.2s;
 }
-.date-chip.active { background: rgba(212, 175, 55, 0.1); color: var(--accent); border-bottom-color: var(--accent); }
-.day-num { font-weight: 700; font-size: 0.95rem; margin-bottom: 2px;} 
-.day-week { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.date-chip.active { background: rgba(212, 175, 55, 0.08); color: var(--accent); border-bottom-color: var(--accent); }
+.day-num { font-weight: 700; font-size: 1.1rem; margin-bottom: 3px;} /* 字體加大 */
+.day-week { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.9; }
 
 /* --- Sidebar --- */
 .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
 .sidebar-overlay.open { opacity: 1; pointer-events: all; }
-.sidebar { position: fixed; top: 0; right: 0; width: 85%; max-width: 300px; height: 100%; background: var(--bg-body); z-index: 2001; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); overflow-y: auto; padding: 20px 15px 100px 15px; padding-top: calc(20px + var(--safe-top)); box-shadow: -5px 0 20px rgba(0,0,0,0.5); display: flex; flex-direction: column; border-left: 1px solid var(--border); }
+.sidebar { position: fixed; top: 0; right: 0; width: 85%; max-width: 320px; height: 100%; background: var(--bg-body); z-index: 2001; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); overflow-y: auto; padding: 25px 20px 100px 20px; padding-top: calc(30px + var(--safe-top)); box-shadow: -5px 0 20px rgba(0,0,0,0.5); display: flex; flex-direction: column; border-left: 1px solid var(--border); }
 .sidebar.open { transform: translateX(0); }
-.sidebar-section-title { font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; margin-top: 25px; font-weight: 700; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
+.sidebar-section-title { font-size: 0.8rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; margin-top: 25px; font-weight: 700; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
 
-.nav-launcher { display: flex; align-items: center; gap: 12px; background: var(--bg-card); border: 1px solid var(--border); padding: 12px; border-radius: 6px; margin-bottom: 8px; cursor: pointer; }
-.nav-launcher-icon { font-size: 1.2rem; color: var(--accent); width: 25px; text-align: center; }
-.nav-launcher h3 { margin: 0; font-size: 0.95rem; font-weight: 700; color: var(--text-main); }
-.nav-launcher p { margin: 2px 0 0 0; font-size: 0.7rem; color: var(--text-sub); }
+.nav-launcher { display: flex; align-items: center; gap: 15px; background: var(--bg-card); border: 1px solid var(--border); padding: 16px; border-radius: 8px; margin-bottom: 12px; cursor: pointer; }
+.nav-launcher:active { background: var(--border); transform: scale(0.98); }
+.nav-launcher-icon { font-size: 1.4rem; color: var(--accent); width: 30px; text-align: center; }
+.nav-launcher h3 { margin: 0; font-size: 1.05rem; font-weight: 700; color: var(--text-main); }
+.nav-launcher p { margin: 4px 0 0 0; font-size: 0.8rem; color: var(--text-sub); }
 
-.whatsapp-box { background: rgba(37, 211, 102, 0.1); border: 1px solid rgba(37, 211, 102, 0.3); color: var(--text-main); padding: 12px; border-radius: 6px; margin-bottom: 10px; margin-top: 5px; }
-.wa-input { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid var(--border); border-radius: 4px; font-size: 0.9rem; background: var(--bg-input); color: white; }
-.wa-btn { width: 100%; background: #25D366; color: white; border: none; padding: 10px; border-radius: 4px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 0.85rem; }
-.tool-box { background: var(--bg-card); padding: 15px; border-radius: 6px; border: 1px solid var(--border); margin-bottom: 8px; }
-.currency-grid { display: grid; grid-template-columns: 1fr 25px 1fr; align-items: center; gap: 5px; margin-bottom: 5px; }
+.whatsapp-box { background: rgba(37, 211, 102, 0.1); border: 1px solid rgba(37, 211, 102, 0.3); color: var(--text-main); padding: 15px; border-radius: 8px; margin-bottom: 15px; margin-top: 5px; }
+.wa-input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: var(--bg-input); color: white; }
+.wa-btn { width: 100%; background: #25D366; color: white; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 0.95rem; }
+.tool-box { background: var(--bg-card); padding: 20px; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 12px; }
+.currency-grid { display: grid; grid-template-columns: 1fr 30px 1fr; align-items: center; gap: 8px; margin-bottom: 8px; }
 .curr-group { display: flex; flex-direction: column; }
-.curr-label { font-size: 0.65rem; color: var(--accent); font-weight: bold; margin-bottom: 3px; padding-left: 2px;}
-.curr-input { width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 4px; font-size: 1.1rem; text-align: center; background: var(--bg-input); font-weight: 500; font-family: 'Playfair Display', serif; color: var(--text-main); }
-.curr-icon { text-align: center; color: var(--text-sub); font-size: 0.8rem; margin-top: 15px;} 
-.memo-area { width: 100%; height: 80px; padding: 8px; border: 1px solid var(--border); border-radius: 4px; font-family: inherit; font-size: 0.85rem; resize: none; background: var(--bg-input); color: var(--text-main); }
+.curr-label { font-size: 0.75rem; color: var(--accent); font-weight: bold; margin-bottom: 5px; padding-left: 2px;}
+.curr-input { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 1.2rem; text-align: center; background: var(--bg-input); font-weight: 500; font-family: 'Playfair Display', serif; color: var(--text-main); }
+.curr-icon { text-align: center; color: var(--text-sub); font-size: 0.9rem; margin-top: 15px;} 
+.memo-area { width: 100%; height: 100px; padding: 12px; border: 1px solid var(--border); border-radius: 6px; font-family: inherit; font-size: 0.95rem; resize: none; background: var(--bg-input); color: var(--text-main); line-height: 1.5; }
 
 /* --- Main Layout --- */
 main { flex: 1; overflow-y: hidden; position: relative; }
@@ -128,119 +130,110 @@ main { flex: 1; overflow-y: hidden; position: relative; }
 .page { 
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
     overflow-y: auto; -webkit-overflow-scrolling: touch;
-    
-    /* 預設: 只有 Header 的頁面 (天氣、資訊) */
-    padding-top: calc(var(--header-height) + 15px);
-    
-    padding-bottom: calc(20px + var(--nav-height));
+    padding-top: calc(var(--header-height) + 20px);
+    padding-bottom: calc(25px + var(--nav-height));
     display: none; opacity: 0; transition: opacity 0.2s ease; background-color: var(--bg-body); 
 }
-
-/* 修正：有日期列的頁面 (行程、靈感、購物)，往下推更多 */
 .page.with-date-bar {
     padding-top: var(--content-start-y); 
 }
-
 .page.active { display: block; opacity: 1; z-index: 10; }
 
-.page-header { padding: 0 15px; margin-bottom: 15px; text-align: center;}
-.page-title { font-size: 1.5rem; font-weight: 700; margin: 0; color: var(--text-main); letter-spacing: 1px; position: relative; display: inline-block; }
-.page-title::after { content: ''; display: block; width: 30px; height: 2px; background: var(--accent); margin: 8px auto 0 auto; }
+.page-header { padding: 0 20px; margin-bottom: 20px; text-align: center;}
+.page-title { font-size: 1.8rem; font-weight: 700; margin: 0; color: var(--text-main); letter-spacing: 1px; position: relative; display: inline-block; }
+.page-title::after { content: ''; display: block; width: 40px; height: 3px; background: var(--accent); margin: 10px auto 0 auto; }
 
-/* Filter Bar (Sticky) */
-/* 修正：在靈感頁面，Filter Bar 吸附在 0 的位置 (相對於 Page 的 padding box) */
-/* 因為 Page 已經 padding-top 了，所以 top:0 會剛好接在 DateBar 下方 */
+/* Sticky Filter Bar */
 .filter-bar-container { 
-    padding: 0 15px 10px 15px; 
+    padding: 5px 20px 15px 20px; 
     position: sticky; top: 0; z-index: 800; 
-    background: var(--bg-body); /* 遮擋捲動內容 */
+    background: var(--bg-body); 
     overflow-x: auto; white-space: nowrap; scrollbar-width: none; 
     margin-bottom: 5px;
 }
-.filter-chip { display: inline-block; padding: 6px 14px; margin-right: 6px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; font-size: 0.75rem; color: var(--text-sub); cursor: pointer; transition: all 0.2s; }
-.filter-chip.active { background: var(--accent); color: #000; border-color: var(--accent); }
+.filter-chip { display: inline-block; padding: 8px 18px; margin-right: 10px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 25px; font-size: 0.85rem; color: var(--text-sub); cursor: pointer; transition: all 0.2s; }
+.filter-chip.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 500; }
 
-/* --- Compact Timeline Cards --- */
-.timeline-container { padding: 0 15px; max-width: 800px; margin: 0 auto; }
-.timeline-item { position: relative; padding-left: 24px; padding-bottom: 12px; border-left: 1px solid rgba(255,255,255,0.15); }
+/* --- Timeline Cards (舒適版) --- */
+.timeline-container { padding: 0 20px; max-width: 800px; margin: 0 auto; }
+.timeline-item { position: relative; padding-left: 30px; padding-bottom: 20px; border-left: 1px solid rgba(255,255,255,0.15); }
 .timeline-item:last-child { border-left: 1px solid transparent; }
-.timeline-item::before { content: ''; position: absolute; left: -5px; top: 18px; width: 9px; height: 9px; background: var(--bg-body); border: 2px solid var(--accent); border-radius: 50%; box-shadow: 0 0 0 3px var(--bg-body); z-index: 2; }
+.timeline-item::before { content: ''; position: absolute; left: -6px; top: 22px; width: 11px; height: 11px; background: var(--bg-body); border: 2px solid var(--accent); border-radius: 50%; box-shadow: 0 0 0 3px var(--bg-body); z-index: 2; }
 
 .card { 
-    background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; 
-    padding: 12px 45px 12px 12px; /* 右側預留空間給按鈕 */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+    background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; 
+    padding: 18px 55px 18px 18px; /* 加大 Padding，更舒適 */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
     cursor: pointer; position: relative; transition: transform 0.2s; 
 }
-.card:active { transform: scale(0.99); background: #2A2A40; }
-.card-time { font-size: 0.7rem; color: var(--accent); font-weight: 600; margin-bottom: 2px; display: block; letter-spacing: 0.5px; }
-.card-title { font-size: 1.05rem; font-weight: 700; margin: 0 0 5px 0; color: var(--text-main); line-height: 1.2; }
-.tags { display: flex; gap: 4px; flex-wrap: wrap; }
-.card-tag { font-size: 0.65rem; background: var(--bg-body); padding: 2px 8px; border-radius: 12px; color: var(--text-sub); border: 1px solid var(--border); }
+.card:active { transform: scale(0.98); background: #2A2A40; }
+.card-time { font-size: 0.85rem; color: var(--accent); font-weight: 600; margin-bottom: 6px; display: block; letter-spacing: 0.5px; }
+.card-title { font-size: 1.15rem; font-weight: 700; margin: 0 0 8px 0; color: var(--text-main); line-height: 1.3; }
+.tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.card-tag { font-size: 0.75rem; background: var(--bg-body); padding: 4px 10px; border-radius: 15px; color: var(--text-sub); border: 1px solid var(--border); }
 .card-nav-btn { 
-    position: absolute; top: 50%; right: 10px; transform: translateY(-50%); 
-    width: 30px; height: 30px; border-radius: 50%; 
+    position: absolute; top: 50%; right: 15px; transform: translateY(-50%); 
+    width: 36px; height: 36px; border-radius: 50%; 
     background: var(--bg-body); color: var(--accent); 
     display: flex; justify-content: center; align-items: center; 
-    font-size: 0.85rem; border: 1px solid var(--border); z-index: 5; 
+    font-size: 1rem; border: 1px solid var(--border); z-index: 5; 
 }
 
-/* Inspiration Cards (Compact) */
-.inspiration-grid { padding: 0 15px; display: grid; gap: 10px; }
+/* Inspiration Cards */
+.inspiration-grid { padding: 0 20px; display: grid; gap: 15px; }
 .inspire-card { 
-    background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; 
-    padding: 15px; 
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; 
+    padding: 20px; 
     color: var(--text-main); position: relative; display: block; 
     cursor: pointer; transition: transform 0.2s;
 } 
 .inspire-card:active { transform: scale(0.98); background: #2A2A40; }
-.inspire-card h3 { margin: 0 0 5px 0; font-size: 1rem; padding-right: 40px; }
-.inspire-card p { font-size: 0.8rem; margin: 0; line-height: 1.4; color: #BBB; }
+.inspire-card h3 { margin: 0 0 8px 0; font-size: 1.1rem; padding-right: 40px; }
+.inspire-card p { font-size: 0.9rem; margin: 0; line-height: 1.5; color: #BBB; }
 .inspire-card.hidden { display: none; }
-.inspire-badge { background: var(--accent); color: #000; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem; font-weight: bold; position: absolute; top: 15px; right: 15px; letter-spacing: 0.5px; }
+.inspire-badge { background: var(--accent); color: #000; padding: 3px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; position: absolute; top: 15px; right: 15px; letter-spacing: 0.5px; }
 
-/* Weather (Compact) */
-.weather-main-card { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); color: var(--accent); border-radius: 12px; padding: 20px; margin: 0 15px 15px 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); text-align: center; position: relative; border: 1px solid rgba(212, 175, 55, 0.3); }
-.weather-icon-lg { font-size: 3rem; margin: 10px 0; color: #FFF; }
-.weather-temp-lg { font-size: 3rem; font-weight: 400; line-height: 1; color: var(--accent); }
-.weather-desc { font-size: 0.9rem; margin-bottom: 5px; font-weight: 500; color: #EEE; }
-.weather-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 15px; }
-.weather-stat-card { background: var(--bg-card); border: 1px solid var(--border); padding: 12px; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+/* Weather */
+.weather-main-card { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); color: var(--accent); border-radius: 12px; padding: 25px; margin: 0 20px 20px 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); text-align: center; position: relative; border: 1px solid rgba(212, 175, 55, 0.3); }
+.weather-icon-lg { font-size: 3.5rem; margin: 15px 0; color: #FFF; }
+.weather-temp-lg { font-size: 3.5rem; font-weight: 400; line-height: 1; color: var(--accent); }
+.weather-desc { font-size: 1rem; margin-bottom: 10px; font-weight: 500; color: #EEE; }
+.weather-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 0 20px; }
+.weather-stat-card { background: var(--bg-card); border: 1px solid var(--border); padding: 15px; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
-/* Shopping (Compact) */
-.shopping-list { padding: 0 15px; }
-.shop-item { background: var(--bg-card); padding: 12px 15px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; border-radius: 6px; margin-bottom: 8px; }
-.shop-item label { font-size: 0.9rem; }
+/* Shopping */
+.shopping-list { padding: 0 20px; }
+.shop-item { background: var(--bg-card); padding: 15px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 15px; border-radius: 8px; margin-bottom: 10px; }
+.shop-item label { font-size: 1rem; }
 
-/* Info & Phrases (Compact) */
-.info-card { background: var(--bg-card); padding: 20px; border-radius: 8px; margin: 0 15px 15px 15px; border: 1px solid var(--border); }
-.info-header { font-size: 1.1rem; margin-bottom: 12px; padding-bottom: 8px; }
-.info-row { gap: 12px; margin-bottom: 12px; font-size: 0.9rem; }
-.phrase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 15px 30px 15px; }
-.phrase-card { background: var(--bg-card); border: 1px solid var(--border); padding: 15px 10px; border-radius: 6px; text-align: center; cursor: pointer; aspect-ratio: auto; height: 100px; display: flex; flex-direction: column; justify-content: center; }
-.phrase-jp { font-size: 1rem; margin-bottom: 5px; }
-.phrase-zh { font-size: 0.8rem; }
+/* Info & Phrases */
+.info-card { background: var(--bg-card); padding: 25px; border-radius: 8px; margin: 0 20px 20px 20px; border: 1px solid var(--border); }
+.info-header { font-size: 1.2rem; margin-bottom: 15px; padding-bottom: 10px; }
+.info-row { gap: 15px; margin-bottom: 15px; font-size: 1rem; }
+.phrase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 20px 40px 20px; }
+.phrase-card { background: var(--bg-card); border: 1px solid var(--border); padding: 20px 15px; border-radius: 8px; text-align: center; cursor: pointer; aspect-ratio: 1.3; display: flex; flex-direction: column; justify-content: center; }
+.phrase-jp { font-size: 1.1rem; margin-bottom: 6px; }
+.phrase-zh { font-size: 0.85rem; }
 
-/* Modal & Utils */
+/* Modal */
 .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 3000; justify-content: center; align-items: end; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); cursor: pointer; }
 .modal.open { display: flex; }
-.modal-content { background: var(--bg-card); color: var(--text-main); width: 100%; max-width: 600px; max-height: 90vh; border-radius: 20px 20px 0 0; padding: 25px; overflow-y: auto; animation: slideUp 0.3s ease; display: flex; flex-direction: column; border: 1px solid var(--border); border-bottom: none; cursor: default; touch-action: pan-y; }
+.modal-content { background: var(--bg-card); color: var(--text-main); width: 100%; max-width: 600px; max-height: 90vh; border-radius: 20px 20px 0 0; padding: 35px 30px 50px 30px; overflow-y: auto; animation: slideUp 0.3s ease; display: flex; flex-direction: column; border: 1px solid var(--border); border-bottom: none; cursor: default; touch-action: pan-y; }
 @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-.modal-handle { width: 40px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; margin: 0 auto 20px auto; flex-shrink: 0; }
-#modal-mini-map { width: 100%; height: 180px; background: #111; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--border); flex-shrink: 0;}
-.modal-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0; }
-.modal-label { font-size: 0.65rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: 4px; }
-.modal-value { font-size: 0.95rem; font-weight: 500; color: var(--text-main); }
-.modal-note-box { background: var(--bg-body); padding: 15px; border-radius: 6px; border-left: 3px solid var(--accent); margin: 15px 0; font-size: 0.9rem; line-height: 1.6; color: #DDD; white-space: pre-line; }
-.btn-action { width: 100%; padding: 14px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; font-size: 0.9rem; text-align: center; margin-bottom: 8px; display:flex; justify-content:center; align-items:center; gap:8px;}
+.modal-handle { width: 50px; height: 5px; background: rgba(255,255,255,0.25); border-radius: 3px; margin: 0 auto 25px auto; flex-shrink: 0; }
+#modal-mini-map { width: 100%; height: 200px; background: #111; border-radius: 10px; margin-bottom: 25px; border: 1px solid var(--border); flex-shrink: 0;}
+.modal-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+.modal-label { font-size: 0.75rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: 5px; }
+.modal-value { font-size: 1.05rem; font-weight: 500; color: var(--text-main); }
+.modal-note-box { background: var(--bg-body); padding: 20px; border-radius: 8px; border-left: 4px solid var(--accent); margin: 20px 0; font-size: 1rem; line-height: 1.7; color: #DDD; white-space: pre-line; }
+.btn-action { width: 100%; padding: 16px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; font-size: 1rem; text-align: center; margin-bottom: 12px; display:flex; justify-content:center; align-items:center; gap:10px;}
 .btn-black { background: var(--accent); color: #000; }
 .btn-outline { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
-.btn-close-modal { background: rgba(255,255,255,0.1); color: #FFF; margin-top: 5px; }
 
 /* Bottom Nav */
-nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(--bg-card); display: flex; justify-content: space-around; padding: 10px 0 calc(20px + var(--safe-bottom)) 0; border-top: 1px solid var(--border); z-index: 1000; box-shadow: 0 -5px 20px rgba(0,0,0,0.2); }
-.nav-item { color: var(--text-sub); text-align: center; font-size: 0.7rem; cursor: pointer; width: 20%; transition: color 0.2s; }
-.nav-item i { display: block; font-size: 1.2rem; margin-bottom: 4px; }
+nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(--bg-card); display: flex; justify-content: space-around; padding: 12px 0 calc(25px + var(--safe-bottom)) 0; border-top: 1px solid var(--border); z-index: 1000; box-shadow: 0 -5px 20px rgba(0,0,0,0.2); }
+.nav-item { color: var(--text-sub); text-align: center; font-size: 0.75rem; cursor: pointer; width: 20%; transition: color 0.2s; }
+.nav-item i { display: block; font-size: 1.4rem; margin-bottom: 5px; }
 .nav-item.active { color: var(--accent); }
 
 .leaflet-layer { filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%); }
@@ -319,23 +312,23 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
 
     <div id="page-phrases" class="page">
         <div class="page-header"><h2 class="page-title">泰語溝通卡</h2></div>
-        <div class="sidebar-section-title" style="margin-left:15px; border:none;">🍴 餐廳飲食</div>
+        <div class="sidebar-section-title" style="margin-left:20px; border:none;">🍴 餐廳飲食</div>
         <div class="phrase-grid">
             <div class="phrase-card" onclick="showPhrase('ไม่เผ็ด', '不要辣 (Mai Phet)')"><div class="phrase-jp">ไม่เผ็ด</div><div class="phrase-zh">不要辣</div></div>
             <div class="phrase-card" onclick="showPhrase('เผ็ดนิดหน่อย', '微辣 (Phet Nit Noi)')"><div class="phrase-jp">เผ็ดนิดหน่อย</div><div class="phrase-zh">微辣</div></div>
             <div class="phrase-card" onclick="showPhrase('ไม่เอาผักชี', '不要香菜 (Mai Ao Phak Chi)')"><div class="phrase-jp">ไม่เอาผักชี</div><div class="phrase-zh">不要香菜</div></div>
-            <div class="phrase-card" onclick="showPhrase('ไม่เอาหวาน', '不要糖 (Mai Ao Wan)')"><div class="phrase-jp">ไม่เอาหวาน</div><div class="phrase-zh">不要糖</div></div>
+            <div class="phrase-card" onclick="showPhrase('ไม่เอาหวาน', '不要糖 (Mai Ao Wan)')"><div class="phrase-jp">ไม่เอาหวาน</div><div class="phrase-zh">不要糖 (飲料)</div></div>
             <div class="phrase-card" onclick="showPhrase('เช็คบิล', '買單 (Check Bin)')"><div class="phrase-jp">เช็คบิล</div><div class="phrase-zh">買單</div></div>
             <div class="phrase-card" onclick="showPhrase('อร่อยมาก', '很好吃 (A-Roi Mak)')"><div class="phrase-jp">อร่อยมาก</div><div class="phrase-zh">很好吃</div></div>
         </div>
-        <div class="sidebar-section-title" style="margin-left:15px; border:none;">🚕 交通與問路</div>
+        <div class="sidebar-section-title" style="margin-left:20px; border:none;">🚕 交通與問路</div>
         <div class="phrase-grid">
             <div class="phrase-card" onclick="showPhrase('ไปที่นี่ครับ/ค่ะ', '我要去這裡 (Pai Tee Nee)')"><div class="phrase-jp">ไปที่นี่...</div><div class="phrase-zh">去這裡</div></div>
             <div class="phrase-card" onclick="showPhrase('จอดที่นี่', '停在這裡 (Jod Tee Nee)')"><div class="phrase-jp">จอดที่นี่</div><div class="phrase-zh">停這裡</div></div>
             <div class="phrase-card" onclick="showPhrase('ช่วยเปิดมิเตอร์', '請跳表 (Chaui Poet Meter)')"><div class="phrase-jp">เปิดมิเตอร์...</div><div class="phrase-zh">請跳表</div></div>
             <div class="phrase-card" onclick="showPhrase('ห้องน้ำอยู่ที่ไหน', '廁所在哪 (Hong Nam)')"><div class="phrase-jp">ห้องน้ำ...</div><div class="phrase-zh">廁所在哪</div></div>
         </div>
-        <div class="sidebar-section-title" style="margin-left:15px; border:none;">🛍️ 購物與殺價</div>
+        <div class="sidebar-section-title" style="margin-left:20px; border:none;">🛍️ 購物與殺價</div>
         <div class="phrase-grid">
             <div class="phrase-card" onclick="showPhrase('เท่าไหร่?', '多少錢? (Tao Rai)')"><div class="phrase-jp">เท่าไหร่?</div><div class="phrase-zh">多少錢?</div></div>
             <div class="phrase-card" onclick="showPhrase('ลดได้ไหม?', '可以便宜點嗎? (Lot Dai Mai)')"><div class="phrase-jp">ลดได้ไหม?</div><div class="phrase-zh">便宜點?</div></div>
@@ -363,18 +356,17 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
         <div id="modal-mini-map"></div>
         <div class="modal-header">
             <span class="modal-label" id="modal-type">Type</span>
-            <h2 id="modal-title" style="margin:0; font-family:'Playfair Display', serif; font-size:1.3rem;">Title</h2>
+            <h2 id="modal-title" style="margin:0; font-family:'Playfair Display', serif; font-size:1.5rem;">Title</h2>
         </div>
         <div class="modal-info-grid">
             <div><span class="modal-label">時間</span><span class="modal-value" id="modal-time"></span></div>
             <div><span class="modal-label">預算</span><span class="modal-value" id="modal-price"></span></div>
             <div><span class="modal-label">營業時間</span><span class="modal-value" id="modal-open-hours"></span></div>
-            <div><span class="modal-label">地址</span><span class="modal-value" id="modal-address-short" style="font-size:0.85rem;"></span></div>
+            <div><span class="modal-label">地址</span><span class="modal-value" id="modal-address-short" style="font-size:0.95rem;"></span></div>
         </div>
         <div class="modal-label">備註與攻略</div>
         <div class="modal-note-box"><div id="modal-note" class="modal-note-content"></div></div>
         <div class="modal-actions" id="modal-actions"></div>
-        <button class="btn-action btn-close-modal" onclick="closeModal()">關閉視窗</button>
     </div>
 </div>
 
