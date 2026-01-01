@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Bangkok 2026 (Night Mode)</title>
+<title>Bangkok 2026 (Scent & Stroll)</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
     --text-sub: #A0A0A0; /* 淺灰輔助字 */
     --accent: #D4AF37; /* 奢華金 */
     --accent-hover: #B5932A;
-    --border: rgba(255, 255, 255, 0.1); /* 微弱邊框 */
+    --border: rgba(255, 255, 255, 0.1);
     --header-bg: #1A1A2E;
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     --safe-top: env(safe-area-inset-top);
@@ -198,7 +198,7 @@ main { flex: 1; overflow-y: hidden; position: relative; }
 .btn-black { background: var(--accent); color: #000; }
 .btn-outline { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
 
-/* Force Leaflet Dark Mode Tiles filter */
+/* Leaflet Filter */
 .leaflet-layer { filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%); }
 </style>
 </head>
@@ -274,7 +274,8 @@ main { flex: 1; overflow-y: hidden; position: relative; }
         <div class="filter-bar-container">
             <span class="filter-chip active" onclick="filterInspiration('all', this)">全部</span>
             <span class="filter-chip" onclick="filterInspiration('RAINY', this)">☔ 雨天/室內</span>
-            <span class="filter-chip" onclick="filterInspiration('PHOTO', this)">📷 拍照</span>
+            <span class="filter-chip" onclick="filterInspiration('RELAX', this)">☕ 放鬆/咖啡</span>
+            <span class="filter-chip" onclick="filterInspiration('NIGHT', this)">🌙 晚間/小酌</span>
         </div>
         <div id="inspiration-container" class="inspiration-grid"></div>
     </div>
@@ -357,123 +358,88 @@ main { flex: 1; overflow-y: hidden; position: relative; }
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-// --- DATA: 5-Day Bangkok Itinerary ---
+// --- DATA: Original Scent & Stroll Itinerary (Restored) ---
 const scheduleData = {
-    "day1": { 
-        "date": "2026-05-01", "display": "May 01", "weekday": "週五", 
-        "events": [
-            { 
-                "time": "17:00", "title": "IR-ON Hotel Check-in", "type": "住宿", "price": "-", "open_hours": "24H", 
-                "address": "10/10 Sukhumvit 36, Bangkok", "address_local": "10/10 ซอยสุขุมวิท 36 แขวงคลองตัน เขตคลองเตย", 
-                "coords": [13.7247, 100.5772], "phone": "+6620740806", 
-                "note": "機場快線 ARL 到 Phaya Thai，轉 BTS 到 Thong Lo 站 (2號出口)。\n飯店設計感強，工業風，就在 Thong Lo 36 巷。", "tags": ["移動", "入住"]
-            },
-            { 
-                "time": "19:00", "title": "Supanniga Eating Room", "type": "晚餐", "price": "฿1000", "open_hours": "11:30-22:00", 
-                "address": "160/11 Thong Lo 8 Alley, Bangkok", "address_local": "160/11 ซอยทองหล่อ 8",
-                "coords": [13.7314, 100.5830], "note": "米其林推薦泰菜。\n必點：蟹肉烘蛋、馬撒曼咖哩。\n建議事先訂位。", "tags": ["美食"]
-            },
-            {
-                "time": "21:00", "title": "Asia Herb Association", "type": "按摩", "price": "฿800", "open_hours": "09:00-02:00", 
-                "address": "Sukhumvit 24, Bangkok", "address_local": "ซอยสุขุมวิท 24",
-                "coords": [13.7290, 100.5695], "note": "Thong Lo 附近也有分店。\n推薦招牌草藥球按摩 (Herbal Ball)，消水腫神物。", "tags": ["放鬆"]
-            }
-        ],
-        "inspiration": [], 
-        "shopping": ["便利商店熱壓吐司", "泰國 SIM 卡"] 
-    },
-    "day2": { 
-        "date": "2026-05-02", "display": "May 02", "weekday": "週六", 
-        "events": [
-            { 
-                "time": "10:00", "title": "Wat Arun (鄭王廟)", "type": "景點", "price": "฿100", "open_hours": "08:00-18:00", 
-                "address": "158 Thanon Wang Doem, Bangkok", "address_local": "วัดอรุณราชวรารามราชวรมหาวิหาร", 
-                "coords": [13.7437, 100.4888], "note": "搭船到 N8 Tha Tien 碼頭對面。\n穿著建議：白色或淺色系衣服，拍照最美。\n請勿穿著暴露服裝。", "tags": ["文化", "拍照"]
-            },
-            { 
-                "time": "13:00", "title": "The Deck by The River", "type": "午餐", "price": "฿600", "open_hours": "11:00-22:00", 
-                "address": "36-38 Pratu Nokyung Alley, Bangkok", "address_local": "ซอยประตูนกยูง",
-                "coords": [13.7445, 100.4907], "note": "可以直接看到鄭王廟河景的餐廳，非常適合午休。", "tags": ["美食"]
-            },
-            {
-                "time": "16:00", "title": "ICONSIAM", "type": "購物", "price": "-", "open_hours": "10:00-22:00", 
-                "address": "299 Charoen Nakhon Rd, Bangkok", "address_local": "ไอคอนสยาม",
-                "coords": [13.7267, 100.5113], "note": "必逛：G樓「室內水上市場」(SookSiam)，冷氣強，小吃多。\n傍晚可到河濱廣場看噴水秀。", "tags": ["購物"]
-            }
-        ],
-        "inspiration": [
-             {tag:"RAINY", title:"ICONSIAM 電影院", note:"如果下大雨，ICONSIAM 樓上有超豪華電影院。"},
-             {tag:"PHOTO", title:"% Arabica Iconsiam", note:"整間店純白設計，加上鏡面天花板，拍照神點。"}
-        ],
-        "shopping": ["NaRaYa 曼谷包", "手標泰式茶葉"] 
-    },
-    "day3": {
-        "date": "2026-05-03", "display": "May 03", "weekday": "週日",
-        "events": [
-            { 
-                "time": "11:00", "title": "Central World & 四面佛", "type": "購物", "price": "-", "open_hours": "10:00-22:00", 
-                "address": "Ratchadamri Rd, Bangkok", "address_local": "เซ็นทรัลเวิลด์ / ศาลท้าวมหาพรหม",
-                "coords": [13.7441, 100.5404], "note": "BTS Chit Lom 站。\n拜四面佛：順時針拜，每面放花串與香。\nCentral World 2樓有 Groove 酒吧區。", "tags": ["購物", "祈福"]
-            },
-            {
-                "time": "15:00", "title": "After You Dessert Cafe", "type": "下午茶", "price": "฿300", "open_hours": "10:00-22:00", 
-                "address": "Central World 7F", "address_local": "After You",
-                "coords": [13.7466, 100.5393], "note": "必吃：泰奶刨冰 (Thai Tea Kakigori)、涉谷蜜糖吐司。\n人多時需先抽號碼牌。", "tags": ["美食"]
-            },
-            {
-                "time": "19:00", "title": "Jodd Fairs 夜市", "type": "夜市", "price": "-", "open_hours": "16:00-00:00", 
-                "address": "Rama IX Rd, Bangkok", "address_local": "จ๊อดแฟร์ พระราม 9",
-                "coords": [13.7569, 100.5665], "note": "MRT Phra Ram 9 站。\n必吃：火山排骨、水果西施冰沙。\n人潮擁擠，注意隨身財物。", "tags": ["美食", "逛街"]
-            }
-        ],
-        "inspiration": [],
-        "shopping": ["Poy-Sian 薄荷棒", "小老闆海苔"]
-    },
-    "day4": {
-        "date": "2026-05-04", "display": "May 04", "weekday": "週一",
-        "events": [
-            {
-                "time": "10:30", "title": "Jim Thompson House", "type": "文化", "price": "฿200", "open_hours": "10:00-18:00", 
-                "address": "6 Soi Kasemsan 2, Rama 1 Rd, Bangkok", "address_local": "พิพิธภัณฑ์บ้านจิม ทอมป์สัน",
-                "coords": [13.7495, 100.5284], "note": "BTS National Stadium 站。\n泰絲大王故居，非常優雅的柚木建築群。\n內有泰絲專賣店，品質極佳。", "tags": ["文化"]
-            },
-            {
-                "time": "13:00", "title": "BACC 藝術中心", "type": "展覽", "price": "免費", "open_hours": "10:00-20:00", 
-                "address": "939 Rama I Rd, Bangkok", "address_local": "หอศิลปวัฒนธรรมแห่งกรุงเทพมหานคร",
-                "coords": [13.7467, 100.5303], "note": "就在 Jim Thompson 對面。\n建築本身就是藝術，螺旋坡道很好拍。\n有很多文創小店。", "tags": ["文青", "冷氣"]
-            },
-            {
-                "time": "18:00", "title": "T-One Building (Tichuca)", "type": "酒吧", "price": "฿500+", "open_hours": "17:00-00:00", 
-                "address": "T-One Building 46F, Bangkok", "address_local": "ตึก T-One ชั้น 46",
-                "coords": [13.7229, 100.5807], "note": "網紅「水母酒吧」。\n離飯店 (Thong Lo) 很近。\n建議 17:30 前到看夕陽，不用排隊。", "tags": ["夜生活", "拍照"]
-            }
-        ],
-        "inspiration": [],
-        "shopping": ["泰絲絲巾", "文創明信片"]
-    },
-    "day5": {
-        "date": "2026-05-05", "display": "May 05", "weekday": "週二",
-        "events": [
-            {
-                "time": "11:00", "title": "EmQuartier / EmSphere", "type": "購物", "price": "-", "open_hours": "10:00-22:00", 
-                "address": "Sukhumvit Rd, Bangkok", "address_local": "เอ็มควอเทียร์",
-                "coords": [13.7319, 100.5698], "note": "BTS Phrom Phong 站。\n最後補貨機會。\nGourmet Market 超市買伴手禮最齊全。\n午餐可在這裡解決。", "tags": ["購物"]
-            },
-            {
-                "time": "14:00", "title": "前往機場 (BKK)", "type": "移動", "price": "-", "open_hours": "-", 
-                "address": "Suvarnabhumi Airport", "address_local": "ท่าอากาศยานสุวรรณภูมิ",
-                "coords": [13.6900, 100.7501], "note": "回飯店拿行李。\n預計 14:30 離開市區。\n塞車風險高，建議預留充足時間。", "tags": ["移動"]
-            }
-        ],
-        "shopping": ["機場免稅店化妝品", "芒果乾"]
-    }
+"day1": { 
+    "date": "2026-04-03", "display": "Apr 03", "weekday": "週五", 
+    "events": [ 
+        { time: "10:30", title: "抵達機場 & 前往飯店", type: "交通", price: "約 ฿60", open_hours: "24H", address: "Suvarnabhumi Airport", address_local: "ท่าอากาศยานสุวรรณภูมิ", coords: [13.6900, 100.7501], note: "搭 ARL 到 Phaya Thai，轉 BTS 到 Thong Lo。\nIR-ON Hotel 在 2 號出口下樓後「立刻大迴轉」進 Soi 36。", tags: ["移動"] },
+        { time: "13:00", title: "Supanniga Eating Room", type: "美食 (米其林)", price: "約 ฿1,500", open_hours: "10-22", address: "Supanniga Eating Room Thong Lo", address_local: "ห้องอาหารสุพรรณิการ์ ทองหล่อ", coords: [13.7314, 100.5816], note: "必點：蟹肉烘蛋 (Khai Jiew Pu)、馬撒曼咖哩牛。", tags: ["泰菜"] },
+        { time: "15:00", title: "Jim Thompson House", type: "景點 / 文化", price: "฿200", open_hours: "10-18", address: "Jim Thompson House Museum", address_local: "พิพิธภัณฑ์บ้านจิม ทอมป์สัน", coords: [13.7495, 100.5284], note: "BTS National Stadium 1 號出口。絲織品很有質感。", tags: ["博物館"] },
+        { time: "16:30", title: "Siam Square (香氛)", type: "購物 / 香氛", price: "-", open_hours: "10-22", address: "Siam Square One", address_local: "สยามสแควร์วัน", coords: [13.7444, 100.5349], note: "Journal: Siam Square One LG 層\nCopenn.: Firster 賣場內。", tags: ["逛街"] },
+        { time: "18:30", title: "Sra Bua by Kiin Kiin", type: "米其林一星", price: "฿3,500+", open_hours: "18-24", address: "Sra Bua by Kiin Kiin", address_local: "สระบัว บาย กิน กิน", coords: [13.7485, 100.5348], note: "分子泰菜。\nDress Code: Smart Casual (勿拖鞋短褲)。", tags: ["Fine Dining"] },
+        { time: "21:00", title: "Asia Herb Association", type: "Spa", price: "฿1,500+", open_hours: "09-02", address: "Asia Herb Association Thong Lo", address_local: "เอเชีย เฮิร์บ แอสโซซิเอชั่น ทองหล่อ", coords: [13.7258, 100.5783], note: "通羅站 3 號出口。推薦 100% 純精油按摩。", tags: ["按摩"] }
+    ], 
+    "inspiration": [
+        {title:"Let's Relax Onsen", type:"Spa/溫泉", tag:"RELAX", price:"฿750", open_hours:"10-24", address:"Grande Centre Point Sukhumvit 55", coords:[13.7313, 100.5815], note:"如果你不想按摩，這裡有日式溫泉，非常乾淨，冷氣很強，適合避暑。"},
+        {title:"Patom Organic Living", type:"Cafe", tag:"RELAX", price:"฿300", open_hours:"09-19", address:"Patom Organic Living", coords:[13.7366, 100.5778], note:"玻璃屋與大花園，在 Thong Lo 裡的綠洲。推薦有機咖啡和泰式傳統點心。"},
+        {title:"BACC 藝術中心", type:"展覽", tag:"RAINY", price:"免費", open_hours:"10-20", address:"Bangkok Art and Culture Centre", coords:[13.7467, 100.5303], note:"就在 Siam 區，下雨最佳備案。建築本身的螺旋走道很美，有很多小設計店。"}
+    ], 
+    "shopping": ["Journal 沉香香水", "芒果糯米香水", "Copenn. 護手霜"] 
+},
+"day2": { 
+    "date": "2026-04-04", "display": "Apr 04", "weekday": "週六", 
+    "events": [ 
+        { time: "10:00", title: "恰圖恰週末市集", type: "購物", price: "-", open_hours: "09-18", address: "Chatuchak Weekend Market", address_local: "ตลาดนัดจตุจักร", coords: [13.8033, 100.5512], note: "主攻 Section 26 (古董區)。記得補充水分。", tags: ["市集"] },
+        { time: "12:30", title: "Copper Beyond Buffet", type: "美食 (Buffet)", price: "฿2,000", open_hours: "10-20", address: "Gaysorn Amarin", address_local: "คอปเปอร์ บุฟเฟต์ (เกษรอมรินทร์)", coords: [13.7443, 100.5414], note: "預訂制。必吃：和牛船麵、黑松露濃湯。", tags: ["吃到飽"] },
+        { time: "15:00", title: "飯店避暑午休", type: "休息", price: "-", open_hours: "-", address: "IR-ON Hotel", address_local: "โรงแรม IR-ON", coords: [13.7237, 100.5772], note: "外面39度，回飯店整理戰利品、補眠。", tags: ["休息"] },
+        { time: "16:30", title: "Asia Herb Association", type: "Spa", price: "-", open_hours: "09-02", address: "Asia Herb Association Thong Lo", address_local: "เอเชีย เฮิร์บ แอสโซซิเอชั่น ทองหล่อ", coords: [13.7258, 100.5783], note: "推薦：泰式按摩 + 生草藥球熱敷 (消腿痠)。", tags: ["按摩"] },
+        { time: "18:30", title: "Mae Varee 芒果糯米", type: "美食 (小吃)", price: "฿150", open_hours: "06-22", address: "Mae Varee Mango Sticky Rice", address_local: "แม่วารี ข้าวเหนียวมูน", coords: [13.7250, 100.5780], note: "通羅站 3 號出口下樓即達。", tags: ["甜點"] },
+        { time: "19:30", title: "Paper Plane Project", type: "高空酒吧 (40F)", price: "฿500+", open_hours: "09-01:30", address: "T-One Building", address_local: "อาคาร ที-วัน (ชั้น 40)", coords: [13.7229, 100.5807], note: "離飯店走路3分鐘。推薦泰國精釀啤酒。", tags: ["Bar"] }
+    ], 
+    "inspiration": [
+        {title:"Mixt Chatuchak", type:"商場", tag:"RAINY", price:"-", open_hours:"10-20", address:"Mixt Chatuchak", coords:[13.8025, 100.5510], note:"就在恰圖恰市集隔壁的冷氣商場，如果市集太熱或下雨，直接躲進來，這裡也有很多文創攤位。"},
+        {title:"MOCA 當代藝術館", type:"博物館", tag:"RAINY", price:"฿250", open_hours:"10-18", address:"MOCA Bangkok", coords:[13.8523, 100.5627], note:"如果恰圖恰太擁擠，搭車往北一點到 MOCA，建築與光影極美，非常安靜冷門。"}
+    ], 
+    "shopping": ["Hem Aroma 香氛木", "二手古董", "手工飾品"] 
+},
+"day3": { 
+    "date": "2026-04-05", "display": "Apr 05", "weekday": "週日", 
+    "events": [ 
+        { time: "09:30", title: "蘇泰寺 (Wat Suthat)", type: "寺廟", price: "฿100", open_hours: "08:30-21", address: "Wat Suthat Thepwararam", address_local: "วัดสุทัศนเทพวราราม", coords: [13.7513, 100.5011], note: "紅色大鞦韆旁。一級皇家寺廟，遊客少。", tags: ["文化"] },
+        { time: "12:00", title: "The Mustang Blu", type: "特色餐廳", price: "฿800", open_hours: "11-21", address: "The Mustang Blu", address_local: "เดอะ มัสแตง บลู", coords: [13.7397, 100.5146], note: "百年銀行改建，必拍旋轉樓梯。", tags: ["拍照"] },
+        { time: "14:30", title: "River City Bangkok", type: "藝術", price: "-", open_hours: "10-20", address: "River City Bangkok", address_local: "ริเวอร์ ซิตี้ แบงค็อก", coords: [13.7299, 100.5132], note: "3-4 樓古董拍賣與畫廊，很有氣質的冷氣行程。", tags: ["逛街"] },
+        { time: "18:30", title: "Paste Bangkok", type: "米其林一星", price: "฿3,000+", open_hours: "12-14, 18-23", address: "Paste Bangkok", address_local: "เพสต์ แบงค็อก", coords: [13.7444, 100.5404], note: "Gaysorn Village 3樓。必點：皇家咖哩蟹。", tags: ["Fine Dining"] },
+        { time: "21:00", title: "Asia Herb Association", type: "Spa", price: "-", open_hours: "09-02", address: "Asia Herb Association Thong Lo", address_local: "เอเชีย เฮิร์บ แอสโซซิเอชั่น ทองหล่อ", coords: [13.7258, 100.5783], note: "加強肩頸與背部按摩。", tags: ["按摩"] }
+    ], 
+    "inspiration": [
+        {title:"Hong Sieng Kong", type:"Cafe", tag:"RELAX", price:"฿200", open_hours:"10-20", address:"Hong Sieng Kong", coords:[13.7329, 100.5108], note:"Talad Noi 區的古宅咖啡廳，後院直接臨河，充滿中式古董，非常有味道。"},
+        {title:"Warehouse 30", type:"文創", tag:"RAINY", price:"-", open_hours:"11-20", address:"Warehouse 30", coords:[13.7282, 100.5146], note:"就在 River City 旁邊，二戰舊倉庫改建的藝文空間，有很多設計小店。"}
+    ], 
+    "shopping": ["River City 藝術明信片", "古玩欣賞"] 
+},
+"day4": { 
+    "date": "2026-04-06", "display": "Apr 06", "weekday": "週一", 
+    "events": [ 
+        { time: "10:30", title: "Erb Bespoke 調香", type: "體驗", price: "฿2,000+", open_hours: "10-20", address: "Gaysorn Village", address_local: "เกษรวิลเลจ (Erb Boutique)", coords: [13.7444, 100.5404], note: "需預約。調製印有名字的專屬香水。", tags: ["香氛"] },
+        { time: "12:30", title: "Copper Buffet (二刷)", type: "美食", price: "฿2,000", open_hours: "10-20", address: "Gaysorn Amarin", address_local: "คอปเปอร์ บุฟเฟต์ (เกษรอมรินทร์)", coords: [13.7443, 100.5414], note: "二刷重點：生蠔、泰式生醃、精緻甜點。", tags: ["吃到飽"] },
+        { time: "15:00", title: "Gourmet Market", type: "超市", price: "-", open_hours: "10-22", address: "EmQuartier", address_local: "กูร์เมต์ มาร์เก็ต (เอ็มควอเทียร์)", coords: [13.7319, 100.5698], note: "BTS Phrom Phong 1號出口。買伴手禮最齊全。", tags: ["採買"] },
+        { time: "16:30", title: "Asia Herb (大保養)", type: "Spa", price: "-", open_hours: "09-02", address: "Asia Herb Association Thong Lo", address_local: "เอเชีย เฮิร์บ แอสโซซิเอชั่น ทองหล่อ", coords: [13.7258, 100.5783], note: "旅程最後一晚：120分鐘 全身精油 + 草藥球。", tags: ["按摩"] },
+        { time: "19:00", title: "The Commons Thong Lo", type: "文青社區", price: "-", open_hours: "08-01", address: "The Commons Thong Lo", address_local: "เดอะคอมมอนส์ ทองหล่อ", coords: [13.7348, 100.5822], note: "巷口搭紅色小巴(฿8)進來。去 The Beer Cap 喝一杯。", tags: ["放鬆"] }
+    ], 
+    "inspiration": [
+        {title:"EmSphere Mall", type:"商場", tag:"RAINY", price:"-", open_hours:"10-22", address:"EmSphere", coords:[13.7303, 100.5667], note:"曼谷最新潮的商場，IKEA 在三樓，餐飲區非常強大，冷氣很強。"},
+        {title:"Open House", type:"書店", tag:"RELAX", price:"-", open_hours:"10-22", address:"Central Embassy Level 6", coords:[13.7437, 100.5463], note:"位於 Central Embassy 6樓，被譽為曼谷最美書店，有很好的視野和座位。"}
+    ], 
+    "shopping": ["Erb 訂製香水", "藍象調理包", "手標茶", "水果乾"] 
+},
+"day5": { 
+    "date": "2026-04-07", "display": "Apr 07", "weekday": "週二", 
+    "events": [ 
+        { time: "09:30", title: "愛神 & 象神", type: "祈福", price: "-", open_hours: "24H", address: "Central World", address_local: "ศาลพระตรีมูรติ / ศาลพระพิฆเนศ", coords: [13.7466, 100.5393], note: "愛神求緣分(紅玫瑰)；象神求財運事業。", tags: ["文化"] },
+        { time: "11:30", title: "Saneh Jaan", type: "米其林一星", price: "฿2,000", open_hours: "11:30-14", address: "Saneh Jaan", address_local: "ร้านเสน่ห์จันทร์", coords: [13.7388, 100.5457], note: "傳統宮廷泰菜拼盤。在 Sindhorn Tower。", tags: ["泰菜"] },
+        { time: "14:30", title: "前往機場 (BKK)", type: "交通", price: "-", open_hours: "-", address: "Suvarnabhumi Airport", address_local: "ท่าอากาศยานสุวรรณภูมิ", coords: [13.6900, 100.7501], note: "回飯店取行李。BTS 轉 ARL。建議起飛前 3 小時抵達。", tags: ["回程"] }
+    ], 
+    "inspiration": [], 
+    "shopping": ["機場免稅酒", "Jo Malone"] 
+}
 };
 
 const TRIP_INFO = {
     visa: { type: "Visa Exemption", number: "免簽證 (30天)", expiry: "-", note: "入境請準備回程機票證明與住宿訂單備查。" },
     flights: [
-        { type: "去程", flight: "CX751", date: "05/01", dep: "HKG 14:25", arr: "BKK 16:20", note: "BKK 素萬那普機場", bookingRef: "BK8899" },
-        { type: "回程", flight: "CX708", date: "05/05", dep: "BKK 17:30", arr: "HKG 21:25", note: "提早 2.5 小時抵達機場", bookingRef: "BK8899" }
+        { type: "去程", flight: "CX755", date: "04/03", dep: "HKG 09:30", arr: "BKK 11:35", note: "BKK 素萬那普機場", bookingRef: "BK8899" },
+        { type: "回程", flight: "CX706", date: "04/07", dep: "BKK 17:40", arr: "HKG 21:30", note: "提早 2.5 小時抵達機場", bookingRef: "BK8899" }
     ],
     hotels: [
         { name: "IR-ON Hotel", address: "10/10 Sukhumvit 36, Klongton, Klongtoey, Bangkok", phone: "+6620740806" }
@@ -556,8 +522,7 @@ async function fetchWeather() {
     const fallbackMsg = document.getElementById('weather-fallback-msg');
     const lat = 13.7563; const lon = 100.5018; // Bangkok
     
-    // Smart Fallback Logic: Since 2026 is far, the API might not return data or specific daily forecast.
-    // We try to fetch. If it fails or returns no data for our dates, we trigger renderHistoricalWeather.
+    // Smart Fallback Logic
     try {
         const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max,sunrise,sunset&timezone=auto&forecast_days=14`;
         const res = await fetch(url); 
@@ -590,12 +555,11 @@ function renderWeatherModule() {
 }
 
 function renderHistoricalWeather() {
-    // Bangkok in May (Historical Averages)
-    // High: 35C, Low: 27C, Rain: 40% (Rainy season start), UV: Extreme
+    // Bangkok in April (Historical Averages) - Extremely Hot
     const container = document.getElementById('weather-content');
     document.getElementById('weather-fallback-msg').style.display = 'block';
     
-    container.innerHTML = buildWeatherHTML(35, 27, 40, 11, "歷史平均 (5月)");
+    container.innerHTML = buildWeatherHTML(37, 29, 20, 12, "歷史平均 (4月)");
 }
 
 function buildWeatherHTML(max, min, rain, uv, label) {
@@ -604,14 +568,14 @@ function buildWeatherHTML(max, min, rain, uv, label) {
     <div style="font-size:0.9rem; opacity:0.8; margin-bottom:5px; color:#FFF; text-transform:uppercase; letter-spacing:1px;">${label} • 曼谷</div>
     <div class="weather-icon-lg" style="color:#f39c12"><i class="fa-solid fa-cloud-sun-rain"></i></div>
     <div class="weather-temp-lg">${max}°</div>
-    <div class="weather-desc">悶熱 / 體感 40°+</div>
+    <div class="weather-desc">極熱 / 體感 42°+</div>
     </div>
     <div class="weather-grid">
     <div class="weather-stat-card"><i class="fa-solid fa-umbrella" style="color:#3498db; margin-bottom:5px;"></i><span style="font-size:0.7rem; color:#A0A0A0;">降雨機率</span><span style="font-size:1.1rem; font-weight:bold;">${rain}%</span></div>
     <div class="weather-stat-card"><i class="fa-solid fa-sun" style="color:orange; margin-bottom:5px;"></i><span style="font-size:0.7rem; color:#A0A0A0;">紫外線</span><span style="font-size:1.1rem; font-weight:bold;">${uv}+</span></div>
     </div>
     <div style="text-align:center; font-size:0.8rem; color:#A0A0A0; margin-top:20px; padding:0 20px;">
-        <i class="fa-solid fa-shirt"></i> 建議穿著：透氣棉麻材質，務必攜帶折傘與防曬乳。
+        <i class="fa-solid fa-shirt"></i> 建議穿著：4月是泰國最熱月份，請務必補充水分並防曬。
     </div>
     `;
 }
