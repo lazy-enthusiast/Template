@@ -11,12 +11,12 @@
 <style>
 /* --- 1. 設計語言 (Deep Night & Gold) --- */
 :root {
-    --bg-body: #1A1A2E; /* 深夜藍背景 */
-    --bg-card: #232336; /* 卡片深藍灰 */
+    --bg-body: #1A1A2E; 
+    --bg-card: #232336; 
     --bg-input: #2E2E42;
-    --text-main: #EEEEEE; /* 米白文字 */
-    --text-sub: #A0A0A0; /* 淺灰輔助字 */
-    --accent: #D4AF37; /* 奢華金 */
+    --text-main: #EEEEEE; 
+    --text-sub: #A0A0A0; 
+    --accent: #D4AF37; 
     --accent-hover: #B5932A;
     --border: rgba(255, 255, 255, 0.1);
     --header-bg: #1A1A2E;
@@ -189,7 +189,7 @@ main { flex: 1; overflow-y: hidden; position: relative; }
 .phrase-big { font-size: 2.5rem; font-weight: 700; color: var(--accent); line-height: 1.3; margin-bottom: 20px; }
 .close-phrase { position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); border: 1px solid var(--accent); padding: 12px 30px; border-radius: 30px; color: var(--accent); cursor: pointer; background: transparent; font-weight: 600; letter-spacing: 1px; }
 
-/* Modal (No 'x' button, Click backdrop to close) */
+/* Modal (Backdrop + Swipe) */
 .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 3000; justify-content: center; align-items: end; backdrop-filter: blur(5px); cursor: pointer; }
 .modal.open { display: flex; }
 .modal-content { 
@@ -197,6 +197,8 @@ main { flex: 1; overflow-y: hidden; position: relative; }
     border-radius: 20px 20px 0 0; padding: 30px; overflow-y: auto; 
     animation: slideUp 0.3s ease; display: flex; flex-direction: column; 
     border: 1px solid var(--border); border-bottom: none; cursor: default; 
+    /* Important for smooth drag */
+    touch-action: pan-y;
 }
 @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 /* Handle Bar for Visual Cue */
@@ -727,7 +729,12 @@ function openModal(data) {
         actionsContainer.innerHTML += `<button class="btn-action btn-black" onclick="showPhrase('${data.address}', '請載我去這裡')">🚕 給司機看 (英文)</button>`;
     }
 
-    document.getElementById('detail-modal').classList.add('open');
+    const modal = document.getElementById('detail-modal');
+    const modalContent = modal.querySelector('.modal-content');
+    modal.classList.add('open');
+    // Reset transform for new open
+    modalContent.style.transform = '';
+
     setTimeout(() => { 
         if(modalMap) modalMap.remove(); 
         if(data.coords) {
@@ -739,8 +746,52 @@ function openModal(data) {
     }, 100);
 }
 
-function closeModal() { document.getElementById('detail-modal').classList.remove('open'); }
-document.getElementById('detail-modal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+function closeModal() { 
+    const modal = document.getElementById('detail-modal');
+    modal.classList.remove('open'); 
+    // Reset any drag transform
+    modal.querySelector('.modal-content').style.transform = '';
+}
+
+// Backdrop Click Close
+document.getElementById('detail-modal').addEventListener('click', function(e) { 
+    if (e.target === this) closeModal(); 
+});
+
+// --- Swipe Logic ---
+const modalContent = document.querySelector('.modal-content');
+let startY = 0;
+let isDragging = false;
+
+modalContent.addEventListener('touchstart', (e) => {
+    if (modalContent.scrollTop > 0) return; // Only if at top
+    startY = e.touches[0].clientY;
+    isDragging = true;
+    modalContent.style.transition = 'none'; // Instant follow
+});
+
+modalContent.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const currentY = e.touches[0].clientY;
+    const diff = currentY - startY;
+    if (diff > 0) { // Only drag down
+        e.preventDefault(); // Stop scrolling
+        modalContent.style.transform = `translateY(${diff}px)`;
+    }
+});
+
+modalContent.addEventListener('touchend', (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    modalContent.style.transition = 'transform 0.3s ease-out';
+    const currentY = e.changedTouches[0].clientY;
+    const diff = currentY - startY;
+    if (diff > 150) { // Threshold to close
+        closeModal();
+    } else {
+        modalContent.style.transform = ''; // Snap back
+    }
+});
 
 init();
 </script>
