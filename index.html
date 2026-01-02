@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>福岡五感療癒之旅 (Final)</title>
+<title>福岡五感療癒之旅 (v2.0)</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -121,11 +121,22 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: rgba
 .sidebar { position: fixed; top: 0; right: 0; width: 85%; max-width: 320px; height: 100%; background: var(--bg-body); color: #fff; z-index: 1001; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); overflow-y: auto; padding: 25px 20px 100px 20px; padding-top: calc(25px + var(--safe-top)); box-shadow: -5px 0 20px rgba(0,0,0,0.2); } .sidebar.open { transform: translateX(0); }
 .tool-box { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 15px; } 
 .curr-input { width: 100%; padding: 10px; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; font-size: 1.2rem; text-align: center; background: rgba(0,0,0,0.2); color: #fff; font-weight: bold; }
-.phrase-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 5000; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; padding: 30px; } 
+.phrase-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 5000; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; padding: 30px; backdrop-filter: blur(8px); } 
 .phrase-overlay.active { opacity: 1; pointer-events: all; }
+.phrase-card-lg { background: #fff; width: 100%; padding: 40px 20px; border-radius: 20px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.phrase-overlay.active .phrase-card-lg { transform: scale(1); }
 .phrase-big { font-size: 2.2rem; font-weight: 700; color: #111; line-height: 1.3; margin-bottom: 10px; text-align: center; font-family: var(--font-heading); }
-.phrase-sub { font-size: 1.2rem; color: #666; margin-bottom: 30px; }
-.close-phrase { padding: 12px 40px; border-radius: 30px; color: #fff; cursor: pointer; background: #333; font-weight: 600; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: none; font-size: 1rem; }
+.phrase-sub { font-size: 1.2rem; color: #666; margin-bottom: 5px; }
+.phrase-kana { font-size: 0.9rem; color: var(--accent); margin-bottom: 0; font-weight: 600; }
+.close-phrase-hint { color: #fff; margin-top: 30px; font-size: 0.9rem; opacity: 0.7; }
+
+/* New Phrase Page Styles */
+.phrase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 15px; }
+.phrase-item { background: var(--bg-card); padding: 15px; border-radius: 8px; text-align: center; cursor: pointer; box-shadow: var(--shadow); transition: transform 0.1s; display: flex; flex-direction: column; justify-content: center; min-height: 100px; color: var(--text-main); }
+.phrase-item:active { transform: scale(0.96); }
+.p-jp { font-size: 1.1rem; font-weight: 700; margin-bottom: 5px; color: #111; }
+.p-zh { font-size: 0.85rem; color: #666; }
+.p-cat-title { grid-column: 1 / -1; margin-top: 15px; margin-bottom: 5px; color: #aaa; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; }
 
 @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 </style>
@@ -261,7 +272,7 @@ const USER_ITINERARY = {
             { time: "17:30", title: "Fukuoka Craft", type: "小酌", address: "大名1-11-13", coords: [33.5865, 130.3965], note: "按摩完神清氣爽，就在附近喝一杯福岡在地 Craft Beer。", tags: ["啤酒"] },
             { time: "19:30", title: "一利 牛腸鍋", type: "美食", price: "¥4,000", address: "博多駅東2-1-23", coords: [33.5890, 130.4240], address_jp: "ごま鯖と明太もつ鍋 一利 博多本店", note: "1. 從天神搭地鐵/巴士回到博多站。\n2. 位於<b>筑紫口</b>步行範圍內。\n3. 必點：博多名物胡麻鯖魚、明太子牛腸鍋。", tags: ["美食"] }
         ],
-        "shopping": ["线香", "明太子", "自製香水"],
+        "shopping": ["線香", "明太子", "自製香水"],
         "inspiration": [
             { title: "eel Books", tag: "BACKUP", note: "博多附近的獨立書店/古書選物店，適合安靜翻書。", address: "冷泉町", coords: [33.5930, 130.4120], type: "書店" },
             { title: "LOFT 天神", tag: "SHOP", note: "如果不做香水，去LOFT買文具和入浴劑。", address: "天神", coords: [33.5900, 130.4000], type: "購物" }
@@ -299,9 +310,11 @@ const USER_ITINERARY = {
 <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
 <div class="sidebar" id="sidebar">
     <div style="font-size:0.8rem; color:#aaa; margin-bottom:10px; font-weight:700; letter-spacing:1px;">SAFETY & TOOLS</div>
-    <div class="tool-box" style="background: #25D366; border:none; color:#fff; text-align:center; cursor:pointer;" onclick="sendWhatsApp()">
+    <div class="tool-box" style="background: #25D366; border:none; color:#fff; cursor:pointer;">
         <i class="fa-brands fa-whatsapp" style="font-size:2rem; margin-bottom:5px;"></i>
-        <div style="font-weight:bold;">報平安 (Send Location)</div>
+        <div style="font-weight:bold; margin-bottom:10px;">一鍵報平安</div>
+        <input type="tel" id="wa-phone" class="curr-input" placeholder="對方電話 (如 852xxxx)" style="background:rgba(0,0,0,0.2); font-size:1rem; margin-bottom:10px;">
+        <button onclick="sendWhatsApp()" style="width:100%; padding:8px; border-radius:5px; border:none; background:#fff; color:#25D366; font-weight:bold;">發送位置</button>
     </div>
     <div class="tool-box">
         <div style="margin-bottom:10px; font-weight:bold; color:#fff;">匯率換算 (Rate: 0.052)</div>
@@ -309,25 +322,54 @@ const USER_ITINERARY = {
         <div style="text-align:center; color:var(--accent); margin:5px;">⇅</div>
         <input type="number" id="curr-hkd" class="curr-input" placeholder="HKD $" readonly>
     </div>
-    <div class="tool-box">
-        <div style="margin-bottom:10px; font-weight:bold; color:#fff;">手指日語</div>
-        <div class="shop-item" onclick="showPhrase('一人です', '我是一位')"><label>一位 (Hit-ori)</label></div>
-        <div class="shop-item" onclick="showPhrase('お会計お願いします', '麻煩結帳')"><label>結帳 (Kaikei)</label></div>
-        <div class="shop-item" onclick="showPhrase('トイレはどこですか', '廁所在哪裡')"><label>廁所 (Toire)</label></div>
-        <div class="shop-item" onclick="showPhrase('これは何ですか', '這是什麼')"><label>這是什麼 (Kore wa?)</label></div>
-    </div>
+    <button onclick="goToPhrases()" style="width:100%; padding:15px; background:var(--accent); color:var(--accent-text); border:none; border-radius:8px; font-weight:bold; font-size:1rem; display:flex; justify-content:center; align-items:center; gap:10px; cursor:pointer;">
+        <i class="fa-solid fa-language"></i> 🗣️ 開啟日語手指書
+    </button>
 </div>
 
 <div id="phrase-overlay" class="phrase-overlay" onclick="closePhrase()">
-    <div id="overlay-jp" class="phrase-big"></div>
-    <div id="overlay-zh" class="phrase-sub"></div>
-    <button class="close-phrase">關閉</button>
+    <div class="phrase-card-lg" onclick="event.stopPropagation()">
+        <div id="overlay-jp" class="phrase-big"></div>
+        <div id="overlay-kana" class="phrase-kana"></div>
+        <div id="overlay-zh" class="phrase-sub"></div>
+    </div>
+    <div class="close-phrase-hint">點擊背景關閉 (Click BG to Close)</div>
 </div>
 
 <div class="date-selector-container"><div class="date-selector" id="date-selector"></div></div>
 
 <main>
     <div id="page-itinerary" class="page active"><div class="timeline-container" id="timeline-container"></div></div>
+    
+    <div id="page-phrases" class="page">
+        <div class="page-header"><h2 class="page-title">手指日語 (Phrasebook)</h2></div>
+        <div class="phrase-grid">
+            <div class="p-cat-title">生存用語 (Basic)</div>
+            <div class="phrase-item" onclick="showPhrase('ありがとうございます', '謝謝', 'Arigatou Gozaimasu')"><div class="p-jp">ありがとうございます</div><div class="p-zh">謝謝</div></div>
+            <div class="phrase-item" onclick="showPhrase('すいません', '不好意思 / 請問', 'Suimasen')"><div class="p-jp">すいません</div><div class="p-zh">不好意思</div></div>
+            <div class="phrase-item" onclick="showPhrase('大丈夫です', '沒關係 / 不用了', 'Daijoubu desu')"><div class="p-jp">大丈夫です</div><div class="p-zh">沒關係/不用了</div></div>
+            <div class="phrase-item" onclick="showPhrase('英語メニューはありますか', '有英文菜單嗎？', 'Eigo menyu wa arimasuka')"><div class="p-jp">英語メニュー...</div><div class="p-zh">有英文菜單嗎？</div></div>
+
+            <div class="p-cat-title">餐廳 (Dining)</div>
+            <div class="phrase-item" onclick="showPhrase('一人です', '我是一位', 'Hitori desu')"><div class="p-jp">一人です</div><div class="p-zh">一位</div></div>
+            <div class="phrase-item" onclick="showPhrase('お水をください', '請給我水', 'Omizu o kudasai')"><div class="p-jp">お水をください</div><div class="p-zh">請給我水</div></div>
+            <div class="phrase-item" onclick="showPhrase('これをお願いします', '我要這個', 'Kore o onegaishimasu')"><div class="p-jp">これをお願いします</div><div class="p-zh">我要這個</div></div>
+            <div class="phrase-item" onclick="showPhrase('お会計お願いします', '麻煩結帳', 'Okaikei onegaishimasu')"><div class="p-jp">お会計お願いします</div><div class="p-zh">麻煩結帳</div></div>
+
+            <div class="p-cat-title">購物 & 交通 (Shop & Travel)</div>
+            <div class="phrase-item" onclick="showPhrase('これを見せてください', '請讓我看這個', 'Kore o misete')"><div class="p-jp">これを見せて...</div><div class="p-zh">請讓我看這個</div></div>
+            <div class="phrase-item" onclick="showPhrase('いくらですか', '多少錢？', 'Ikura desu ka')"><div class="p-jp">いくらですか</div><div class="p-zh">多少錢？</div></div>
+            <div class="phrase-item" onclick="showPhrase('カードは使えますか', '可以用信用卡嗎？', 'Kado wa tsukaemasuka')"><div class="p-jp">カードは...</div><div class="p-zh">可刷卡嗎？</div></div>
+            <div class="phrase-item" onclick="showPhrase('博多駅はどこですか', '博多站在哪裡？', 'Hakata-eki wa doko')"><div class="p-jp">博多駅はどこ...</div><div class="p-zh">博多站在哪？</div></div>
+
+            <div class="p-cat-title" style="color:#d63345;">緊急 (Emergency)</div>
+            <div class="phrase-item" style="border-left:4px solid #d63345;" onclick="showPhrase('助けてください', '請幫幫我！', 'Tasukete kudasai')"><div class="p-jp" style="color:#d63345;">助けてください</div><div class="p-zh">請幫幫我！</div></div>
+            <div class="phrase-item" style="border-left:4px solid #d63345;" onclick="showPhrase('病院に行きたいです', '我想去醫院', 'Byouin ni ikitai')"><div class="p-jp">病院に行きたい</div><div class="p-zh">我想去醫院</div></div>
+            <div class="phrase-item" style="border-left:4px solid #d63345;" onclick="showPhrase('警察を呼んでください', '請叫警察', 'Keisatsu o yonde')"><div class="p-jp">警察を呼んで</div><div class="p-zh">請叫警察</div></div>
+            <div class="phrase-item" style="border-left:4px solid #d63345;" onclick="showPhrase('財布をなくしました', '錢包不見了', 'Saifu o nakushimashita')"><div class="p-jp">財布をなくし...</div><div class="p-zh">錢包不見了</div></div>
+        </div>
+        <div style="height:50px;"></div>
+    </div>
     
     <div id="page-inspiration" class="page">
         <div class="filter-bar-container">
@@ -494,8 +536,7 @@ function renderInspiration(dayKey) {
     items.forEach(item => {
         const isBackup = item.tag === 'BACKUP';
         const badgeClass = isBackup ? 'inspire-badge backup' : 'inspire-badge';
-        // Add onclick to open modal
-        item.time = "彈性時間"; // Default for inspiration
+        item.time = "彈性時間"; 
         const json = JSON.stringify(item).replace(/'/g, "'");
         
         container.innerHTML += `<div class="inspire-card" data-tag="${item.tag}" onclick='openModal(${json})'>
@@ -525,7 +566,16 @@ function switchMainPage(pageId, navEl) {
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     if(navEl) navEl.classList.add('active');
     
+    // Hide date selector for phrases/info
+    const ds = document.querySelector('.date-selector-container');
+    if(pageId === 'phrases' || pageId === 'info') ds.style.display = 'none'; else ds.style.display = 'block';
+
     if(pageId === 'weather') fetchWeather();
+}
+
+function goToPhrases() {
+    toggleSidebar();
+    switchMainPage('phrases');
 }
 
 // Weather
@@ -599,15 +649,27 @@ function initSwipeClose() {
 function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebar-overlay').classList.toggle('open'); }
 function openTools() { toggleSidebar(); } 
 function convertCurrency() { document.getElementById('curr-hkd').value = (document.getElementById('curr-jpy').value * exchangeRate).toFixed(1); }
-function showPhrase(jp, zh) { document.getElementById('overlay-jp').innerText = jp; document.getElementById('overlay-zh').innerText = zh; document.getElementById('phrase-overlay').classList.add('active'); }
+
+// Phrase Overlay Logic
+function showPhrase(jp, zh, kana) { 
+    document.getElementById('overlay-jp').innerText = jp; 
+    document.getElementById('overlay-zh').innerText = zh; 
+    document.getElementById('overlay-kana').innerText = kana || ""; 
+    document.getElementById('phrase-overlay').classList.add('active'); 
+}
 function closePhrase() { document.getElementById('phrase-overlay').classList.remove('active'); }
+
 function sendWhatsApp() {
+    let phone = document.getElementById('wa-phone').value.replace(/\D/g, '');
+    if(!phone) { alert("請輸入電話號碼"); return; }
+    
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(pos => {
             const link = `http://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
-            window.location.href = `https://wa.me/?text=${encodeURIComponent("I am here: " + link)}`;
+            const text = `我現在在這裡 (平安報信): ${link}`;
+            window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
         });
-    } else alert("No GPS");
+    } else alert("無法定位，請開啟 GPS (No GPS)");
 }
 function openMapQuery(q) { window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`, '_blank'); }
 
