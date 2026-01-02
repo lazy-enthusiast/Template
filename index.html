@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#F9F9F9">
-<title>Prototype v.35</title>
+<title>Kyoto Solo Trip</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500;700;900&display=swap" rel="stylesheet">
@@ -196,7 +196,13 @@ startDate: "2026-05-15",
 duration: 5
 };
 
-// 3. 📍 目的地
+// 3. 💰 預算設定 (新增：這裡設定上限)
+const BUDGET_CONFIG = {
+totalCash: 100000, // 請在此輸入您的日幣現金預算上限
+alertThreshold: 10000 // (選填) 當餘額低於此數字時，變紅色提醒
+};
+
+// 4. 📍 目的地
 const DESTINATION = {
 name: "京都 Kyoto",
 lat: 35.0116,
@@ -207,7 +213,7 @@ currencyLabel: "JPY",
 baseCurrency: "HKD"
 };
 
-// 4. ✈️ 航班與住宿
+// 5. ✈️ 航班與住宿
 const TRIP_INFO = {
 visa: {
 type: "日本短期滯在",
@@ -240,7 +246,7 @@ emergency: [
 ]
 };
 
-// 5. 🗺️ 行程細節 (加入日文地址供的士卡使用)
+// 6. 🗺️ 行程細節
 const USER_ITINERARY = {
 "day1": {
 "events": [
@@ -371,7 +377,7 @@ const USER_ITINERARY = {
 }
 };
 
-// 6. 🗣️ 常用短語
+// 7. 🗣️ 常用短語
 const PHRASE_DATA = [
 {
 category: "購物",
@@ -434,7 +440,7 @@ items: [
 <div class="tool-box">
 <div style="font-weight:bold; margin-bottom:10px; display:flex; justify-content:space-between;">
 <span>現金預算監控</span>
-<span id="budget-remain" style="color:#007AFF; font-family:var(--font-heading);">¥50,000</span>
+<span id="budget-remain" style="color:#007AFF; font-family:var(--font-heading);">--</span>
 </div>
 <div style="display:flex; gap:5px;">
 <input type="number" id="spend-input" class="curr-input" placeholder="支出金額" style="font-size:0.9rem;">
@@ -537,7 +543,7 @@ items: [
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-// 全域資料存儲 (解決引號跳脫問題)
+// 全域資料存儲
 const eventStorage = {};
 
 // 1. 🎨 應用主題
@@ -581,7 +587,9 @@ let currentEventData = null;
 let exchangeRate = 0.053;
 let weatherCache = null;
 let shopState = {};
-let currentBudget = 50000;
+
+// 改為追蹤「總支出」，以適應使用者在頂部修改「總預算」
+let totalSpent = 0;
 
 // 4. 啟動程式
 function init() {
@@ -598,8 +606,8 @@ fetchRates();
 if(localStorage.getItem('travelMemo')) document.getElementById('quick-memo').value = localStorage.getItem('travelMemo');
 if(localStorage.getItem('shopState')) shopState = JSON.parse(localStorage.getItem('shopState'));
 
-// 初始化預算
-if(localStorage.getItem('tripBudget')) currentBudget = parseInt(localStorage.getItem('tripBudget'));
+// 初始化支出紀錄
+if(localStorage.getItem('tripExpenses')) totalSpent = parseInt(localStorage.getItem('tripExpenses'));
 updateBudgetDisplay();
 
 document.getElementById('quick-memo').addEventListener('input', function() { localStorage.setItem('travelMemo', this.value); });
@@ -780,16 +788,26 @@ function callNumber(num) { window.location.href = `tel:${num}`; }
 function copyToClipboard(text) { navigator.clipboard.writeText(text).then(() => { showToast("已複製"); }); }
 function searchGmail(query) { window.open(`https://mail.google.com/mail/u/0/#search/${encodeURIComponent(query)}`, '_blank'); }
 
-/* NEW: Budget Tracker Logic */
+/* NEW: Budget Tracker Logic (讀取配置檔) */
 function updateBudgetDisplay() {
-document.getElementById('budget-remain').innerText = '¥' + currentBudget.toLocaleString();
+const remaining = BUDGET_CONFIG.totalCash - totalSpent;
+const el = document.getElementById('budget-remain');
+el.innerText = '¥' + remaining.toLocaleString();
+
+// 如果餘額低於警戒線，變紅色
+if (BUDGET_CONFIG.alertThreshold && remaining < BUDGET_CONFIG.alertThreshold) {
+el.style.color = '#FF3B30';
+} else {
+el.style.color = '#007AFF';
 }
+}
+
 function addExpense() {
 const input = document.getElementById('spend-input');
 const val = parseInt(input.value);
 if(val) {
-currentBudget -= val;
-localStorage.setItem('tripBudget', currentBudget);
+totalSpent += val;
+localStorage.setItem('tripExpenses', totalSpent); // 儲存總支出
 updateBudgetDisplay();
 input.value = '';
 showToast(`已扣除 ¥${val}`);
@@ -832,12 +850,12 @@ if(addr) {
 actionsContainer.innerHTML += `<button class="btn-action btn-outline" onclick="copyToClipboard('${addr}')"><i class="fa-regular fa-copy"></i> 複製地址</button>`;
 actionsContainer.innerHTML += `<button class="btn-action btn-black" onclick="openMapQuery('${data.address}')"><i class="fa-solid fa-location-arrow"></i> Google Maps 導航</button>`;
 
-// NEW: Taxi Card Button
+// Taxi Card Button
 const taxiAddr = data.address_local || data.address;
 actionsContainer.innerHTML += `<button class="btn-action btn-black" style="margin-top:10px; background:#222;" onclick="showTaxiCard('${taxiAddr}')"><i class="fa-solid fa-taxi"></i> 顯示給司機看 (的士卡)</button>`;
 }
 
-// 搜尋預約信 (總是顯示)
+// 搜尋預約信
 if (data.type === '美食' || data.type === '晚餐' || data.type === '午餐' || data.type === '早餐' || data.type === '住宿') {
 actionsContainer.innerHTML += `<button class="btn-action btn-outline" onclick="searchGmail('${data.title}')">🔍 搜尋預約信 (Gmail)</button>`;
 }
@@ -863,7 +881,6 @@ modalMap.invalidateSize();
 }
 }
 
-// NEW: Taxi Card Functions
 function showTaxiCard(addr) {
 document.getElementById('taxi-address-text').innerText = addr;
 document.getElementById('taxi-overlay').classList.add('active');
@@ -889,7 +906,6 @@ function selectDay(dayKey, chipEl) { currentDay = dayKey; document.querySelector
 function renderTimeline(dayKey) {
 const container = document.getElementById('timeline-container'); container.innerHTML = '';
 (scheduleData[dayKey].events || []).forEach((event, idx) => {
-// 修正：使用全域存儲 ID，避免引號問題
 const uniqueId = `${dayKey}_evt_${idx}`;
 eventStorage[uniqueId] = event;
 
@@ -907,7 +923,6 @@ if(!scheduleData[dayKey].events.length) container.innerHTML = "<div style='text-
 function renderInspiration(dayKey) {
 const container = document.getElementById('inspiration-container'); container.innerHTML = '';
 (scheduleData[dayKey].inspiration || []).forEach((item, idx) => {
-// 修正：同樣使用全域存儲 ID
 const uniqueId = `${dayKey}_insp_${idx}`;
 eventStorage[uniqueId] = item;
 
