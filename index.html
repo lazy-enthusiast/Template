@@ -3,14 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Kyoto Trip Final Test</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#F9F9F9">
+<title>Prototype v.35</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500;700;900&display=swap" rel="stylesheet">
 
 <style>
 /* ========================================================
 🎨 [系統樣式表] 視覺設計
-(System Styles - Visual Design)
 ========================================================
 */
 :root {
@@ -18,7 +21,7 @@
 --text-main: #111111; --text-sub: #777777;
 --accent: #000000; --accent-text: #FFFFFF;
 --border: #EEEEEE;
---font-heading: sans-serif; --font-body: sans-serif;
+--font-heading: 'Noto Sans JP', sans-serif; --font-body: 'Noto Sans JP', sans-serif;
 --shadow: 0 1px 3px rgba(0,0,0,0.05);
 --safe-top: env(safe-area-inset-top);
 --safe-bottom: env(safe-area-inset-bottom);
@@ -43,7 +46,7 @@ header h1 { margin: 0; font-size: 1.1rem; font-weight: 800; letter-spacing: 0.5p
 
 /* Main Structure */
 main { flex: 1; overflow-y: hidden; position: relative; }
-.page { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow-y: auto; padding: 10px 0 80px 0; display: none; opacity: 0; transition: opacity 0.2s ease; background-color: var(--bg-body); -webkit-overflow-scrolling: touch; }
+.page { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow-y: auto; padding: 10px 0 100px 0; display: none; opacity: 0; transition: opacity 0.2s ease; background-color: var(--bg-body); -webkit-overflow-scrolling: touch; }
 .page.active { display: block; opacity: 1; z-index: 10; }
 .page-header { padding: 0 15px; margin-bottom: 15px; }
 .page-title { font-size: 1.5rem; font-weight: 800; margin: 0; letter-spacing: -0.5px; font-family: var(--font-heading); }
@@ -61,7 +64,7 @@ main { flex: 1; overflow-y: hidden; position: relative; }
 .card-tag { font-size: 0.6rem; background: var(--bg-body); padding: 2px 6px; border-radius: 0; color: var(--text-sub); font-weight: 500; border: 1px solid var(--border); letter-spacing: 0.5px; }
 
 /* Weather */
-.weather-main-card { background: var(--text-main); color: var(--bg-body); border-radius: 0; padding: 20px; margin: 0 15px 20px 15px; text-align: center; position: relative; overflow: hidden;}
+.weather-main-card { background: rgba(17, 17, 17, 0.95); backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.15); color: var(--bg-body); border-radius: 0; padding: 20px; margin: 0 15px 20px 15px; text-align: center; position: relative; overflow: hidden;}
 .weather-tag-badge { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.2); padding: 2px 8px; font-size: 0.6rem; border-radius: 10px; font-weight: 600; }
 .weather-header-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 5px; }
 .weather-big-temp { font-size: 3.5rem; font-weight: 300; line-height: 1; letter-spacing: -2px; font-family: var(--font-heading); }
@@ -143,6 +146,13 @@ main { flex: 1; overflow-y: hidden; position: relative; }
 .btn-black { background: var(--accent); color: var(--accent-text); }
 .btn-outline { background: var(--bg-card); border: 1px solid var(--text-main); color: var(--text-main); }
 
+/* Taxi Overlay */
+.taxi-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:6000; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:20px; text-align:center; display:none; }
+.taxi-overlay.active { display:flex; }
+.taxi-title { font-size:1.5rem; color:#666; margin-bottom:20px; font-weight:bold; }
+.taxi-address { font-size:2.8rem; font-weight:900; line-height:1.3; color:#000; font-family: "Noto Sans JP", sans-serif; word-break: keep-all; }
+.taxi-close { margin-top:40px; border:2px solid #000; padding:10px 40px; font-size:1.2rem; font-weight:bold; border-radius:50px; background:none; cursor: pointer; }
+
 /* Nav & Sidebar */
 nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(--bg-card); opacity: 0.98; display: flex; justify-content: space-around; padding: 12px 0 calc(12px + var(--safe-bottom)) 0; border-top: 1px solid var(--border); z-index: 100; backdrop-filter: blur(10px); }
 .nav-item { color: var(--text-sub); text-align: center; font-size: 0.6rem; cursor: pointer; width: 25%; transition: color 0.2s; opacity: 0.5; }
@@ -171,22 +181,19 @@ backgroundColor: "#FFFFFF",
 cardColor: "#F9F9F9",
 textColor: "#111111",
 textSubColor: "#777777",
-borderColor: "#EEEEEE",
-googleFontsUrl: "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500;700&display=swap",
-fontHeading: '"Noto Sans JP", sans-serif',
-fontBody: '"Noto Sans JP", sans-serif'
+borderColor: "#EEEEEE"
 };
 
-// 2. 🗓️ 旅程設定 (測試日期：2026年5月)
+// 2. 🗓️ 旅程設定
 const CONFIG = {
 ui: {
-browserTitle: "Kyoto Test Trip",
+browserTitle: "Kyoto Solo Trip",
 headerTitle: "KYOTO <span>SOLO</span>",
 homeTimezone: "Asia/Hong_Kong",
 homeTimeLabel: "HKG"
 },
-startDate: "2026-05-15", // 模擬出發日
-duration: 5 // 模擬 5 天行程
+startDate: "2026-05-15",
+duration: 5
 };
 
 // 3. 📍 目的地
@@ -200,7 +207,7 @@ currencyLabel: "JPY",
 baseCurrency: "HKD"
 };
 
-// 4. ✈️ 航班與住宿 (符合不早起、不晚歸習慣)
+// 4. ✈️ 航班與住宿
 const TRIP_INFO = {
 visa: {
 type: "日本短期滯在",
@@ -233,7 +240,7 @@ emergency: [
 ]
 };
 
-// 5. 🗺️ 行程細節 (測試重點：超市、香水、古物、按摩)
+// 5. 🗺️ 行程細節 (加入日文地址供的士卡使用)
 const USER_ITINERARY = {
 "day1": {
 "events": [
@@ -249,13 +256,14 @@ const USER_ITINERARY = {
 },
 {
 "time": "18:00", "title": "Check-in 放行李", "type": "住宿",
-"address": "京都市下京區東塩小路町558-8", "address_local": "京都市下京区東塩小路町558-8",
+"address": "京都市下京區東塩小路町558-8", "address_local": "京都市下京区東塩小路町558-8 (Dormy Inn)",
 "coords": [34.9868, 135.7599], "tags": ["Dormy Inn"], "moodColor": "#000",
 "note": "先去大浴場洗把臉，換輕鬆衣服。"
 },
 {
 "time": "19:00", "title": "Lopia / 伊勢丹超市", "type": "購物",
-"address": "京都車站周邊", "tags": ["超市巡禮", "最愛"], "moodColor": "#FF9500",
+"address": "京都車站周邊", "address_local": "京都駅 ヨドバシカメラ 地下 (Lopia)",
+"tags": ["超市巡禮", "最愛"], "moodColor": "#FF9500",
 "note": "Lopia 在 Yodobashi 地下，買當季水果 (草莓/水蜜桃) 和優格。伊勢丹 B2 買熟食。"
 }
 ],
@@ -268,18 +276,21 @@ const USER_ITINERARY = {
 "events": [
 {
 "time": "10:30", "title": "下鴨神社 (散步)", "type": "祈福",
-"address": "京都市左京区下鴨泉川町59", "coords": [35.0391, 135.7730],
+"address": "京都市左京区下鴨泉川町59", "address_local": "京都市左京区下鴨泉川町59 (下鴨神社)",
+"coords": [35.0391, 135.7730],
 "tags": ["能量景點", "森林"], "moodColor": "#34C759",
 "note": "這裡的「糺之森」空氣很好，適合散步，可以買蕾絲御守。"
 },
 {
 "time": "13:00", "title": "獨食午餐: Grill Capital Touyoutei", "type": "美食",
-"address": "京都市北区上贺茂岩ケ垣内町28-3", "tags": ["百年洋食", "漢堡排"], "moodColor": "#FF2D55",
+"address": "京都市北区上贺茂岩ケ垣内町28-3", "address_local": "北山通 東洋亭 本店",
+"tags": ["百年洋食", "漢堡排"], "moodColor": "#FF2D55",
 "note": "必吃整顆番茄沙拉。即使一個人吃也很自在。"
 },
 {
 "time": "15:00", "title": "Lisn Kyoto (香水/線香)", "type": "購物",
-"address": "京都市下京区烏丸通四条下ル COCON KARASUMA 1F", "coords": [35.0034, 135.7593],
+"address": "京都市下京区烏丸通四条下ル COCON KARASUMA 1F", "address_local": "四条烏丸 COCON KARASUMA 1F (Lisn)",
+"coords": [35.0034, 135.7593],
 "tags": ["香氛", "設計"], "moodColor": "#AF52DE",
 "note": "挑選幾款喜歡的線香，店內設計非常現代，不會有傳統沈重感。"
 }
@@ -293,19 +304,21 @@ const USER_ITINERARY = {
 "events": [
 {
 "time": "11:00", "title": "寺町通古物店巡禮", "type": "逛街",
-"address": "寺町通二条", "coords": [35.0125, 135.7678],
+"address": "寺町通二条", "address_local": "寺町通二条 (古美術街)",
+"coords": [35.0125, 135.7678],
 "tags": ["古物", "茶道具"], "moodColor": "#A2845E",
 "note": "這一帶有很多老字號古董店、紙店 (一保堂茶舖也在附近)。"
 },
 {
 "time": "15:00", "title": "Sfera Building", "type": "設計",
-"address": "京都市東山区縄手通新橋上ル西之町200",
+"address": "京都市東山区縄手通新橋上ル西之町200", "address_local": "祇園 Sfera Building",
 "tags": ["現代工藝"], "moodColor": "#8E8E93",
 "note": "很有質感的選物店，適合挑選有品味的紀念品。"
 },
 {
 "time": "18:00", "title": "Cave de K (Wine Bar)", "type": "小酌",
-"address": "京都市中京区", "tags": ["紅酒", "安靜"], "moodColor": "#5856D6",
+"address": "京都市中京区", "address_local": "京都ホテルオークラ近く Cave de K",
+"tags": ["紅酒", "安靜"], "moodColor": "#5856D6",
 "note": "氣氛很好的酒吧，適合獨自喝一杯，服務人員專業且有距離感 (安全)。"
 }
 ],
@@ -318,13 +331,15 @@ const USER_ITINERARY = {
 "events": [
 {
 "time": "14:00", "title": "預約按摩: Olive Spa", "type": "放鬆",
-"address": "京都祇園店", "coords": [35.0050, 135.7750],
+"address": "京都祇園店", "address_local": "京都 祇園 Olive Spa",
+"coords": [35.0050, 135.7750],
 "tags": ["SPA", "按摩"], "moodColor": "#FF9F0A",
 "note": "已預約 100 分鐘精油療程。注重隱私，非常安全。"
 },
 {
 "time": "17:00", "title": "超市補貨 & 整理行李", "type": "整理",
-"address": "Dormy Inn", "tags": ["休息"], "moodColor": "#000",
+"address": "Dormy Inn", "address_local": "京都市下京区東塩小路町558-8",
+"tags": ["休息"], "moodColor": "#000",
 "note": "把這幾天買的東西整理好，最後再去一次樓下超市買明天飛機上吃的零食。"
 }
 ],
@@ -356,8 +371,7 @@ const USER_ITINERARY = {
 }
 };
 
-// 6. 🗣️ 常用短語 (測試版)
-// 每次更新行程時，請一併更新此區塊
+// 6. 🗣️ 常用短語
 const PHRASE_DATA = [
 {
 category: "購物",
@@ -378,6 +392,7 @@ items: [
 </script>
 
 <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-msg">Action Completed</span></div>
+
 <header>
 <div>
 <h1 id="app-title">TRIP PLANNER</h1>
@@ -388,17 +403,21 @@ items: [
 <div class="header-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></div>
 </div>
 </header>
+
 <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
 <div class="sidebar" id="sidebar">
 <div class="sidebar-menu-btn" onclick="openPhrasePage()">
 <i class="fa-solid fa-book-open"></i> 📖 旅行短語
 </div>
+
 <div class="whatsapp-box">
 <div style="font-weight:bold; margin-bottom:5px;"><i class="fa-brands fa-whatsapp"></i> 安全 Check-in</div>
 <input type="tel" id="wa-phone" class="wa-input" placeholder="對方電話 (如 85291234567)">
 <button class="wa-btn" id="wa-btn" onclick="sendWhatsApp()"><i class="fa-solid fa-paper-plane"></i> 發送位置</button>
 </div>
+
 <div class="sidebar-section-title">工具箱</div>
+
 <div class="tool-box">
 <div style="font-weight:bold; margin-bottom:15px;">匯率換算</div>
 <div class="currency-grid">
@@ -411,18 +430,40 @@ items: [
 <div style="display:flex; gap:10px;"><span onclick="fetchRates(true)" style="color:#007AFF; cursor:pointer;">刷新</span></div>
 </div>
 </div>
+
+<div class="tool-box">
+<div style="font-weight:bold; margin-bottom:10px; display:flex; justify-content:space-between;">
+<span>現金預算監控</span>
+<span id="budget-remain" style="color:#007AFF; font-family:var(--font-heading);">¥50,000</span>
+</div>
+<div style="display:flex; gap:5px;">
+<input type="number" id="spend-input" class="curr-input" placeholder="支出金額" style="font-size:0.9rem;">
+<button class="wa-btn" style="width:auto; padding:0 15px;" onclick="addExpense()">記帳</button>
+</div>
+</div>
+
 <div class="tool-box">
 <div style="font-weight:bold; margin-bottom:10px;">隨手記</div>
 <textarea id="quick-memo" class="memo-area" placeholder="筆記..." oninput="saveMemo()"></textarea>
 </div>
 </div>
+
 <div id="phrase-overlay" class="phrase-overlay" onclick="closePhrase()">
 <div class="phrase-content"><div id="overlay-jp" class="phrase-big"></div><div id="overlay-zh" class="phrase-sub"></div></div>
 <div class="close-phrase">關閉</div>
 </div>
+
+<div id="taxi-overlay" class="taxi-overlay">
+<div class="taxi-title">運転手さん、ここまでお願いします。<br><span style="font-size:1rem">(司機先生，請載我到這裡)</span></div>
+<div id="taxi-address-text" class="taxi-address"></div>
+<button class="taxi-close" onclick="closeTaxiCard()">閉じる (關閉)</button>
+</div>
+
 <div class="date-selector-container"><div class="date-selector" id="date-selector"></div></div>
+
 <main>
 <div id="page-itinerary" class="page active"><div class="timeline-container" id="timeline-container"></div></div>
+
 <div id="page-inspiration" class="page">
 <div class="filter-bar-container">
 <span class="filter-chip active" onclick="filterInspiration('all', this)">全部</span>
@@ -432,7 +473,9 @@ items: [
 </div>
 <div id="inspiration-container" class="inspiration-grid"></div>
 </div>
+
 <div id="page-shopping" class="page"><div class="page-header"><h2 class="page-title">購物清單</h2></div><div id="shopping-container" class="shopping-list"></div></div>
+
 <div id="page-weather" class="page">
 <div id="weather-content"><div style="text-align:center; padding:50px;"><i class="fa-solid fa-spinner fa-spin"></i></div></div>
 <div id="weather-details-container" style="display:none;">
@@ -453,15 +496,18 @@ items: [
 <div style="text-align:center; padding-bottom:30px; color:var(--text-sub); font-size:0.75rem;">資料來源: Open-Meteo <span id="data-source-tag"></span></div>
 </div>
 </div>
+
 <div id="page-info" class="page">
 <div class="page-header"><h2 class="page-title">旅程資訊</h2></div>
 <div id="dynamic-info-content"></div>
 </div>
+
 <div id="page-phrases" class="page">
 <div class="page-header"><h2 class="page-title">常用短語</h2></div>
 <div id="phrases-container"></div>
 </div>
 </main>
+
 <nav class="bottom-nav">
 <div class="nav-item active" onclick="switchMainPage('itinerary', this)"><i class="fa-regular fa-calendar-days"></i><span>行程</span></div>
 <div class="nav-item" onclick="switchMainPage('inspiration', this)"><i class="fa-regular fa-compass"></i><span>靈感</span></div>
@@ -469,6 +515,7 @@ items: [
 <div class="nav-item" onclick="switchMainPage('weather', this)"><i class="fa-solid fa-cloud-sun"></i><span>天氣</span></div>
 <div class="nav-item" onclick="switchMainPage('info', this)"><i class="fa-solid fa-sliders"></i><span>資訊</span></div>
 </nav>
+
 <div id="detail-modal" class="modal">
 <div class="modal-content">
 <div class="modal-handle-container" id="modal-drag-area"><div class="modal-handle"></div></div>
@@ -490,6 +537,9 @@ items: [
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
+// 全域資料存儲 (解決引號跳脫問題)
+const eventStorage = {};
+
 // 1. 🎨 應用主題
 function applyTheme() {
 const root = document.documentElement;
@@ -500,18 +550,13 @@ if(THEME_CONFIG.cardColor) root.style.setProperty('--bg-card', THEME_CONFIG.card
 if(THEME_CONFIG.textColor) root.style.setProperty('--text-main', THEME_CONFIG.textColor);
 if(THEME_CONFIG.textSubColor) root.style.setProperty('--text-sub', THEME_CONFIG.textSubColor);
 if(THEME_CONFIG.borderColor) root.style.setProperty('--border', THEME_CONFIG.borderColor);
-if(THEME_CONFIG.fontHeading) root.style.setProperty('--font-heading', THEME_CONFIG.fontHeading);
-if(THEME_CONFIG.fontBody) root.style.setProperty('--font-body', THEME_CONFIG.fontBody);
-if(THEME_CONFIG.googleFontsUrl) {
-const link = document.createElement('link'); link.rel = 'stylesheet'; link.href = THEME_CONFIG.googleFontsUrl; document.head.appendChild(link);
-}
 }
 
 // 2. 🗓️ 生成日期資料
 function generateScheduleData() {
 const dates = {};
 const baseDate = new Date(CONFIG.startDate);
-const duration = CONFIG.duration || 8;
+const duration = CONFIG.duration || 5;
 const weekDays = ["週日", "週一", "週二", "週三", "週四", "週五", "週六"];
 for(let i=0; i<duration; i++) {
 const d = new Date(baseDate); d.setDate(baseDate.getDate() + i);
@@ -536,6 +581,7 @@ let currentEventData = null;
 let exchangeRate = 0.053;
 let weatherCache = null;
 let shopState = {};
+let currentBudget = 50000;
 
 // 4. 啟動程式
 function init() {
@@ -551,6 +597,10 @@ fetchRates();
 
 if(localStorage.getItem('travelMemo')) document.getElementById('quick-memo').value = localStorage.getItem('travelMemo');
 if(localStorage.getItem('shopState')) shopState = JSON.parse(localStorage.getItem('shopState'));
+
+// 初始化預算
+if(localStorage.getItem('tripBudget')) currentBudget = parseInt(localStorage.getItem('tripBudget'));
+updateBudgetDisplay();
 
 document.getElementById('quick-memo').addEventListener('input', function() { localStorage.setItem('travelMemo', this.value); });
 
@@ -730,7 +780,28 @@ function callNumber(num) { window.location.href = `tel:${num}`; }
 function copyToClipboard(text) { navigator.clipboard.writeText(text).then(() => { showToast("已複製"); }); }
 function searchGmail(query) { window.open(`https://mail.google.com/mail/u/0/#search/${encodeURIComponent(query)}`, '_blank'); }
 
-// 🟢 核心修正區：Modal 與 點擊邏輯
+/* NEW: Budget Tracker Logic */
+function updateBudgetDisplay() {
+document.getElementById('budget-remain').innerText = '¥' + currentBudget.toLocaleString();
+}
+function addExpense() {
+const input = document.getElementById('spend-input');
+const val = parseInt(input.value);
+if(val) {
+currentBudget -= val;
+localStorage.setItem('tripBudget', currentBudget);
+updateBudgetDisplay();
+input.value = '';
+showToast(`已扣除 ¥${val}`);
+}
+}
+
+// 🟢 核心修正區：Modal 與 點擊邏輯 (使用 eventStorage)
+function openModalFromId(eventId) {
+const data = eventStorage[eventId];
+if(data) openModal(data);
+}
+
 function openModal(data) {
 currentEventData = data;
 document.getElementById('modal-title').innerText = data.title;
@@ -760,7 +831,10 @@ const addr = data.address_local || data.address;
 if(addr) {
 actionsContainer.innerHTML += `<button class="btn-action btn-outline" onclick="copyToClipboard('${addr}')"><i class="fa-regular fa-copy"></i> 複製地址</button>`;
 actionsContainer.innerHTML += `<button class="btn-action btn-black" onclick="openMapQuery('${data.address}')"><i class="fa-solid fa-location-arrow"></i> Google Maps 導航</button>`;
-if (data.type === '住宿' || data.type === '交通') { actionsContainer.innerHTML += `<button class="btn-action btn-outline" onclick="showPhrase('${addr}', '請載我去這裡')">🚕 顯示的士卡</button>`; }
+
+// NEW: Taxi Card Button
+const taxiAddr = data.address_local || data.address;
+actionsContainer.innerHTML += `<button class="btn-action btn-black" style="margin-top:10px; background:#222;" onclick="showTaxiCard('${taxiAddr}')"><i class="fa-solid fa-taxi"></i> 顯示給司機看 (的士卡)</button>`;
 }
 
 // 搜尋預約信 (總是顯示)
@@ -770,7 +844,7 @@ actionsContainer.innerHTML += `<button class="btn-action btn-outline" onclick="s
 
 document.getElementById('detail-modal').classList.add('open');
 
-// 地圖處理：如果沒有座標且沒有地址，隱藏地圖容器
+// 地圖處理
 const miniMapContainer = document.getElementById('modal-mini-map');
 if(!data.coords && !data.address) {
 miniMapContainer.style.display = 'none';
@@ -778,7 +852,6 @@ miniMapContainer.style.display = 'none';
 miniMapContainer.style.display = 'block';
 setTimeout(() => {
 if(modalMap) modalMap.remove();
-// 預設座標或目的地座標
 const targetCoords = data.coords || [DESTINATION.lat, DESTINATION.lon];
 modalMap = L.map('modal-mini-map', {zoomControl:false, dragging:false, attributionControl: false}).setView(targetCoords, 15);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png').addTo(modalMap);
@@ -788,6 +861,15 @@ L.marker(data.coords, {icon: L.divIcon({className:'custom-div-icon',html:"<div s
 modalMap.invalidateSize();
 }, 150);
 }
+}
+
+// NEW: Taxi Card Functions
+function showTaxiCard(addr) {
+document.getElementById('taxi-address-text').innerText = addr;
+document.getElementById('taxi-overlay').classList.add('active');
+}
+function closeTaxiCard() {
+document.getElementById('taxi-overlay').classList.remove('active');
 }
 
 function closeModal() { document.getElementById('detail-modal').classList.remove('open'); document.querySelector('.modal-content').style.transform = ''; }
@@ -806,27 +888,30 @@ function selectDay(dayKey, chipEl) { currentDay = dayKey; document.querySelector
 
 function renderTimeline(dayKey) {
 const container = document.getElementById('timeline-container'); container.innerHTML = '';
-(scheduleData[dayKey].events || []).forEach(event => {
+(scheduleData[dayKey].events || []).forEach((event, idx) => {
+// 修正：使用全域存儲 ID，避免引號問題
+const uniqueId = `${dayKey}_evt_${idx}`;
+eventStorage[uniqueId] = event;
+
 const item = document.createElement('div'); item.className = 'timeline-item';
 let tags = event.tags.map(t => `<span class="card-tag">${t}</span>`).join('');
-// 確保單引號被轉義
-const safeData = JSON.stringify(event).replace(/'/g, "'");
 const navBtn = `<div class="card-nav-btn" onclick="event.stopPropagation(); openMapQuery('${event.address}')"><i class="fa-solid fa-location-arrow"></i></div>`;
 const colorStyle = event.moodColor ? `border-left-color: ${event.moodColor};` : 'border-left-color: var(--accent);';
-item.innerHTML = `<div class="card" style="${colorStyle}" onclick='openModal(${safeData})'>${navBtn}<span class="card-time">${event.time}</span><h3 class="card-title">${event.title}</h3><div class="tags">${tags}</div></div>`;
+
+item.innerHTML = `<div class="card" style="${colorStyle}" onclick="openModalFromId('${uniqueId}')">${navBtn}<span class="card-time">${event.time}</span><h3 class="card-title">${event.title}</h3><div class="tags">${tags}</div></div>`;
 container.appendChild(item);
 });
 if(!scheduleData[dayKey].events.length) container.innerHTML = "<div style='text-align:center; padding:50px; color:var(--text-sub);'>本日無行程，自由探索！</div>";
 }
 
-// 🟢 修正：現在無論是否有地址，都會綁定 openModal
 function renderInspiration(dayKey) {
 const container = document.getElementById('inspiration-container'); container.innerHTML = '';
-(scheduleData[dayKey].inspiration || []).forEach(item => {
-// 修正：移除 address 判斷，並轉義單引號
-const safeData = JSON.stringify(item).replace(/'/g, "'");
-const clickAttr = `onclick='openModal(${safeData})'`;
-container.innerHTML += `<div class="inspire-card" data-tag="${item.tag}" ${clickAttr}><div class="inspire-badge">${item.tag}</div><h3 class="inspire-title">${item.title}</h3><p class="inspire-note">${item.note}</p></div>`;
+(scheduleData[dayKey].inspiration || []).forEach((item, idx) => {
+// 修正：同樣使用全域存儲 ID
+const uniqueId = `${dayKey}_insp_${idx}`;
+eventStorage[uniqueId] = item;
+
+container.innerHTML += `<div class="inspire-card" data-tag="${item.tag}" onclick="openModalFromId('${uniqueId}')"><div class="inspire-badge">${item.tag}</div><h3 class="inspire-title">${item.title}</h3><p class="inspire-note">${item.note}</p></div>`;
 });
 if(!scheduleData[dayKey].inspiration.length) container.innerHTML = "<div style='text-align:center; padding:30px; color:var(--text-sub);'>本日無靈感筆記</div>";
 }
