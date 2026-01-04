@@ -168,17 +168,17 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
 <body>
 
 <script id="USER_DATA_CONFIG">
-// 1. 🎨 主題顏色：金繼與和紙
+// 1. 🎨 主題顏色：金繼與和紙 (Kyoto 2026 Liquid Architecture)
 const THEME_CONFIG = {
     accentColor: "#C5A059",      // 金繼金 (Kintsugi Gold)
     accentText: "#FFFFFF",       // 金色背景上的白字
     backgroundColor: "#F4F4F0",  // 和紙白 (Washi White)
     cardColor: "#FFFFFF",        // 卡片維持純白以利閱讀
     textColor: "#2C2C2C",        // 墨色 (Ink)
-    textSubColor: "#586C58",     // 苔蘚綠 (Moss Green) - 用於次要資訊
+    textSubColor: "#586C58",     // 苔蘚綠 (Moss Green)
     borderColor: "#E0E0E0",
-    fontHeading: '"Noto Serif JP", serif', // 襯線體 - 文學感
-    fontBody: '"Noto Sans JP", sans-serif' // 無襯線體 - 易讀
+    fontHeading: '"Noto Serif JP", serif', // 襯線體
+    fontBody: '"Noto Sans JP", sans-serif'
 };
 
 // 2. 🗓️ 旅程設定
@@ -193,9 +193,9 @@ const CONFIG = {
     duration: 9
 };
 
-// 3. 📍 目的地 (以京都為核心)
+// 3. 📍 目的地
 const DESTINATION = {
-    name: "京都 Kyoto",
+    name: "京都 Kyoto", // 涵蓋金澤/小松
     lat: 35.0116,
     lon: 135.7681,
     timezone: "Asia/Tokyo",
@@ -215,12 +215,12 @@ const TRIP_INFO = {
         {
             type: "去程", flight: "CX506", date: "06/27",
             dep: "HKG 10:10", arr: "KIX 15:00",
-            note: "早上不趕，睡飽出門", bookingRef: ""
+            note: "T1 登機。抵達後前往 JR 綠色窗口。", bookingRef: ""
         },
         {
             type: "回程", flight: "CX507", date: "07/05",
             dep: "KIX 17:50", arr: "HKG 20:50",
-            note: "回程不晚，隔天可上班", bookingRef: ""
+            note: "回程時間適中，隔天可上班。", bookingRef: ""
         }
     ],
     hotels: [
@@ -250,18 +250,18 @@ const TRIP_INFO = {
     ]
 };
 
-// 5. 🗺️ 行程細節 (液體架構之旅)
+// 5. 🗺️ 行程細節 (含詳細 Plan B)
 const USER_ITINERARY = {
-    "day1": { // 6/27 金澤
+    "day1": { 
         "events": [
             {
                 "time": "15:00", "title": "抵達關西機場", "type": "交通",
-                "address": "Kansai Airport", "tags": ["KIX", "入境"], "moodColor": "#2C2C2C",
+                "address": "Kansai Airport", "tags": ["KIX"], "moodColor": "#2C2C2C",
                 "note": "領取行李，前往 JR 綠色窗口兌換/購買車票。"
             },
             {
-                "time": "16:15", "title": "移動至金澤 (Haruka+新幹線)", "type": "移動",
-                "address": "Kanazawa Station", "tags": ["JR", "北陸新幹線"], "moodColor": "#1A2B4C",
+                "time": "16:15", "title": "移動至金澤", "type": "移動",
+                "address": "Kanazawa Station", "tags": ["JR", "Haruka+新幹線"], "moodColor": "#1A2B4C",
                 "note": "經敦賀轉乘。耗時約 3 小時。預算 ¥9,000。"
             },
             {
@@ -272,60 +272,77 @@ const USER_ITINERARY = {
             },
             {
                 "time": "20:00", "title": "晚餐: 黑百合 (關東煮)", "type": "美食",
-                "address": "金沢駅百番街 Rinto", "tags": ["百年老店", "暖胃"], "moodColor": "#C5A059",
-                "note": "必點：蘿蔔、車麩、牛筋。湯頭濃郁。"
+                "address": "金沢駅百番街 Rinto", "tags": ["百年老店"], "moodColor": "#C5A059",
+                "note": "必點：蘿蔔、車麩、牛筋。就在車站內。"
             }
         ],
         "inspiration": [
-            { "title": "Plan B: 麵屋大河", "tag": "PLAN B", "note": "若黑百合大排長龍。金澤味噌拉麵名店，餐前有蔬菜汁。", "type": "備案" }
+            { 
+                "title": "Plan B: 麵屋大河", 
+                "tag": "PLAN B", 
+                "type": "美食",
+                "address": "石川県金沢市堀川町 6-3", 
+                "coords": [36.5785, 136.6515],
+                "open_hours": "11:30-14:30, 17:30-23:00",
+                "price": "¥1,200",
+                "note": "【若黑百合大排長龍】\n金澤味噌拉麵名店。入座會先給一杯特製蔬菜汁抑制血糖，非常貼心。步行約 5 分鐘。" 
+            }
         ],
         "shopping": ["便利商店水", "休足時間"]
     },
-    "day2": { // 6/28 小松深山
+    "day2": { 
         "events": [
             {
-                "time": "11:00", "title": "移動至小松 (行李寄京都)", "type": "移動",
-                "address": "Komatsu Station", "tags": ["宅急便", "輕裝"], "moodColor": "#1A2B4C",
-                "note": "大行李寄往 Ace Hotel。背輕便背包搭 JR 至小松站，轉計程車。"
+                "time": "11:00", "title": "移動至小松", "type": "移動",
+                "address": "Komatsu Station", "tags": ["輕裝"], "moodColor": "#1A2B4C",
+                "note": "大行李寄往京都 Ace Hotel。背輕便背包搭 JR 至小松站，轉計程車。"
             },
             {
                 "time": "12:00", "title": "午餐: Auberge eaufeu", "type": "美食",
                 "address": "石川県小松市観音下町ロ 48", "coords": [36.3571, 136.5393],
-                "tags": ["里山料理", "廢校"], "moodColor": "#586C58",
+                "tags": ["里山料理"], "moodColor": "#586C58",
                 "note": "在改建的教室內享用在地食材。"
             },
             {
                 "time": "15:00", "title": "農口尚彥研究所 Tasting", "type": "體驗",
-                "address": "石川県小松市観音下町ワ 1-1", "tags": ["釀酒之神", "清酒"], "moodColor": "#C5A059",
-                "note": "預約「杜庵」。體驗清酒與稻田景觀的結合。"
+                "address": "石川県小松市観音下町ワ 1-1", "tags": ["清酒"], "moodColor": "#C5A059",
+                "note": "預約「杜庵」。體驗釀酒之神監修的清酒，欣賞稻田景觀。"
             },
             {
                 "time": "19:00", "title": "晚餐: 糸井主廚法式料理", "type": "美食",
-                "address": "Auberge eaufeu", "tags": ["野味", "發酵"], "moodColor": "#2C2C2C",
-                "note": "米其林級別精緻法餐。"
+                "address": "Auberge eaufeu", "tags": ["野味"], "moodColor": "#2C2C2C",
+                "note": "米其林級別精緻法餐，主打發酵與野味。"
             }
         ],
         "inspiration": [
-            { "title": "Plan B: 圖書館聽雨", "tag": "RAINY", "note": "若下大雨，在旅館圖書館喝咖啡閱讀。", "type": "休息" }
+            { 
+                "title": "Plan B: 旅館圖書館", 
+                "tag": "RAINY", 
+                "type": "休息",
+                "address": "Auberge eaufeu", 
+                "open_hours": "全日",
+                "price": "免費",
+                "note": "【若下大雨無法散步】\n旅館前身是小學，擁有大量關於藝術與建築的藏書。點一杯咖啡，在圖書館聽雨聲，享受與世隔絕的寧靜。" 
+            }
         ],
         "shopping": ["農口尚彥清酒"]
     },
-    "day3": { // 6/29 金澤 -> 京都
+    "day3": { 
         "events": [
             {
                 "time": "12:00", "title": "午餐: 乙女壽司", "type": "美食",
-                "address": "石川県金沢市木倉町 4-10", "tags": ["Smart Luxury", "壽司"], "moodColor": "#C5A059",
-                "note": "需提前一月預約。金澤壽司頂點。"
+                "address": "石川県金沢市木倉町 4-10", "tags": ["Smart Luxury"], "moodColor": "#C5A059",
+                "note": "金澤壽司的頂點，性價比極高。需提前預約。"
             },
             {
                 "time": "14:00", "title": "鈴木大拙館", "type": "景點",
                 "address": "石川県金沢市本多町 3-4-20", "coords": [36.5594, 136.6622],
-                "tags": ["谷口吉生", "禪"], "moodColor": "#586C58",
-                "note": "在「水鏡之庭」前發呆，讓大腦降頻。"
+                "tags": ["禪"], "moodColor": "#586C58",
+                "note": "谷口吉生設計。在「水鏡之庭」前發呆，讓大腦降頻。"
             },
             {
                 "time": "16:00", "title": "中停福井: ESHIKOTO", "type": "體驗",
-                "address": "福井県永平寺町下浄法寺 12-17", "tags": ["黑龍酒造", "設計"], "moodColor": "#1A2B4C",
+                "address": "福井県永平寺町下浄法寺 12-17", "tags": ["黑龍酒造"], "moodColor": "#1A2B4C",
                 "note": "在石田屋品飲頂級黑龍。需計程車往返福井站。"
             },
             {
@@ -336,151 +353,227 @@ const USER_ITINERARY = {
             }
         ],
         "inspiration": [
-            { "title": "Plan B: 21世紀美術館", "tag": "RAINY", "note": "若雨天無法走戶外。圓形玻璃建築很美。", "type": "室內" },
-            { "title": "Plan B: あいじ壽司", "tag": "PLAN B", "note": "若乙女壽司客滿的替代案。", "type": "美食" }
+            { 
+                "title": "21世紀美術館", 
+                "tag": "RAINY", 
+                "type": "藝術",
+                "address": "石川県金沢市広坂 1-2-1", 
+                "coords": [36.5609, 136.6582],
+                "open_hours": "10:00 - 18:00",
+                "price": "依展覽而定",
+                "note": "【雨天首選】\n離鈴木大拙館很近。圓形玻璃建築，即使下雨天也很美。推薦參觀「泳池」作品。" 
+            },
+            { 
+                "title": "あいじ (Aiji) 壽司", 
+                "tag": "PLAN B", 
+                "type": "美食",
+                "address": "石川県金沢市片町 2-30-2",
+                "open_hours": "17:00 - 23:00",
+                "price": "¥10,000+",
+                "note": "【若乙女壽司客滿】\n金澤另一間評價極高的壽司店，風格較為現代，醋飯獨特。" 
+            }
         ],
         "shopping": ["ESHIKOTO 限定酒"]
     },
-    "day4": { // 6/30 夏越之祓
+    "day4": { 
         "events": [
             {
                 "time": "12:00", "title": "午餐: Velrosier", "type": "美食",
-                "address": "京都市下京区河原町通四条下ル 2F", "tags": ["Fusion", "米其林"], "moodColor": "#C5A059",
-                "note": "解構重組的中華料理。午餐 CP 值高。"
+                "address": "京都市下京区河原町通四条下ル 2F", "tags": ["Fusion"], "moodColor": "#C5A059",
+                "note": "米其林一星，解構重組的中華料理。午餐 CP 值高。"
             },
             {
                 "time": "15:00", "title": "下鴨神社 (夏越之祓)", "type": "文化",
                 "address": "京都市左京区下鴨泉川町 59", "coords": [35.0391, 135.7730],
-                "tags": ["儀式", "除厄"], "moodColor": "#586C58",
+                "tags": ["儀式"], "moodColor": "#586C58",
                 "note": "6/30 限定。務必鑽過「茅之輪」去除上半年晦氣。"
             },
             {
                 "time": "19:00", "title": "晚餐: Gyoza Hohei (步兵)", "type": "美食",
-                "address": "京都市東山区清本町 373-3", "tags": ["必比登", "餃子"], "moodColor": "#2C2C2C",
-                "note": "皮薄餡靚，輕鬆的一餐。"
+                "address": "京都市東山区清本町 373-3", "tags": ["餃子"], "moodColor": "#2C2C2C",
+                "note": "米其林必比登推介。皮薄餡靚，適合輕鬆的夜晚。"
             }
         ],
         "inspiration": [
-            { "title": "Plan B: 錦天滿宮", "tag": "RAINY", "note": "如下暴雨，改去有頂棚的錦市場與天滿宮。", "type": "備案" }
+            { 
+                "title": "錦天滿宮 & 市場", 
+                "tag": "RAINY", 
+                "type": "備案",
+                "address": "京都市中京区新京極通四条上中之町 537", 
+                "open_hours": "08:00 - 20:00",
+                "note": "【暴雨備案】\n全程有頂棚，不用撐傘。可在市場吃小吃，最後到天滿宮參拜。" 
+            },
+            { 
+                "title": "Fortune Garden Kyoto", 
+                "tag": "PLAN B", 
+                "type": "美食",
+                "address": "京都市中京区河原町通二条下ル一之船入町 386-2",
+                "open_hours": "11:30 - 22:00",
+                "note": "【午餐備案】\n如果想在更有氣氛的地方用餐。由昭和初期建築改建，環境極佳的洋食館。" 
+            }
         ],
         "shopping": ["下鴨神社蕾絲御守"]
     },
-    "day5": { // 7/1 陰陽師與結構
+    "day5": { 
         "events": [
             {
                 "time": "10:00", "title": "晴明神社", "type": "文化",
-                "address": "京都市上京区晴明町 806", "tags": ["五芒星", "結界"], "moodColor": "#1A2B4C",
-                "note": "購買「桔梗守」，祈求心智清晰。"
+                "address": "京都市上京区晴明町 806", "tags": ["結界"], "moodColor": "#1A2B4C",
+                "note": "參拜安倍晴明，購買五芒星「桔梗守」，祈求心智清晰。"
             },
             {
                 "time": "12:00", "title": "午餐: MOTOI", "type": "美食",
-                "address": "京都市中京区富小路通二条下ル", "tags": ["Smart Luxury", "法餐"], "moodColor": "#C5A059",
-                "note": "大正時代建築，菜色講究構築感。"
+                "address": "京都市中京区富小路通二条下ル", "tags": ["法餐"], "moodColor": "#C5A059",
+                "note": "大正時代和洋折衷建築，菜色講究構築感。"
             },
             {
                 "time": "15:00", "title": "山田松香木店", "type": "體驗",
-                "address": "京都市上京区勘解由小路町 164", "tags": ["調香", "香道"], "moodColor": "#586C58",
+                "address": "京都市上京区勘解由小路町 164", "tags": ["調香"], "moodColor": "#586C58",
                 "note": "像藥劑師一樣調配屬於自己的香味。"
             },
             {
                 "time": "20:00", "title": "Sake Bar Yoramu", "type": "小酌",
-                "address": "京都市中京区松屋町 35-1", "tags": ["清酒", "結構"], "moodColor": "#1A2B4C",
+                "address": "京都市中京区松屋町 35-1", "tags": ["清酒"], "moodColor": "#1A2B4C",
                 "note": "需預約。請老闆推薦「結構感強」的清酒。"
             }
         ],
         "inspiration": [
-            { "title": "Plan B: 西陣織會館", "tag": "RAINY", "note": "雨天備案，觀賞精密織布結構。", "type": "文化" },
-            { "title": "Plan B: Sake Bar Asakura", "tag": "PLAN B", "note": "若 Yoramu 客滿的替代方案。", "type": "酒吧" }
+            { 
+                "title": "西陣織會館", 
+                "tag": "RAINY", 
+                "type": "文化",
+                "address": "京都市上京区竪門前町 414", 
+                "open_hours": "10:00 - 16:00",
+                "note": "【雨天備案】\n觀賞精密的織布機運作，體現經緯交錯的結構之美。距離晴明神社不遠。" 
+            },
+            { 
+                "title": "Sake Bar Asakura", 
+                "tag": "PLAN B", 
+                "type": "酒吧",
+                "address": "京都市中京区上大阪町 518",
+                "open_hours": "19:00 - 02:00",
+                "note": "【若 Yoramu 客滿】\n另一家非常專業的清酒 Bar，老闆英文流利，收藏豐富。" 
+            }
         ],
         "shopping": ["桔梗守", "自調香包"]
     },
-    "day6": { // 7/2 綠色結界
+    "day6": { 
         "events": [
             {
                 "time": "10:00", "title": "西芳寺 (苔寺)", "type": "文化",
                 "address": "京都市西京区松尾神ヶ谷町 56", "coords": [34.9922, 135.6833],
-                "tags": ["預約制", "苔蘚"], "moodColor": "#586C58",
-                "note": "抄寫心經後進入庭園，保持絕對安靜。"
+                "tags": ["預約制"], "moodColor": "#586C58",
+                "note": "需提前預約。抄寫心經後進入庭園，保持絕對安靜。"
             },
             {
                 "time": "13:00", "title": "午餐: 天普羅 松", "type": "美食",
-                "address": "京都市右京区梅津大縄場町 21-26", "tags": ["創意天婦羅"], "moodColor": "#C5A059",
-                "note": "位於桂川旁，常使用液體器皿，視覺驚艷。"
+                "address": "京都市右京区梅津大縄場町 21-26", "tags": ["創意"], "moodColor": "#C5A059",
+                "note": "位於桂川旁。常使用冰塊或液體器皿，視覺與味覺的饗宴。"
             },
             {
                 "time": "15:30", "title": "House of Ki No Bi", "type": "體驗",
-                "address": "京都市中京区河原町通二条上る清水町 358", "tags": ["琴酒", "植物學"], "moodColor": "#1A2B4C",
+                "address": "京都市中京区河原町通二条上る清水町 358", "tags": ["琴酒"], "moodColor": "#1A2B4C",
                 "note": "Tasting Flight，體驗植物學代碼。"
             },
             {
                 "time": "19:00", "title": "晚餐: Kokoroya (克)", "type": "美食",
                 "address": "京都市中京区御幸町通三条下ル", "tags": ["居酒屋"], "moodColor": "#2C2C2C",
-                "note": "氣氛輕鬆，酒單豐富。"
+                "note": "氣氛輕鬆，酒單豐富。適合與當地人交流。"
             }
         ],
         "inspiration": [
-            { "title": "Plan B: 祇王寺", "tag": "PLAN B", "note": "若苔寺沒約到。嵐山深處的小苔蘚庭園。", "type": "景點" }
+            { 
+                "title": "Plan B: 祇王寺", 
+                "tag": "PLAN B", 
+                "type": "景點",
+                "address": "京都市右京区嵯峨鳥居本小坂町 32", 
+                "coords": [35.0234, 135.6698],
+                "open_hours": "09:00 - 17:00",
+                "price": "¥300",
+                "note": "【若苔寺預約失敗】\n位於嵐山深處，被楓樹和竹林包圍的小而極美的苔蘚庭園。被稱為「苔之庭」。" 
+            }
         ],
         "shopping": ["季之美琴酒"]
     },
-    "day7": { // 7/3 水源與酒香
+    "day7": { 
         "events": [
             {
                 "time": "10:00", "title": "御香宮 & 松本酒造", "type": "文化",
-                "address": "京都市伏見区御香宮門前町", "tags": ["伏見", "水源"], "moodColor": "#586C58",
-                "note": "參拜水脈源頭，欣賞紅磚煙囪工業建築。"
+                "address": "京都市伏見区御香宮門前町", "tags": ["伏見"], "moodColor": "#586C58",
+                "note": "參拜水脈源頭，觀賞松本酒造標誌性的紅磚煙囪。"
             },
             {
                 "time": "12:30", "title": "午餐: 木山 (Kiyama)", "type": "美食",
-                "address": "京都市中京区絹屋町 136", "tags": ["米其林", "水"], "moodColor": "#C5A059",
-                "note": "主打「水」，現場刨柴魚，喝第一口井水高湯。"
+                "address": "京都市中京区絹屋町 136", "tags": ["米其林"], "moodColor": "#C5A059",
+                "note": "主打「水」，現場刨柴魚秀，喝第一口井水的高湯。"
             },
             {
                 "time": "15:00", "title": "蒼空 & 油長", "type": "體驗",
-                "address": "京都市伏見区今町 672-1", "tags": ["酒造", "發酵"], "moodColor": "#1A2B4C",
-                "note": "坐在 Bar 台看玻璃後的發酵桶喝酒。"
+                "address": "京都市伏見区今町 672-1", "tags": ["酒造"], "moodColor": "#1A2B4C",
+                "note": "坐在 Bar 台看著玻璃後的發酵桶喝酒。"
             },
             {
                 "time": "20:00", "title": "Bar K6", "type": "小酌",
                 "address": "京都市中京区二条通木屋町東入ル", "tags": ["傳奇酒吧"], "moodColor": "#2C2C2C",
-                "note": "必點炸牛排三明治配威士忌。"
+                "note": "必點炸牛排三明治 (Katsu Sando) 配威士忌。"
             }
         ],
         "inspiration": [
-            { "title": "Plan B: 黃櫻紀念館", "tag": "RAINY", "note": "伏見雨天備案，可喝精釀啤酒。", "type": "室內" },
-            { "title": "Plan B: Cenci", "tag": "PLAN B", "note": "若木山客滿的替代午餐 (義式)。", "type": "美食" }
+            { 
+                "title": "黃櫻 Kappa Country", 
+                "tag": "RAINY", 
+                "type": "體驗",
+                "address": "京都市伏見区塩屋町 228", 
+                "open_hours": "11:30 - 22:00",
+                "note": "【伏見雨天/太熱備案】\n大型室內設施，有黃櫻紀念館了解造酒歷史，也可以喝到限定的精釀啤酒。" 
+            },
+            { 
+                "title": "Cenci", 
+                "tag": "PLAN B", 
+                "type": "美食",
+                "address": "京都市左京区聖護院円頓美町 44-7",
+                "note": "【若木山客滿】\n京都排名極高的義大利餐廳，使用大量京野菜與日本食材，空間設計非常有層次感。" 
+            }
         ],
         "shopping": ["伏見限定清酒"]
     },
-    "day8": { // 7/4 自由與金運
+    "day8": { 
         "events": [
             {
                 "time": "10:00", "title": "御金神社", "type": "文化",
-                "address": "京都市中京区押西洞院町 614", "tags": ["金運", "鳥居"], "moodColor": "#C5A059",
-                "note": "洗錢求財，金色鳥居。Ace Hotel 步行可達。"
+                "address": "京都市中京区押西洞院町 614", "tags": ["金運"], "moodColor": "#C5A059",
+                "note": "洗錢求財，金色鳥居。就在 Ace Hotel 步行範圍。"
             },
             {
                 "time": "12:00", "title": "午餐: Hafuu 本店", "type": "美食",
-                "address": "京都市中京区笹屋町 471-1", "tags": ["和牛", "肉食"], "moodColor": "#A84B3E",
-                "note": "極上牛排蓋飯，CP值高。"
+                "address": "京都市中京区笹屋町 471-1", "tags": ["和牛"], "moodColor": "#A84B3E",
+                "note": "極上牛排蓋飯只要 3000 多日圓，CP 值爆表。"
             },
             {
                 "time": "14:00", "title": "鴨川 Delta / 金繼", "type": "自由",
-                "address": "Kamogawa Delta", "tags": ["散步", "工藝"], "moodColor": "#586C58",
-                "note": "跳烏龜石，或參觀 POJ Studio 金繼工藝。"
+                "address": "Kamogawa Delta", "tags": ["散步"], "moodColor": "#586C58",
+                "note": "坐在鴨川邊跳烏龜石，或去參觀 POJ Studio 金繼工藝。"
             },
             {
                 "time": "19:00", "title": "晚餐: 祇園迦陵", "type": "美食",
-                "address": "京都市東山区祇園町南側 570-235", "tags": ["鱧", "骨切"], "moodColor": "#1A2B4C",
-                "note": "京都夏天的靈魂「鱧魚 (Hamo)」料理。"
+                "address": "京都市東山区祇園町南側 570-235", "tags": ["鱧魚"], "moodColor": "#1A2B4C",
+                "note": "嘗試京都夏天的靈魂 「鱧 (Hamo)」 料理，聆聽骨切的聲音。"
             }
         ],
         "inspiration": [
-            { "title": "Plan B: 京都市京瓷美術館", "tag": "RAINY", "note": "雨天備案，幾何線條豐富的建築。", "type": "藝術" }
+            { 
+                "title": "京都市京瓷美術館", 
+                "tag": "RAINY", 
+                "type": "藝術",
+                "address": "京都市左京区岡崎円勝寺町 124", 
+                "coords": [35.0135, 135.7828],
+                "open_hours": "10:00 - 18:00",
+                "note": "【雨天/建築迷備案】\n建築翻新極美，融合了帝冠樣式與現代幾何線條。中庭與玻璃絲帶設計非常精彩。" 
+            }
         ],
         "shopping": ["御金神社錢包"]
     },
-    "day9": { // 7/5 完美句點
+    "day9": { 
         "events": [
             {
                 "time": "10:00", "title": "Stumptown Coffee", "type": "咖啡",
@@ -490,17 +583,17 @@ const USER_ITINERARY = {
             {
                 "time": "12:00", "title": "伊勢丹百貨掃貨", "type": "購物",
                 "address": "Kyoto Station", "tags": ["手信"], "moodColor": "#C5A059",
-                "note": "地下街買清酒、漬物。"
+                "note": "地下街最後掃貨 (清酒、漬物、手信)。"
             },
             {
                 "time": "14:30", "title": "搭乘 Haruka", "type": "交通",
-                "address": "Kyoto Station", "tags": ["JR", "回程"], "moodColor": "#1A2B4C",
-                "note": "前往 KIX 關西機場。"
+                "address": "Kyoto Station", "tags": ["JR"], "moodColor": "#1A2B4C",
+                "note": "前往關西機場。"
             },
             {
                 "time": "17:50", "title": "CX507 起飛", "type": "航班",
-                "address": "Kansai Airport", "tags": ["HKG"], "moodColor": "#2C2C2C",
-                "note": "預計 20:50 抵達香港。"
+                "address": "Kansai Airport", "tags": ["回程"], "moodColor": "#2C2C2C",
+                "note": "再見京都！預計 20:50 抵達香港。"
             }
         ],
         "inspiration": [],
