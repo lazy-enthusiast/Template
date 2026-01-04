@@ -238,7 +238,7 @@ const TRIP_INFO = {
     ]
 };
 
-// 5. 🗺️ 行程細節 (含詳細公共交通指引)
+// 5. 🗺️ 行程細節 (交通與體驗並重版)
 const USER_ITINERARY = {
     "day1": {
         "events": [
@@ -247,41 +247,41 @@ const USER_ITINERARY = {
                 "address": "IR-ON Hotel", 
                 "address_local": "โรงแรม IR-ON สุขุมวิท 36",
                 "tags": ["BTS Thong Lo"], "moodColor": "#B0B0B0",
-                "note": "【交通】BKK機場 B1 搭 ARL 機場快線 ➝ Phaya Thai 站換乘 BTS ➝ Thong Lo 站 (E6)。\n【步行】2 號出口下樓，立刻迴轉進入 Soi 36，步行約 3 分鐘即達。"
+                "note": "【交通】BKK機場 B1 搭 ARL 機場快線 ➝ Phaya Thai 站換乘 BTS ➝ Thong Lo 站 (E6)。2 號出口下樓，立刻迴轉進入 Soi 36，步行約 3 分鐘即達。"
             },
             {
                 "time": "14:00", "title": "Supanniga Eating Room", "type": "美食",
                 "address": "160/11 Soi Sukhumvit 55", 
                 "address_local": "ไป ทองหล่อ (ระหว่างซอย 6 กับ 8) ร้านสุพรรณิการ์",
                 "tags": ["蟹肉烘蛋"], "moodColor": "#D4AF37",
-                "note": "【交通】BTS Thong Lo 3 號出口。\n【轉乘】餐廳在 Thong Lo 路中間，走路約 10-15 分鐘。建議在巷口搭紅色小巴士 (7 THB) 或摩托計程車 (Win Moto, 約 20 THB) 到 Soi 6。"
+                "note": "【交通】BTS Thong Lo 3 號出口。走路約 15 分鐘，建議在巷口搭紅色小巴士 (7 THB) 或摩托計程車到 Soi 6。\n【必點】Khai Jiew Pu (蟹肉烘蛋)、馬撒曼咖哩牛。"
             },
             {
                 "time": "15:30", "title": "Mae Varee 芒果糯米", "type": "外帶",
                 "address": "1 Soi Thong Lo",
                 "address_local": "แม่วารี ข้าวเหนียวมูน (ปากซอยทองหล่อ)",
                 "tags": ["BTS Thong Lo"], "moodColor": "#F1C40F",
-                "note": "【交通】就在 BTS Thong Lo 3 號出口樓梯旁，非常近。\n【攻略】買一份三色糯米飯 (฿150) 帶回對面飯店冰起來。"
+                "note": "【交通】BTS Thong Lo 3 號出口樓梯旁。\n【攻略】買一份三色糯米飯 (฿150) 帶回對面飯店冰起來當宵夜。"
             },
             {
                 "time": "16:30", "title": "Jim Thompson House", "type": "景點",
                 "address": "6 Soi Kasemsan 2",
                 "address_local": "พิพิธภัณฑ์จิม ทอมป์สัน",
                 "tags": ["BTS National Stadium"], "moodColor": "#8E44AD",
-                "note": "【交通】BTS National Stadium (W1) 1 號出口。\n【步行】下樓後右轉進入 Soi Kasemsan 2 巷子，直走到底即達 (有免費高爾夫球車接駁，但走路僅 5 分鐘)。"
+                "note": "【交通】BTS National Stadium (W1) 1 號出口。右轉進入 Soi Kasemsan 2 到底。\n【體驗】優雅的泰絲工藝與熱帶花園。"
             },
             {
                 "time": "19:00", "title": "Sra Bua by Kiin Kiin", "type": "晚餐",
                 "address": "Siam Kempinski Hotel",
                 "tags": ["BTS Siam"], "moodColor": "#C0392B",
-                "note": "【交通】BTS Siam (Cen) 3 號或 5 號出口。\n【步行】穿過 Siam Paragon 商場一樓名店街，從後門出去就是 Siam Kempinski 飯店。"
+                "note": "【交通】BTS Siam (Cen) 3或5號出口。穿過 Siam Paragon 一樓名店街後門。\n【體驗】米其林一星分子泰菜。Dress Code: Smart Casual。"
             },
             {
                 "time": "21:30", "title": "Rabbit Hole", "type": "微醺",
                 "address": "125 Thong Lo Rd",
                 "address_local": "ไป ทองหล่อ (ระหว่างซอย 5 กับ 7)",
                 "tags": ["BTS Thong Lo"], "moodColor": "#1A1A2E",
-                "note": "【交通】BTS Thong Lo 3 號出口。\n【轉乘】位於 Soi 5 與 Soi 7 之間。走路約 15 分鐘，建議搭摩托計程車 (約 20-30 THB)。門口是深木色大門，無招牌。"
+                "note": "【交通】BTS Thong Lo 3 號出口。轉乘摩托計程車至 Soi 5-7 之間。\n【攻略】門口無招牌木門。推門進去，點一杯 Gin-based 特調。"
             }
         ],
         "inspiration": [
@@ -292,7 +292,7 @@ const USER_ITINERARY = {
                 "address": "335 Thong Lo 17 Alley",
                 "address_local": "เดอะคอมมอนส์ ทองหล่อ ซอย 17",
                 "open_hours": "08:00 - 01:00",
-                "note": "【交通】BTS Thong Lo 3 號出口。位於 Soi 17 深處，走路太遠。\n【建議】務必搭摩托計程車 (Win Moto) 或計程車前往。"
+                "note": "【交通】BTS Thong Lo 3 號出口。位於 Soi 17 深處，務必搭摩托計程車前往。\n【體驗】戶外階梯區喝精釀啤酒，開放輕鬆。"
             },
             { 
                 "title": "Asia Herb Association", 
@@ -301,7 +301,7 @@ const USER_ITINERARY = {
                 "address": "58/19-24 Sukhumvit Rd (Soi 55)",
                 "address_local": "เอเชีย เฮิร์บ (ปากซอยทองหล่อ)",
                 "open_hours": "09:00 - 02:00",
-                "note": "【交通】BTS Thong Lo 3 號出口，下樓直走約 3 分鐘，就在大馬路邊，非常方便。"
+                "note": "【交通】BTS Thong Lo 3 號出口，下樓直走約 3 分鐘。\n【體驗】營業至凌晨。招牌是草藥球按摩。"
             }
         ],
         "shopping": ["Mae Varee 芒果糯米", "便利商店買水"]
@@ -312,26 +312,26 @@ const USER_ITINERARY = {
                 "time": "10:00", "title": "恰圖恰週末市集", "type": "逛街",
                 "address": "Chatuchak Market Section 26",
                 "tags": ["MRT Kamphaeng Phet"], "moodColor": "#E67E22",
-                "note": "【交通】搭 MRT Blue Line 至 Kamphaeng Phet 站 (不是 Mo Chit)。\n【出口】走 2 號出口，一上來直接就是 Section 26 古董區，不用曬太陽找路。"
+                "note": "【交通】MRT Blue Line 至 Kamphaeng Phet 站 2 號出口。\n【攻略】一上來就是 Section 26 古董區。記得喝椰子水解暑。"
             },
             {
                 "time": "12:30", "title": "Copper Beyond Buffet", "type": "美食",
                 "address": "Gaysorn Amarin 2F",
                 "tags": ["BTS Chit Lom"], "moodColor": "#D4AF37",
-                "note": "【交通】BTS Chit Lom (E1) 6 號出口。\n【步行】走 R-Walk 天橋直通 Gaysorn Amarin 商場 2 樓。"
+                "note": "【交通】BTS Chit Lom (E1) 6 號出口。走 R-Walk 天橋直通 Gaysorn Amarin 2樓。\n【必點】極濃郁和牛船麵、松露濃湯配可頌。"
             },
             {
                 "time": "15:00", "title": "Ging Astro Reader", "type": "靈性",
                 "address": "Bangkok",
                 "tags": ["預約確認"], "moodColor": "#9B59B6",
-                "note": "【交通】(需依預約地點而定)。通常會在 BTS 沿線的咖啡廳或工作室。"
+                "note": "【交通】(需依預約地點而定)。\n【體驗】冷氣房內的身心靈對話，避開午後雷陣雨。"
             },
             {
                 "time": "18:30", "title": "L'Oliva Ristorante", "type": "晚餐",
                 "address": "Soi Sukhumvit 36 Yaek 2",
                 "address_local": "ไป สุขุมวิท 36 แยก 2 (ร้านอาหารอิตาเลียน)",
                 "tags": ["BTS Thong Lo"], "moodColor": "#C0392B",
-                "note": "【交通】BTS Thong Lo 2 號出口。\n【步行】進入 Soi 36 巷子，經過 IR-ON 飯店再繼續走約 3 分鐘，看到 Yaek 2 路牌右轉。"
+                "note": "【交通】BTS Thong Lo 2 號出口。進 Soi 36 走過飯店，見 Yaek 2 路牌右轉。\n【體驗】紅磚玻璃屋，享受紅酒與松露義大利麵。"
             }
         ],
         "inspiration": [
@@ -342,7 +342,7 @@ const USER_ITINERARY = {
                 "address": "587/10 Kamphaeng Phet 2 Rd",
                 "address_local": "ตึกแดง จตุจักร (ตรงข้ามตลาดจตุจักร)",
                 "open_hours": "10:00 - 20:00",
-                "note": "【交通】MRT Kamphaeng Phet 1 號出口。\n【步行】過馬路那棟紅色的建築物就是了。"
+                "note": "【交通】MRT Kamphaeng Phet 1 號出口過馬路。\n【體驗】有冷氣的復古商場，恰圖恰太熱時的完美備案。"
             },
             { 
                 "title": "Yunomori Onsen (湯之森)", 
@@ -351,7 +351,7 @@ const USER_ITINERARY = {
                 "address": "A-Square 120/5 Soi Sukhumvit 26",
                 "address_local": "ยูโนโมริ ออนเซ็น สุขุมวิท 26",
                 "open_hours": "10:00 - 24:00",
-                "note": "【交通】BTS Phrom Phong 4 號出口。\n【轉乘】位於 Soi 26 巷底 (A-Square)，走路需 20 分鐘。強烈建議搭摩托計程車 (約 20-30 THB) 或 Grab。"
+                "note": "【交通】BTS Phrom Phong 4 號出口轉乘摩托計程車 (約 20-30B)。\n【體驗】日式溫泉+泰式按摩，深度放鬆。"
             },
             { 
                 "title": "Paper Plane Project", 
@@ -360,7 +360,7 @@ const USER_ITINERARY = {
                 "address": "T-One Building 40F",
                 "address_local": "ตึก T-One ชั้น 40 (ทองหล่อ)",
                 "open_hours": "09:00 - 24:00",
-                "note": "【交通】BTS Thong Lo 3 號出口方向。\n【步行】有天橋直通 T-One Building 二樓，轉電梯上 40 樓。"
+                "note": "【交通】BTS Thong Lo 3 號出口方向天橋直通 T-One。\n【體驗】40樓高空視野，離晚餐地點近，可上去看夜景。"
             }
         ],
         "shopping": ["古董飾品", "木雕", "手工藝品"]
@@ -372,39 +372,39 @@ const USER_ITINERARY = {
                 "address": "Wat Suthat Thepwararam",
                 "address_local": "ไป วัดสุทัศน์ (เสาชิงช้า)",
                 "tags": ["MRT Sam Yot"], "moodColor": "#D35400",
-                "note": "【交通】MRT Sam Yot 3 號出口。\n【步行】沿著 Charoen Krung 路走約 10 分鐘，看到紅色大鞦韆即達。"
+                "note": "【交通】MRT Sam Yot 3 號出口，沿 Charoen Krung 路步行 10 分鐘。\n【體驗】遊客稀少的一級皇家寺廟，門口紅色大鞦韆是地標。"
             },
             {
                 "time": "10:00", "title": "二哥豐廟 (警局)", "type": "祈福",
                 "address": "Phlapphla Chai Police Station",
                 "address_local": "ไปส่งที่ สถานีตำรวจพลับพลาไชย ครับ (ศาลเจ้าพ่อยี่กอฮง อยู่ชั้น 4)",
                 "tags": ["MRT Wat Mangkon"], "moodColor": "#D4AF37",
-                "note": "【交通】從蘇泰寺建議直接叫 Grab (約 60-80 THB)。\n【公共交通】MRT Wat Mangkon 1 號出口，步行約 8 分鐘。"
+                "note": "【交通】建議從蘇泰寺叫 Grab。若搭 MRT 為 Wat Mangkon 1 號出口步行 8 分鐘。\n【攻略】警局 4 樓。必備供品：黑咖啡、雪茄。"
             },
             {
                 "time": "11:30", "title": "The Mustang Blu", "type": "午餐",
                 "address": "721 Maitri Chit Rd",
                 "tags": ["MRT Hua Lamphong"], "moodColor": "#2C3E50",
-                "note": "【交通】MRT Hua Lamphong 1 號出口。\n【步行】出站右轉沿著運河走，約 5 分鐘即達那棟顯眼的三角窗建築。"
+                "note": "【交通】MRT Hua Lamphong 1 號出口右轉沿運河走 5 分鐘。\n【體驗】百年銀行改建，充滿標本與植栽的魔幻空間。"
             },
             {
                 "time": "13:30", "title": "義德善堂 (捐棺)", "type": "祈福",
                 "address": "Wat Hua Lamphong",
                 "address_local": "ไป มูลนิธิร่วมกตัญญู (วัดหัวลำโพง) ติด MRT สามย่าน",
                 "tags": ["MRT Sam Yan"], "moodColor": "#F39C12",
-                "note": "【交通】MRT Sam Yan 1 號出口。\n【步行】一出站即是義德善堂入口，非常方便。"
+                "note": "【交通】MRT Sam Yan 1 號出口即達。\n【步驟】填名 ➝ 捐款 ➝ 領收據貼棺材 ➝ 燒收據。"
             },
             {
                 "time": "15:00", "title": "River City Bangkok", "type": "藝術",
                 "address": "River City Bangkok",
                 "tags": ["Si Phraya Pier"], "moodColor": "#7F8C8D",
-                "note": "【交通】MRT Hua Lamphong 1 號出口轉計程車 (最快)。\n【渡輪】搭交通船 (Chao Phraya Express) 到 N3 Si Phraya Pier，旁邊就是商場。"
+                "note": "【交通】MRT Hua Lamphong 轉計程車，或搭船至 N3 Si Phraya Pier。\n【體驗】3-4 樓古董藝術區，安靜冷清適合鑑賞。"
             },
             {
                 "time": "18:30", "title": "Paste Bangkok", "type": "晚餐",
                 "address": "Gaysorn Village 3F",
                 "tags": ["BTS Chit Lom"], "moodColor": "#D4AF37",
-                "note": "【交通】BTS Chit Lom 6 號出口 (Skywalk 直通)。"
+                "note": "【交通】BTS Chit Lom 6 號出口 (Skywalk 直通)。\n【必點】皇家咖哩蟹 (複雜香料層次)、西瓜魚鬆。"
             }
         ],
         "inspiration": [
@@ -415,7 +415,7 @@ const USER_ITINERARY = {
                 "address": "1172 Soi Charoenkrung 22",
                 "address_local": "ตลาดน้อย / ร้าน Mother Roaster",
                 "open_hours": "全日",
-                "note": "【交通】MRT Hua Lamphong 2 號出口。\n【步行】步行約 10-15 分鐘進入 Charoen Krung 22 巷弄探險。"
+                "note": "【交通】MRT Hua Lamphong 2 號出口步行 15 分鐘。\n【體驗】去 Mother Roaster 喝咖啡，店開在廢五金廠樓上。"
             },
             { 
                 "title": "Tep Bar (泰式居酒屋)", 
@@ -424,7 +424,7 @@ const USER_ITINERARY = {
                 "address": "69, 71 Soi Yi Sip Song Karakadakhom 4",
                 "address_local": "ไป เทพ บาร์ (ซอยนานา เยาวราช)",
                 "open_hours": "18:00 - 24:00",
-                "note": "【交通】MRT Hua Lamphong 1 號出口。\n【步行】步行至 Soi Nana (唐人街那條)，約 7 分鐘。在巷子裡比較隱密，建議開 Google Maps。"
+                "note": "【交通】MRT Hua Lamphong 1 號出口步行至 Soi Nana 約 7 分鐘。\n【體驗】隱密老宅，現場演奏泰國傳統音樂，喝泰式藥草酒。"
             },
             { 
                 "title": "Lakshmi Shrine (吉祥天女)", 
@@ -433,7 +433,7 @@ const USER_ITINERARY = {
                 "address": "Gaysorn Village 4F",
                 "address_local": "พระแม่ลักษมี เกษรวิลเลจ ชั้น 4",
                 "open_hours": "10:00 - 18:00",
-                "note": "【交通】BTS Chit Lom 6 號出口。就在 Paste 餐廳樓上。"
+                "note": "【交通】BTS Chit Lom 6 號出口。就在 Paste 餐廳樓上。\n【體驗】掌管財富與人緣，可用粉紅蓮花供奉。"
             }
         ],
         "shopping": ["藝術明信片 (River City)"]
@@ -444,27 +444,27 @@ const USER_ITINERARY = {
                 "time": "10:30", "title": "Erb Bespoke 調香", "type": "體驗",
                 "address": "Gaysorn Village",
                 "tags": ["BTS Chit Lom"], "moodColor": "#E056FD",
-                "note": "【交通】BTS Chit Lom 6 號出口 (Skywalk 直通)。"
+                "note": "【交通】BTS Chit Lom 6 號出口 (Skywalk 直通)。\n【體驗】訂製印有自己名字的專屬香水。"
             },
             {
                 "time": "13:00", "title": "午餐 & 逛街", "type": "休閒",
                 "address": "EmQuartier",
                 "tags": ["BTS Phrom Phong"], "moodColor": "#95A5A6",
-                "note": "【交通】BTS Phrom Phong 1 號出口，出站直接連通商場。"
+                "note": "【交通】BTS Phrom Phong 1 號出口，出站直接連通商場。\n【體驗】逛街或簡單午餐。"
             },
             {
                 "time": "15:30", "title": "Tops Food Hall", "type": "採買",
                 "address": "Marche Thonglor",
                 "address_local": "ไป มาร์เช่ ทองหล่อ (ทองหล่อ ซอย 4)",
                 "tags": ["BTS Thong Lo"], "moodColor": "#27AE60",
-                "note": "【交通】BTS Thong Lo 3 號出口。\n【步行】走路約 5-8 分鐘 (在 Thong Lo Soi 4)。買太多東西回程建議搭車。"
+                "note": "【交通】BTS Thong Lo 3 號出口步行 5-8 分鐘 (Soi 4)。\n【採買】松露洋芋片、起司、手標茶。買完直接搭車回飯店。"
             },
             {
                 "time": "19:30", "title": "Nan Tei (南亭燒鳥)", "type": "晚餐",
                 "address": "50 Soi Sukhumvit 36",
                 "address_local": "ไป สุขุมวิท 36 (ร้านนันเต)",
                 "tags": ["BTS Thong Lo"], "moodColor": "#D35400",
-                "note": "【交通】BTS Thong Lo 2 號出口。\n【步行】進入 Soi 36 巷子，步行約 5 分鐘，過飯店再往前走一點。"
+                "note": "【交通】BTS Thong Lo 2 號出口。進入 Soi 36 步行 5 分鐘。\n【必點】高級板前燒鳥，雞肉丸 (Tsukune) 配 Highball。"
             }
         ],
         "inspiration": [
@@ -475,7 +475,7 @@ const USER_ITINERARY = {
                 "address": "Central Embassy Level 6",
                 "address_local": "โอเพ่น เฮ้าส์ เซ็นทรัล เอ็มบาสซี ชั้น 6",
                 "open_hours": "10:00 - 22:00",
-                "note": "【交通】BTS Phloen Chit 5 號出口。\n【步行】走天橋直接連通 Central Embassy 二樓，搭手扶梯上 6 樓。"
+                "note": "【交通】BTS Phloen Chit 5 號出口，天橋直通 Central Embassy，搭電梯上 6 樓。\n【體驗】曼谷最美書店，適合喝咖啡看書。"
             },
             { 
                 "title": "Panpuri Wellness", 
@@ -484,7 +484,7 @@ const USER_ITINERARY = {
                 "address": "Gaysorn Village 12F",
                 "address_local": "ปัญญ์ปุริ เวลเนส เกษรวิลเลจ ชั้น 12",
                 "open_hours": "10:00 - 22:00",
-                "note": "【交通】BTS Chit Lom 6 號出口。位於 Gaysorn Tower 12 樓。"
+                "note": "【交通】BTS Chit Lom 6 號出口。\n【體驗】Erb 樓上。皇室御用品牌，精油品質極好。"
             }
         ],
         "shopping": ["松露洋芋片", "手標茶", "藍象調理包", "Copenn 護手霜"]
@@ -495,19 +495,19 @@ const USER_ITINERARY = {
                 "time": "09:30", "title": "愛神 & 象神", "type": "祈福",
                 "address": "Central World Plaza",
                 "tags": ["BTS Chit Lom"], "moodColor": "#E74C3C",
-                "note": "【交通】BTS Chit Lom 6 號出口。\n【步行】沿 Skywalk 走到 Central World 廣場，神像在伊勢丹百貨舊址前方。"
+                "note": "【交通】BTS Chit Lom 6 號出口，沿 Skywalk 走到 Central World 前廣場。\n【攻略】愛神用紅玫瑰；象神用花環。"
             },
             {
                 "time": "11:30", "title": "Saneh Jaan", "type": "美食",
                 "address": "Sindhorn Tower",
                 "tags": ["BTS Phloen Chit"], "moodColor": "#D4AF37",
-                "note": "【交通】BTS Phloen Chit。\n【轉乘】從 5 號出口附近搭乘 Sindhorn 專屬接駁車，或走路約 10-15 分鐘 (略遠)。"
+                "note": "【交通】BTS Phloen Chit 5 號出口搭接駁車。\n【體驗】古法宮廷菜。13:00 需準時離開前往機場。"
             },
             {
                 "time": "13:10", "title": "前往機場 (BKK)", "type": "交通",
                 "address": "Suvarnabhumi Airport",
                 "tags": ["ARL"], "moodColor": "#34495E",
-                "note": "【交通】從 Thong Lo 搭 BTS 到 Phaya Thai，換乘 Airport Rail Link 直達 BKK 機場。"
+                "note": "【交通】回飯店取行李 ➝ BTS Thong Lo ➝ Phaya Thai 換乘 Airport Rail Link 直達 BKK 機場。"
             },
             {
                 "time": "16:25", "title": "飛機起飛 (CX706)", "type": "航班",
@@ -524,7 +524,7 @@ const USER_ITINERARY = {
                 "address": "Makkasan Station",
                 "address_local": "สถานีมักกะสัน",
                 "open_hours": "06:00 - 24:00",
-                "note": "【交通】MRT Phetchaburi 站有通道直連 Makkasan 快線站。如果塞車嚴重，這是最安全的撤退點。"
+                "note": "【交通】MRT Phetchaburi 站有通道直連 Makkasan 快線站。\n【備案】如果市區嚴重塞車，這是前往機場最安全的公共交通撤退點。"
             }
         ],
         "shopping": ["Jo Malone (機場)", "免稅酒"]
