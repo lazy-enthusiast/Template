@@ -168,352 +168,382 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
 <body>
 
 <script id="USER_DATA_CONFIG">
-// 1. 🎨 主題顏色 (Ubud Slow Living Theme)
+// 1. 🎨 主題顏色：金繼與和紙
 const THEME_CONFIG = {
-    accentColor: "#d44601",      // 溫暖橙 (重點按鈕/交通)
-    accentText: "#FFFFFF",       // 橙色背景上的白字
-    backgroundColor: "#f2e8d5",  // 米色/奶油砂 (背景)
-    cardColor: "#fdfaf3",        // 象牙白 (卡片/內容區)
-    textColor: "#5c0d09",        // 深紅/深棕 (主要文字)
-    textSubColor: "#177263",     // 熱帶綠 (次要資訊/標籤)
-    borderColor: "#e0d6c3",      // 邊框顏色
-    googleFontsUrl: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap",
-    fontHeading: '"Playfair Display", serif',
-    fontBody: '"Montserrat", sans-serif'
+    accentColor: "#C5A059",      // 金繼金 (Kintsugi Gold)
+    accentText: "#FFFFFF",       // 金色背景上的白字
+    backgroundColor: "#F4F4F0",  // 和紙白 (Washi White)
+    cardColor: "#FFFFFF",        // 卡片維持純白以利閱讀
+    textColor: "#2C2C2C",        // 墨色 (Ink)
+    textSubColor: "#586C58",     // 苔蘚綠 (Moss Green) - 用於次要資訊
+    borderColor: "#E0E0E0",
+    fontHeading: '"Noto Serif JP", serif', // 襯線體 - 文學感
+    fontBody: '"Noto Sans JP", sans-serif' // 無襯線體 - 易讀
 };
 
 // 2. 🗓️ 旅程設定
 const CONFIG = {
     ui: {
-        browserTitle: "Ubud Slow Living",
-        headerTitle: "UBUD <span>SLOW</span>",
+        browserTitle: "Kyoto 2026 Liquid",
+        headerTitle: "KYOTO <span>LIQUID</span>",
         homeTimezone: "Asia/Hong_Kong",
-        homeTimeLabel: "HKT"
+        homeTimeLabel: "HKG"
     },
-    startDate: "2026-09-25", // 週五出發
-    duration: 6
+    startDate: "2026-06-27", // 週六出發
+    duration: 9
 };
 
-// 3. 📍 目的地
+// 3. 📍 目的地 (以京都為核心)
 const DESTINATION = {
-    name: "烏布 Ubud",
-    lat: -8.5069,
-    lon: 115.2625,
-    timezone: "Asia/Makassar",
-    currency: "idr",
-    currencyLabel: "IDR",
+    name: "京都 Kyoto",
+    lat: 35.0116,
+    lon: 135.7681,
+    timezone: "Asia/Tokyo",
+    currency: "jpy",
+    currencyLabel: "JPY",
     baseCurrency: "HKD"
 };
 
 // 4. ✈️ 航班與住宿
 const TRIP_INFO = {
     visa: {
-        type: "印尼落地簽 (VoA)",
-        number: "需準備 Rp 500,000",
-        note: "建議事先申請 e-VOA 省排隊時間"
+        type: "日本短期滯在",
+        number: "TBD",
+        note: "預算概要：現金 ¥100,000 (交通/神社/小吃)"
     },
     flights: [
         {
-            type: "去程", flight: "CX785", date: "09/25",
-            dep: "HKG 10:00", arr: "DPS 15:00",
-            note: "T1 登機 / 峇里島入境卡已填", bookingRef: "CX-GO"
+            type: "去程", flight: "CX506", date: "06/27",
+            dep: "HKG 10:10", arr: "KIX 15:00",
+            note: "早上不趕，睡飽出門", bookingRef: ""
         },
         {
-            type: "回程", flight: "CX784", date: "09/30",
-            dep: "DPS 16:10", arr: "HKG 21:00",
-            note: "需提早 2.5 小時抵達機場", bookingRef: "CX-BACK"
+            type: "回程", flight: "CX507", date: "07/05",
+            dep: "KIX 17:50", arr: "HKG 20:50",
+            note: "回程不晚，隔天可上班", bookingRef: ""
         }
     ],
     hotels: [
         {
-            name: "Tegal Sari Accommodation",
-            address: "Jl. Hanoman, Padang Tegal, Ubud, Bali",
-            phone: "+62361973318"
+            name: "Hyatt Centric Kanazawa",
+            address: "石川県金沢市広岡 1-5-2",
+            phone: "+81 76-256-1234",
+            note: "Day 1 (1晚) - 金澤站西口直結"
+        },
+        {
+            name: "Auberge eaufeu (廢校旅館)",
+            address: "石川県小松市観音下町ロ 48",
+            phone: "+81 761-41-1228",
+            note: "Day 2 (1晚) - 觀音下石切場"
+        },
+        {
+            name: "Ace Hotel Kyoto",
+            address: "京都市中京区車屋町 245-2",
+            phone: "+81 75-229-9000",
+            note: "Day 3-9 (6晚) - 新風館/烏丸御池"
         }
     ],
     emergency: [
-        { name: "遊客警察", phone: "+62-361-759-687" },
+        { name: "警察局", phone: "110" },
         { name: "救護車", phone: "119" },
-        { name: "警察局", phone: "110" }
+        { name: "外交部急難救助", phone: "+81-80-1009-7179" }
     ]
 };
 
-// 5. 🗺️ 行程細節 (包含詳細後備方案)
+// 5. 🗺️ 行程細節 (液體架構之旅)
 const USER_ITINERARY = {
-    "day1": { // 9/25 Fri
+    "day1": { // 6/27 金澤
         "events": [
             {
-                "time": "15:00", "title": "抵達峇里島機場", "type": "交通",
-                "address": "Ngurah Rai International Airport", "tags": ["入境", "移動"], "moodColor": "#d44601",
-                "note": "辦理入境。尋找舉著「Tegal Sari」牌子的司機。若有延誤用 WhatsApp 聯繫飯店。"
+                "time": "15:00", "title": "抵達關西機場", "type": "交通",
+                "address": "Kansai Airport", "tags": ["KIX", "入境"], "moodColor": "#2C2C2C",
+                "note": "領取行李，前往 JR 綠色窗口兌換/購買車票。"
             },
             {
-                "time": "17:30", "title": "Check-in: Tegal Sari", "type": "住宿",
-                "address": "Jl. Hanoman, Padang Tegal, Ubud", 
-                "coords": [-8.5173, 115.2659], "tags": ["稻田景觀"], "moodColor": "#177263",
-                "note": "確認房間是否為 'Upper Floor' 面稻田。檢查門鎖與保險箱。"
+                "time": "16:15", "title": "移動至金澤 (Haruka+新幹線)", "type": "移動",
+                "address": "Kanazawa Station", "tags": ["JR", "北陸新幹線"], "moodColor": "#1A2B4C",
+                "note": "經敦賀轉乘。耗時約 3 小時。預算 ¥9,000。"
             },
             {
-                "time": "18:00", "title": "Coco Supermarket 採買", "type": "購物",
-                "address": "Jl. Raya Pengosekan", "tags": ["補給"], "moodColor": "#5c0d09",
-                "note": "買紅酒、起司、水果、大瓶水、防蚊噴霧(必備)。"
+                "time": "19:30", "title": "Check-in: Hyatt Centric", "type": "住宿",
+                "address": "石川県金沢市広岡 1-5-2", "coords": [36.5806, 136.6478],
+                "tags": ["休息"], "moodColor": "#586C58",
+                "note": "車站旁，放下行李，簡單洗漱。"
             },
             {
-                "time": "19:00", "title": "晚餐: Pison Ubud", "type": "美食",
-                "address": "Jl. Hanoman No. 10X", "tags": ["Chill", "獨旅安全"], "moodColor": "#d44601",
-                "note": "擁有稻田景觀的咖啡廳，氣氛佳且明亮安全，適合單身女性。"
-            },
-            {
-                "time": "20:30", "title": "陽台休息", "type": "休息",
-                "address": "Tegal Sari", "tags": ["放鬆"], "moodColor": "#177263",
-                "note": "泡杯茶，聽蟲鳴，享受第一晚。"
+                "time": "20:00", "title": "晚餐: 黑百合 (關東煮)", "type": "美食",
+                "address": "金沢駅百番街 Rinto", "tags": ["百年老店", "暖胃"], "moodColor": "#C5A059",
+                "note": "必點：蘿蔔、車麩、牛筋。湯頭濃郁。"
             }
         ],
         "inspiration": [
-            { 
-                "title": "方案A: 房內按摩 (In-room)", 
-                "tag": "TIRED", 
-                "type": "放鬆",
-                "address": "Tegal Sari Accommodation",
-                "open_hours": "10:00 - 22:00",
-                "price": "Rp 150,000+",
-                "note": "如果搭機太累不想出門，直接請飯店安排房內按摩。推薦 Balinese Massage (60mins)。" 
-            },
-            { 
-                "title": "方案B: KAFE", 
-                "tag": "SOLO", 
-                "type": "美食",
-                "address": "Jl. Hanoman No.44B, Ubud",
-                "open_hours": "07:30 - 23:00",
-                "price": "Rp 100,000",
-                "note": "非常安全的社交中心，充滿數位遊牧者。有機食物很棒，適合一個人看書、寫日記。" 
-            }
+            { "title": "Plan B: 麵屋大河", "tag": "PLAN B", "note": "若黑百合大排長龍。金澤味噌拉麵名店，餐前有蔬菜汁。", "type": "備案" }
         ],
-        "shopping": ["大瓶礦泉水", "防蚊噴霧", "紅酒/起司", "熱帶水果"]
+        "shopping": ["便利商店水", "休足時間"]
     },
-    "day2": { // 9/26 Sat
+    "day2": { // 6/28 小松深山
         "events": [
             {
-                "time": "09:30", "title": "包車出發 (往北)", "type": "交通",
-                "address": "Tegal Sari Lobby", "tags": ["包車"], "moodColor": "#d44601",
-                "note": "攜帶泳衣(若要下水)、毛巾、飲用水。今日為感官療癒日。"
+                "time": "11:00", "title": "移動至小松 (行李寄京都)", "type": "移動",
+                "address": "Komatsu Station", "tags": ["宅急便", "輕裝"], "moodColor": "#1A2B4C",
+                "note": "大行李寄往 Ace Hotel。背輕便背包搭 JR 至小松站，轉計程車。"
             },
             {
-                "time": "10:30", "title": "Pura Mengening 秘密神社", "type": "體驗",
-                "address": "Jl. Tirta No. 25M, Tampaksiring", "coords": [-8.4235, 115.3120],
-                "tags": ["淨化", "能量"], "moodColor": "#177263",
-                "note": "避開聖泉寺人潮，進行 Melukat 水淨化儀式。門票 Rp 30k + 沙龍 10k。"
+                "time": "12:00", "title": "午餐: Auberge eaufeu", "type": "美食",
+                "address": "石川県小松市観音下町ロ 48", "coords": [36.3571, 136.5393],
+                "tags": ["里山料理", "廢校"], "moodColor": "#586C58",
+                "note": "在改建的教室內享用在地食材。"
             },
             {
-                "time": "13:00", "title": "Svasensa 調香工作坊", "type": "活動",
-                "address": "Toya Ubud EcoPark, Jl. Raya Kenderan", "tags": ["調香", "必去"], "moodColor": "#d44601",
-                "note": "在叢林峽谷邊調製專屬香水，環境極美。費用約 Rp 459,000。"
+                "time": "15:00", "title": "農口尚彥研究所 Tasting", "type": "體驗",
+                "address": "石川県小松市観音下町ワ 1-1", "tags": ["釀酒之神", "清酒"], "moodColor": "#C5A059",
+                "note": "預約「杜庵」。體驗清酒與稻田景觀的結合。"
             },
             {
-                "time": "16:00", "title": "Pyramids of Chi", "type": "療癒",
-                "address": "Jalan Kelebang Moding No. 22", "tags": ["聲療", "玄學"], "moodColor": "#177263",
-                "note": "預約 Ancient Sound Healing (US$ 25)。躺著透過銅鑼聲波釋放壓力。"
-            },
-            {
-                "time": "18:30", "title": "晚餐: The Yoga Barn", "type": "美食",
-                "address": "Jl. Hanoman, Ubud", "tags": ["健康有機"], "moodColor": "#d44601",
-                "note": "Garden Kafe。吃清淡的有機料理，延續療癒感。"
+                "time": "19:00", "title": "晚餐: 糸井主廚法式料理", "type": "美食",
+                "address": "Auberge eaufeu", "tags": ["野味", "發酵"], "moodColor": "#2C2C2C",
+                "note": "米其林級別精緻法餐。"
             }
         ],
         "inspiration": [
-            { 
-                "title": "方案A: Ganesha Bookshop", 
-                "tag": "RAINY", 
-                "type": "閱讀",
-                "address": "Jl. Raya Ubud, Ubud",
-                "open_hours": "09:00 - 18:00",
-                "note": "如果下雨，這裡是躲避的好地方。專賣印尼文化書籍，也有二手書，氣氛安靜。" 
-            },
-            { 
-                "title": "方案B: Lazy Cats Cafe", 
-                "tag": "TIRED", 
-                "type": "休息",
-                "address": "Jl. Raya Ubud No.11",
-                "open_hours": "08:00 - 21:00",
-                "note": "不想走動時，這裡有很舒服的復古沙發。由素食藝術家經營，適合放空。" 
-            }
+            { "title": "Plan B: 圖書館聽雨", "tag": "RAINY", "note": "若下大雨，在旅館圖書館喝咖啡閱讀。", "type": "休息" }
         ],
-        "shopping": ["自製香水"]
+        "shopping": ["農口尚彥清酒"]
     },
-    "day3": { // 9/27 Sun
+    "day3": { // 6/29 金澤 -> 京都
         "events": [
             {
-                "time": "09:30", "title": "ARMA 藝術博物館", "type": "藝術",
-                "address": "Jl. Raya Pengosekan", "tags": ["文化", "散步"], "moodColor": "#177263",
-                "note": "像皇家花園般的園區，欣賞傳統繪畫。"
+                "time": "12:00", "title": "午餐: 乙女壽司", "type": "美食",
+                "address": "石川県金沢市木倉町 4-10", "tags": ["Smart Luxury", "壽司"], "moodColor": "#C5A059",
+                "note": "需提前一月預約。金澤壽司頂點。"
             },
             {
-                "time": "11:30", "title": "Andong 古董街", "type": "逛街",
-                "address": "Jalan Raya Andong", "tags": ["淘寶"], "moodColor": "#d44601",
-                "note": "建議搭車到上游，慢慢往下坡走逛下來比較省力。"
+                "time": "14:00", "title": "鈴木大拙館", "type": "景點",
+                "address": "石川県金沢市本多町 3-4-20", "coords": [36.5594, 136.6622],
+                "tags": ["谷口吉生", "禪"], "moodColor": "#586C58",
+                "note": "在「水鏡之庭」前發呆，讓大腦降頻。"
             },
             {
-                "time": "14:00", "title": "午餐: 髒鴨飯 Bebek Bengil", "type": "美食",
-                "address": "Bebek Bengil, Jl. Hanoman", "tags": ["經典", "稻田"], "moodColor": "#d44601",
-                "note": "就在飯店旁。務必選稻田邊涼亭座位。"
+                "time": "16:00", "title": "中停福井: ESHIKOTO", "type": "體驗",
+                "address": "福井県永平寺町下浄法寺 12-17", "tags": ["黑龍酒造", "設計"], "moodColor": "#1A2B4C",
+                "note": "在石田屋品飲頂級黑龍。需計程車往返福井站。"
             },
             {
-                "time": "15:30", "title": "吠陀占星: Ashish", "type": "玄學",
-                "address": "Jl. Subak Sok Wayah", "tags": ["占星", "必去"], "moodColor": "#177263",
-                "note": "車開不進去。在 Ubud Main Road 入口下車，步行15分經稻田步道(很美)。"
-            },
-            {
-                "time": "18:30", "title": "晚餐: Kebun Bistro", "type": "小酌",
-                "address": "Jl. Hanoman No.44", "tags": ["法式", "微醺"], "moodColor": "#d44601",
-                "note": "法式鄉村風，紅白酒豐富，適合優雅獨酌。"
+                "time": "19:00", "title": "Check-in: Ace Hotel Kyoto", "type": "住宿",
+                "address": "京都市中京区車屋町 245-2", "coords": [35.0097, 135.7607],
+                "tags": ["新風館"], "moodColor": "#2C2C2C",
+                "note": "地鐵烏丸御池站直結。領取寄送的行李。"
             }
         ],
         "inspiration": [
-            { 
-                "title": "方案A: BMC Money Changer", 
-                "tag": "必辦", 
-                "type": "服務",
-                "address": "Jl. Raya Pengosekan Ubud No.108",
-                "open_hours": "08:00 - 21:00",
-                "note": "如果還沒換錢，這家匯率公道且安全。" 
-            }
+            { "title": "Plan B: 21世紀美術館", "tag": "RAINY", "note": "若雨天無法走戶外。圓形玻璃建築很美。", "type": "室內" },
+            { "title": "Plan B: あいじ壽司", "tag": "PLAN B", "note": "若乙女壽司客滿的替代案。", "type": "美食" }
         ],
-        "shopping": ["木雕小物", "銀器", "復古裝飾"]
+        "shopping": ["ESHIKOTO 限定酒"]
     },
-    "day4": { // 9/28 Mon
+    "day4": { // 6/30 夏越之祓
         "events": [
             {
-                "time": "08:00", "title": "Ubud Morning Market", "type": "市集",
-                "address": "Jl. Raya Ubud", "tags": ["早起", "在地"], "moodColor": "#d44601",
-                "note": "感受生活氣息，買新鮮芒果、山竹。"
+                "time": "12:00", "title": "午餐: Velrosier", "type": "美食",
+                "address": "京都市下京区河原町通四条下ル 2F", "tags": ["Fusion", "米其林"], "moodColor": "#C5A059",
+                "note": "解構重組的中華料理。午餐 CP 值高。"
             },
             {
-                "time": "09:30", "title": "香氛巡禮 (Blue Stone/Bohe)", "type": "購物",
-                "address": "Jl. Dewi Sita", "tags": ["精油", "香水"], "moodColor": "#177263",
-                "note": "Blue Stone (雨林精油), Bohe (香水), Oiland (護膚油)。"
+                "time": "15:00", "title": "下鴨神社 (夏越之祓)", "type": "文化",
+                "address": "京都市左京区下鴨泉川町 59", "coords": [35.0391, 135.7730],
+                "tags": ["儀式", "除厄"], "moodColor": "#586C58",
+                "note": "6/30 限定。務必鑽過「茅之輪」去除上半年晦氣。"
             },
             {
-                "time": "11:30", "title": "午餐: Taco Casa", "type": "美食",
-                "address": "Jl. Pengosekan", "tags": ["墨西哥"], "moodColor": "#d44601",
-                "note": "簡單快速好吃，吃完回飯店避暑。"
-            },
-            {
-                "time": "14:00", "title": "Putri Bali Spa 2", "type": "按摩",
-                "address": "Jl. Hanoman", "tags": ["SPA", "放鬆"], "moodColor": "#177263",
-                "note": "飯店附近的優質平價選擇。預算約 Rp 150,000。"
-            },
-            {
-                "time": "18:30", "title": "晚餐: Hujan Locale", "type": "美食",
-                "address": "Jl. Sri Wedari No. 5", "tags": ["Fine Dining", "印尼菜"], "moodColor": "#d44601",
-                "note": "推薦一樓吧台或二樓靠窗。必點 Bebek Goreng 或 Rendang。"
+                "time": "19:00", "title": "晚餐: Gyoza Hohei (步兵)", "type": "美食",
+                "address": "京都市東山区清本町 373-3", "tags": ["必比登", "餃子"], "moodColor": "#2C2C2C",
+                "note": "皮薄餡靚，輕鬆的一餐。"
             }
         ],
         "inspiration": [
-            { 
-                "title": "方案A: Threads of Life", 
-                "tag": "PHOTO", 
-                "type": "逛街",
-                "address": "Jl. Kajeng No.24",
-                "open_hours": "10:00 - 19:00",
-                "note": "一家像博物館的紡織品店。支持偏鄉婦女的手工藝，非常精緻，拍照很美，但單價較高。" 
-            },
-            { 
-                "title": "方案B: Room 4 Dessert", 
-                "tag": "FOOD", 
-                "type": "甜點",
-                "address": "Jl. Raya Sanggingan",
-                "open_hours": "16:00 - 22:00",
-                "price": "Rp 400,000+",
-                "note": "如果有空位，去試試這家上過 Netflix 的知名甜點 Fine Dining。適合慶祝或犒賞自己。" 
-            }
+            { "title": "Plan B: 錦天滿宮", "tag": "RAINY", "note": "如下暴雨，改去有頂棚的錦市場與天滿宮。", "type": "備案" }
         ],
-        "shopping": ["Blue Stone 精油", "Bohe 香水", "新鮮水果"]
+        "shopping": ["下鴨神社蕾絲御守"]
     },
-    "day5": { // 9/29 Tue
+    "day5": { // 7/1 陰陽師與結構
         "events": [
             {
-                "time": "09:00", "title": "Jero Gede 傳統治療", "type": "玄學",
-                "address": "Keliki / Sebatu Area", "tags": ["療癒", "重點"], "moodColor": "#177263",
-                "note": "GetYourGuide 預訂行程。包含司機與翻譯。Jero 擅長讀取能量。"
+                "time": "10:00", "title": "晴明神社", "type": "文化",
+                "address": "京都市上京区晴明町 806", "tags": ["五芒星", "結界"], "moodColor": "#1A2B4C",
+                "note": "購買「桔梗守」，祈求心智清晰。"
             },
             {
-                "time": "14:00", "title": "Bintang Supermarket", "type": "購物",
-                "address": "Jl. Raya Sanggingan No. 45", "tags": ["最後採買"], "moodColor": "#177263",
-                "note": "買 Sensatia 保養品、Bokashi 草藥油 (伴手禮)。"
+                "time": "12:00", "title": "午餐: MOTOI", "type": "美食",
+                "address": "京都市中京区富小路通二条下ル", "tags": ["Smart Luxury", "法餐"], "moodColor": "#C5A059",
+                "note": "大正時代建築，菜色講究構築感。"
             },
             {
-                "time": "17:30", "title": "Sayan House 夕陽晚餐", "type": "美食",
-                "address": "Jl. Raya Sayan No.70", "tags": ["絕景", "日落"], "moodColor": "#d44601",
-                "note": "懸崖邊看日落，日式拉美 Fusion 菜。需預約。預算 Rp 400,000。"
+                "time": "15:00", "title": "山田松香木店", "type": "體驗",
+                "address": "京都市上京区勘解由小路町 164", "tags": ["調香", "香道"], "moodColor": "#586C58",
+                "note": "像藥劑師一樣調配屬於自己的香味。"
             },
             {
-                "time": "20:00", "title": "整理行李", "type": "整理",
-                "address": "Tegal Sari", "tags": ["打包"], "moodColor": "#5c0d09",
-                "note": "把戰利品打包，檢查證件。"
+                "time": "20:00", "title": "Sake Bar Yoramu", "type": "小酌",
+                "address": "京都市中京区松屋町 35-1", "tags": ["清酒", "結構"], "moodColor": "#1A2B4C",
+                "note": "需預約。請老闆推薦「結構感強」的清酒。"
             }
         ],
         "inspiration": [
-            { 
-                "title": "方案A: Campuhan Ridge Walk", 
-                "tag": "PHOTO", 
-                "type": "風景",
-                "address": "Campuhan Ridge Walk",
-                "open_hours": "全天",
-                "price": "Free",
-                "note": "如果下午行程提早結束，可去走這條著名的山脊步道。視野開闊，適合黃昏散步拍照。" 
-            }
+            { "title": "Plan B: 西陣織會館", "tag": "RAINY", "note": "雨天備案，觀賞精密織布結構。", "type": "文化" },
+            { "title": "Plan B: Sake Bar Asakura", "tag": "PLAN B", "note": "若 Yoramu 客滿的替代方案。", "type": "酒吧" }
         ],
-        "shopping": ["Sensatia 保養品", "Bokashi 油"]
+        "shopping": ["桔梗守", "自調香包"]
     },
-    "day6": { // 9/30 Wed
+    "day6": { // 7/2 綠色結界
         "events": [
             {
-                "time": "09:00", "title": "最後早餐 & Check-out", "type": "住宿",
-                "address": "Tegal Sari", "tags": ["退房"], "moodColor": "#177263",
-                "note": "享受最後寧靜，檢查抽屜遺漏物品。"
+                "time": "10:00", "title": "西芳寺 (苔寺)", "type": "文化",
+                "address": "京都市西京区松尾神ヶ谷町 56", "coords": [34.9922, 135.6833],
+                "tags": ["預約制", "苔蘚"], "moodColor": "#586C58",
+                "note": "抄寫心經後進入庭園，保持絕對安靜。"
             },
             {
-                "time": "11:00", "title": "前往機場 (DPS)", "type": "交通",
-                "address": "Ngurah Rai International Airport", "tags": ["回程"], "moodColor": "#d44601",
-                "note": "車程預估 2 小時。搭乘 CX784 (16:10 起飛)。"
+                "time": "13:00", "title": "午餐: 天普羅 松", "type": "美食",
+                "address": "京都市右京区梅津大縄場町 21-26", "tags": ["創意天婦羅"], "moodColor": "#C5A059",
+                "note": "位於桂川旁，常使用液體器皿，視覺驚艷。"
             },
             {
-                "time": "13:30", "title": "機場免稅店", "type": "購物",
-                "address": "DPS Duty Free", "tags": ["消耗現鈔"], "moodColor": "#d44601",
-                "note": "把剩下的印尼盾花完。"
+                "time": "15:30", "title": "House of Ki No Bi", "type": "體驗",
+                "address": "京都市中京区河原町通二条上る清水町 358", "tags": ["琴酒", "植物學"], "moodColor": "#1A2B4C",
+                "note": "Tasting Flight，體驗植物學代碼。"
+            },
+            {
+                "time": "19:00", "title": "晚餐: Kokoroya (克)", "type": "美食",
+                "address": "京都市中京区御幸町通三条下ル", "tags": ["居酒屋"], "moodColor": "#2C2C2C",
+                "note": "氣氛輕鬆，酒單豐富。"
             }
         ],
         "inspiration": [
-            { 
-                "title": "方案A: Seniman Coffee", 
-                "tag": "TIRED", 
-                "type": "咖啡",
-                "address": "Jl. Sri Wedari No.5",
-                "open_hours": "07:30 - 22:00",
-                "price": "Rp 50,000",
-                "note": "如果時間還早，去喝杯烏布最強咖啡再走。著名的搖搖椅座位。" 
+            { "title": "Plan B: 祇王寺", "tag": "PLAN B", "note": "若苔寺沒約到。嵐山深處的小苔蘚庭園。", "type": "景點" }
+        ],
+        "shopping": ["季之美琴酒"]
+    },
+    "day7": { // 7/3 水源與酒香
+        "events": [
+            {
+                "time": "10:00", "title": "御香宮 & 松本酒造", "type": "文化",
+                "address": "京都市伏見区御香宮門前町", "tags": ["伏見", "水源"], "moodColor": "#586C58",
+                "note": "參拜水脈源頭，欣賞紅磚煙囪工業建築。"
+            },
+            {
+                "time": "12:30", "title": "午餐: 木山 (Kiyama)", "type": "美食",
+                "address": "京都市中京区絹屋町 136", "tags": ["米其林", "水"], "moodColor": "#C5A059",
+                "note": "主打「水」，現場刨柴魚，喝第一口井水高湯。"
+            },
+            {
+                "time": "15:00", "title": "蒼空 & 油長", "type": "體驗",
+                "address": "京都市伏見区今町 672-1", "tags": ["酒造", "發酵"], "moodColor": "#1A2B4C",
+                "note": "坐在 Bar 台看玻璃後的發酵桶喝酒。"
+            },
+            {
+                "time": "20:00", "title": "Bar K6", "type": "小酌",
+                "address": "京都市中京区二条通木屋町東入ル", "tags": ["傳奇酒吧"], "moodColor": "#2C2C2C",
+                "note": "必點炸牛排三明治配威士忌。"
             }
         ],
-        "shopping": ["免稅品"]
+        "inspiration": [
+            { "title": "Plan B: 黃櫻紀念館", "tag": "RAINY", "note": "伏見雨天備案，可喝精釀啤酒。", "type": "室內" },
+            { "title": "Plan B: Cenci", "tag": "PLAN B", "note": "若木山客滿的替代午餐 (義式)。", "type": "美食" }
+        ],
+        "shopping": ["伏見限定清酒"]
+    },
+    "day8": { // 7/4 自由與金運
+        "events": [
+            {
+                "time": "10:00", "title": "御金神社", "type": "文化",
+                "address": "京都市中京区押西洞院町 614", "tags": ["金運", "鳥居"], "moodColor": "#C5A059",
+                "note": "洗錢求財，金色鳥居。Ace Hotel 步行可達。"
+            },
+            {
+                "time": "12:00", "title": "午餐: Hafuu 本店", "type": "美食",
+                "address": "京都市中京区笹屋町 471-1", "tags": ["和牛", "肉食"], "moodColor": "#A84B3E",
+                "note": "極上牛排蓋飯，CP值高。"
+            },
+            {
+                "time": "14:00", "title": "鴨川 Delta / 金繼", "type": "自由",
+                "address": "Kamogawa Delta", "tags": ["散步", "工藝"], "moodColor": "#586C58",
+                "note": "跳烏龜石，或參觀 POJ Studio 金繼工藝。"
+            },
+            {
+                "time": "19:00", "title": "晚餐: 祇園迦陵", "type": "美食",
+                "address": "京都市東山区祇園町南側 570-235", "tags": ["鱧", "骨切"], "moodColor": "#1A2B4C",
+                "note": "京都夏天的靈魂「鱧魚 (Hamo)」料理。"
+            }
+        ],
+        "inspiration": [
+            { "title": "Plan B: 京都市京瓷美術館", "tag": "RAINY", "note": "雨天備案，幾何線條豐富的建築。", "type": "藝術" }
+        ],
+        "shopping": ["御金神社錢包"]
+    },
+    "day9": { // 7/5 完美句點
+        "events": [
+            {
+                "time": "10:00", "title": "Stumptown Coffee", "type": "咖啡",
+                "address": "Ace Hotel Kyoto", "tags": ["早晨"], "moodColor": "#2C2C2C",
+                "note": "離開前的最後一杯好咖啡。"
+            },
+            {
+                "time": "12:00", "title": "伊勢丹百貨掃貨", "type": "購物",
+                "address": "Kyoto Station", "tags": ["手信"], "moodColor": "#C5A059",
+                "note": "地下街買清酒、漬物。"
+            },
+            {
+                "time": "14:30", "title": "搭乘 Haruka", "type": "交通",
+                "address": "Kyoto Station", "tags": ["JR", "回程"], "moodColor": "#1A2B4C",
+                "note": "前往 KIX 關西機場。"
+            },
+            {
+                "time": "17:50", "title": "CX507 起飛", "type": "航班",
+                "address": "Kansai Airport", "tags": ["HKG"], "moodColor": "#2C2C2C",
+                "note": "預計 20:50 抵達香港。"
+            }
+        ],
+        "inspiration": [],
+        "shopping": ["伊勢丹免稅品"]
     }
 };
 
-// 6. 🗣️ 常用短語 (Indonesian)
+// 6. 🗣️ 常用短語 (Language Cards)
 const PHRASE_DATA = [
     {
-        category: "司機溝通",
+        category: "基本 / Basic",
         items: [
-            { term_primary: "Pak, tolong ke sini", term_secondary: "先生，請載我去這裡", term_pronounce: "Pak, to-long ke si-ni" },
-            { term_primary: "Terima Kasih", term_secondary: "謝謝", term_pronounce: "Te-ri-ma Ka-sih" },
-            { term_primary: "Tunggu sebentar", term_secondary: "請等一下", term_pronounce: "Tung-gu se-ben-tar" }
+            { term_primary: "一人です", term_secondary: "一位", term_pronounce: "Hitori desu" },
+            { term_primary: "お会計をお願いします", term_secondary: "請結帳", term_pronounce: "Okaikei o onegaishimasu" },
+            { term_primary: "領収書をください", term_secondary: "請給我收據", term_pronounce: "Ryoshusho o kudasai" },
+            { term_primary: "予約しています", term_secondary: "我有預約...", term_pronounce: "Yoyaku shiteimasu..." },
+            { term_primary: "トイレはどこですか", term_secondary: "洗手間在哪?", term_pronounce: "Toire wa doko?" }
         ]
     },
     {
-        category: "餐廳/購物",
+        category: "餐廳 / Dining",
         items: [
-            { term_primary: "Berapa harganya?", term_secondary: "多少錢？", term_pronounce: "Be-ra-pa har-ga-nya" },
-            { term_primary: "Tidak mau pedas", term_secondary: "不要辣", term_pronounce: "Ti-dak mau pe-das" },
-            { term_primary: "Bill, please", term_secondary: "請結帳 (Minta Bon)", term_pronounce: "Min-ta Bon" }
+            { term_primary: "英語のメニューはありますか", term_secondary: "有英文菜單嗎", term_pronounce: "Eigo no menyu..." },
+            { term_primary: "お任せでお願いします", term_secondary: "請交給主廚決定", term_pronounce: "Omakase de..." },
+            { term_primary: "ネギ抜きでお願いします", term_secondary: "請不要加蔥 (重要)", term_pronounce: "Negi nuki de..." },
+            { term_primary: "水をお願いします", term_secondary: "請給我水", term_pronounce: "Mizu o..." }
+        ]
+    },
+    {
+        category: "日本酒 / Sake",
+        items: [
+            { term_primary: "日本酒のメニュー", term_secondary: "清酒菜單", term_pronounce: "Nihonshu no menyu" },
+            { term_primary: "辛口のお酒が好きです", term_secondary: "喜歡辛口 (Dry)", term_pronounce: "Karakuchi ga suki" },
+            { term_primary: "この料理に合うお酒", term_secondary: "適合這道菜的酒", term_pronounce: "Ryori ni au osake" }
+        ]
+    },
+    {
+        category: "交通 / Travel",
+        items: [
+            { term_primary: "静かな席をお願いします", term_secondary: "請給安靜的座位", term_pronounce: "Shizukana seki..." },
+            { term_primary: "この住所までお願いします", term_secondary: "請載我到這地址", term_pronounce: "Kono jusho made" },
+            { term_primary: "荷物を預かってもらえますか", term_secondary: "可以寄放行李嗎", term_pronounce: "Nimotsu o azukatte" },
+            { term_primary: "カードは使えますか", term_secondary: "可用信用卡嗎", term_pronounce: "Card okay?" }
         ]
     }
 ];
