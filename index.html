@@ -176,8 +176,7 @@ const THEME_CONFIG = {
     cardColor: "#fdfaf3",        // 象牙白 (卡片/內容區)
     textColor: "#5c0d09",        // 深紅/深棕 (主要文字)
     textSubColor: "#177263",     // 熱帶綠 (次要資訊/標籤)
-    borderColor: "#e0d6c3",      // 邊框顏色 (配合米色背景調整)
-    // 引入 Playfair Display (標題) 與 Montserrat (內文)
+    borderColor: "#e0d6c3",      // 邊框顏色
     googleFontsUrl: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap",
     fontHeading: '"Playfair Display", serif',
     fontBody: '"Montserrat", sans-serif'
@@ -192,15 +191,15 @@ const CONFIG = {
         homeTimeLabel: "HKT"
     },
     startDate: "2026-09-25", // 週五出發
-    duration: 6              // 共 6 天
+    duration: 6
 };
 
-// 3. 📍 目的地 (Ubud, Bali)
+// 3. 📍 目的地
 const DESTINATION = {
     name: "烏布 Ubud",
-    lat: -8.5069,        // 烏布市中心座標
+    lat: -8.5069,
     lon: 115.2625,
-    timezone: "Asia/Makassar", // 峇里島時區 (與香港無時差，但用於天氣API)
+    timezone: "Asia/Makassar",
     currency: "idr",
     currencyLabel: "IDR",
     baseCurrency: "HKD"
@@ -239,7 +238,7 @@ const TRIP_INFO = {
     ]
 };
 
-// 5. 🗺️ 行程細節
+// 5. 🗺️ 行程細節 (包含詳細後備方案)
 const USER_ITINERARY = {
     "day1": { // 9/25 Fri
         "events": [
@@ -271,8 +270,24 @@ const USER_ITINERARY = {
             }
         ],
         "inspiration": [
-            { "title": "房內按摩 (備案)", "tag": "TIRED", "note": "若太累不想出門，請櫃台安排房內按摩 (推薦 Balinese Massage)。", "type": "放鬆" },
-            { "title": "KAFE", "tag": "SOLO", "note": "數位遊牧者聚集地，有機食物，適合寫日記。", "type": "美食" }
+            { 
+                "title": "方案A: 房內按摩 (In-room)", 
+                "tag": "TIRED", 
+                "type": "放鬆",
+                "address": "Tegal Sari Accommodation",
+                "open_hours": "10:00 - 22:00",
+                "price": "Rp 150,000+",
+                "note": "如果搭機太累不想出門，直接請飯店安排房內按摩。推薦 Balinese Massage (60mins)。" 
+            },
+            { 
+                "title": "方案B: KAFE", 
+                "tag": "SOLO", 
+                "type": "美食",
+                "address": "Jl. Hanoman No.44B, Ubud",
+                "open_hours": "07:30 - 23:00",
+                "price": "Rp 100,000",
+                "note": "非常安全的社交中心，充滿數位遊牧者。有機食物很棒，適合一個人看書、寫日記。" 
+            }
         ],
         "shopping": ["大瓶礦泉水", "防蚊噴霧", "紅酒/起司", "熱帶水果"]
     },
@@ -292,12 +307,12 @@ const USER_ITINERARY = {
             {
                 "time": "13:00", "title": "Svasensa 調香工作坊", "type": "活動",
                 "address": "Toya Ubud EcoPark, Jl. Raya Kenderan", "tags": ["調香", "必去"], "moodColor": "#d44601",
-                "note": "在叢林峽谷邊調製專屬香水，環境極美。"
+                "note": "在叢林峽谷邊調製專屬香水，環境極美。費用約 Rp 459,000。"
             },
             {
                 "time": "16:00", "title": "Pyramids of Chi", "type": "療癒",
                 "address": "Jalan Kelebang Moding No. 22", "tags": ["聲療", "玄學"], "moodColor": "#177263",
-                "note": "預約 Ancient Sound Healing。躺著透過銅鑼聲波釋放壓力。"
+                "note": "預約 Ancient Sound Healing (US$ 25)。躺著透過銅鑼聲波釋放壓力。"
             },
             {
                 "time": "18:30", "title": "晚餐: The Yoga Barn", "type": "美食",
@@ -306,8 +321,22 @@ const USER_ITINERARY = {
             }
         ],
         "inspiration": [
-            { "title": "Ganesha Bookshop", "tag": "RAINY", "note": "雨天備案，專賣印尼文化與二手書。", "type": "閱讀" },
-            { "title": "Lazy Cats Cafe", "tag": "TIRED", "note": "復古沙發區很舒服，適合發呆。", "type": "休息" }
+            { 
+                "title": "方案A: Ganesha Bookshop", 
+                "tag": "RAINY", 
+                "type": "閱讀",
+                "address": "Jl. Raya Ubud, Ubud",
+                "open_hours": "09:00 - 18:00",
+                "note": "如果下雨，這裡是躲避的好地方。專賣印尼文化書籍，也有二手書，氣氛安靜。" 
+            },
+            { 
+                "title": "方案B: Lazy Cats Cafe", 
+                "tag": "TIRED", 
+                "type": "休息",
+                "address": "Jl. Raya Ubud No.11",
+                "open_hours": "08:00 - 21:00",
+                "note": "不想走動時，這裡有很舒服的復古沙發。由素食藝術家經營，適合放空。" 
+            }
         ],
         "shopping": ["自製香水"]
     },
@@ -340,7 +369,14 @@ const USER_ITINERARY = {
             }
         ],
         "inspiration": [
-            { "title": "BMC Money Changer", "tag": "必辦", "note": "若需換匯，這家安全匯率好。", "type": "服務" }
+            { 
+                "title": "方案A: BMC Money Changer", 
+                "tag": "必辦", 
+                "type": "服務",
+                "address": "Jl. Raya Pengosekan Ubud No.108",
+                "open_hours": "08:00 - 21:00",
+                "note": "如果還沒換錢，這家匯率公道且安全。" 
+            }
         ],
         "shopping": ["木雕小物", "銀器", "復古裝飾"]
     },
@@ -364,7 +400,7 @@ const USER_ITINERARY = {
             {
                 "time": "14:00", "title": "Putri Bali Spa 2", "type": "按摩",
                 "address": "Jl. Hanoman", "tags": ["SPA", "放鬆"], "moodColor": "#177263",
-                "note": "飯店附近的優質平價選擇。"
+                "note": "飯店附近的優質平價選擇。預算約 Rp 150,000。"
             },
             {
                 "time": "18:30", "title": "晚餐: Hujan Locale", "type": "美食",
@@ -373,8 +409,23 @@ const USER_ITINERARY = {
             }
         ],
         "inspiration": [
-            { "title": "Threads of Life", "tag": "PHOTO", "note": "紡織品博物館店，精緻但單價高，拍照很美。", "type": "逛街" },
-            { "title": "Room 4 Dessert", "tag": "FOOD", "note": "Netflix名店，若有位可去吃甜點套餐。", "type": "甜點" }
+            { 
+                "title": "方案A: Threads of Life", 
+                "tag": "PHOTO", 
+                "type": "逛街",
+                "address": "Jl. Kajeng No.24",
+                "open_hours": "10:00 - 19:00",
+                "note": "一家像博物館的紡織品店。支持偏鄉婦女的手工藝，非常精緻，拍照很美，但單價較高。" 
+            },
+            { 
+                "title": "方案B: Room 4 Dessert", 
+                "tag": "FOOD", 
+                "type": "甜點",
+                "address": "Jl. Raya Sanggingan",
+                "open_hours": "16:00 - 22:00",
+                "price": "Rp 400,000+",
+                "note": "如果有空位，去試試這家上過 Netflix 的知名甜點 Fine Dining。適合慶祝或犒賞自己。" 
+            }
         ],
         "shopping": ["Blue Stone 精油", "Bohe 香水", "新鮮水果"]
     },
@@ -393,7 +444,7 @@ const USER_ITINERARY = {
             {
                 "time": "17:30", "title": "Sayan House 夕陽晚餐", "type": "美食",
                 "address": "Jl. Raya Sayan No.70", "tags": ["絕景", "日落"], "moodColor": "#d44601",
-                "note": "懸崖邊看日落，日式拉美 Fusion 菜。需預約。"
+                "note": "懸崖邊看日落，日式拉美 Fusion 菜。需預約。預算 Rp 400,000。"
             },
             {
                 "time": "20:00", "title": "整理行李", "type": "整理",
@@ -402,7 +453,15 @@ const USER_ITINERARY = {
             }
         ],
         "inspiration": [
-            { "title": "Campuhan Ridge Walk", "tag": "PHOTO", "note": "若行程提早結束，可去走這條山脊步道看黃昏。", "type": "風景" }
+            { 
+                "title": "方案A: Campuhan Ridge Walk", 
+                "tag": "PHOTO", 
+                "type": "風景",
+                "address": "Campuhan Ridge Walk",
+                "open_hours": "全天",
+                "price": "Free",
+                "note": "如果下午行程提早結束，可去走這條著名的山脊步道。視野開闊，適合黃昏散步拍照。" 
+            }
         ],
         "shopping": ["Sensatia 保養品", "Bokashi 油"]
     },
@@ -425,7 +484,15 @@ const USER_ITINERARY = {
             }
         ],
         "inspiration": [
-            { "title": "Seniman Coffee", "tag": "TIRED", "note": "若時間還早，去喝杯烏布最強咖啡再走。", "type": "咖啡" }
+            { 
+                "title": "方案A: Seniman Coffee", 
+                "tag": "TIRED", 
+                "type": "咖啡",
+                "address": "Jl. Sri Wedari No.5",
+                "open_hours": "07:30 - 22:00",
+                "price": "Rp 50,000",
+                "note": "如果時間還早，去喝杯烏布最強咖啡再走。著名的搖搖椅座位。" 
+            }
         ],
         "shopping": ["免稅品"]
     }
@@ -450,7 +517,7 @@ const PHRASE_DATA = [
         ]
     }
 ];
-</script>    
+</script>
     
 <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-msg">Action Completed</span></div>
 <header>
