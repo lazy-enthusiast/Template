@@ -168,219 +168,366 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
 <body>
 
 <script id="USER_DATA_CONFIG">
-// 1. 🎨 主題顏色
+// 1. 🎨 主題顏色：神社靜謐 (Zen) x 現代沈穩
 const THEME_CONFIG = {
-accentColor: "#000000",
-accentText: "#FFFFFF",
-backgroundColor: "#FFFFFF",
-cardColor: "#F9F9F9",
-textColor: "#111111",
-textSubColor: "#777777",
-borderColor: "#EEEEEE",
-googleFontsUrl: "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500;700&display=swap",
-fontHeading: '"Noto Sans JP", sans-serif',
-fontBody: '"Noto Sans JP", sans-serif'
+    accentColor: "#D4AF37",      // 神社金 (強調色)
+    accentText: "#FFFFFF",       // 強調文字色
+    backgroundColor: "#F7F9FC",  // 極簡灰白 (背景)
+    cardColor: "#FFFFFF",        // 卡片底色
+    textColor: "#1a2e47",        // 博多灣深藍 (主要文字)
+    textSubColor: "#5e6c7e",     // 次要文字 (深灰藍，確保閱讀性)
+    borderColor: "#B6A0C2",      // 紫藤灰 (邊框/分隔線)
+    googleFontsUrl: "https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap",
+    fontHeading: '"Zen Kaku Gothic New", sans-serif',
+    fontBody: '"Zen Kaku Gothic New", sans-serif'
 };
 
 // 2. 🗓️ 旅程設定
 const CONFIG = {
-ui: {
-browserTitle: "Kyoto Test Trip",
-headerTitle: "KYOTO <span>SOLO</span>",
-homeTimezone: "Asia/Hong_Kong",
-homeTimeLabel: "HKG"
-},
-startDate: "2026-05-15", // 模擬出發日
-duration: 5
+    ui: {
+        browserTitle: "Fukuoka Zen Trip",
+        headerTitle: "FUKUOKA <span>HEALING</span>",
+        homeTimezone: "Asia/Hong_Kong",
+        homeTimeLabel: "HKG"
+    },
+    startDate: "2026-02-14", 
+    duration: 7
 };
 
-// 3. 📍 目的地
+// 3. 📍 目的地：福岡
 const DESTINATION = {
-name: "京都 Kyoto",
-lat: 35.0116,
-lon: 135.7681,
-timezone: "Asia/Tokyo",
-currency: "jpy",
-currencyLabel: "JPY",
-baseCurrency: "HKD"
+    name: "福岡 Fukuoka",
+    lat: 33.5902, 
+    lon: 130.4207, // 以博多站為中心
+    timezone: "Asia/Tokyo",
+    currency: "jpy",
+    currencyLabel: "JPY",
+    baseCurrency: "HKD"
 };
 
 // 4. ✈️ 航班與住宿
 const TRIP_INFO = {
-visa: {
-type: "日本短期滯在",
-number: "VJW-TEST-001",
-note: "已截圖保存"
-},
-flights: [
-{
-type: "去程", flight: "CX506", date: "05/15",
-dep: "HKG 10:20", arr: "KIX 15:10",
-note: "T1 登機 / 睡飽再出門", bookingRef: "TEST-PNR"
-},
-{
-type: "回程", flight: "CX569", date: "05/19",
-dep: "KIX 17:40", arr: "HKG 20:55",
-note: "15:30 抵達機場", bookingRef: "TEST-PNR"
-}
-],
-hotels: [
-{
-name: "Dormy Inn Premium Kyoto Ekimae",
-address: "京都市下京區東塩小路町558-8",
-phone: "+81753715489"
-}
-],
-emergency: [
-{ name: "警察局", phone: "110" },
-{ name: "救護車", phone: "119" },
-{ name: "外交部急難救助", phone: "+81-80-1009-7179" }
-]
+    visa: {
+        type: "Visit Japan Web",
+        number: "QR Code Ready",
+        note: "請確認已截圖保存 QR Code"
+    },
+    flights: [
+        {
+            type: "去程", flight: "UO6XX", date: "02/14",
+            dep: "HKG 12:xx", arr: "FUK 17:10",
+            note: "T2 登機 / 預留時間安檢", bookingRef: "HK EXPRESS"
+        },
+        {
+            type: "回程", flight: "UO669", date: "02/20",
+            dep: "FUK 16:05", arr: "HKG 19:xx",
+            note: "14:00 前抵達機場", bookingRef: "HK EXPRESS"
+        }
+    ],
+    hotels: [
+        {
+            name: "Hotel Wing International 博多新幹線口",
+            address: "福岡市博多区博多駅東1-17-17",
+            phone: "+81924310489",
+            note: "⚠️ 關鍵：必須走「筑紫口」(Chikushi)，出站右轉沿大馬路直走4分鐘。"
+        }
+    ],
+    emergency: [
+        { name: "警察局", phone: "110" },
+        { name: "救護車/火警", phone: "119" },
+        { name: "外交部急難救助", phone: "+886-800-085-095" },
+        { name: "福岡總領事館", phone: "+81-92-734-2810" }
+    ]
 };
 
 // 5. 🗺️ 行程細節
 const USER_ITINERARY = {
-"day1": {
-"events": [
-{
-"time": "15:10", "title": "抵達關西機場", "type": "交通",
-"address": "Kansai Airport", "tags": ["入境"], "moodColor": "#333",
-"note": "順利通關，領取行李。"
-},
-{
-"time": "16:14", "title": "Haruka 特急", "type": "移動",
-"address": "Kansai Airport Station", "tags": ["JR", "直達"], "moodColor": "#007AFF",
-"note": "前往京都 (Kyoto)，車程 75 分鐘。記得用 QR Code 取票。"
-},
-{
-"time": "18:00", "title": "Check-in 放行李", "type": "住宿",
-"address": "京都市下京區東塩小路町558-8", "address_local": "京都市下京区東塩小路町558-8",
-"coords": [34.9868, 135.7599], "tags": ["Dormy Inn"], "moodColor": "#000",
-"note": "先去大浴場洗把臉，換輕鬆衣服。"
-},
-{
-"time": "19:00", "title": "Lopia / 伊勢丹超市", "type": "購物",
-"address": "京都車站周邊", "tags": ["超市巡禮", "最愛"], "moodColor": "#FF9500",
-"note": "Lopia 在 Yodobashi 地下，買當季水果 (草莓/水蜜桃) 和優格。伊勢丹 B2 買熟食。"
-}
-],
-"inspiration": [
-{ "title": "京都塔夜景", "tag": "PHOTO", "note": "就在飯店對面，天氣好可以拍一下。", "type": "景點" }
-],
-"shopping": ["大瓶礦泉水", "泡澡粉", "休足時間"]
-},
-"day2": {
-"events": [
-{
-"time": "10:30", "title": "下鴨神社 (散步)", "type": "祈福",
-"address": "京都市左京区下鴨泉川町59", "coords": [35.0391, 135.7730],
-"tags": ["能量景點", "森林"], "moodColor": "#34C759",
-"note": "這裡的「糺之森」空氣很好，適合散步，可以買蕾絲御守。"
-},
-{
-"time": "13:00", "title": "獨食午餐: Grill Capital Touyoutei", "type": "美食",
-"address": "京都市北区上贺茂岩ケ垣内町28-3", "tags": ["百年洋食", "漢堡排"], "moodColor": "#FF2D55",
-"note": "必吃整顆番茄沙拉。即使一個人吃也很自在。"
-},
-{
-"time": "15:00", "title": "Lisn Kyoto (香水/線香)", "type": "購物",
-"address": "京都市下京区烏丸通四条下ル COCON KARASUMA 1F", "coords": [35.0034, 135.7593],
-"tags": ["香氛", "設計"], "moodColor": "#AF52DE",
-"note": "挑選幾款喜歡的線香，店內設計非常現代，不會有傳統沈重感。"
-}
-],
-"inspiration": [
-{ "title": "Inoda Coffee", "tag": "TIRED", "note": "走累了可以去喝杯咖啡，本店氣氛最好。", "type": "休息" }
-],
-"shopping": ["Lisn 線香禮盒", "神社御守"]
-},
-"day3": {
-"events": [
-{
-"time": "11:00", "title": "寺町通古物店巡禮", "type": "逛街",
-"address": "寺町通二条", "coords": [35.0125, 135.7678],
-"tags": ["古物", "茶道具"], "moodColor": "#A2845E",
-"note": "這一帶有很多老字號古董店、紙店 (一保堂茶舖也在附近)。"
-},
-{
-"time": "15:00", "title": "Sfera Building", "type": "設計",
-"address": "京都市東山区縄手通新橋上ル西之町200",
-"tags": ["現代工藝"], "moodColor": "#8E8E93",
-"note": "很有質感的選物店，適合挑選有品味的紀念品。"
-},
-{
-"time": "18:00", "title": "Cave de K (Wine Bar)", "type": "小酌",
-"address": "京都市中京区", "tags": ["紅酒", "安靜"], "moodColor": "#5856D6",
-"note": "氣氛很好的酒吧，適合獨自喝一杯，服務人員專業且有距離感 (安全)。"
-}
-],
-"inspiration": [
-{ "title": "鴨川散步", "tag": "PHOTO", "note": "黃昏時分去鴨川邊坐坐。", "type": "風景" }
-],
-"shopping": ["一保堂抹茶", "古董小盤子"]
-},
-"day4": {
-"events": [
-{
-"time": "14:00", "title": "預約按摩: Olive Spa", "type": "放鬆",
-"address": "京都祇園店", "coords": [35.0050, 135.7750],
-"tags": ["SPA", "按摩"], "moodColor": "#FF9F0A",
-"note": "已預約 100 分鐘精油療程。注重隱私，非常安全。"
-},
-{
-"time": "17:00", "title": "超市補貨 & 整理行李", "type": "整理",
-"address": "Dormy Inn", "tags": ["休息"], "moodColor": "#000",
-"note": "把這幾天買的東西整理好，最後再去一次樓下超市買明天飛機上吃的零食。"
-}
-],
-"inspiration": [
-{ "title": "飯店免費拉麵", "tag": "RAINY", "note": "如果懶得出去吃晚餐，21:30 飯店有免費夜鳴拉麵。", "type": "宵夜" }
-],
-"shopping": ["伴手禮最後確認"]
-},
-"day5": {
-"events": [
-{
-"time": "11:00", "title": "Check-out", "type": "住宿",
-"address": "Dormy Inn", "tags": ["退房"], "moodColor": "#000",
-"note": "行李寄放櫃台，去車站附近吃最後的午餐。"
-},
-{
-"time": "14:15", "title": "搭乘 Haruka", "type": "交通",
-"address": "Kyoto Station", "tags": ["JR"], "moodColor": "#007AFF",
-"note": "預計 15:35 抵達關西機場。"
-},
-{
-"time": "17:40", "title": "飛機起飛 (CX569)", "type": "航班",
-"address": "KIX T1", "tags": ["回程"], "moodColor": "#333",
-"note": "再見京都！預計 20:55 抵達香港。"
-}
-],
-"inspiration": [],
-"shopping": ["免稅店巧克力"]
-}
+    "day1": {
+        "events": [
+            {
+                "time": "17:10", "title": "抵達福岡機場 (FUK)", "type": "交通",
+                "address": "Fukuoka Airport International Terminal", "tags": ["入境"], "moodColor": "#1a2e47",
+                "note": "入境後至航廈外「2號乘車處」搭乘往博多站巴士。⚠️ 務必在「博多駅筑紫口」下車。"
+            },
+            {
+                "time": "18:15", "title": "Check-in: Hotel Wing", "type": "住宿",
+                "address": "Hotel Wing International Hakata Shinkansen-guchi", 
+                "coords": [33.5905, 130.4250],
+                "tags": ["筑紫口", "放行李"], "moodColor": "#000",
+                "note": "下巴士面向車站向右轉，沿大馬路直走，過第一個紅綠燈右手邊。"
+            },
+            {
+                "time": "18:45", "title": "住吉酒販 (清酒採購)", "type": "購物",
+                "address": "Sumiyoshi Shuhan Hakata", "address_local": "博多駅デイトスアネックス 1F",
+                "tags": ["限定酒", "生原酒"], "moodColor": "#D4AF37",
+                "note": "位於 Deitos Annex 1F (筑紫口進門右轉)。目標：九州限定無濾過生原酒。"
+            },
+            {
+                "time": "19:30", "title": "晚餐：博多牛腸鍋 前田屋", "type": "美食",
+                "address": "Hakata Motsunabe Maedaya Hakata", "address_local": "福岡市博多区博多駅東2-1-24",
+                "tags": ["獨遊友善", "和牛"], "moodColor": "#d63345",
+                "note": "必點：味噌牛腸鍋、和牛薄切。人氣店，若排隊太長可啟動備案 A。"
+            },
+            {
+                "time": "21:00", "title": "MaxValu 超市 & 休息", "type": "超市",
+                "address": "MaxValu Express Hakata Gion", 
+                "tags": ["草莓", "宵夜"], "moodColor": "#1a2e47",
+                "note": "買博多甘王草莓回飯店吃。"
+            }
+        ],
+        "inspiration": [
+            { "title": "備案 A: LOPIA 超市", "tag": "FOOD", "note": "Yodobashi 4F，有高品質熟食披薩，不想排餐廳的首選。", "type": "超市" },
+            { "title": "備案 B: REC COFFEE", "tag": "CAFE", "note": "KITTE博多 6F，開很晚且夜景美，適合睡不著時。", "type": "咖啡" }
+        ],
+        "shopping": ["住吉酒販：田中六五/產土", "甘王草莓", "休足時間"]
+    },
+    "day2": {
+        "events": [
+            {
+                "time": "09:00", "title": "護國神社 蚤之市", "type": "市集",
+                "address": "Gokoku Shrine Fukuoka", "address_local": "福岡県福岡市中央区六本松1-1-1",
+                "coords": [33.5786, 130.3807],
+                "tags": ["古物", "昭和風"], "moodColor": "#B6A0C2",
+                "note": "地鐵七隈線「六本松站」2號出口步行8分。尋找昭和玻璃與古著。"
+            },
+            {
+                "time": "12:00", "title": "移動往城島酒祭", "type": "交通",
+                "address": "Araki Station", "tags": ["JR", "接駁車"], "moodColor": "#1a2e47",
+                "note": "回博多搭 JR 鹿兒島本線至「荒木駅」，轉免費接駁巴士。"
+            },
+            {
+                "time": "13:30", "title": "城島酒藏びらき", "type": "體驗",
+                "address": "Kurume Jojima", 
+                "tags": ["清酒", "祭典"], "moodColor": "#D4AF37",
+                "note": "購買「城島∞」試飲券，搭配烤牡蠣。"
+            },
+            {
+                "time": "17:30", "title": "晚餐：鳥鶏研究団", "type": "美食",
+                "address": "Torikai Hakata", 
+                "tags": ["燒鳥", "炸雞"], "moodColor": "#d63345",
+                "note": "現代風燒鳥、必吃 KSB 柏炸雞。"
+            }
+        ],
+        "inspiration": [
+            { "title": "備案 A: 蔦屋書店", "tag": "RAINY", "note": "就在護國神社旁，下雨的最佳躲避處，有 Starbucks。", "type": "書店" },
+            { "title": "備案 B: 住吉酒販角打", "tag": "DRINK", "note": "若酒祭人太多，回博多站內立飲更優雅。", "type": "酒吧" }
+        ],
+        "shopping": ["昭和復古玻璃杯", "古著", "城島限定酒"]
+    },
+    "day3": {
+        "events": [
+            {
+                "time": "09:30", "title": "巴士往太宰府", "type": "交通",
+                "address": "Hakata Bus Terminal", "tags": ["旅人號"], "moodColor": "#1a2e47",
+                "note": "博多巴士總站 1F 11號月台。"
+            },
+            {
+                "time": "10:30", "title": "太宰府天滿宮", "type": "參拜",
+                "address": "Dazaifu Tenmangu", 
+                "tags": ["御神牛", "梅枝餅"], "moodColor": "#D4AF37",
+                "note": "吃現烤梅枝餅。"
+            },
+            {
+                "time": "12:30", "title": "竈門神社 (良緣)", "type": "祈福",
+                "address": "Kamado Shrine", "coords": [33.5317, 130.5562],
+                "tags": ["結緣", "紅線"], "moodColor": "#d63345",
+                "note": "太宰府站前搭社區巴士「內山線」。求姻緣聖地，買紅線結御守。"
+            },
+            {
+                "time": "14:30", "title": "泡湯：博多湯", "type": "溫泉",
+                "address": "Hakata Yu", "address_local": "筑紫野市湯町1-14-5",
+                "tags": ["古湯", "二日市"], "moodColor": "#B6A0C2",
+                "note": "西鐵太宰府 -> 二日市站。1300年歷史古湯 (需自備毛巾)。"
+            },
+            {
+                "time": "17:00", "title": "🔮 占卜酒吧 WIND AGE", "type": "神秘學",
+                "address": "Minami Fukuoka Driver's School", "address_local": "福岡県大野城市下大利3-2-20",
+                "tags": ["塔羅", "隱世"], "moodColor": "#7E57C2",
+                "note": "西鐵「下大利站」步行至駕訓班內。塔羅牌占卜與氣場調酒。"
+            },
+            {
+                "time": "19:30", "title": "晚餐：Shin-Shin 拉麵", "type": "美食",
+                "address": "Shin-Shin Hakata Deitos", 
+                "tags": ["拉麵"], "moodColor": "#1a2e47",
+                "note": "博多純情拉麵，細麵。"
+            }
+        ],
+        "inspiration": [
+            { "title": "備案 A: 九州國立博物館", "tag": "QUIET", "note": "太宰府旁，氣勢滂薄且極其安靜，適合避靜。", "type": "博物館" },
+            { "title": "備案 B: 天拝の郷", "tag": "SPA", "note": "若想泡私人湯屋+看夜景，請改去這裡 (需搭計程車)。", "type": "溫泉" }
+        ],
+        "shopping": ["竈門神社結緣御守", "梅枝餅"]
+    },
+    "day4": {
+        "events": [
+            {
+                "time": "07:30", "title": "早餐：牛舌 たんや", "type": "美食",
+                "address": "Tanya Hakata", "tags": ["博多一番街"], "moodColor": "#D4AF37",
+                "note": "博多一番街人氣早餐。"
+            },
+            {
+                "time": "10:00", "title": "麒麟啤酒福岡工廠", "type": "體驗",
+                "address": "Kirin Beer Park Fukuoka", "address_local": "朝倉市馬田3601",
+                "tags": ["見學", "試飲"], "moodColor": "#FBC02D",
+                "note": "JR基山站轉甘木鐵道至「太刀洗站」。含成吉思汗烤肉午餐。"
+            },
+            {
+                "time": "15:00", "title": "樂水園 (抹茶體驗)", "type": "放鬆",
+                "address": "Rakusuien", "tags": ["茶室"], "moodColor": "#4CAF50",
+                "note": "博多商人茶室，抹茶體驗 (500日圓)。"
+            },
+            {
+                "time": "16:30", "title": "住吉神社", "type": "參拜",
+                "address": "Sumiyoshi Shrine Fukuoka", "tags": ["除災"], "moodColor": "#D4AF37",
+                "note": "參拜航海安全與除災之神。"
+            },
+            {
+                "time": "18:30", "title": "晚餐：濱田屋 水炊鍋", "type": "美食",
+                "address": "Hakata Mizutaki Hamadaya", "address_local": "JR博多City 10F",
+                "tags": ["膠原蛋白"], "moodColor": "#d63345",
+                "note": "福岡必吃雞湯鍋。"
+            }
+        ],
+        "inspiration": [
+            { "title": "備案 A: 鳥栖 Outlets", "tag": "SHOP", "note": "離啤酒廠不遠，購物慾爆發請往這。", "type": "購物" },
+            { "title": "備案 B: 市川香舖", "tag": "SCENT", "note": "川端商店街，買線香好地方。", "type": "購物" }
+        ],
+        "shopping": ["市川香舖線香", "啤酒工廠紀念品"]
+    },
+    "day5": {
+        "events": [
+            {
+                "time": "09:30", "title": "南藏院 (涅槃大佛)", "type": "參拜",
+                "address": "Nanzoin Temple", "coords": [33.6186, 130.5727],
+                "tags": ["世界最大", "金運"], "moodColor": "#D4AF37",
+                "note": "JR 篠栗線至「城戶南藏院前站」。體內參拜、七福神隧道。"
+            },
+            {
+                "time": "13:30", "title": "移動往宮地嶽神社", "type": "交通",
+                "address": "Fukuma Station", "tags": ["JR", "計程車"], "moodColor": "#1a2e47",
+                "note": "JR 回吉塚站轉鹿兒島本線至「福間站」，轉計程車。"
+            },
+            {
+                "time": "15:30", "title": "宮地嶽神社", "type": "參拜",
+                "address": "Miyajidake Shrine", "coords": [33.7806, 130.4852],
+                "tags": ["大注連繩"], "moodColor": "#d63345",
+                "note": "參拜日本第一大注連繩。"
+            },
+            {
+                "time": "16:30", "title": "🌟 光之道 夕陽祭", "type": "絕景",
+                "address": "Miyajidake Shrine Stairs", 
+                "tags": ["2/18最佳", "神蹟"], "moodColor": "#FFA000",
+                "note": "若無預約祈禱，請提早至階梯排隊。一年僅兩次的奇景。"
+            },
+            {
+                "time": "19:30", "title": "晚餐：博多一双", "type": "美食",
+                "address": "Hakata Issou", "tags": ["泡沫系", "豚骨"], "moodColor": "#1a2e47",
+                "note": "位於筑紫口。湯頭濃厚。"
+            }
+        ],
+        "inspiration": [
+            { "title": "備案 A: 万葉の湯", "tag": "RAINY", "note": "若下雨無夕陽，改去機場附近的高級溫泉館。", "type": "溫泉" },
+            { "title": "備案 B: GohGan", "tag": "FOOD", "note": "亞洲50大名廚法式料理，晚餐升級方案。", "type": "美食" }
+        ],
+        "shopping": ["光之道限定御守", "南藏院金運御守"]
+    },
+    "day6": {
+        "events": [
+            {
+                "time": "10:00", "title": "手作明太子 Haku Haku", "type": "體驗",
+                "address": "Haku Haku Museum", "tags": ["DIY"], "moodColor": "#d63345",
+                "note": "JR吉塚站步行13分。"
+            },
+            {
+                "time": "12:30", "title": "午餐：燒肉 BAKURO", "type": "美食",
+                "address": "Yakiniku Bakuro Daimyo", "tags": ["黑毛和牛"], "moodColor": "#D4AF37",
+                "note": "大名店。午市套餐超值。"
+            },
+            {
+                "time": "14:30", "title": "🧪 MY ONLY FRAGRANCE", "type": "調香",
+                "address": "MY ONLY FRAGRANCE FUKUOKA", 
+                "tags": ["專屬香水", "預約制"], "moodColor": "#B6A0C2",
+                "note": "自製能量香水，記得出示預約信。"
+            },
+            {
+                "time": "16:00", "title": "Dry Head Spa", "type": "放鬆",
+                "address": "Goku no Kimochi Fukuoka", "tags": ["腦部放鬆"], "moodColor": "#1a2e47",
+                "note": "不需濕髮的深層按摩。"
+            },
+            {
+                "time": "17:30", "title": "Fukuoka Craft Brewing", "type": "小酌",
+                "address": "Fukuoka Craft", "tags": ["精釀"], "moodColor": "#FFA000",
+                "note": "在地精釀啤酒。"
+            },
+            {
+                "time": "19:30", "title": "晚餐：牛腸鍋 一利", "type": "美食",
+                "address": "Ichitaka Hakata", "tags": ["胡麻鯖魚"], "moodColor": "#d63345",
+                "note": "必點胡麻鯖魚。"
+            }
+        ],
+        "inspiration": [
+            { "title": "備案 A: JULIET'S LETTERS", "tag": "SHOP", "note": "天神高級文具店，適合寫信。", "type": "購物" },
+            { "title": "備案 B: 百道海濱公園", "tag": "SCENE", "note": "海邊散步看夕陽。", "type": "風景" }
+        ],
+        "shopping": ["自製香水", "明太子", "JULIET'S LETTERS 文具"]
+    },
+    "day7": {
+        "events": [
+            {
+                "time": "09:30", "title": "Check-out", "type": "住宿",
+                "address": "Hotel Wing", "tags": ["寄放行李"], "moodColor": "#000",
+                "note": "行李寄放櫃台。"
+            },
+            {
+                "time": "11:00", "title": "博多百年蔵", "type": "體驗",
+                "address": "Ishikura Brewery", "tags": ["酒造"], "moodColor": "#D4AF37",
+                "note": "建議搭計程車。購買最後清酒伴手禮。"
+            },
+            {
+                "time": "12:30", "title": "午餐：鮨割烹やま中", "type": "美食",
+                "address": "Sushi Yamanaka JR Hakata City", "tags": ["江戶前"], "moodColor": "#d63345",
+                "note": "JR博多 City 9F，頂級壽司。"
+            },
+            {
+                "time": "14:00", "title": "巴士往機場", "type": "交通",
+                "address": "Hakata Bus Terminal", "tags": ["國際線直達"], "moodColor": "#1a2e47",
+                "note": "博多巴士總站 1F 11號月台。"
+            },
+            {
+                "time": "16:05", "title": "飛機起飛 (UO669)", "type": "航班",
+                "address": "FUK International Terminal", "tags": ["回程"], "moodColor": "#1a2e47",
+                "note": "再見福岡！預計 19:xx 抵達香港。"
+            }
+        ],
+        "inspiration": [
+            { "title": "備案 A: 壽司 玉", "tag": "FOOD", "note": "KITTE博多，高品質迴轉壽司。", "type": "美食" },
+            { "title": "備案 B: 鈴懸 (岩田屋)", "tag": "SWEET", "note": "必買草莓大福。", "type": "甜點" }
+        ],
+        "shopping": ["博多通饅頭", "努努雞", "免稅店清酒"]
+    }
 };
 
 // 6. 🗣️ 常用短語
 const PHRASE_DATA = [
-{
-category: "購物",
-items: [
-{ term_primary: "これを見せてください", term_secondary: "請讓我看這個", term_pronounce: "Kore misete" },
-{ term_primary: "カードは使えますか", term_secondary: "可用信用卡嗎", term_pronounce: "Card okay?" },
-{ term_primary: "免税できますか", term_secondary: "可以退稅嗎", term_pronounce: "Menzei?" }
-]
-},
-{
-category: "餐廳",
-items: [
-{ term_primary: "一人です", term_secondary: "一位", term_pronounce: "Hitori desu" },
-{ term_primary: "おすすめは？", term_secondary: "推薦什麼?", term_pronounce: "Osusume?" }
-]
-}
+    {
+        category: "玄學/體驗",
+        items: [
+            { term_primary: "予約しています", term_secondary: "我有預約", term_pronounce: "Yoyaku shite-masu" },
+            { term_primary: "タロット占いをしたいです", term_secondary: "我想占卜塔羅牌", term_pronounce: "Tarotto uranai shitai" },
+            { term_primary: "写真をとってもいいですか", term_secondary: "可以拍照嗎?", term_pronounce: "Shashin totte ii?" }
+        ]
+    },
+    {
+        category: "交通/生存",
+        items: [
+            { term_primary: "博多駅の筑紫口へ", term_secondary: "去博多站筑紫口 (給司機)", term_pronounce: "Hakata Chikushi-guchi e" },
+            { term_primary: "宮地嶽神社までのバスは？", term_secondary: "去宮地嶽神社巴士在哪?", term_pronounce: "Miyajidake basu wa?" },
+            { term_primary: "一人です", term_secondary: "一位", term_pronounce: "Hitori desu" },
+            { term_primary: "お会計お願いします", term_secondary: "麻煩結帳", term_pronounce: "O-kaikei onegai" }
+        ]
+    }
 ];
 </script>
-
 <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-msg">Action Completed</span></div>
 <header>
 <div>
