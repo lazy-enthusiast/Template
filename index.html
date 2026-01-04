@@ -238,7 +238,7 @@ const TRIP_INFO = {
     ]
 };
 
-// 5. 🗺️ 行程細節 (完整版)
+// 5. 🗺️ 行程細節 (包含詳細後備方案)
 const USER_ITINERARY = {
     "day1": {
         "events": [
@@ -285,8 +285,24 @@ const USER_ITINERARY = {
             }
         ],
         "inspiration": [
-            { "title": "備案: 戶外啤酒", "tag": "CHILL", "note": "The Commons Thong Lo 喝精釀啤酒。", "type": "放鬆" },
-            { "title": "備案: 按摩", "tag": "RELAX", "note": "Asia Herb Association (開到凌晨2點)。", "type": "SPA" }
+            { 
+                "title": "The Commons Thong Lo", 
+                "tag": "CHILL", 
+                "type": "放鬆",
+                "address": "335 Thong Lo 17 Alley",
+                "address_local": "เดอะคอมมอนส์ ทองหล่อ ซอย 17",
+                "open_hours": "08:00 - 01:00",
+                "note": "不想去酒吧的替代方案。戶外階梯區通風良好，有精釀啤酒和 Live Band，氣氛很棒且安全。"
+            },
+            { 
+                "title": "Asia Herb Association", 
+                "tag": "RELAX", 
+                "type": "SPA",
+                "address": "58/19-24 Sukhumvit Rd (Soi 55)",
+                "address_local": "เอเชีย เฮิร์บ (ปากซอยทองหล่อ)",
+                "open_hours": "09:00 - 02:00",
+                "note": "就在 Thong Lo 站附近。營業到很晚，如果失眠或酒後想放鬆可以直接過來。招牌是藥草球按摩。"
+            }
         ],
         "shopping": ["Mae Varee 芒果糯米", "便利商店買水"]
     },
@@ -319,9 +335,33 @@ const USER_ITINERARY = {
             }
         ],
         "inspiration": [
-            { "title": "雨備: DD Mall", "tag": "RAINY", "note": "恰圖恰對面有冷氣的古董商場。", "type": "逛街" },
-            { "title": "備案: 溫泉", "tag": "RELAX", "note": "Yunomori Onsen (Sukhumvit 26)。", "type": "SPA" },
-            { "title": "續攤: 高空吧", "tag": "VIEW", "note": "Paper Plane Project (T-One 40F)。", "type": "酒吧" }
+            { 
+                "title": "DD Mall (古董商場)", 
+                "tag": "RAINY", 
+                "type": "逛街",
+                "address": "587/10 Kamphaeng Phet 2 Rd",
+                "address_local": "ตึกแดง จตุจักร (ตรงข้ามตลาดจตุจักร)",
+                "open_hours": "10:00 - 20:00 (週二-週日)",
+                "note": "如果恰圖恰太熱或下雨，直接過馬路來這棟紅樓。裡面全是復古家飾和古董，有強勁冷氣。"
+            },
+            { 
+                "title": "Yunomori Onsen (湯之森)", 
+                "tag": "RELAX", 
+                "type": "SPA",
+                "address": "A-Square 120/5 Soi Sukhumvit 26",
+                "address_local": "ยูโนโมริ ออนเซ็น สุขุมวิท 26",
+                "open_hours": "10:00 - 24:00",
+                "note": "日式溫泉結合泰式按摩。非常安靜乾淨，適合深度消除疲勞。"
+            },
+            { 
+                "title": "Paper Plane Project", 
+                "tag": "VIEW", 
+                "type": "酒吧",
+                "address": "T-One Building 40F",
+                "address_local": "ตึก T-One ชั้น 40 (ทองหล่อ)",
+                "open_hours": "09:00 - 24:00",
+                "note": "就在 L'Oliva 附近，走路可達。40樓高空視野，白天是共享空間，晚上變酒吧，音樂不會太吵。"
+            }
         ],
         "shopping": ["古董飾品", "木雕", "手工藝品"]
     },
@@ -368,9 +408,33 @@ const USER_ITINERARY = {
             }
         ],
         "inspiration": [
-            { "title": "備案: 老城散步", "tag": "WALK", "note": "Talaad Noi 巷弄喝 Mother Roaster。", "type": "咖啡" },
-            { "title": "備案: 泰式居酒屋", "tag": "BAR", "note": "Tep Bar (Soi Nana) 聽傳統音樂喝泰式調酒。", "type": "微醺" },
-            { "title": "備案: 吉祥天女", "tag": "PRAY", "note": "Gaysorn 4樓拜 Lakshmi 求財。", "type": "祈福" }
+            { 
+                "title": "Talaad Noi (老城散步)", 
+                "tag": "WALK", 
+                "type": "咖啡",
+                "address": "1172 Soi Charoenkrung 22",
+                "address_local": "ตลาดน้อย / ร้าน Mother Roaster",
+                "open_hours": "全日 (咖啡店至18:00)",
+                "note": "非常有味道的老城區。推薦去 Mother Roaster 喝咖啡，店開在廢五金廠樓上，非常特別。"
+            },
+            { 
+                "title": "Tep Bar (泰式居酒屋)", 
+                "tag": "BAR", 
+                "type": "微醺",
+                "address": "69, 71 Soi Yi Sip Song Karakadakhom 4",
+                "address_local": "ไป เทพ บาร์ (ซอยนานา เยาวราช)",
+                "open_hours": "18:00 - 24:00",
+                "note": "在老城區的隱密小巷。現場演奏泰國傳統音樂，氣氛神秘。必試泰式藥草酒 (Ya Dong)。"
+            },
+            { 
+                "title": "Lakshmi Shrine (吉祥天女)", 
+                "tag": "PRAY", 
+                "type": "祈福",
+                "address": "Gaysorn Village 4F",
+                "address_local": "พระแม่ลักษมี เกษรวิลเลจ ชั้น 4",
+                "open_hours": "10:00 - 18:00",
+                "note": "就在吃晚餐的 Gaysorn 樓上。掌管財富與美貌，可以用粉紅蓮花供奉。"
+            }
         ],
         "shopping": ["藝術明信片 (River City)"]
     },
@@ -404,9 +468,24 @@ const USER_ITINERARY = {
             }
         ],
         "inspiration": [
-            { "title": "備案: 大保養", "tag": "SPA", "note": "Asia Herb 120分鐘全身精油+草藥球。", "type": "放鬆" },
-            { "title": "備案: 香氛", "tag": "SHOP", "note": "Panpuri 或 Karmakamet。", "type": "購物" },
-            { "title": "備案: 書店", "tag": "BOOK", "note": "Open House (Central Embassy) 喝咖啡。", "type": "休息" }
+            { 
+                "title": "Open House (最美書店)", 
+                "tag": "BOOK", 
+                "type": "休息",
+                "address": "Central Embassy Level 6",
+                "address_local": "โอเพ่น เฮ้าส์ เซ็นทรัล เอ็มบาสซี ชั้น 6",
+                "open_hours": "10:00 - 22:00",
+                "note": "曼谷版蔦屋書店。挑高空間視野很好，適合喝咖啡看書發呆，非常安靜。"
+            },
+            { 
+                "title": "Panpuri Wellness", 
+                "tag": "SHOP", 
+                "type": "購物",
+                "address": "Gaysorn Village 12F",
+                "address_local": "ปัญญ์ปุริ เวลเนส เกษรวิลเลจ ชั้น 12",
+                "open_hours": "10:00 - 22:00",
+                "note": "泰國皇室御用品牌。如果 Erb 沒逛夠，可以直接上樓逛這間旗艦店，精油品質極好。"
+            }
         ],
         "shopping": ["松露洋芋片", "手標茶", "藍象調理包", "Copenn 護手霜"]
     },
@@ -437,7 +516,17 @@ const USER_ITINERARY = {
                 "note": "預計 20:25 抵達香港。"
             }
         ],
-        "inspiration": [],
+        "inspiration": [
+             { 
+                "title": "Makkasan 機場快線站", 
+                "tag": "SAFE", 
+                "type": "交通",
+                "address": "Makkasan Station",
+                "address_local": "สถานีมักกะสัน",
+                "open_hours": "06:00 - 24:00",
+                "note": "如果這天塞車太嚴重，不要叫 Grab 去機場。直接去 Makkasan 站搭 Express Line。附近沒什麼好逛，主要是交通保險。"
+            }
+        ],
         "shopping": ["Jo Malone (機場)", "免稅酒"]
     }
 };
@@ -468,7 +557,8 @@ const PHRASE_DATA = [
         ]
     }
 ];
-</script>    
+</script>
+    
 <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-msg">Action Completed</span></div>
 <header>
 <div>
