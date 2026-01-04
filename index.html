@@ -168,396 +168,289 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
 <body>
 
 <script id="USER_DATA_CONFIG">
-// 1. 🎨 主題顏色 (Deep Night & Gold)
+// 1. 🎨 主題顏色 (Ubud Slow Living Theme)
 const THEME_CONFIG = {
-    accentColor: "#D4AF37",       // 金屬金
-    accentText: "#000000",        // 黑字
-    backgroundColor: "#1A1A2E",   // 深夜藍
-    cardColor: "#232336",         // 深灰藍
-    textColor: "#F5F5F5",         // 月光白
-    textSubColor: "#B0B0B0",      // 星塵灰
-    borderColor: "#33334D",       // 深色邊框
-    googleFontsUrl: "https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500;700&family=Playfair+Display:wght@400;700&display=swap",
+    accentColor: "#d44601",      // 溫暖橙 (重點按鈕/交通)
+    accentText: "#FFFFFF",       // 橙色背景上的白字
+    backgroundColor: "#f2e8d5",  // 米色/奶油砂 (背景)
+    cardColor: "#fdfaf3",        // 象牙白 (卡片/內容區)
+    textColor: "#5c0d09",        // 深紅/深棕 (主要文字)
+    textSubColor: "#177263",     // 熱帶綠 (次要資訊/標籤)
+    borderColor: "#e0d6c3",      // 邊框顏色 (配合米色背景調整)
+    // 引入 Playfair Display (標題) 與 Montserrat (內文)
+    googleFontsUrl: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap",
     fontHeading: '"Playfair Display", serif',
-    fontBody: '"Noto Serif TC", serif'
+    fontBody: '"Montserrat", sans-serif'
 };
 
 // 2. 🗓️ 旅程設定
 const CONFIG = {
     ui: {
-        browserTitle: "BKK Deep Night",
-        headerTitle: "BANGKOK <span>2026</span>",
+        browserTitle: "Ubud Slow Living",
+        headerTitle: "UBUD <span>SLOW</span>",
         homeTimezone: "Asia/Hong_Kong",
-        homeTimeLabel: "HKG"
+        homeTimeLabel: "HKT"
     },
-    startDate: "2026-04-03", // 週五出發
-    duration: 5
+    startDate: "2026-09-25", // 週五出發
+    duration: 6              // 共 6 天
 };
 
-// 3. 📍 目的地
+// 3. 📍 目的地 (Ubud, Bali)
 const DESTINATION = {
-    name: "曼谷 Bangkok",
-    lat: 13.7563,
-    lon: 100.5018,
-    timezone: "Asia/Bangkok",
-    currency: "thb",
-    currencyLabel: "THB",
+    name: "烏布 Ubud",
+    lat: -8.5069,        // 烏布市中心座標
+    lon: 115.2625,
+    timezone: "Asia/Makassar", // 峇里島時區 (與香港無時差，但用於天氣API)
+    currency: "idr",
+    currencyLabel: "IDR",
     baseCurrency: "HKD"
 };
 
 // 4. ✈️ 航班與住宿
 const TRIP_INFO = {
     visa: {
-        type: "香港護照 (免簽)",
-        number: "Passport Check",
-        note: "有效期需超過6個月"
+        type: "印尼落地簽 (VoA)",
+        number: "需準備 Rp 500,000",
+        note: "建議事先申請 e-VOA 省排隊時間"
     },
     flights: [
         {
-            type: "去程", flight: "CX755", date: "04/03",
-            dep: "HKG 09:25", arr: "BKK 11:30",
-            note: "T1 登機 / 素萬那普機場", bookingRef: "CX-BKK-01"
+            type: "去程", flight: "CX785", date: "09/25",
+            dep: "HKG 10:00", arr: "DPS 15:00",
+            note: "T1 登機 / 峇里島入境卡已填", bookingRef: "CX-GO"
         },
         {
-            type: "回程", flight: "CX706", date: "04/07",
-            dep: "BKK 16:25", arr: "HKG 20:25",
-            note: "需於 13:25 前抵達櫃檯", bookingRef: "CX-BKK-01"
+            type: "回程", flight: "CX784", date: "09/30",
+            dep: "DPS 16:10", arr: "HKG 21:00",
+            note: "需提早 2.5 小時抵達機場", bookingRef: "CX-BACK"
         }
     ],
     hotels: [
         {
-            name: "IR-ON Hotel",
-            address: "10/10 Sukhumvit 36, Klongton, Klongtoey, Bangkok",
-            phone: "+6620740806"
+            name: "Tegal Sari Accommodation",
+            address: "Jl. Hanoman, Padang Tegal, Ubud, Bali",
+            phone: "+62361973318"
         }
     ],
     emergency: [
-        { name: "旅遊警察", phone: "1155" },
-        { name: "救護車", phone: "1669" },
-        { name: "Grab Safety", phone: "App內建" }
+        { name: "遊客警察", phone: "+62-361-759-687" },
+        { name: "救護車", phone: "119" },
+        { name: "警察局", phone: "110" }
     ]
 };
 
-// 5. 🗺️ 行程細節 (交通與體驗並重版)
+// 5. 🗺️ 行程細節
 const USER_ITINERARY = {
-    "day1": {
+    "day1": { // 9/25 Fri
         "events": [
             {
-                "time": "11:30", "title": "抵達 & 入住 IR-ON", "type": "交通",
-                "address": "IR-ON Hotel", 
-                "address_local": "โรงแรม IR-ON สุขุมวิท 36",
-                "tags": ["BTS Thong Lo"], "moodColor": "#B0B0B0",
-                "note": "【交通】BKK機場 B1 搭 ARL 機場快線 ➝ Phaya Thai 站換乘 BTS ➝ Thong Lo 站 (E6)。2 號出口下樓，立刻迴轉進入 Soi 36，步行約 3 分鐘即達。"
+                "time": "15:00", "title": "抵達峇里島機場", "type": "交通",
+                "address": "Ngurah Rai International Airport", "tags": ["入境", "移動"], "moodColor": "#d44601",
+                "note": "辦理入境。尋找舉著「Tegal Sari」牌子的司機。若有延誤用 WhatsApp 聯繫飯店。"
             },
             {
-                "time": "14:00", "title": "Supanniga Eating Room", "type": "美食",
-                "address": "160/11 Soi Sukhumvit 55", 
-                "address_local": "ไป ทองหล่อ (ระหว่างซอย 6 กับ 8) ร้านสุพรรณิการ์",
-                "tags": ["蟹肉烘蛋"], "moodColor": "#D4AF37",
-                "note": "【交通】BTS Thong Lo 3 號出口。走路約 15 分鐘，建議在巷口搭紅色小巴士 (7 THB) 或摩托計程車到 Soi 6。\n【必點】Khai Jiew Pu (蟹肉烘蛋)、馬撒曼咖哩牛。"
+                "time": "17:30", "title": "Check-in: Tegal Sari", "type": "住宿",
+                "address": "Jl. Hanoman, Padang Tegal, Ubud", 
+                "coords": [-8.5173, 115.2659], "tags": ["稻田景觀"], "moodColor": "#177263",
+                "note": "確認房間是否為 'Upper Floor' 面稻田。檢查門鎖與保險箱。"
             },
             {
-                "time": "15:30", "title": "Mae Varee 芒果糯米", "type": "外帶",
-                "address": "1 Soi Thong Lo",
-                "address_local": "แม่วารี ข้าวเหนียวมูน (ปากซอยทองหล่อ)",
-                "tags": ["BTS Thong Lo"], "moodColor": "#F1C40F",
-                "note": "【交通】BTS Thong Lo 3 號出口樓梯旁。\n【攻略】買一份三色糯米飯 (฿150) 帶回對面飯店冰起來當宵夜。"
+                "time": "18:00", "title": "Coco Supermarket 採買", "type": "購物",
+                "address": "Jl. Raya Pengosekan", "tags": ["補給"], "moodColor": "#5c0d09",
+                "note": "買紅酒、起司、水果、大瓶水、防蚊噴霧(必備)。"
             },
             {
-                "time": "16:30", "title": "Jim Thompson House", "type": "景點",
-                "address": "6 Soi Kasemsan 2",
-                "address_local": "พิพิธภัณฑ์จิม ทอมป์สัน",
-                "tags": ["BTS National Stadium"], "moodColor": "#8E44AD",
-                "note": "【交通】BTS National Stadium (W1) 1 號出口。右轉進入 Soi Kasemsan 2 到底。\n【體驗】優雅的泰絲工藝與熱帶花園。"
+                "time": "19:00", "title": "晚餐: Pison Ubud", "type": "美食",
+                "address": "Jl. Hanoman No. 10X", "tags": ["Chill", "獨旅安全"], "moodColor": "#d44601",
+                "note": "擁有稻田景觀的咖啡廳，氣氛佳且明亮安全，適合單身女性。"
             },
             {
-                "time": "19:00", "title": "Sra Bua by Kiin Kiin", "type": "晚餐",
-                "address": "Siam Kempinski Hotel",
-                "tags": ["BTS Siam"], "moodColor": "#C0392B",
-                "note": "【交通】BTS Siam (Cen) 3或5號出口。穿過 Siam Paragon 一樓名店街後門。\n【體驗】米其林一星分子泰菜。Dress Code: Smart Casual。"
-            },
-            {
-                "time": "21:30", "title": "Rabbit Hole", "type": "微醺",
-                "address": "125 Thong Lo Rd",
-                "address_local": "ไป ทองหล่อ (ระหว่างซอย 5 กับ 7)",
-                "tags": ["BTS Thong Lo"], "moodColor": "#1A1A2E",
-                "note": "【交通】BTS Thong Lo 3 號出口。轉乘摩托計程車至 Soi 5-7 之間。\n【攻略】門口無招牌木門。推門進去，點一杯 Gin-based 特調。"
+                "time": "20:30", "title": "陽台休息", "type": "休息",
+                "address": "Tegal Sari", "tags": ["放鬆"], "moodColor": "#177263",
+                "note": "泡杯茶，聽蟲鳴，享受第一晚。"
             }
         ],
         "inspiration": [
-            { 
-                "title": "The Commons Thong Lo", 
-                "tag": "CHILL", 
-                "type": "放鬆",
-                "address": "335 Thong Lo 17 Alley",
-                "address_local": "เดอะคอมมอนส์ ทองหล่อ ซอย 17",
-                "open_hours": "08:00 - 01:00",
-                "note": "【交通】BTS Thong Lo 3 號出口。位於 Soi 17 深處，務必搭摩托計程車前往。\n【體驗】戶外階梯區喝精釀啤酒，開放輕鬆。"
-            },
-            { 
-                "title": "Asia Herb Association", 
-                "tag": "RELAX", 
-                "type": "SPA",
-                "address": "58/19-24 Sukhumvit Rd (Soi 55)",
-                "address_local": "เอเชีย เฮิร์บ (ปากซอยทองหล่อ)",
-                "open_hours": "09:00 - 02:00",
-                "note": "【交通】BTS Thong Lo 3 號出口，下樓直走約 3 分鐘。\n【體驗】營業至凌晨。招牌是草藥球按摩。"
-            }
+            { "title": "房內按摩 (備案)", "tag": "TIRED", "note": "若太累不想出門，請櫃台安排房內按摩 (推薦 Balinese Massage)。", "type": "放鬆" },
+            { "title": "KAFE", "tag": "SOLO", "note": "數位遊牧者聚集地，有機食物，適合寫日記。", "type": "美食" }
         ],
-        "shopping": ["Mae Varee 芒果糯米", "便利商店買水"]
+        "shopping": ["大瓶礦泉水", "防蚊噴霧", "紅酒/起司", "熱帶水果"]
     },
-    "day2": {
+    "day2": { // 9/26 Sat
         "events": [
             {
-                "time": "10:00", "title": "恰圖恰週末市集", "type": "逛街",
-                "address": "Chatuchak Market Section 26",
-                "tags": ["MRT Kamphaeng Phet"], "moodColor": "#E67E22",
-                "note": "【交通】MRT Blue Line 至 Kamphaeng Phet 站 2 號出口。\n【攻略】一上來就是 Section 26 古董區。記得喝椰子水解暑。"
+                "time": "09:30", "title": "包車出發 (往北)", "type": "交通",
+                "address": "Tegal Sari Lobby", "tags": ["包車"], "moodColor": "#d44601",
+                "note": "攜帶泳衣(若要下水)、毛巾、飲用水。今日為感官療癒日。"
             },
             {
-                "time": "12:30", "title": "Copper Beyond Buffet", "type": "美食",
-                "address": "Gaysorn Amarin 2F",
-                "tags": ["BTS Chit Lom"], "moodColor": "#D4AF37",
-                "note": "【交通】BTS Chit Lom (E1) 6 號出口。走 R-Walk 天橋直通 Gaysorn Amarin 2樓。\n【必點】極濃郁和牛船麵、松露濃湯配可頌。"
+                "time": "10:30", "title": "Pura Mengening 秘密神社", "type": "體驗",
+                "address": "Jl. Tirta No. 25M, Tampaksiring", "coords": [-8.4235, 115.3120],
+                "tags": ["淨化", "能量"], "moodColor": "#177263",
+                "note": "避開聖泉寺人潮，進行 Melukat 水淨化儀式。門票 Rp 30k + 沙龍 10k。"
             },
             {
-                "time": "15:00", "title": "Ging Astro Reader", "type": "靈性",
-                "address": "Bangkok",
-                "tags": ["預約確認"], "moodColor": "#9B59B6",
-                "note": "【交通】(需依預約地點而定)。\n【體驗】冷氣房內的身心靈對話，避開午後雷陣雨。"
+                "time": "13:00", "title": "Svasensa 調香工作坊", "type": "活動",
+                "address": "Toya Ubud EcoPark, Jl. Raya Kenderan", "tags": ["調香", "必去"], "moodColor": "#d44601",
+                "note": "在叢林峽谷邊調製專屬香水，環境極美。"
             },
             {
-                "time": "18:30", "title": "L'Oliva Ristorante", "type": "晚餐",
-                "address": "Soi Sukhumvit 36 Yaek 2",
-                "address_local": "ไป สุขุมวิท 36 แยก 2 (ร้านอาหารอิตาเลียน)",
-                "tags": ["BTS Thong Lo"], "moodColor": "#C0392B",
-                "note": "【交通】BTS Thong Lo 2 號出口。進 Soi 36 走過飯店，見 Yaek 2 路牌右轉。\n【體驗】紅磚玻璃屋，享受紅酒與松露義大利麵。"
+                "time": "16:00", "title": "Pyramids of Chi", "type": "療癒",
+                "address": "Jalan Kelebang Moding No. 22", "tags": ["聲療", "玄學"], "moodColor": "#177263",
+                "note": "預約 Ancient Sound Healing。躺著透過銅鑼聲波釋放壓力。"
+            },
+            {
+                "time": "18:30", "title": "晚餐: The Yoga Barn", "type": "美食",
+                "address": "Jl. Hanoman, Ubud", "tags": ["健康有機"], "moodColor": "#d44601",
+                "note": "Garden Kafe。吃清淡的有機料理，延續療癒感。"
             }
         ],
         "inspiration": [
-            { 
-                "title": "DD Mall (古董商場)", 
-                "tag": "RAINY", 
-                "type": "逛街",
-                "address": "587/10 Kamphaeng Phet 2 Rd",
-                "address_local": "ตึกแดง จตุจักร (ตรงข้ามตลาดจตุจักร)",
-                "open_hours": "10:00 - 20:00",
-                "note": "【交通】MRT Kamphaeng Phet 1 號出口過馬路。\n【體驗】有冷氣的復古商場，恰圖恰太熱時的完美備案。"
-            },
-            { 
-                "title": "Yunomori Onsen (湯之森)", 
-                "tag": "RELAX", 
-                "type": "SPA",
-                "address": "A-Square 120/5 Soi Sukhumvit 26",
-                "address_local": "ยูโนโมริ ออนเซ็น สุขุมวิท 26",
-                "open_hours": "10:00 - 24:00",
-                "note": "【交通】BTS Phrom Phong 4 號出口轉乘摩托計程車 (約 20-30B)。\n【體驗】日式溫泉+泰式按摩，深度放鬆。"
-            },
-            { 
-                "title": "Paper Plane Project", 
-                "tag": "VIEW", 
-                "type": "酒吧",
-                "address": "T-One Building 40F",
-                "address_local": "ตึก T-One ชั้น 40 (ทองหล่อ)",
-                "open_hours": "09:00 - 24:00",
-                "note": "【交通】BTS Thong Lo 3 號出口方向天橋直通 T-One。\n【體驗】40樓高空視野，離晚餐地點近，可上去看夜景。"
-            }
+            { "title": "Ganesha Bookshop", "tag": "RAINY", "note": "雨天備案，專賣印尼文化與二手書。", "type": "閱讀" },
+            { "title": "Lazy Cats Cafe", "tag": "TIRED", "note": "復古沙發區很舒服，適合發呆。", "type": "休息" }
         ],
-        "shopping": ["古董飾品", "木雕", "手工藝品"]
+        "shopping": ["自製香水"]
     },
-    "day3": {
+    "day3": { // 9/27 Sun
         "events": [
             {
-                "time": "09:00", "title": "蘇泰寺 & 大鞦韆", "type": "祈福",
-                "address": "Wat Suthat Thepwararam",
-                "address_local": "ไป วัดสุทัศน์ (เสาชิงช้า)",
-                "tags": ["MRT Sam Yot"], "moodColor": "#D35400",
-                "note": "【交通】MRT Sam Yot 3 號出口，沿 Charoen Krung 路步行 10 分鐘。\n【體驗】遊客稀少的一級皇家寺廟，門口紅色大鞦韆是地標。"
+                "time": "09:30", "title": "ARMA 藝術博物館", "type": "藝術",
+                "address": "Jl. Raya Pengosekan", "tags": ["文化", "散步"], "moodColor": "#177263",
+                "note": "像皇家花園般的園區，欣賞傳統繪畫。"
             },
             {
-                "time": "10:00", "title": "二哥豐廟 (警局)", "type": "祈福",
-                "address": "Phlapphla Chai Police Station",
-                "address_local": "ไปส่งที่ สถานีตำรวจพลับพลาไชย ครับ (ศาลเจ้าพ่อยี่กอฮง อยู่ชั้น 4)",
-                "tags": ["MRT Wat Mangkon"], "moodColor": "#D4AF37",
-                "note": "【交通】建議從蘇泰寺叫 Grab。若搭 MRT 為 Wat Mangkon 1 號出口步行 8 分鐘。\n【攻略】警局 4 樓。必備供品：黑咖啡、雪茄。"
+                "time": "11:30", "title": "Andong 古董街", "type": "逛街",
+                "address": "Jalan Raya Andong", "tags": ["淘寶"], "moodColor": "#d44601",
+                "note": "建議搭車到上游，慢慢往下坡走逛下來比較省力。"
             },
             {
-                "time": "11:30", "title": "The Mustang Blu", "type": "午餐",
-                "address": "721 Maitri Chit Rd",
-                "tags": ["MRT Hua Lamphong"], "moodColor": "#2C3E50",
-                "note": "【交通】MRT Hua Lamphong 1 號出口右轉沿運河走 5 分鐘。\n【體驗】百年銀行改建，充滿標本與植栽的魔幻空間。"
+                "time": "14:00", "title": "午餐: 髒鴨飯 Bebek Bengil", "type": "美食",
+                "address": "Bebek Bengil, Jl. Hanoman", "tags": ["經典", "稻田"], "moodColor": "#d44601",
+                "note": "就在飯店旁。務必選稻田邊涼亭座位。"
             },
             {
-                "time": "13:30", "title": "義德善堂 (捐棺)", "type": "祈福",
-                "address": "Wat Hua Lamphong",
-                "address_local": "ไป มูลนิธิร่วมกตัญญู (วัดหัวลำโพง) ติด MRT สามย่าน",
-                "tags": ["MRT Sam Yan"], "moodColor": "#F39C12",
-                "note": "【交通】MRT Sam Yan 1 號出口即達。\n【步驟】填名 ➝ 捐款 ➝ 領收據貼棺材 ➝ 燒收據。"
+                "time": "15:30", "title": "吠陀占星: Ashish", "type": "玄學",
+                "address": "Jl. Subak Sok Wayah", "tags": ["占星", "必去"], "moodColor": "#177263",
+                "note": "車開不進去。在 Ubud Main Road 入口下車，步行15分經稻田步道(很美)。"
             },
             {
-                "time": "15:00", "title": "River City Bangkok", "type": "藝術",
-                "address": "River City Bangkok",
-                "tags": ["Si Phraya Pier"], "moodColor": "#7F8C8D",
-                "note": "【交通】MRT Hua Lamphong 轉計程車，或搭船至 N3 Si Phraya Pier。\n【體驗】3-4 樓古董藝術區，安靜冷清適合鑑賞。"
-            },
-            {
-                "time": "18:30", "title": "Paste Bangkok", "type": "晚餐",
-                "address": "Gaysorn Village 3F",
-                "tags": ["BTS Chit Lom"], "moodColor": "#D4AF37",
-                "note": "【交通】BTS Chit Lom 6 號出口 (Skywalk 直通)。\n【必點】皇家咖哩蟹 (複雜香料層次)、西瓜魚鬆。"
+                "time": "18:30", "title": "晚餐: Kebun Bistro", "type": "小酌",
+                "address": "Jl. Hanoman No.44", "tags": ["法式", "微醺"], "moodColor": "#d44601",
+                "note": "法式鄉村風，紅白酒豐富，適合優雅獨酌。"
             }
         ],
         "inspiration": [
-            { 
-                "title": "Talaad Noi (老城散步)", 
-                "tag": "WALK", 
-                "type": "咖啡",
-                "address": "1172 Soi Charoenkrung 22",
-                "address_local": "ตลาดน้อย / ร้าน Mother Roaster",
-                "open_hours": "全日",
-                "note": "【交通】MRT Hua Lamphong 2 號出口步行 15 分鐘。\n【體驗】去 Mother Roaster 喝咖啡，店開在廢五金廠樓上。"
-            },
-            { 
-                "title": "Tep Bar (泰式居酒屋)", 
-                "tag": "BAR", 
-                "type": "微醺",
-                "address": "69, 71 Soi Yi Sip Song Karakadakhom 4",
-                "address_local": "ไป เทพ บาร์ (ซอยนานา เยาวราช)",
-                "open_hours": "18:00 - 24:00",
-                "note": "【交通】MRT Hua Lamphong 1 號出口步行至 Soi Nana 約 7 分鐘。\n【體驗】隱密老宅，現場演奏泰國傳統音樂，喝泰式藥草酒。"
-            },
-            { 
-                "title": "Lakshmi Shrine (吉祥天女)", 
-                "tag": "PRAY", 
-                "type": "祈福",
-                "address": "Gaysorn Village 4F",
-                "address_local": "พระแม่ลักษมี เกษรวิลเลจ ชั้น 4",
-                "open_hours": "10:00 - 18:00",
-                "note": "【交通】BTS Chit Lom 6 號出口。就在 Paste 餐廳樓上。\n【體驗】掌管財富與人緣，可用粉紅蓮花供奉。"
-            }
+            { "title": "BMC Money Changer", "tag": "必辦", "note": "若需換匯，這家安全匯率好。", "type": "服務" }
         ],
-        "shopping": ["藝術明信片 (River City)"]
+        "shopping": ["木雕小物", "銀器", "復古裝飾"]
     },
-    "day4": {
+    "day4": { // 9/28 Mon
         "events": [
             {
-                "time": "10:30", "title": "Erb Bespoke 調香", "type": "體驗",
-                "address": "Gaysorn Village",
-                "tags": ["BTS Chit Lom"], "moodColor": "#E056FD",
-                "note": "【交通】BTS Chit Lom 6 號出口 (Skywalk 直通)。\n【體驗】訂製印有自己名字的專屬香水。"
+                "time": "08:00", "title": "Ubud Morning Market", "type": "市集",
+                "address": "Jl. Raya Ubud", "tags": ["早起", "在地"], "moodColor": "#d44601",
+                "note": "感受生活氣息，買新鮮芒果、山竹。"
             },
             {
-                "time": "13:00", "title": "午餐 & 逛街", "type": "休閒",
-                "address": "EmQuartier",
-                "tags": ["BTS Phrom Phong"], "moodColor": "#95A5A6",
-                "note": "【交通】BTS Phrom Phong 1 號出口，出站直接連通商場。\n【體驗】逛街或簡單午餐。"
+                "time": "09:30", "title": "香氛巡禮 (Blue Stone/Bohe)", "type": "購物",
+                "address": "Jl. Dewi Sita", "tags": ["精油", "香水"], "moodColor": "#177263",
+                "note": "Blue Stone (雨林精油), Bohe (香水), Oiland (護膚油)。"
             },
             {
-                "time": "15:30", "title": "Tops Food Hall", "type": "採買",
-                "address": "Marche Thonglor",
-                "address_local": "ไป มาร์เช่ ทองหล่อ (ทองหล่อ ซอย 4)",
-                "tags": ["BTS Thong Lo"], "moodColor": "#27AE60",
-                "note": "【交通】BTS Thong Lo 3 號出口步行 5-8 分鐘 (Soi 4)。\n【採買】松露洋芋片、起司、手標茶。買完直接搭車回飯店。"
+                "time": "11:30", "title": "午餐: Taco Casa", "type": "美食",
+                "address": "Jl. Pengosekan", "tags": ["墨西哥"], "moodColor": "#d44601",
+                "note": "簡單快速好吃，吃完回飯店避暑。"
             },
             {
-                "time": "19:30", "title": "Nan Tei (南亭燒鳥)", "type": "晚餐",
-                "address": "50 Soi Sukhumvit 36",
-                "address_local": "ไป สุขุมวิท 36 (ร้านนันเต)",
-                "tags": ["BTS Thong Lo"], "moodColor": "#D35400",
-                "note": "【交通】BTS Thong Lo 2 號出口。進入 Soi 36 步行 5 分鐘。\n【必點】高級板前燒鳥，雞肉丸 (Tsukune) 配 Highball。"
+                "time": "14:00", "title": "Putri Bali Spa 2", "type": "按摩",
+                "address": "Jl. Hanoman", "tags": ["SPA", "放鬆"], "moodColor": "#177263",
+                "note": "飯店附近的優質平價選擇。"
+            },
+            {
+                "time": "18:30", "title": "晚餐: Hujan Locale", "type": "美食",
+                "address": "Jl. Sri Wedari No. 5", "tags": ["Fine Dining", "印尼菜"], "moodColor": "#d44601",
+                "note": "推薦一樓吧台或二樓靠窗。必點 Bebek Goreng 或 Rendang。"
             }
         ],
         "inspiration": [
-            { 
-                "title": "Open House", 
-                "tag": "BOOK", 
-                "type": "休息",
-                "address": "Central Embassy Level 6",
-                "address_local": "โอเพ่น เฮ้าส์ เซ็นทรัล เอ็มบาสซี ชั้น 6",
-                "open_hours": "10:00 - 22:00",
-                "note": "【交通】BTS Phloen Chit 5 號出口，天橋直通 Central Embassy，搭電梯上 6 樓。\n【體驗】曼谷最美書店，適合喝咖啡看書。"
-            },
-            { 
-                "title": "Panpuri Wellness", 
-                "tag": "SHOP", 
-                "type": "購物",
-                "address": "Gaysorn Village 12F",
-                "address_local": "ปัญญ์ปุริ เวลเนส เกษรวิลเลจ ชั้น 12",
-                "open_hours": "10:00 - 22:00",
-                "note": "【交通】BTS Chit Lom 6 號出口。\n【體驗】Erb 樓上。皇室御用品牌，精油品質極好。"
-            }
+            { "title": "Threads of Life", "tag": "PHOTO", "note": "紡織品博物館店，精緻但單價高，拍照很美。", "type": "逛街" },
+            { "title": "Room 4 Dessert", "tag": "FOOD", "note": "Netflix名店，若有位可去吃甜點套餐。", "type": "甜點" }
         ],
-        "shopping": ["松露洋芋片", "手標茶", "藍象調理包", "Copenn 護手霜"]
+        "shopping": ["Blue Stone 精油", "Bohe 香水", "新鮮水果"]
     },
-    "day5": {
+    "day5": { // 9/29 Tue
         "events": [
             {
-                "time": "09:30", "title": "愛神 & 象神", "type": "祈福",
-                "address": "Central World Plaza",
-                "tags": ["BTS Chit Lom"], "moodColor": "#E74C3C",
-                "note": "【交通】BTS Chit Lom 6 號出口，沿 Skywalk 走到 Central World 前廣場。\n【攻略】愛神用紅玫瑰；象神用花環。"
+                "time": "09:00", "title": "Jero Gede 傳統治療", "type": "玄學",
+                "address": "Keliki / Sebatu Area", "tags": ["療癒", "重點"], "moodColor": "#177263",
+                "note": "GetYourGuide 預訂行程。包含司機與翻譯。Jero 擅長讀取能量。"
             },
             {
-                "time": "11:30", "title": "Saneh Jaan", "type": "美食",
-                "address": "Sindhorn Tower",
-                "tags": ["BTS Phloen Chit"], "moodColor": "#D4AF37",
-                "note": "【交通】BTS Phloen Chit 5 號出口搭接駁車。\n【體驗】古法宮廷菜。13:00 需準時離開前往機場。"
+                "time": "14:00", "title": "Bintang Supermarket", "type": "購物",
+                "address": "Jl. Raya Sanggingan No. 45", "tags": ["最後採買"], "moodColor": "#177263",
+                "note": "買 Sensatia 保養品、Bokashi 草藥油 (伴手禮)。"
             },
             {
-                "time": "13:10", "title": "前往機場 (BKK)", "type": "交通",
-                "address": "Suvarnabhumi Airport",
-                "tags": ["ARL"], "moodColor": "#34495E",
-                "note": "【交通】回飯店取行李 ➝ BTS Thong Lo ➝ Phaya Thai 換乘 Airport Rail Link 直達 BKK 機場。"
+                "time": "17:30", "title": "Sayan House 夕陽晚餐", "type": "美食",
+                "address": "Jl. Raya Sayan No.70", "tags": ["絕景", "日落"], "moodColor": "#d44601",
+                "note": "懸崖邊看日落，日式拉美 Fusion 菜。需預約。"
             },
             {
-                "time": "16:25", "title": "飛機起飛 (CX706)", "type": "航班",
-                "address": "BKK T1",
-                "tags": ["再見曼谷"], "moodColor": "#1A1A2E",
-                "note": "預計 20:25 抵達香港。"
+                "time": "20:00", "title": "整理行李", "type": "整理",
+                "address": "Tegal Sari", "tags": ["打包"], "moodColor": "#5c0d09",
+                "note": "把戰利品打包，檢查證件。"
             }
         ],
         "inspiration": [
-             { 
-                "title": "Makkasan 機場快線站", 
-                "tag": "SAFE", 
-                "type": "交通",
-                "address": "Makkasan Station",
-                "address_local": "สถานีมักกะสัน",
-                "open_hours": "06:00 - 24:00",
-                "note": "【交通】MRT Phetchaburi 站有通道直連 Makkasan 快線站。\n【備案】如果市區嚴重塞車，這是前往機場最安全的公共交通撤退點。"
+            { "title": "Campuhan Ridge Walk", "tag": "PHOTO", "note": "若行程提早結束，可去走這條山脊步道看黃昏。", "type": "風景" }
+        ],
+        "shopping": ["Sensatia 保養品", "Bokashi 油"]
+    },
+    "day6": { // 9/30 Wed
+        "events": [
+            {
+                "time": "09:00", "title": "最後早餐 & Check-out", "type": "住宿",
+                "address": "Tegal Sari", "tags": ["退房"], "moodColor": "#177263",
+                "note": "享受最後寧靜，檢查抽屜遺漏物品。"
+            },
+            {
+                "time": "11:00", "title": "前往機場 (DPS)", "type": "交通",
+                "address": "Ngurah Rai International Airport", "tags": ["回程"], "moodColor": "#d44601",
+                "note": "車程預估 2 小時。搭乘 CX784 (16:10 起飛)。"
+            },
+            {
+                "time": "13:30", "title": "機場免稅店", "type": "購物",
+                "address": "DPS Duty Free", "tags": ["消耗現鈔"], "moodColor": "#d44601",
+                "note": "把剩下的印尼盾花完。"
             }
         ],
-        "shopping": ["Jo Malone (機場)", "免稅酒"]
+        "inspiration": [
+            { "title": "Seniman Coffee", "tag": "TIRED", "note": "若時間還早，去喝杯烏布最強咖啡再走。", "type": "咖啡" }
+        ],
+        "shopping": ["免稅品"]
     }
 };
 
-// 6. 🗣️ 常用短語 (泰語溝通卡)
+// 6. 🗣️ 常用短語 (Indonesian)
 const PHRASE_DATA = [
     {
-        category: "飲食禁忌 (Dietary)",
+        category: "司機溝通",
         items: [
-            { term_primary: "ไม่เอาผักชี", term_secondary: "不要香菜！", term_pronounce: "Mai Ao Phak Chi" },
-            { term_primary: "ไม่เผ็ด", term_secondary: "不要辣", term_pronounce: "Mai Phet" },
-            { term_primary: "ไม่เอาหวาน", term_secondary: "不要糖 (飲料)", term_pronounce: "Mai Ao Wan" }
+            { term_primary: "Pak, tolong ke sini", term_secondary: "先生，請載我去這裡", term_pronounce: "Pak, to-long ke si-ni" },
+            { term_primary: "Terima Kasih", term_secondary: "謝謝", term_pronounce: "Te-ri-ma Ka-sih" },
+            { term_primary: "Tunggu sebentar", term_secondary: "請等一下", term_pronounce: "Tung-gu se-ben-tar" }
         ]
     },
     {
-        category: "交通 (Transport)",
+        category: "餐廳/購物",
         items: [
-            { term_primary: "ไปที่นี่ครับ/ค่ะ", term_secondary: "請載我去這裡 (指地圖)", term_pronounce: "Pai Tee Nee" },
-            { term_primary: "ช่วยเปิดมิเตอร์", term_secondary: "請跳表", term_pronounce: "Chaui Poet Meter" },
-            { term_primary: "จอดที่นี่", term_secondary: "停在這裡", term_pronounce: "Jod Tee Nee" }
-        ]
-    },
-    {
-        category: "特殊地點 (Destinations)",
-        items: [
-            { term_primary: "สถานีตำรวจพลับพลาไชย", term_secondary: "二哥豐 (警局)", term_pronounce: "Police Station" },
-            { term_primary: "มูลนิธิร่วมกตัญญู", term_secondary: "義德善堂 (捐棺)", term_pronounce: "Ruam Katanyu" }
+            { term_primary: "Berapa harganya?", term_secondary: "多少錢？", term_pronounce: "Be-ra-pa har-ga-nya" },
+            { term_primary: "Tidak mau pedas", term_secondary: "不要辣", term_pronounce: "Ti-dak mau pe-das" },
+            { term_primary: "Bill, please", term_secondary: "請結帳 (Minta Bon)", term_pronounce: "Min-ta Bon" }
         ]
     }
 ];
-</script>
+</script>    
     
 <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-msg">Action Completed</span></div>
 <header>
