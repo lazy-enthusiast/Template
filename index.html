@@ -170,13 +170,13 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
 <script id="USER_DATA_CONFIG">
 // 1. 🎨 主題顏色 (Deep Ocean & Champagne)
 const THEME_CONFIG = {
-    accentColor: "#C5A059",       // 香檳金 (高貴、重點)
-    accentText: "#0F172A",        // 深海藍 (用於金色背景上的文字)
-    backgroundColor: "#0F172A",   // 深海藍 (沉穩背景)
-    cardColor: "#1E293B",         // Slate Blue (卡片背景，微亮於背景)
-    textColor: "#F1F5F9",         // 浪花白 (主要文字)
-    textSubColor: "#94A3B8",      // 霧灰 (次要文字)
-    borderColor: "#334155",       // 邊框色
+    accentColor: "#C5A059",       // 香檳金
+    accentText: "#0F172A",        // 深海藍
+    backgroundColor: "#0F172A",   // 深海藍背景
+    cardColor: "#1E293B",         // Slate Blue 卡片
+    textColor: "#F1F5F9",         // 浪花白
+    textSubColor: "#94A3B8",      // 霧灰
+    borderColor: "#334155",       // 邊框
     googleFontsUrl: "https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500;700&family=Playfair+Display:wght@400;700&display=swap",
     fontHeading: '"Playfair Display", serif',
     fontBody: '"Noto Serif TC", serif'
@@ -238,7 +238,7 @@ const TRIP_INFO = {
     ]
 };
 
-// 5. 🗺️ 行程細節 (戰略修改版)
+// 5. 🗺️ 行程細節 (Jim Thompson 回歸版)
 const USER_ITINERARY = {
     "day1": {
         "events": [
@@ -257,18 +257,18 @@ const USER_ITINERARY = {
                 "note": "【交通】從飯店搭 Grab 約 10 分鐘。\n【必點】Khai Jiew Pu (蟹肉烘蛋)、馬撒曼咖哩牛。享受安靜的遲午餐。"
             },
             {
-                "time": "17:30", "title": "私人長尾船 (Private Boat)", "type": "體驗",
-                "address": "Sathorn Pier",
-                "address_local": "ท่าเรือสาทร (ตากสิน)",
-                "tags": ["水氣療癒", "日落"], "moodColor": "#0EA5E9",
-                "note": "【交通】BTS Saphan Taksin 2 號出口。\n【體驗】已預約私人包船 (1小時)。避開觀光客，在夕陽下的昭披耶河感受水元素的能量，為旅程開運。"
+                "time": "16:30", "title": "Jim Thompson House", "type": "文化",
+                "address": "6 Soi Kasemsan 2",
+                "address_local": "พิพิธภัณฑ์จิม ทอมป์สัน",
+                "tags": ["泰絲", "博物館"], "moodColor": "#8E44AD",
+                "note": "【交通】搭 Grab 前往。\n【命理】雖然屬木火，但「絲綢」的光澤屬金，觸感冰涼。請多挑選銀色、藍色系的絲巾，既順心又能採金納氣。園林陰涼，適合避暑。"
             },
             {
                 "time": "19:30", "title": "Nusara (米其林泰菜)", "type": "晚餐",
                 "address": "22 Maha Rat Rd",
                 "address_local": "ร้านนุสรา (ท่าเตียน)",
                 "tags": ["河景", "Fine Dining"], "moodColor": "#C5A059",
-                "note": "【交通】長尾船直接停靠 Tha Tien 碼頭，步行即達。\n【體驗】名廚 Ton 的私房料理，窗外就是鄭王廟夜景。"
+                "note": "【交通】從博物館叫 Grab 去 Tha Tien。\n【體驗】名廚 Ton 的私房料理，窗外就是鄭王廟夜景。雖然沒坐船，但依然能在河畔感受水的能量。"
             },
             {
                 "time": "22:00", "title": "Vesper Cocktail Bar", "type": "微醺",
@@ -289,7 +289,7 @@ const USER_ITINERARY = {
                 "note": "【Day 1 備案】如果不想喝酒，或者時差累了，直接去這裡做 90 分鐘草藥球按摩。"
             }
         ],
-        "shopping": ["便利商店買水"]
+        "shopping": ["便利商店買水", "Jim Thompson 絲巾"]
     },
     "day2": {
         "events": [
@@ -372,11 +372,11 @@ const USER_ITINERARY = {
                 "note": "【戰略】已預約 Ging Astro 師傅到 IR-ON 飯店大堂。\n【體驗】妳不需要奔波，在熟悉的環境喝著迎賓飲料算命，享受主場優勢與舒適感。"
             },
             {
-                "time": "19:00", "title": "Potong (普通大藥房)", "type": "晚餐",
-                "address": "422 Vanich 1 Rd",
-                "address_local": "ร้านโพทง (เยาวราช)",
-                "tags": ["米其林", "Chef Pam"], "moodColor": "#C5A059",
-                "note": "【交通】Grab 前往唐人街。\n【體驗】在百年中藥房改建的空間，享用融合泰中文化的頂級料理。這餐是對「二哥豐」行程的完美呼應。"
+                "time": "19:00", "title": "Canvas (藝術料理)", "type": "晚餐",
+                "address": "113/9-10 Sukhumvit 55",
+                "address_local": "ร้าน Canvas (ทองหล่อ)",
+                "tags": ["米其林", "就在ThongLo"], "moodColor": "#C5A059",
+                "note": "【動線】完美！就在飯店所在的 Thong Lo 路上，步行或搭車僅 3 分鐘，完全不用折返跑。\n【體驗】以色彩和藝術為主題的創意料理，視覺效果極佳。"
             }
         ],
         "inspiration": [
@@ -399,7 +399,7 @@ const USER_ITINERARY = {
                 "note": "【散步備案】如果午餐後不想回飯店，可去附近的 Talad Noi 廢五金咖啡店喝手沖。"
             }
         ],
-        "shopping": ["Potong 辣椒醬"]
+        "shopping": ["Canvas 菜單留念"]
     },
     "day4": {
         "events": [
@@ -410,16 +410,18 @@ const USER_ITINERARY = {
                 "note": "【交通】BTS Chit Lom 6 號出口 (Skywalk)。\n【體驗】用香氣紀錄這趟旅程，製作專屬名字的香水。"
             },
             {
-                "time": "13:00", "title": "Paste Bangkok", "type": "午餐",
-                "address": "Gaysorn Village 3F",
-                "tags": ["皇室料理"], "moodColor": "#C5A059",
-                "note": "【動線】調香完直接下樓。\n【必點】皇家咖哩蟹、西瓜魚鬆。中午人較少，環境清幽。"
+                "time": "13:00", "title": "Copper Beyond Buffet", "type": "午餐",
+                "address": "Gaysorn Amarin 2F",
+                "address_local": "คอปเปอร์ บุฟเฟต์ (เกษร อัมรินทร์)",
+                "tags": ["頂級Buffet", "和牛船麵"], "moodColor": "#C5A059",
+                "note": "【動線】就在 Erb 隔壁棟，非常順路。\n【體驗】終於吃到了！這裡有曼谷最好的和牛船麵與松露湯，環境極佳。"
             },
             {
-                "time": "15:00", "title": "Open House 書店", "type": "休息",
-                "address": "Central Embassy Level 6",
-                "tags": ["最美書店"], "moodColor": "#F1F5F9",
-                "note": "【交通】走天橋連通 Central Embassy。\n【體驗】挑一本關於泰國文化的書，點杯咖啡，享受午後的安靜閱讀時光。"
+                "time": "15:30", "title": "Sea Life 海洋世界", "type": "療癒",
+                "address": "Siam Paragon B1",
+                "address_local": "ซีไลฟ์ แบงคอก (สยามพารากอน)",
+                "tags": ["Deep Ocean", "避暑"], "moodColor": "#0EA5E9",
+                "note": "【交通】Skywalk 步行至 Siam Paragon。\n【戰略】取代書店。呼應 Deep Ocean 主題，在深藍色的水族隧道中安靜散步，看著魚群游動非常療癒。"
             },
             {
                 "time": "18:00", "title": "The Bamboo Bar", "type": "微醺",
@@ -457,16 +459,17 @@ const USER_ITINERARY = {
                 "note": "【交通】Grab 或 BTS Chit Lom。\n【儀式】感謝神明保佑旅途平安。愛神用紅玫瑰，象神用花環。"
             },
             {
-                "time": "11:30", "title": "Saneh Jaan", "type": "美食",
-                "address": "Sindhorn Tower",
-                "tags": ["米其林", "宮廷菜"], "moodColor": "#C5A059",
-                "note": "【交通】Grab 前往。\n【提醒】11:30 第一批用餐，享受最後的泰式精緻。13:00 需準時離開。"
+                "time": "11:30", "title": "R-Haan (皇家泰菜)", "type": "美食",
+                "address": "131 Soi Sukhumvit 53",
+                "address_local": "ร้านอาหาร (ทองหล่อ ซอย 9)",
+                "tags": ["米其林二星", "ThongLo"], "moodColor": "#C5A059",
+                "note": "【動線優化】就在 Thong Lo 區 (Soi 53)，離飯店極近！\n【體驗】享受最後的米其林二星饗宴。吃完馬上回飯店拿行李，完全不繞路。"
             },
             {
                 "time": "13:10", "title": "前往機場 (BKK)", "type": "交通",
                 "address": "Suvarnabhumi Airport",
                 "tags": ["回程"], "moodColor": "#334155",
-                "note": "【交通】回飯店取行李 ➝ Grab 直奔機場 (若塞車則改搭 ARL)。目標 13:50 抵達櫃檯 (CX706)。"
+                "note": "【交通】回 IR-ON 取行李 ➝ Grab 直奔機場 (若塞車則改搭 ARL)。目標 13:50 抵達櫃檯 (CX706)。"
             },
             {
                 "time": "16:25", "title": "飛機起飛 (CX706)", "type": "航班",
@@ -517,6 +520,7 @@ const PHRASE_DATA = [
     }
 ];
 </script>
+
 
     
 <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-msg">Action Completed</span></div>
