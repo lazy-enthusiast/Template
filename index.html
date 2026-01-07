@@ -185,342 +185,297 @@ const THEME_CONFIG = {
 // 2. 🗓️ 旅程設定
 const CONFIG = {
     ui: {
-        browserTitle: "曼谷。金水涅槃之旅",
-        headerTitle: "曼谷。金水涅槃之旅",
-        homeTimezone: "Asia/Hong_Kong",
-        homeTimeLabel: "HKG"
+        browserTitle: "BKK Private Trip",
+        headerTitle: "BANGKOK <span>LUXURY</span>",
+        homeTimezone: "Asia/Hong_Kong", homeTimeLabel: "HKG"
     },
-    startDate: "2026-04-03", // 週五出發
-    duration: 5
+    startDate: "2026-04-03", duration: 5
 };
 
 // 3. 📍 目的地
 const DESTINATION = {
-    name: "曼谷 Bangkok",
-    lat: 13.7563,
-    lon: 100.5018,
-    timezone: "Asia/Bangkok",
-    currency: "thb",
-    currencyLabel: "THB",
-    baseCurrency: "HKD"
+    name: "曼谷 Bangkok", lat: 13.7563, lon: 100.5018,
+    timezone: "Asia/Bangkok", currency: "thb", currencyLabel: "THB", baseCurrency: "HKD"
 };
 
 // 4. ✈️ 航班與住宿
 const TRIP_INFO = {
-    visa: {
-        type: "香港護照 (免簽)",
-        number: "Passport Check",
-        note: "有效期需超過6個月"
-    },
+    visa: { type: "香港護照 (免簽)", number: "Passport Check", note: "有效期需超過6個月" },
     flights: [
-        {
-            type: "去程", flight: "CX755", date: "04/03",
-            dep: "HKG 09:25", arr: "BKK 11:30",
-            note: "T1 登機 / 素萬那普機場", bookingRef: "CX-BKK-01"
-        },
-        {
-            type: "回程", flight: "CX706", date: "04/07",
-            dep: "BKK 16:25", arr: "HKG 20:25",
-            note: "需於 13:25 前抵達櫃檯", bookingRef: "CX-BKK-01"
-        }
+        { type: "去程", flight: "CX755", date: "04/03", dep: "HKG 09:25", arr: "BKK 11:30", note: "T1 登機 / 素萬那普機場" },
+        { type: "回程", flight: "CX706", date: "04/07", dep: "BKK 16:25", arr: "HKG 20:25", note: "需於 13:25 前抵達櫃檯" }
     ],
     hotels: [
-        {
-            name: "IR-ON Hotel",
-            address: "10/10 Sukhumvit 36, Klongton, Klongtoey, Bangkok",
-            phone: "+6620740806"
-        }
+        { name: "IR-ON Hotel", address: "10/10 Sukhumvit 36, Klongton, Klongtoey, Bangkok", phone: "+6620740806" }
     ],
     emergency: [
-        { name: "旅遊警察", phone: "1155" },
-        { name: "救護車", phone: "1669" },
-        { name: "Grab Safety", phone: "App內建" }
+        { name: "旅遊警察", phone: "1155" }, { name: "救護車", phone: "1669" }
     ]
 };
 
-// 5. 🗺️ 行程細節 (Jim Thompson 回歸版)
+// 5. 🗺️ 最終優化行程數據
 const USER_ITINERARY = {
     "day1": {
         "events": [
-            {
-                "time": "11:30", "title": "抵達 & Grab Premium", "type": "交通",
-                "address": "IR-ON Hotel", 
-                "address_local": "โรงแรม IR-ON สุขุมวิท 36",
-                "tags": ["入境", "舒適移動"], "moodColor": "#94A3B8",
-                "note": "【交通】請直接叫 Grab Premium/SUV 前往飯店，避免一般計程車的溝通成本。\n【入住】IR-ON Hotel (Soi 36)。放行李，換輕便衣服。"
-            },
-            {
-                "time": "14:00", "title": "Supanniga Eating Room", "type": "美食",
-                "address": "160/11 Soi Sukhumvit 55", 
-                "address_local": "ไป ทองหล่อ (ระหว่างซอย 6 กับ 8) ร้านสุพรรณิการ์",
-                "tags": ["蟹肉烘蛋"], "moodColor": "#C5A059",
-                "note": "【交通】從飯店搭 Grab 約 10 分鐘。\n【必點】Khai Jiew Pu (蟹肉烘蛋)、馬撒曼咖哩牛。享受安靜的遲午餐。"
-            },
-            {
-                "time": "16:30", "title": "Jim Thompson House", "type": "文化",
-                "address": "6 Soi Kasemsan 2",
-                "address_local": "พิพิธภัณฑ์จิม ทอมป์สัน",
-                "tags": ["泰絲", "博物館"], "moodColor": "#8E44AD",
-                "note": "【交通】搭 Grab 前往。\n【命理】雖然屬木火，但「絲綢」的光澤屬金，觸感冰涼。請多挑選銀色、藍色系的絲巾，既順心又能採金納氣。園林陰涼，適合避暑。"
-            },
-            {
-                "time": "19:30", "title": "Nusara (米其林泰菜)", "type": "晚餐",
-                "address": "22 Maha Rat Rd",
-                "address_local": "ร้านนุสรา (ท่าเตียน)",
-                "tags": ["河景", "Fine Dining"], "moodColor": "#C5A059",
-                "note": "【交通】從博物館叫 Grab 去 Tha Tien。\n【體驗】名廚 Ton 的私房料理，窗外就是鄭王廟夜景。雖然沒坐船，但依然能在河畔感受水的能量。"
-            },
-            {
-                "time": "22:00", "title": "Vesper Cocktail Bar", "type": "微醺",
-                "address": "10/15 Convent Rd, Silom",
-                "address_local": "เวสเปอร์ ค็อกเทลบาร์ (สีลม)",
-                "tags": ["亞洲50大", "Silom"], "moodColor": "#1E293B",
-                "note": "【交通】Grab前往。\n【體驗】氛圍成熟的英倫風酒吧，適合獨酌。推薦點 'Contrast' 系列調酒。"
-            }
+            { "time": "11:30", "title": "抵達 & Grab Premium", "type": "交通", "address": "IR-ON Hotel", "address_local": "โรงแรม IR-ON สุขุมวิท 36", "tags": ["入境", "舒適移動"], "moodColor": "#94A3B8", "note": "【交通】請叫 Grab Premium 前往飯店。\n【入住】IR-ON Hotel (Soi 36)。放行李，換輕便衣服。" },
+            { "time": "14:00", "title": "Supanniga Eating Room", "type": "美食", "address": "160/11 Soi Sukhumvit 55", "address_local": "ไป ทองหล่อ (ระหว่างซอย 6 กับ 8) ร้านสุพรรณิการ์", "tags": ["蟹肉烘蛋"], "moodColor": "#C5A059", "note": "【交通】從飯店搭 Grab 約 10 分鐘。\n【必點】Khai Jiew Pu (蟹肉烘蛋)、馬撒曼咖哩牛。" },
+            { "time": "16:30", "title": "Jim Thompson House", "type": "文化", "address": "6 Soi Kasemsan 2", "address_local": "พิพิธภัณฑ์จิม ทอมป์สัน", "tags": ["泰絲", "避暑"], "moodColor": "#8E44AD", "note": "【交通】搭 Grab 前往。\n【命理】絲綢屬金，觸感冰涼。多挑選銀、藍色系，採金納氣。" },
+            { "time": "19:30", "title": "Nusara (米其林泰菜)", "type": "晚餐", "address": "22 Maha Rat Rd", "address_local": "ร้านนุสรา (ท่าเตียน)", "tags": ["河景", "Fine Dining"], "moodColor": "#C5A059", "note": "【體驗】名廚 Ton 的私房料理，窗外就是鄭王廟夜景。" },
+            { "time": "22:00", "title": "Vesper Cocktail Bar", "type": "微醺", "address": "10/15 Convent Rd, Silom", "address_local": "เวสเปอร์ ค็อกเทลบาร์ (สีลม)", "tags": ["亞洲50大"], "moodColor": "#1E293B", "note": "【體驗】成熟英倫風酒吧。推薦點 'Contrast' 系列調酒。" }
         ],
         "inspiration": [
-            { 
-                "title": "Asia Herb Association", 
-                "tag": "BACKUP", 
-                "type": "SPA",
-                "address": "58/19-24 Sukhumvit Rd (Soi 55)",
-                "address_local": "เอเชีย เฮิร์บ (ปากซอยทองหล่อ)",
-                "open_hours": "09:00 - 02:00",
-                "note": "【Day 1 備案】如果不想喝酒，或者時差累了，直接去這裡做 90 分鐘草藥球按摩。"
-            }
+            { "title": "Asia Herb Association", "tag": "BACKUP", "type": "SPA", "address": "58/19-24 Sukhumvit Rd (Soi 55)", "address_local": "เอเชีย เฮิร์บ (ปากซอยทองหล่อ)", "note": "【備案】不想喝酒或累了，去做 90 分鐘草藥球按摩。" }
         ],
-        "shopping": ["便利商店買水", "Jim Thompson 絲巾"]
+        "shopping": ["便利商店買水", "絲巾"]
     },
     "day2": {
         "events": [
-            {
-                "time": "10:30", "title": "MOCA 當代藝術館", "type": "藝術",
-                "address": "499 Kamphaeng Phet 6 Rd",
-                "address_local": "พิพิธภัณฑ์ศิลปะไทยร่วมสมัย (MOCA)",
-                "tags": ["避暑", "冷療"], "moodColor": "#F1F5F9",
-                "note": "【交通】Grab 直達 (約 30 分鐘)。\n【戰略】取代恰圖恰市集。這裡人少、冷氣極強、建築極美。適合獨自安靜看畫，進行「視覺冷療」。"
-            },
-            {
-                "time": "13:30", "title": "Sra Bua by Kiin Kiin", "type": "午餐",
-                "address": "Siam Kempinski Hotel",
-                "tags": ["米其林", "分子料理"], "moodColor": "#C5A059",
-                "note": "【交通】Grab 回市區 Siam Kempinski。\n【體驗】欣賞如藝術品般的分子泰菜，與上午的 MOCA 行程呼應。"
-            },
-            {
-                "time": "16:00", "title": "Asia Herb Association", "type": "SPA",
-                "address": "Sukhumvit 24 Phrom Phong Shop",
-                "address_local": "เอเชีย เฮิร์บ (สุขุมวิท 24)",
-                "tags": ["草藥球", "全身按摩"], "moodColor": "#10B981",
-                "note": "【交通】BTS Phrom Phong 4 號出口。\n【體驗】指定預約：120分鐘 全身精油 + 招牌草藥球 (Herbal Ball)。徹底消除走路的疲勞。"
-            },
-            {
-                "time": "19:30", "title": "Gaggan Anand", "type": "晚餐",
-                "address": "68 Sukhumvit 31",
-                "address_local": "ร้านกากั้น (สุขุมวิท 31)",
-                "tags": ["劇場式晚餐", "亞洲傳奇"], "moodColor": "#C5A059",
-                "note": "【交通】Grab 前往。\n【體驗】不只是一頓飯，是一場 2.5 小時的表演。享受極致的味覺衝擊。"
-            }
+            { "time": "10:30", "title": "MOCA 當代藝術館", "type": "藝術", "address": "499 Kamphaeng Phet 6 Rd", "address_local": "พิพิธภัณฑ์ศิลปะไทยร่วมสมัย (MOCA)", "tags": ["避暑", "冷療"], "moodColor": "#F1F5F9", "note": "【戰略】取代恰圖恰。冷氣極強、建築極美，進行「視覺冷療」。" },
+            { "time": "13:30", "title": "Sra Bua by Kiin Kiin", "type": "午餐", "address": "Siam Kempinski Hotel", "tags": ["米其林", "分子料理"], "moodColor": "#C5A059", "note": "【體驗】欣賞如藝術品般的分子泰菜，與上午 MOCA 呼應。" },
+            { "time": "16:00", "title": "Asia Herb (Phrom Phong)", "type": "SPA", "address": "Sukhumvit 24 Phrom Phong Shop", "address_local": "เอเชีย เฮิร์บ (สุขุมวิท 24)", "tags": ["草藥球", "120min"], "moodColor": "#10B981", "note": "【體驗】預約 120 分鐘精油 + 草藥球按摩。" },
+            { "time": "19:30", "title": "Gaggan Anand", "type": "晚餐", "address": "68 Sukhumvit 31", "address_local": "ร้านกากั้น (สุขุมวิท 31)", "tags": ["劇場式", "亞洲傳奇"], "moodColor": "#C5A059", "note": "【體驗】亞洲傳奇名店。不只是一頓飯，是一場表演。" }
         ],
         "inspiration": [
-            { 
-                "title": "Asia Herb Association", 
-                "tag": "BACKUP", 
-                "type": "SPA",
-                "address": "58/19-24 Sukhumvit Rd (Soi 55)",
-                "address_local": "เอเชีย เฮิร์บ (ปากซอยทองหล่อ)",
-                "open_hours": "09:00 - 02:00",
-                "note": "【Day 2 備案】如果下午沒做夠，晚上回到飯店附近 (Thong Lo 店) 可以再來一次足底按摩。"
-            },
-            { 
-                "title": "Central Embassy", 
-                "tag": "SHOP", 
-                "type": "購物",
-                "address": "Central Embassy",
-                "address_local": "เซ็นทรัล เอ็มบาสซี",
-                "open_hours": "10:00 - 22:00",
-                "note": "【雨天備案】如果下大雨不想去 MOCA，改來這裡逛街，環境最舒適的貴婦百貨。"
-            }
+            { "title": "Central Embassy", "tag": "SHOP", "type": "購物", "address": "Central Embassy", "note": "【雨天備案】環境最舒適的貴婦百貨。" }
         ],
-        "shopping": ["MOCA 藝術明信片", "Asia Herb 草藥包"]
+        "shopping": ["MOCA 明信片"]
     },
     "day3": {
         "events": [
-            {
-                "time": "10:00", "title": "前往 Wat Mangkon", "type": "交通",
-                "address": "Wat Mangkon MRT Station",
-                "tags": ["MRT藍線", "避暑"], "moodColor": "#94A3B8",
-                "note": "【交通】搭乘 MRT Blue Line (藍線) 至 Wat Mangkon 站 1 號出口。\n【戰略】利用地下鐵移動，避開老城區白天的炎熱與塞車。"
-            },
-            {
-                "time": "10:30", "title": "二哥豐廟 (警局財神)", "type": "祈福",
-                "address": "Phlapphla Chai Police Station",
-                "address_local": "สถานีตำรวจพลับพลาไชย (ชั้น 4)",
-                "tags": ["偏財", "投資"], "moodColor": "#C5A059",
-                "note": "【交通】從 MRT 1號出口步行約 5-8 分鐘。\n【攻略】直接上警局 4 樓。供品：黑咖啡、雪茄。求投資順利、正財偏財。"
-            },
-            {
-                "time": "12:30", "title": "The Mustang Blu", "type": "午餐",
-                "address": "721 Maitri Chit Rd",
-                "address_local": "เดอะ มัสแตง บลู",
-                "tags": ["老銀行", "降溫"], "moodColor": "#334155",
-                "note": "【交通】步行約 10 分鐘，或搭嘟嘟車。\n【體驗】百年前的銀行改建，高挑涼爽的空間。在這裡用餐、拍照，從拜拜的熱氣中恢復。"
-            },
-            {
-                "time": "14:30", "title": "泰國占星 (Hotel Lobby)", "type": "靈性",
-                "address": "IR-ON Hotel Lobby",
-                "tags": ["師傅上門", "主場"], "moodColor": "#6366F1",
-                "note": "【戰略】已預約 Ging Astro 師傅到 IR-ON 飯店大堂。\n【體驗】妳不需要奔波，在熟悉的環境喝著迎賓飲料算命，享受主場優勢與舒適感。"
-            },
-            {
-                "time": "19:00", "title": "Canvas (藝術料理)", "type": "晚餐",
-                "address": "113/9-10 Sukhumvit 55",
-                "address_local": "ร้าน Canvas (ทองหล่อ)",
-                "tags": ["米其林", "就在ThongLo"], "moodColor": "#C5A059",
-                "note": "【動線】完美！就在飯店所在的 Thong Lo 路上，步行或搭車僅 3 分鐘，完全不用折返跑。\n【體驗】以色彩和藝術為主題的創意料理，視覺效果極佳。"
-            }
+            { "time": "10:00", "title": "前往 Wat Mangkon", "type": "交通", "address": "Wat Mangkon MRT Station", "tags": ["MRT藍線", "避暑"], "moodColor": "#94A3B8", "note": "【交通】搭乘 MRT Blue Line 至 Wat Mangkon 站 1 號出口。" },
+            { "time": "10:30", "title": "二哥豐廟 (警局財神)", "type": "祈福", "address": "Phlapphla Chai Police Station", "address_local": "สถานีตำรวจพลับพลาไชย (ชั้น 4)", "tags": ["偏財", "投資"], "moodColor": "#C5A059", "note": "【攻略】警局 4 樓。供品：黑咖啡、雪茄。" },
+            { "time": "12:30", "title": "The Mustang Blu", "type": "午餐", "address": "721 Maitri Chit Rd", "tags": ["老銀行", "降溫"], "moodColor": "#334155", "note": "【體驗】百年前銀行改建，高挑涼爽。用餐並稍作休息。" },
+            { "time": "14:30", "title": "泰國占星 (飯店大堂)", "type": "靈性", "address": "IR-ON Hotel Lobby", "tags": ["師傅上門", "主場"], "moodColor": "#6366F1", "note": "【戰略】師傅上門服務，在飯店大堂安靜算命，不需奔波。" },
+            { "time": "19:00", "title": "Canvas (藝術料理)", "type": "晚餐", "address": "113/9-10 Sukhumvit 55", "address_local": "ร้าน Canvas (ทองหล่อ)", "tags": ["米其林", "ThongLo"], "moodColor": "#C5A059", "note": "【動線】就在飯店所在的通羅路上，步行或搭車僅 3 分鐘。" }
         ],
         "inspiration": [
-            { 
-                "title": "Asia Herb Association", 
-                "tag": "BACKUP", 
-                "type": "SPA",
-                "address": "58/19-24 Sukhumvit Rd (Soi 55)",
-                "address_local": "เอเชีย เฮิร์บ (ปากซอยทองหล่อ)",
-                "open_hours": "09:00 - 02:00",
-                "note": "【Day 3 備案】算完命如果想沈澱一下，去對面按摩是最好的選擇。"
-            },
-            { 
-                "title": "Mother Roaster", 
-                "tag": "COFFEE", 
-                "type": "咖啡",
-                "address": "1172 Soi Charoenkrung 22",
-                "address_local": "ตลาดน้อย",
-                "open_hours": "10:00 - 18:00",
-                "note": "【散步備案】如果午餐後不想回飯店，可去附近的 Talad Noi 廢五金咖啡店喝手沖。"
-            }
+            { "title": "Mother Roaster", "tag": "COFFEE", "type": "咖啡", "address": "1172 Soi Charoenkrung 22", "note": "【散步】老城區廢五金工廠改建咖啡店。" }
         ],
-        "shopping": ["Canvas 菜單留念"]
+        "shopping": ["Canvas 菜單"]
     },
     "day4": {
         "events": [
-            {
-                "time": "11:00", "title": "Erb Bespoke 調香", "type": "體驗",
-                "address": "Gaysorn Village",
-                "tags": ["BTS Chit Lom"], "moodColor": "#D946EF",
-                "note": "【交通】BTS Chit Lom 6 號出口 (Skywalk)。\n【體驗】用香氣紀錄這趟旅程，製作專屬名字的香水。"
-            },
-            {
-                "time": "13:00", "title": "Copper Beyond Buffet", "type": "午餐",
-                "address": "Gaysorn Amarin 2F",
-                "address_local": "คอปเปอร์ บุฟเฟต์ (เกษร อัมรินทร์)",
-                "tags": ["頂級Buffet", "和牛船麵"], "moodColor": "#C5A059",
-                "note": "【動線】就在 Erb 隔壁棟，非常順路。\n【體驗】終於吃到了！這裡有曼谷最好的和牛船麵與松露湯，環境極佳。"
-            },
-            {
-                "time": "15:30", "title": "Sea Life 海洋世界", "type": "療癒",
-                "address": "Siam Paragon B1",
-                "address_local": "ซีไลฟ์ แบงคอก (สยามพารากอน)",
-                "tags": ["Deep Ocean", "避暑"], "moodColor": "#0EA5E9",
-                "note": "【交通】Skywalk 步行至 Siam Paragon。\n【戰略】取代書店。呼應 Deep Ocean 主題，在深藍色的水族隧道中安靜散步，看著魚群游動非常療癒。"
-            },
-            {
-                "time": "18:00", "title": "The Bamboo Bar", "type": "微醺",
-                "address": "Mandarin Oriental Bangkok",
-                "address_local": "เดอะ แบมบู บาร์ (โรงแรมแมนดาริน โอเรียนเต็ล)",
-                "tags": ["爵士樂", "老錢風"], "moodColor": "#C5A059",
-                "note": "【交通】搭飯店接駁船或 Grab。\n【體驗】曼谷最古老的爵士吧。現場 Live Band 水準極高，木質調與水的能量非常有療癒感。"
-            },
-            {
-                "time": "20:30", "title": "Lord Jim's", "type": "晚餐",
-                "address": "Mandarin Oriental Bangkok",
-                "tags": ["海鮮", "河景"], "moodColor": "#0F172A",
-                "note": "【動線】就在 Bamboo Bar 旁。\n【體驗】被譽為曼谷客廳的自助海鮮與燒烤，服務與環境都是頂級，為旅程畫下完美句點。"
-            }
+            { "time": "11:00", "title": "Erb Bespoke 調香", "type": "體驗", "address": "Gaysorn Village", "tags": ["專屬香水"], "moodColor": "#D946EF", "note": "【體驗】製作專屬香氣，紀錄這趟旅程。" },
+            { "time": "13:00", "title": "Copper Beyond Buffet", "type": "美食", "address": "Gaysorn Amarin 2F", "tags": ["頂級Buffet"], "moodColor": "#C5A059", "note": "【動線】就在 Erb 隔壁棟。必吃和牛船麵與松露湯。" },
+            { "time": "15:30", "title": "Sea Life 海洋世界", "type": "療癒", "address": "Siam Paragon B1", "tags": ["Deep Ocean", "避暑"], "moodColor": "#0EA5E9", "note": "【戰略】潛入深藍色的水族隧道，視覺療癒且極度涼爽。" },
+            { "time": "18:00", "title": "The Bamboo Bar", "type": "微醺", "address": "Mandarin Oriental Bangkok", "address_local": "เดอะ แบมบู บาร์ (โรงแรมแมนดาริน โอเรียนเต็ล)", "tags": ["爵士樂", "老錢風"], "moodColor": "#C5A059", "note": "【體驗】曼谷最古老爵士吧，Live Band 水準極高。" },
+            { "time": "20:30", "title": "Lord Jim's", "type": "晚餐", "address": "Mandarin Oriental Bangkok", "tags": ["海鮮", "河景"], "moodColor": "#0F172A", "note": "【體驗】頂級自助海鮮，為旅程畫下完美句點。" }
         ],
         "inspiration": [
-            { 
-                "title": "Asia Herb Association", 
-                "tag": "BACKUP", 
-                "type": "SPA",
-                "address": "58/19-24 Sukhumvit Rd (Soi 55)",
-                "address_local": "เอเชีย เฮิร์บ (ปากซอยทองหล่อ)",
-                "open_hours": "09:00 - 02:00",
-                "note": "【Day 4 備案】最後一晚，如果還有體力，可以去做最後一次全身草藥球。"
-            }
+            { "title": "Asia Herb Association", "tag": "BACKUP", "type": "SPA", "address": "58/19-24 Sukhumvit Rd (Soi 55)", "note": "【備案】最後一晚全身草藥球。" }
         ],
-        "shopping": ["Erb 香水", "Panpuri 精油 (Gaysorn)"]
+        "shopping": ["Erb 香水", "Panpuri 精油"]
     },
     "day5": {
         "events": [
-            {
-                "time": "09:30", "title": "愛神 & 象神", "type": "祈福",
-                "address": "Central World Plaza",
-                "tags": ["最後祈福"], "moodColor": "#E11D48",
-                "note": "【交通】Grab 或 BTS Chit Lom。\n【儀式】感謝神明保佑旅途平安。愛神用紅玫瑰，象神用花環。"
-            },
-            {
-                "time": "11:30", "title": "R-Haan (皇家泰菜)", "type": "美食",
-                "address": "131 Soi Sukhumvit 53",
-                "address_local": "ร้านอาหาร (ทองหล่อ ซอย 9)",
-                "tags": ["米其林二星", "ThongLo"], "moodColor": "#C5A059",
-                "note": "【動線優化】就在 Thong Lo 區 (Soi 53)，離飯店極近！\n【體驗】享受最後的米其林二星饗宴。吃完馬上回飯店拿行李，完全不繞路。"
-            },
-            {
-                "time": "13:10", "title": "前往機場 (BKK)", "type": "交通",
-                "address": "Suvarnabhumi Airport",
-                "tags": ["回程"], "moodColor": "#334155",
-                "note": "【交通】回 IR-ON 取行李 ➝ Grab 直奔機場 (若塞車則改搭 ARL)。目標 13:50 抵達櫃檯 (CX706)。"
-            },
-            {
-                "time": "16:25", "title": "飛機起飛 (CX706)", "type": "航班",
-                "address": "BKK T1",
-                "tags": ["再見曼谷"], "moodColor": "#0F172A",
-                "note": "預計 20:25 抵達香港。"
-            }
+            { "time": "09:30", "title": "愛神 & 象神", "type": "祈福", "address": "Central World Plaza", "tags": ["最後祈福"], "moodColor": "#E11D48", "note": "【儀式】感謝神明保佑。愛神用紅玫瑰，象神用花環。" },
+            { "time": "11:30", "title": "R-Haan (皇家泰菜)", "type": "美食", "address": "131 Soi Sukhumvit 53", "address_local": "ร้านอาหาร (ทองหล่อ ซอย 9)", "tags": ["米其林二星", "ThongLo"], "moodColor": "#C5A059", "note": "【動線】就在通羅區，離飯店極近，吃完直接去機場。" },
+            { "time": "13:10", "title": "前往機場 (BKK)", "type": "交通", "address": "Suvarnabhumi Airport", "tags": ["回程"], "moodColor": "#334155", "note": "【交通】回飯店拿行李 ➝ Grab 前往機場。" },
+            { "time": "16:25", "title": "飛機起飛 (CX706)", "type": "航班", "address": "BKK T1", "tags": ["再見曼谷"], "moodColor": "#0F172A", "note": "預計 20:25 抵達香港。" }
         ],
         "inspiration": [
-             { 
-                "title": "Asia Herb Association", 
-                "tag": "BACKUP", 
-                "type": "SPA",
-                "address": "58/19-24 Sukhumvit Rd (Soi 55)",
-                "address_local": "เอเชีย เฮิร์บ",
-                "open_hours": "09:00 - 02:00",
-                "note": "【Day 5 備案】如果不想去拜神，早上去做最後一次腳底按摩也是完美的道別。"
-            }
+            { "title": "Asia Herb Association", "tag": "BACKUP", "type": "SPA", "address": "58/19-24 Sukhumvit Rd (Soi 55)", "note": "【備案】最後的腳底按摩道別。" }
         ],
-        "shopping": ["Jo Malone (機場)", "免稅酒"]
+        "shopping": ["機場免稅酒"]
     }
 };
 
-// 6. 🗣️ 常用短語 (泰語溝通卡)
+// 6. 🗣️ 常用短語
 const PHRASE_DATA = [
-    {
-        category: "飲食禁忌 (Dietary)",
-        items: [
-            { term_primary: "ไม่เอาผักชี", term_secondary: "不要香菜！", term_pronounce: "Mai Ao Phak Chi" },
-            { term_primary: "ไม่เผ็ด", term_secondary: "不要辣", term_pronounce: "Mai Phet" },
-            { term_primary: "ไม่เอาหวาน", term_secondary: "不要糖 (飲料)", term_pronounce: "Mai Ao Wan" }
-        ]
-    },
-    {
-        category: "交通 (Transport)",
-        items: [
-            { term_primary: "ไปที่นี่ครับ/ค่ะ", term_secondary: "請載我去這裡 (指地圖)", term_pronounce: "Pai Tee Nee" },
-            { term_primary: "ช่วยเปิดมิเตอร์", term_secondary: "請跳表", term_pronounce: "Chaui Poet Meter" },
-            { term_primary: "จอดที่นี่", term_secondary: "停在這裡", term_pronounce: "Jod Tee Nee" }
-        ]
-    },
-    {
-        category: "特殊地點 (Destinations)",
-        items: [
-            { term_primary: "สถานีตำรวจพลับพลาไชย", term_secondary: "二哥豐 (警局)", term_pronounce: "Police Station" },
-            { term_primary: "เอเชีย เฮิร์บ", term_secondary: "Asia Herb Association", term_pronounce: "Asia Herb" }
-        ]
-    }
+    { category: "飲食禁忌", items: [{ term_primary: "ไม่เอาผักชี", term_secondary: "不要香菜！", term_pronounce: "Mai Ao Phak Chi" }, { term_primary: "ไม่เผ็ด", term_secondary: "不要辣", term_pronounce: "Mai Phet" }] },
+    { category: "交通", items: [{ term_primary: "ไปที่นี่ครับ/ค่ะ", term_secondary: "請載我去這裡", term_pronounce: "Pai Tee Nee" }, { term_primary: "ช่วยเปิดมิเตอร์", term_secondary: "請跳表", term_pronounce: "Chaui Poet Meter" }] }
 ];
 </script>
 
+<script>
+/** * 🛠️ 核心邏輯腳本 - 確保 Modal 與卡片互動正常
+ */
+
+function applyTheme() {
+    const root = document.documentElement;
+    const t = THEME_CONFIG;
+    root.style.setProperty('--accent', t.accentColor);
+    root.style.setProperty('--accent-text', t.accentText);
+    root.style.setProperty('--bg-body', t.backgroundColor);
+    root.style.setProperty('--bg-card', t.cardColor);
+    root.style.setProperty('--text-main', t.textColor);
+    root.style.setProperty('--text-sub', t.textSubColor);
+    root.style.setProperty('--border', t.borderColor);
+    root.style.setProperty('--font-heading', t.fontHeading);
+    root.style.setProperty('--font-body', t.fontBody);
+    if(t.googleFontsUrl) {
+        const link = document.createElement('link'); link.rel = 'stylesheet'; link.href = t.googleFontsUrl; document.head.appendChild(link);
+    }
+}
+
+function generateScheduleData() {
+    const dates = {};
+    const baseDate = new Date(CONFIG.startDate);
+    const weekDays = ["週日", "週一", "週二", "週三", "週四", "週五", "週六"];
+    for(let i=0; i<CONFIG.duration; i++) {
+        const d = new Date(baseDate); d.setDate(baseDate.getDate() + i);
+        const dayKey = `day${i+1}`;
+        const yyyy = d.getFullYear(); const mm = String(d.getMonth() + 1).padStart(2, '0'); const dd = String(d.getDate()).padStart(2, '0');
+        const dailyData = USER_ITINERARY[dayKey] || { events:[], inspiration:[], shopping:[] };
+        dates[dayKey] = {
+            date: `${yyyy}-${mm}-${dd}`, display: dd, weekday: weekDays[d.getDay()],
+            events: dailyData.events || [],
+            inspiration: dailyData.inspiration || [],
+            shopping: dailyData.shopping || []
+        };
+    }
+    return dates;
+}
+
+applyTheme();
+const scheduleData = generateScheduleData();
+let currentDay = "day1";
+let modalMap = null;
+let exchangeRate = 4.3; // 模擬匯率
+
+function init() {
+    document.title = CONFIG.ui.browserTitle;
+    document.getElementById('app-title').innerHTML = CONFIG.ui.headerTitle;
+    renderDateSelector();
+    selectDay('day1');
+    fetchRates(); 
+    renderInfoPage();
+    renderPhrasePage();
+    setInterval(updateHomeClock, 1000);
+}
+
+function renderDateSelector() {
+    const container = document.getElementById('date-selector');
+    container.innerHTML = '';
+    Object.keys(scheduleData).forEach(dayKey => {
+        const day = scheduleData[dayKey];
+        const chip = document.createElement('div');
+        chip.className = `date-chip`;
+        chip.id = `chip-${dayKey}`;
+        chip.onclick = () => selectDay(dayKey, chip);
+        chip.innerHTML = `<span class="day-num">${day.display}</span><span class="day-week">${day.weekday}</span>`;
+        container.appendChild(chip);
+    });
+}
+
+function selectDay(dayKey, chipEl) {
+    currentDay = dayKey;
+    document.querySelectorAll('.date-chip').forEach(c => c.classList.remove('active'));
+    const target = chipEl || document.getElementById(`chip-${dayKey}`);
+    if(target) target.classList.add('active');
+    renderTimeline(dayKey);
+    renderInspiration(dayKey);
+    renderShopping(dayKey);
+}
+
+function renderTimeline(dayKey) {
+    const container = document.getElementById('timeline-container');
+    container.innerHTML = '';
+    const events = scheduleData[dayKey].events;
+    events.forEach((event, idx) => {
+        const item = document.createElement('div');
+        item.className = 'timeline-item';
+        let tags = event.tags.map(t => `<span class="card-tag">${t}</span>`).join('');
+        const colorStyle = event.moodColor ? `border-left-color: ${event.moodColor};` : 'border-left-color: var(--accent);';
+        
+        // 關鍵：將整個 event 對象轉為 JSON 字符串傳遞給 openModal
+        const eventJson = JSON.stringify(event).replace(/"/g, '&quot;');
+        
+        item.innerHTML = `
+            <div class="card" style="${colorStyle}" onclick="openModal(${eventJson})">
+                <div class="card-nav-btn" onclick="event.stopPropagation(); openMapQuery('${event.address}')"><i class="fa-solid fa-location-arrow"></i></div>
+                <span class="card-time">${event.time}</span>
+                <h3 class="card-title">${event.title}</h3>
+                <div class="tags">${tags}</div>
+            </div>`;
+        container.appendChild(item);
+    });
+}
+
+function renderInspiration(dayKey) {
+    const container = document.getElementById('inspiration-container');
+    container.innerHTML = '';
+    const insp = scheduleData[dayKey].inspiration;
+    insp.forEach(item => {
+        const itemJson = JSON.stringify(item).replace(/"/g, '&quot;');
+        container.innerHTML += `
+            <div class="inspire-card" onclick="openModal(${itemJson})">
+                <div class="inspire-badge">${item.tag}</div>
+                <h3 class="inspire-title">${item.title}</h3>
+                <p class="inspire-note">${item.note.substring(0, 30)}...</p>
+            </div>`;
+    });
+}
+
+// 🚀 修正後的 Modal 開啟功能
+function openModal(data) {
+    document.getElementById('modal-title').innerText = data.title;
+    document.getElementById('modal-type').innerText = data.type || "行程";
+    document.getElementById('modal-time').innerText = data.time || "--:--";
+    document.getElementById('modal-address-short').innerText = data.address || "";
+    document.getElementById('modal-note').innerText = data.note || "";
+
+    const actionsContainer = document.getElementById('modal-actions');
+    actionsContainer.innerHTML = '';
+    
+    if(data.address) {
+        actionsContainer.innerHTML += `<button class="btn-action btn-black" onclick="openMapQuery('${data.address}')"><i class="fa-solid fa-location-arrow"></i> Google Maps 導航</button>`;
+        actionsContainer.innerHTML += `<button class="btn-action btn-outline" onclick="copyToClipboard('${data.address_local || data.address}')"><i class="fa-regular fa-copy"></i> 複製地址</button>`;
+    }
+    
+    if(data.address_local) {
+        actionsContainer.innerHTML += `<button class="btn-action btn-outline" onclick="showPhrase('${data.address_local}', '請載我去這裡')">🚕 顯示的士卡</button>`;
+    }
+
+    document.getElementById('detail-modal').classList.add('open');
+    
+    // 地圖小工具
+    const miniMapContainer = document.getElementById('modal-mini-map');
+    miniMapContainer.style.display = 'none'; // 簡化版不載入地圖以提高流暢度，如需地圖可再開啟
+}
+
+function closeModal() {
+    document.getElementById('detail-modal').classList.remove('open');
+}
+
+// 輔助功能
+function openMapQuery(addr) { window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`, '_blank'); }
+function copyToClipboard(text) { navigator.clipboard.writeText(text); showToast("已複製"); }
+function showToast(msg) { const t = document.getElementById('toast'); document.getElementById('toast-msg').innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebar-overlay').classList.toggle('open'); }
+function switchMainPage(pageId, navEl) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + pageId).classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    if(navEl) navEl.classList.add('active');
+}
+function updateHomeClock() {
+    const options = { timeZone: CONFIG.ui.homeTimezone, hour: '2-digit', minute: '2-digit', hour12: false };
+    const timeString = new Date().toLocaleTimeString('en-GB', options);
+    document.getElementById('home-clock').innerText = `${CONFIG.ui.homeTimeLabel} ${timeString}`;
+}
+function fetchRates() { document.getElementById('rate-status').innerText = `1 HKD ≈ ${exchangeRate} THB`; }
+function renderShopping(dayKey) {
+    const container = document.getElementById('shopping-container');
+    container.innerHTML = '';
+    const items = scheduleData[dayKey].shopping || [];
+    items.forEach(item => {
+        container.innerHTML += `<div class="shop-item"><input type="checkbox"> <label>${item}</label></div>`;
+    });
+}
+function renderPhrasePage() {
+    const container = document.getElementById('phrases-container'); container.innerHTML = '';
+    PHRASE_DATA.forEach(cat => {
+        container.innerHTML += `<div class="phrase-section-header">${cat.category}</div><div class="phrase-grid">` + 
+        cat.items.map(i => `<div class="phrase-card" onclick="showPhrase('${i.term_primary}', '${i.term_secondary}')"><div class="phrase-primary">${i.term_primary}</div><div class="phrase-secondary">${i.term_secondary}</div></div>`).join('') + `</div>`;
+    });
+}
+function showPhrase(jp, zh) { document.getElementById('overlay-jp').innerText = jp; document.getElementById('overlay-zh').innerText = zh; document.getElementById('phrase-overlay').classList.add('active'); }
+function closePhrase() { document.getElementById('phrase-overlay').classList.remove('active'); }
+
+// 啟動
+init();
+</script>
 
     
 <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-msg">Action Completed</span></div>
