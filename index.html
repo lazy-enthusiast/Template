@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#F9F9F9">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Loading...</title>
+<title>Kyoto Trip</title>
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon.png">
 
@@ -168,795 +168,256 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
 <body>
 
 <script id="USER_DATA_CONFIG">
-// 1. 🎨 主題顏色 (Deep Ocean & Champagne)
+// 1. 🎨 主題顏色 (Deep Ocean & Champagne - 納金水)
 const THEME_CONFIG = {
-    accentColor: "#C5A059",       // 香檳金 (納金)
-    accentText: "#0F172A",        // 深海藍 (文字)
-    backgroundColor: "#0F172A",   // 深海藍 (補水)
-    cardColor: "#1E293B",         // 石板藍 (卡片背景)
-    textColor: "#F1F5F9",         // 浪花白
-    textSubColor: "#94A3B8",      // 霧灰
-    borderColor: "#334155",       // 邊框
-    googleFontsUrl: "https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500;700&family=Playfair+Display:wght@400;700&display=swap",
-    fontHeading: '"Playfair Display", serif',
-    fontBody: '"Noto Serif TC", serif'
+accentColor: "#C5A059",        // 香檳金
+accentText: "#0F172A",         // 深海藍底金字
+backgroundColor: "#0F172A",    // 深海藍
+cardColor: "#1E293B",          // 石板藍
+textColor: "#F1F5F9",          // 浪花白
+textSubColor: "#94A3B8",       // 霧灰
+borderColor: "#334155",
+googleFontsUrl: "https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500;700&family=Playfair+Display:wght@400;700&display=swap",
+fontHeading: '"Playfair Display", serif',
+fontBody: '"Noto Serif TC", serif'
 };
 
 // 2. 🗓️ 旅程設定
 const CONFIG = {
-    ui: {
-        browserTitle: "BKK Private Trip",
-        headerTitle: "BANGKOK <span>LUXURY</span>",
-        homeTimezone: "Asia/Hong_Kong",
-        homeTimeLabel: "HKG"
-    },
-    startDate: "2026-04-03", 
-    duration: 5
+ui: {
+browserTitle: "BKK Private Trip",
+headerTitle: "BANGKOK <span>LUXURY</span>",
+homeTimezone: "Asia/Hong_Kong",
+homeTimeLabel: "HKG"
+},
+startDate: "2026-04-03", // 週五出發
+duration: 5
 };
 
-// 3. 📍 目的地
+// 3. 📍 目的地 (曼谷)
 const DESTINATION = {
-    name: "曼谷 Bangkok",
-    lat: 13.7563,
-    lon: 100.5018,
-    timezone: "Asia/Bangkok",
-    currency: "thb",
-    currencyLabel: "THB",
-    baseCurrency: "HKD"
+name: "曼谷 Bangkok",
+lat: 13.7563,
+lon: 100.5018,
+timezone: "Asia/Bangkok",
+currency: "thb",
+currencyLabel: "THB",
+baseCurrency: "HKD"
 };
 
 // 4. ✈️ 航班與住宿
 const TRIP_INFO = {
-    visa: { type: "香港護照 (免簽)", number: "Passport Check", note: "有效期需超過6個月" },
-    flights: [
-        { type: "去程", flight: "CX755", date: "04/03", dep: "HKG 09:25", arr: "BKK 11:30", note: "素萬那普機場", bookingRef: "CX-BKK-01" },
-        { type: "回程", flight: "CX706", date: "04/07", dep: "BKK 16:25", arr: "HKG 20:25", note: "13:50前抵達機場", bookingRef: "CX-BKK-01" }
-    ],
-    hotels: [
-        { name: "IR-ON Hotel", address: "10/10 Sukhumvit 36, Bangkok", phone: "+6620740806" }
-    ],
-    emergency: [
-        { name: "旅遊警察", phone: "1155" },
-        { name: "救護車", phone: "1669" },
-        { name: "Grab Safety", phone: "App內建" }
-    ]
+visa: {
+type: "香港護照 (免簽)",
+number: "Passport Check",
+note: "有效期需超過 6 個月"
+},
+flights: [
+{
+type: "去程", flight: "CX755", date: "04/03",
+dep: "HKG 09:25", arr: "BKK 11:30",
+note: "T1 登機 / 素萬那普機場", bookingRef: "CX-BKK-01"
+},
+{
+type: "回程", flight: "CX706", date: "04/07",
+dep: "BKK 16:25", arr: "HKG 20:25",
+note: "13:50 前抵達櫃檯", bookingRef: "CX-BKK-01"
+}
+],
+hotels: [
+{
+name: "IR-ON Hotel",
+address: "10/10 Sukhumvit 36, Bangkok",
+phone: "+6620740806"
+}
+],
+emergency: [
+{ name: "旅遊警察", phone: "1155" },
+{ name: "救護車", phone: "1669" },
+{ name: "外交部急難救助", phone: "+66-81-666-4006" }
+]
 };
 
-// 5. 🗺️ 行程細節 (最終優化版)
+// 5. 🗺️ 行程細節 (已優化公共交通與開放時間)
 const USER_ITINERARY = {
-    "day1": {
-        "events": [
-            {
-                "time": "12:30", "title": "午餐: Supanniga (Thong Lo)", "type": "美食",
-                "address": "160/11 Soi Sukhumvit 55", "address_local": "ทองหล่อ ซอย 6 ร้านสุพรรณิการ์",
-                "open_hours": "11:30 - 22:00", "tags": ["米其林推薦", "泰菜"], "moodColor": "#C5A059",
-                "note": "【交通】BTS Thong Lo 站 3 號出口，搭紅色小巴或摩托車至 Soi 6。\n【攻略】必點蟹肉烘蛋，環境精緻優雅。"
-            },
-            {
-                "time": "14:30", "title": "Asia Herb Association", "type": "SPA",
-                "address": "Sukhumvit 55 (Soi Thong Lo)", "open_hours": "09:00 - 02:00",
-                "tags": ["精油按摩", "潤燥"], "moodColor": "#10B981",
-                "note": "【交通】步行或搭原路小巴回 BTS Thong Lo 站 3 號出口旁。\n【攻略】陽光最熱烈時進行精油潤燥，避暑首選。"
-            },
-            {
-                "time": "17:00", "title": "Jim Thompson House", "type": "文化",
-                "address": "6 Soi Kasemsan 2", "address_local": "พิพิธภัณฑ์จิม ทอมป์สัน",
-                "open_hours": "09:00 - 18:00", "tags": ["泰絲", "採金"], "moodColor": "#8E44AD",
-                "note": "【交通】BTS Thong Lo ➝ Siam 轉深綠線 ➝ National Stadium 站 1 號出口。\n【攻略】夕陽下欣賞光澤感泰絲（金）與冷涼園林（水）。"
-            },
-            {
-                "time": "19:30", "title": "晚餐: Nusara (米其林泰菜)", "type": "晚餐",
-                "address": "22 Maha Rat Rd", "address_local": "ร้านนุสรา (ท่าเตียน)",
-                "open_hours": "17:30 - 23:00", "tags": ["河景", "Fine Dining"], "moodColor": "#C5A059",
-                "note": "【交通】BTS 至 Sala Daeng 轉 MRT 藍線 ➝ Sanam Chai 站 1 號出口。\n【體驗】正對鄭王廟，吸收昭披耶河入夜水能量。"
-            }
-        ],
-        "inspiration": [
-            { "title": "Vesper Cocktail Bar", "tag": "微醺", "type": "酒吧", "address": "10/15 Convent Rd", "open_hours": "17:30 - 01:00", "note": "【交通】MRT Si Lom 站步行。英倫奢華金屬風，適合獨酌。" }
-        ],
-        "shopping": ["便利商店買氣泡水", "Mae Varee 芒果糯米"]
-    },
-    "day2": {
-        "events": [
-            {
-                "time": "09:30", "title": "MOCA 當代藝術館", "type": "藝術",
-                "address": "499 Kamphaeng Phet 6 Rd", "open_hours": "10:00 - 18:00 (週一休)",
-                "tags": ["強金冷療", "避暑"], "moodColor": "#F1F5F9",
-                "note": "【交通】BTS 至 Ha Yaek Lat Phrao 轉紅色線 (SRT Red Line) ➝ Bang Khen 站 2 號出口。\n【攻略】早起避暑，在大理石建築中納金氣。"
-            },
-            {
-                "time": "13:30", "title": "午餐: Sra Bua by Kiin Kiin", "type": "美食",
-                "address": "Siam Kempinski Hotel", "open_hours": "12:00 - 15:00",
-                "tags": ["分子泰菜", "金水交融"], "moodColor": "#C5A059",
-                "note": "【交通】原路回 BTS Siam 站 3/5 號出口，穿過 Paragon 名店街即達。\n【體驗】米其林一星，感官極致享受。"
-            },
-            {
-                "time": "15:30", "title": "Iconsiam & 露台看大河", "type": "奢華",
-                "address": "299 Charoen Nakhon Rd", "open_hours": "10:00 - 22:00",
-                "tags": ["室內水上市集", "納氣"], "moodColor": "#0EA5E9",
-                "note": "【交通】BTS Saphan Taksin 站 2 號出口搭商場接駁船。\n【攻略】在冷氣房納水上市集之水氣，傍晚看河景。"
-            },
-            {
-                "time": "19:30", "title": "晚餐: Canvas (藝術料理)", "type": "晚餐",
-                "address": "113/9-10 Sukhumvit 55", "open_hours": "18:00 - 22:00",
-                "tags": ["米其林一星", "飯店旁"], "moodColor": "#C5A059",
-                "note": "【交通】接駁船回 BTS ➝ Thong Lo 站 3 號出口。\n【攻略】動線最順，吃完步行回飯店，安全首選。"
-            }
-        ],
-        "inspiration": [
-            { "title": "Sea Life 海洋世界", "tag": "極水", "type": "景點", "address": "Siam Paragon B1", "open_hours": "10:00 - 20:00", "note": "【交通】BTS Siam 站直通。深海隧道是極佳避暑點。" }
-        ],
-        "shopping": ["Iconsiam 伴手禮", "MOCA 紀念品"]
-    },
-    "day3": {
-        "events": [
-            {
-                "time": "10:30", "title": "二哥豐廟 (警局財神)", "type": "祈福",
-                "address": "Phlapphla Chai Police Station", "address_local": "สถานีตำรวจพลับพลาไชย (ชั้น 4)",
-                "open_hours": "24H (建議日間)", "tags": ["偏財", "肅殺之金"], "moodColor": "#C5A059",
-                "note": "【交通】BTS 轉 MRT 藍線 ➝ Wat Mangkon 站 1 號出口。\n【攻略】警局 4 樓，備黑咖啡求財，利官威。"
-            },
-            {
-                "time": "12:30", "title": "午間輕食: The Mustang Blu", "type": "美食",
-                "address": "721 Maitri Chit Rd", "open_hours": "11:00 - 21:00",
-                "tags": ["老銀行", "納金"], "moodColor": "#334155",
-                "note": "【交通】步行 10 分鐘，或搭一站 MRT 至 Hua Lamphong 站 1 號出口。\n【體驗】高聳空間利於散熱，視覺極美。"
-            },
-            {
-                "time": "14:30", "title": "義德善堂 (捐棺)", "type": "積福",
-                "address": "Wat Hua Lamphong", "open_hours": "24H",
-                "tags": ["功德水", "轉運"], "moodColor": "#F39C12",
-                "note": "【交通】MRT Hua Lamphong ➝ Sam Yan 站 1 號出口。\n【體驗】積福解燥土之氣。"
-            },
-            {
-                "time": "16:30", "title": "泰國占星 (師傅上門)", "type": "靈性",
-                "address": "IR-ON Hotel Lobby", "tags": ["主場優勢", "避暑"], "moodColor": "#6366F1",
-                "note": "【交通】返回飯店大廳。師傅上門諮詢，最安靜安全。"
-            },
-            {
-                "time": "19:00", "title": "晚餐: North (泰北料理)", "type": "晚餐",
-                "address": "Sukhumvit 33", "open_hours": "18:00 - 23:00",
-                "tags": ["米其林推薦", "安靜洋房"], "moodColor": "#C5A059",
-                "note": "【交通】BTS 搭一站至 Phrom Phong 站 5 號出口步行。\n【體驗】避開老城擁擠，在高級洋房享受精緻泰北餐。"
-            }
-        ],
-        "inspiration": [
-            { "title": "Tep Bar (泰式居酒屋)", "tag": "水木", "type": "酒吧", "address": "Soi Nana", "open_hours": "18:00 - 24:00", "note": "【交通】MRT Hua Lamphong。聽傳統音樂納水氣。" }
-        ],
-        "shopping": ["唐人街老字號餅乾"]
-    },
-    "day4": {
-        "events": [
-            {
-                "time": "11:00", "title": "Erb Bespoke 調香", "type": "體驗",
-                "address": "Gaysorn Village 2F", "open_hours": "10:00 - 20:00",
-                "tags": ["金水開運", "香氣"], "moodColor": "#D946EF",
-                "note": "【交通】BTS Chit Lom 站 6 號出口 Skywalk 直通。\n【體驗】訂製專屬開運香水。"
-            },
-            {
-                "time": "13:00", "title": "Copper Beyond Buffet", "type": "美食",
-                "address": "Gaysorn Amarin 2F", "open_hours": "10:00 - 21:00",
-                "tags": ["頂級自助", "納金"], "moodColor": "#C5A059",
-                "note": "【交通】就在 Erb 隔壁棟，天橋直通。\n【必吃】和牛船麵、松露湯。"
-            },
-            {
-                "time": "15:30", "title": "Theta State Float (漂浮)", "type": "SPA",
-                "address": "Sukhumvit 24", "open_hours": "10:00 - 22:00",
-                "tags": ["極水能量", "感官剝離"], "moodColor": "#0EA5E9",
-                "note": "【交通】BTS Chit Lom ➝ Phrom Phong 站 4 號出口，步行 8 分鐘。\n【攻略】極限補水，消融火土燥熱。需預約。"
-            },
-            {
-                "time": "19:00", "title": "微醺: The Bamboo Bar", "type": "體驗",
-                "address": "Mandarin Oriental", "open_hours": "17:00 - 01:00",
-                "tags": ["爵士之水", "老錢金"], "moodColor": "#C5A059",
-                "note": "【交通】BTS ➝ Saphan Taksin 站 2 號出口碼頭搭飯店免費船。\n【體驗】水氣與爵士樂，療癒之夜。"
-            },
-            {
-                "time": "20:30", "title": "晚餐: Lord Jim's (海鮮)", "type": "晚餐",
-                "address": "Mandarin Oriental", "tags": ["極水", "頂級海鮮"], "moodColor": "#0F172A",
-                "note": "【動線】就在 Bamboo Bar 隔壁，文華東方飯店內。\n【體驗】安全、尊貴的海鮮大餐。"
-            }
-        ],
-        "inspiration": [
-            { "title": "Sindhorn Kempinski Lobby", "tag": "納氣", "type": "休憩", "address": "Velaa Sindhorn", "note": "【交通】BTS Chit Lom。全曼谷最開闊的金水大廳。" }
-        ],
-        "shopping": ["Hunter's 松露洋芋片", "Panpuri 精油"]
-    },
-    "day5": {
-        "events": [
-            {
-                "time": "09:30", "title": "愛神 & 象神", "type": "祈福",
-                "address": "Central World", "tags": ["謝神", "開闊之氣"], "moodColor": "#E11D48",
-                "note": "【交通】BTS Chit Lom 站 6 號出口。感謝神明保佑。"
-            },
-            {
-                "time": "11:30", "title": "謝幕午餐: R-Haan", "type": "美食",
-                "address": "Sukhumvit 53", "open_hours": "11:30 - 23:00",
-                "tags": ["皇家二星", "強金"], "moodColor": "#C5A059",
-                "note": "【交通】BTS Thong Lo 站 3 號出口，搭摩托車 3 分鐘。\n【體驗】皇家儀式感，動線流暢，吃完直接取行李往機場。"
-            },
-            {
-                "time": "13:50", "title": "前往機場 (BKK)", "type": "交通",
-                "address": "Suvarnabhumi Airport", "tags": ["回家"], "moodColor": "#0F172A",
-                "note": "【交通】回飯店取行李 ➝ BTS ➝ Phaya Thai 轉 ARL 機場快線。"
-            }
-        ],
-        "inspiration": [
-            { "title": "Central Embassy 書店", "tag": "避暑", "type": "休息", "address": "BTS Phloen Chit", "note": "若不想拜神，來這吹曼谷最涼的冷氣。" }
-        ],
-        "shopping": ["機場 Jo Malone", "免稅伴手禮"]
-    }
+"day1": {
+"events": [
+{
+"time": "12:30", "title": "午餐: Supanniga (Thong Lo)", "type": "美食",
+"address": "160/11 Soi Sukhumvit 55", "address_local": "ทองหล่อ ซอย 6 ร้านสุพรรณิการ์",
+"tags": ["米其林推薦", "泰菜"], "moodColor": "#C5A059",
+"note": "【交通】BTS Thong Lo 站 3 號出口，巷口搭紅色小巴或摩托車至 Soi 6。\n【攻略】必點蟹肉烘蛋，環境精緻。"
+},
+{
+"time": "14:30", "title": "按摩: Asia Herb (Thong Lo)", "type": "SPA",
+"address": "BTS Thong Lo Exit 3", "tags": ["精油", "避暑"], "moodColor": "#10B981",
+"note": "【攻略】預約 2 小時精油按摩+熱草藥球。陽光最熱烈時進行修復，潤澤命格。"
+},
+{
+"time": "17:00", "title": "Jim Thompson House", "type": "文化",
+"address": "National Stadium Exit 1", "address_local": "พิพิธภัณฑ์จิม ทอมป์สัน",
+"open_hours": "09:00 - 18:00", "tags": ["泰絲", "採金"], "moodColor": "#8E44AD",
+"note": "【交通】BTS Siam 轉深綠線。欣賞絲綢金屬光澤，夕陽下園林最涼爽。"
+},
+{
+"time": "19:30", "title": "晚餐: Nusara (河景泰菜)", "type": "晚餐",
+"address": "MRT Sanam Chai Exit 1", "address_local": "ร้านนุสรา (ท่าเตียน)",
+"tags": ["米其林", "鄭王廟"], "moodColor": "#C5A059",
+"note": "【交通】地鐵 Sanam Chai 站步行 5 分鐘。\n【體驗】看著鄭王廟夜景與大河水能量用餐。"
+}
+],
+"inspiration": [
+{ "title": "Vesper Cocktail Bar", "tag": "微醺", "note": "地鐵 Si Lom 站。英倫金屬風酒吧，適合獨酌。", "type": "備案" }
+],
+"shopping": ["氣泡水", "Mae Varee 芒果糯米"]
+},
+"day2": {
+"events": [
+{
+"time": "09:30", "title": "MOCA 當代藝術館", "type": "藝術",
+"address": "SRT Bang Khen Exit 2", "address_local": "พิพิธภัณฑ์ศิลปะไทยร่วมสมัย (MOCA)",
+"open_hours": "10:00 - 18:00", "tags": ["強金冷療", "避暑"], "moodColor": "#F1F5F9",
+"note": "【交通】BTS 轉紅色線至 Bang Khen 站。\n【攻略】清晨採氣，在大理石建築中吸納金能。"
+},
+{
+"time": "13:30", "title": "午餐: Sra Bua by Kiin Kiin", "type": "美食",
+"address": "BTS Siam Exit 3/5", "tags": ["分子料理", "米其林"], "moodColor": "#C5A059",
+"note": "【交通】穿過 Siam Paragon 名店街後門。\n【體驗】優雅清涼的分子料理體驗。"
+},
+{
+"time": "15:30", "title": "Iconsiam 室內水上市集", "type": "奢華",
+"address": "Saphan Taksin Exit 2", "tags": ["納水", "冷氣房"], "moodColor": "#0EA5E9",
+"note": "【交通】碼頭搭乘商場免費接駁船。\n【攻略】在金屬與噴泉圍繞的冷氣房內納水氣。"
+},
+{
+"time": "19:30", "title": "晚餐: Canvas (藝術料理)", "type": "晚餐",
+"address": "Thong Lo Soi 5", "address_local": "ร้าน Canvas (ทองหล่อ)",
+"tags": ["米其林一星", "就在飯店旁"], "moodColor": "#C5A059",
+"note": "【交通】BTS Thong Lo 站 3 號出口。\n【動線】吃完步行即達飯店，安全首選。"
+}
+],
+"inspiration": [
+{ "title": "Sea Life 海洋世界", "tag": "極水", "note": "Siam Paragon B1。深海能量，午後避暑聖地。", "type": "備案" }
+],
+"shopping": ["MOCA 藝術明信片", "Iconsiam 伴手禮"]
+},
+"day3": {
+"events": [
+{
+"time": "10:30", "title": "二哥豐廟 (警局財神)", "type": "祈福",
+"address": "MRT Wat Mangkon Exit 1", "address_local": "สถานีตำรวจพลับพลาไชย (ชั้น 4)",
+"tags": ["偏財", "肅殺之金"], "moodColor": "#C5A059",
+"note": "【交通】出站步行 8 分鐘至警察局，上 4 樓。\n【攻略】供品備黑咖啡。利官威，鎮劫財。"
+},
+{
+"time": "12:30", "title": "午間輕食: The Mustang Blu", "type": "美食",
+"address": "MRT Hua Lamphong Exit 1", "tags": ["老銀行", "避暑"], "moodColor": "#334155",
+"note": "【交通】步行 10 分鐘。老建築之金能散火熱。"
+},
+{
+"time": "14:30", "title": "義德善堂 (捐棺積福)", "type": "積福",
+"address": "MRT Sam Yan Exit 1", "address_local": "มูลนิธิร่วมกตัญญู (วัดหัวลำโพง)",
+"tags": ["功德水", "轉運"], "moodColor": "#F39C12",
+"note": "【交通】一出站即達。轉化能量，解燥土之氣。"
+},
+{
+"time": "16:30", "title": "泰國占星 Ging Astro", "type": "靈性",
+"address": "IR-ON Hotel Lobby", "tags": ["師傅上門", "主場優勢"], "moodColor": "#6366F1",
+"note": "【攻略】師傅到飯店大廳，避開地表熱氣，靜心接收指引。"
+},
+{
+"time": "19:00", "title": "晚餐: North (泰北料理)", "type": "晚餐",
+"address": "Phrom Phong Exit 5", "tags": ["洋房", "米其林推薦"], "moodColor": "#C5A059",
+"note": "【交通】BTS 搭至 Phrom Phong 站步行 8 分鐘。\n【體驗】安靜雅致的洋房環境，避免老城擁擠。"
+}
+],
+"inspiration": [
+{ "title": "Tep Bar", "tag": "水木", "note": "唐人街老宅內聽泰式音樂納水能量。", "type": "備案" }
+],
+"shopping": ["唐人街百年餅乾"]
+},
+"day4": {
+"events": [
+{
+"time": "11:00", "title": "Erb Bespoke 調香體驗", "type": "體驗",
+"address": "Gaysorn Village 2F", "tags": ["金水", "開運香氣"], "moodColor": "#D946EF",
+"note": "【交通】BTS Chit Lom 6 號出口 Skywalk 直通。"
+},
+{
+"time": "13:00", "title": "Copper Beyond Buffet", "type": "美食",
+"address": "Gaysorn Amarin 2F", "tags": ["頂級自助", "納金能量"], "moodColor": "#C5A059",
+"note": "【交通】調香旁。必吃和牛船麵與松露湯。"
+},
+{
+"time": "15:30", "title": "Theta State Float (漂浮)", "type": "SPA",
+"address": "Phrom Phong Exit 4", "tags": ["極限補水", "感官剝離"], "moodColor": "#0EA5E9",
+"note": "【交通】步行 8 分鐘至 Sukhumvit 24。\n【攻略】極水能量消融燥熱。請帶放空的心。"
+},
+{
+"time": "19:00", "title": "爵士: The Bamboo Bar", "type": "微醺",
+"address": "Saphan Taksin Exit 2", "address_local": "เดอะ แบมบู บาร์",
+"tags": ["爵士樂", "老錢金"], "moodColor": "#C5A059",
+"note": "【交通】碼頭搭飯店免費船。享受水氣與優雅律動。"
+},
+{
+"time": "20:30", "title": "晚餐: Lord Jim's (海鮮)", "type": "晚餐",
+"address": "Mandarin Oriental Hotel", "tags": ["極水", "尊貴安全"], "moodColor": "#0F172A",
+"note": "【動線】酒吧隔壁，無需再移動。"
+}
+],
+"inspiration": [
+{ "title": "Sindhorn Kempinski", "tag": "納氣", "note": "全曼谷最開闊的金水 Lobby，適合靜坐休息。", "type": "備案" }
+],
+"shopping": ["Erb 香水", "Hunter's 松露洋芋片"]
+},
+"day5": {
+"events": [
+{
+"time": "09:30", "title": "愛神 & 象神", "type": "祈福",
+"address": "BTS Chit Lom Exit 6", "tags": ["謝神", "活水能量"], "moodColor": "#E11D48",
+"note": "【交通】天橋步行。感謝旅程平安。"
+},
+{
+"time": "11:30", "title": "午餐: R-Haan (皇家泰菜)", "type": "美食",
+"address": "Thong Lo Exit 3", "address_local": "ทองหล่อ ซอย 9 ร้านอาหาร",
+"tags": ["米其林二星", "皇家規矩"], "moodColor": "#C5A059",
+1.1rem;
+"note": "【交通】摩托車 3 分鐘。皇家規矩屬金，精緻謝幕。"
+},
+{
+"time": "13:50", "title": "前往機場 (BKK)", "type": "交通",
+"address": "Hotel", "tags": ["回程", "平安"], "moodColor": "#0F172A",
+"note": "【交通】BTS 至 Phaya Thai 轉 ARL 機場快線。"
+}
+],
+"inspiration": [
+{ "title": "Central Embassy", "tag": "避暑", "note": "若不想拜神，來吹曼谷最涼的冷氣逛書店。", "type": "備案" }
+],
+"shopping": ["機場 Jo Malone", "伴手禮"]
+}
 };
 
 // 6. 🗣️ 常用短語 (泰語溝通卡)
 const PHRASE_DATA = [
-    {
-        category: "飲食禁忌 (Dietary)",
-        items: [
-            { term_primary: "ไม่เอาผักชี", term_secondary: "不要香菜！", term_pronounce: "Mai Ao Phak Chi" },
-            { term_primary: "ไม่เผ็ด", term_secondary: "不要辣", term_pronounce: "Mai Phet" },
-            { term_primary: "ไม่เอาหวาน", term_secondary: "不要糖 (飲料)", term_pronounce: "Mai Ao Wan" }
-        ]
-    },
-    {
-        category: "交通 (Transport)",
-        items: [
-            { term_primary: "ไปที่นี่ครับ/ค่ะ", term_secondary: "請載我去這裡 (指地圖)", term_pronounce: "Pai Tee Nee" },
-            { term_primary: "ช่วยเปิดมิเตอร์", term_secondary: "請跳表", term_pronounce: "Chaui Poet Meter" },
-            { term_primary: "จอดที่นี่", term_secondary: "停在這裡", term_pronounce: "Jod Tee Nee" }
-        ]
-    }
+{
+category: "飲食禁忌",
+items: [
+{ term_primary: "ไม่เอาผักชี", term_secondary: "不要香菜！", term_pronounce: "Mai Ao Phak Chi" },
+{ term_primary: "ไม่เผ็ด", term_secondary: "不要辣", term_pronounce: "Mai Phet" },
+{ term_primary: "ไม่เอาหวาน", term_secondary: "不要糖/走甜", term_pronounce: "Mai Ao Wan" }
+]
+},
+{
+category: "公共交通",
+items: [
+{ term_primary: "ไปที่นี่ครับ/ค่ะ", term_secondary: "請載我去這裡 (指圖)", term_pronounce: "Pai Tee Nee" },
+{ term_primary: "ช่วยเปิดมิเตอร์", term_secondary: "請跳表 (計程車)", term_pronounce: "Poet Meter" },
+{ term_primary: "จอดที่นี่ครับ/ค่ะ", term_secondary: "請停在這裡", term_pronounce: "Jod Tee Nee" }
+]
+}
 ];
 </script>
-    
-<script>
-/** 🛠️ 核心邏輯腳本 - 修復 Modal 與 行程顯示 **/
-function applyTheme() {
-    const root = document.documentElement;
-    const t = THEME_CONFIG;
-    root.style.setProperty('--accent', t.accentColor);
-    root.style.setProperty('--accent-text', t.accentText);
-    root.style.setProperty('--bg-body', t.backgroundColor);
-    root.style.setProperty('--bg-card', t.cardColor);
-    root.style.setProperty('--text-main', t.textColor);
-    root.style.setProperty('--text-sub', t.textSubColor);
-    root.style.setProperty('--border', t.borderColor);
-    root.style.setProperty('--font-heading', t.fontHeading);
-    root.style.setProperty('--font-body', t.fontBody);
-    if(t.googleFontsUrl) {
-        const link = document.createElement('link'); link.rel = 'stylesheet'; link.href = t.googleFontsUrl; document.head.appendChild(link);
-    }
-}
-function generateScheduleData() {
-    const dates = {};
-    const baseDate = new Date(CONFIG.startDate);
-    const weekDays = ["週日", "週一", "週二", "週三", "週四", "週五", "週六"];
-    for(let i=0; i<CONFIG.duration; i++) {
-        const d = new Date(baseDate); d.setDate(baseDate.getDate() + i);
-        const dayKey = `day${i+1}`;
-        const yyyy = d.getFullYear(); const mm = String(d.getMonth() + 1).padStart(2, '0'); const dd = String(d.getDate()).padStart(2, '0');
-        const dailyData = USER_ITINERARY[dayKey] || { events:[], inspiration:[], shopping:[] };
-        dates[dayKey] = {
-            date: `${yyyy}-${mm}-${dd}`, display: dd, weekday: weekDays[d.getDay()],
-            events: dailyData.events || [], inspiration: dailyData.inspiration || [], shopping: dailyData.shopping || []
-        };
-    }
-    return dates;
-}
-applyTheme();
-let scheduleData = generateScheduleData();
-let currentDay = "day1";
-function init() {
-    document.title = CONFIG.ui.browserTitle;
-    document.getElementById('app-title').innerHTML = CONFIG.ui.headerTitle;
-    renderDateSelector();
-    selectDay('day1');
-    renderInfoPage();
-    renderPhrasePage();
-    setInterval(updateHomeClock, 1000);
-}
-function renderDateSelector() {
-    const container = document.getElementById('date-selector');
-    container.innerHTML = '';
-    Object.keys(scheduleData).forEach(dayKey => {
-        const day = scheduleData[dayKey];
-        const chip = document.createElement('div');
-        chip.className = `date-chip`;
-        chip.id = `chip-${dayKey}`;
-        chip.onclick = () => selectDay(dayKey, chip);
-        chip.innerHTML = `<span class="day-num">${day.display}</span><span class="day-week">${day.weekday}</span>`;
-        container.appendChild(chip);
-    });
-}
-function selectDay(dayKey, chipEl) {
-    currentDay = dayKey;
-    document.querySelectorAll('.date-chip').forEach(c => c.classList.remove('active'));
-    const target = chipEl || document.getElementById(`chip-${dayKey}`);
-    if(target) target.classList.add('active');
-    renderTimeline(dayKey);
-    renderInspiration(dayKey);
-    renderShopping(dayKey);
-}
-function renderTimeline(dayKey) {
-    const container = document.getElementById('timeline-container');
-    container.innerHTML = '';
-    const events = scheduleData[dayKey].events;
-    if (events.length === 0) {
-        container.innerHTML = "<div style='text-align:center; padding:50px; opacity:0.5;'>本日無行程</div>";
-        return;
-    }
-    events.forEach((event) => {
-        const item = document.createElement('div');
-        item.className = 'timeline-item';
-        let tags = event.tags.map(t => `<span class="card-tag">${t}</span>`).join('');
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.style = `border-left-color: ${event.moodColor || 'var(--accent)'};`;
-        card.onclick = () => openModal(event);
-        card.innerHTML = `
-            <div class="card-nav-btn" onclick="event.stopPropagation(); openMapQuery('${event.address}')"><i class="fa-solid fa-location-arrow"></i></div>
-            <span class="card-time">${event.time}</span>
-            <h3 class="card-title">${event.title}</h3>
-            <div class="tags">${tags}</div>`;
-        item.appendChild(card);
-        container.appendChild(item);
-    });
-}
-function renderInspiration(dayKey) {
-    const container = document.getElementById('inspiration-container');
-    container.innerHTML = '';
-    const insp = scheduleData[dayKey].inspiration;
-    insp.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'inspire-card';
-        card.onclick = () => openModal(item);
-        card.innerHTML = `<div class="inspire-badge">${item.tag}</div><h3 class="inspire-title">${item.title}</h3><p class="inspire-note">${item.note.substring(0, 40)}...</p>`;
-        container.appendChild(card);
-    });
-}
-function openModal(data) {
-    document.getElementById('modal-title').innerText = data.title;
-    document.getElementById('modal-type').innerText = data.type || "行程";
-    document.getElementById('modal-time').innerText = data.time || "--:--";
-    document.getElementById('modal-address-short').innerText = data.address || "";
-    document.getElementById('modal-note').innerText = data.note || "";
-    const actionsContainer = document.getElementById('modal-actions');
-    actionsContainer.innerHTML = '';
-    if(data.address) {
-        actionsContainer.innerHTML += `<button class="btn-action btn-black" onclick="openMapQuery('${data.address}')"><i class="fa-solid fa-location-arrow"></i> Google Maps 導航</button>`;
-        actionsContainer.innerHTML += `<button class="btn-action btn-outline" onclick="copyToClipboard('${data.address_local || data.address}')"><i class="fa-regular fa-copy"></i> 複製地址</button>`;
-    }
-    if(data.address_local) {
-        actionsContainer.innerHTML += `<button class="btn-action btn-outline" onclick="showPhrase('${data.address_local}', '請載我去這裡')">🚕 顯示的士卡</button>`;
-    }
-    document.getElementById('detail-modal').classList.add('open');
-}
-function closeModal() { document.getElementById('detail-modal').classList.remove('open'); }
-function openMapQuery(addr) { window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`, '_blank'); }
-function copyToClipboard(text) { navigator.clipboard.writeText(text); showToast("已複製"); }
-function showToast(msg) { const t = document.getElementById('toast'); document.getElementById('toast-msg').innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
-function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebar-overlay').classList.toggle('open'); }
-function switchMainPage(pageId, navEl) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + pageId).classList.add('active');
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    if(navEl) navEl.classList.add('active');
-}
-function updateHomeClock() {
-    const options = { timeZone: CONFIG.ui.homeTimezone, hour: '2-digit', minute: '2-digit', hour12: false };
-    const timeString = new Date().toLocaleTimeString('en-GB', options);
-    const clockEl = document.getElementById('home-clock');
-    if(clockEl) clockEl.innerText = `${CONFIG.ui.homeTimeLabel} ${timeString}`;
-}
-function renderShopping(dayKey) {
-    const container = document.getElementById('shopping-container'); container.innerHTML = '';
-    const items = scheduleData[dayKey].shopping || [];
-    items.forEach(item => { container.innerHTML += `<div class="shop-item"><input type="checkbox"> <label>${item}</label></div>`; });
-}
-function renderPhrasePage() {
-    const container = document.getElementById('phrases-container'); container.innerHTML = '';
-    PHRASE_DATA.forEach(cat => {
-        container.innerHTML += `<div class="phrase-section-header">${cat.category}</div><div class="phrase-grid">` + 
-        cat.items.map(i => `<div class="phrase-card" onclick="showPhrase('${i.term_primary}', '${i.term_secondary}')"><div class="phrase-primary">${i.term_primary}</div><div class="phrase-secondary">${i.term_secondary}</div></div>`).join('') + `</div>`;
-    });
-}
-function showPhrase(jp, zh) { document.getElementById('overlay-jp').innerText = jp; document.getElementById('overlay-zh').innerText = zh; document.getElementById('phrase-overlay').classList.add('active'); }
-function closePhrase() { document.getElementById('phrase-overlay').classList.remove('active'); }
-function renderInfoPage() {
-    const container = document.getElementById('dynamic-info-content');
-    if(!container) return;
-    let html = `<div class="info-card"><div class="info-header">航班</div>`;
-    TRIP_INFO.flights.forEach(f => { html += `<div style="margin-bottom:10px;"><b>${f.type}</b>: ${f.flight} (${f.dep} ➝ ${f.arr})</div>`; });
-    html += `</div><div class="info-card"><div class="info-header">酒店</div><b>${TRIP_INFO.hotels[0].name}</b><br>${TRIP_INFO.hotels[0].address}</div>`;
-    container.innerHTML = html;
-}
-init();
-</script>
 
-<script>
-/** * 🛠️ 核心邏輯腳本 - 修復行程渲染與 Modal 功能
- */
-
-function applyTheme() {
-    const root = document.documentElement;
-    const t = THEME_CONFIG;
-    root.style.setProperty('--accent', t.accentColor);
-    root.style.setProperty('--accent-text', t.accentText);
-    root.style.setProperty('--bg-body', t.backgroundColor);
-    root.style.setProperty('--bg-card', t.cardColor);
-    root.style.setProperty('--text-main', t.textColor);
-    root.style.setProperty('--text-sub', t.textSubColor);
-    root.style.setProperty('--border', t.borderColor);
-    root.style.setProperty('--font-heading', t.fontHeading);
-    root.style.setProperty('--font-body', t.fontBody);
-    if(t.googleFontsUrl) {
-        const link = document.createElement('link'); link.rel = 'stylesheet'; link.href = t.googleFontsUrl; document.head.appendChild(link);
-    }
-}
-
-function generateScheduleData() {
-    const dates = {};
-    const baseDate = new Date(CONFIG.startDate);
-    const weekDays = ["週日", "週一", "週二", "週三", "週四", "週五", "週六"];
-    for(let i=0; i<CONFIG.duration; i++) {
-        const d = new Date(baseDate); d.setDate(baseDate.getDate() + i);
-        const dayKey = `day${i+1}`;
-        const yyyy = d.getFullYear(); const mm = String(d.getMonth() + 1).padStart(2, '0'); const dd = String(d.getDate()).padStart(2, '0');
-        const dailyData = USER_ITINERARY[dayKey] || { events:[], inspiration:[], shopping:[] };
-        dates[dayKey] = {
-            date: `${yyyy}-${mm}-${dd}`, display: dd, weekday: weekDays[d.getDay()],
-            events: dailyData.events || [],
-            inspiration: dailyData.inspiration || [],
-            shopping: dailyData.shopping || []
-        };
-    }
-    return dates;
-}
-
-applyTheme();
-let scheduleData = generateScheduleData();
-let currentDay = "day1";
-
-function init() {
-    document.title = CONFIG.ui.browserTitle;
-    document.getElementById('app-title').innerHTML = CONFIG.ui.headerTitle;
-    renderDateSelector();
-    selectDay('day1');
-    renderInfoPage();
-    renderPhrasePage();
-    setInterval(updateHomeClock, 1000);
-}
-
-function renderDateSelector() {
-    const container = document.getElementById('date-selector');
-    container.innerHTML = '';
-    Object.keys(scheduleData).forEach(dayKey => {
-        const day = scheduleData[dayKey];
-        const chip = document.createElement('div');
-        chip.className = `date-chip`;
-        chip.id = `chip-${dayKey}`;
-        chip.onclick = () => selectDay(dayKey, chip);
-        chip.innerHTML = `<span class="day-num">${day.display}</span><span class="day-week">${day.weekday}</span>`;
-        container.appendChild(chip);
-    });
-}
-
-function selectDay(dayKey, chipEl) {
-    currentDay = dayKey;
-    document.querySelectorAll('.date-chip').forEach(c => c.classList.remove('active'));
-    const target = chipEl || document.getElementById(`chip-${dayKey}`);
-    if(target) target.classList.add('active');
-    renderTimeline(dayKey);
-    renderInspiration(dayKey);
-    renderShopping(dayKey);
-}
-
-function renderTimeline(dayKey) {
-    const container = document.getElementById('timeline-container');
-    container.innerHTML = '';
-    const events = scheduleData[dayKey].events;
-    if (events.length === 0) {
-        container.innerHTML = "<div style='text-align:center; padding:50px; opacity:0.5;'>本日無行程</div>";
-        return;
-    }
-    events.forEach((event) => {
-        const item = document.createElement('div');
-        item.className = 'timeline-item';
-        let tags = event.tags.map(t => `<span class="card-tag">${t}</span>`).join('');
-        const colorStyle = `border-left-color: ${event.moodColor || 'var(--accent)'};`;
-        
-        // 使用 dataset 儲存對象以避免引號轉義問題
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.style = colorStyle;
-        card.onclick = () => openModal(event);
-        card.innerHTML = `
-            <div class="card-nav-btn" onclick="event.stopPropagation(); openMapQuery('${event.address}')"><i class="fa-solid fa-location-arrow"></i></div>
-            <span class="card-time">${event.time}</span>
-            <h3 class="card-title">${event.title}</h3>
-            <div class="tags">${tags}</div>`;
-        item.appendChild(card);
-        container.appendChild(item);
-    });
-}
-
-function renderInspiration(dayKey) {
-    const container = document.getElementById('inspiration-container');
-    container.innerHTML = '';
-    const insp = scheduleData[dayKey].inspiration;
-    insp.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'inspire-card';
-        card.onclick = () => openModal(item);
-        card.innerHTML = `
-            <div class="inspire-badge">${item.tag}</div>
-            <h3 class="inspire-title">${item.title}</h3>
-            <p class="inspire-note">${item.note.substring(0, 40)}...</p>`;
-        container.appendChild(card);
-    });
-}
-
-function openModal(data) {
-    document.getElementById('modal-title').innerText = data.title;
-    document.getElementById('modal-type').innerText = data.type || "行程";
-    document.getElementById('modal-time').innerText = data.time || "--:--";
-    document.getElementById('modal-address-short').innerText = data.address || "";
-    document.getElementById('modal-note').innerText = data.note || "";
-
-    const actionsContainer = document.getElementById('modal-actions');
-    actionsContainer.innerHTML = '';
-    
-    if(data.address) {
-        actionsContainer.innerHTML += `<button class="btn-action btn-black" onclick="openMapQuery('${data.address}')"><i class="fa-solid fa-location-arrow"></i> Google Maps 導航</button>`;
-        actionsContainer.innerHTML += `<button class="btn-action btn-outline" onclick="copyToClipboard('${data.address_local || data.address}')"><i class="fa-regular fa-copy"></i> 複製地址</button>`;
-    }
-    
-    if(data.address_local) {
-        actionsContainer.innerHTML += `<button class="btn-action btn-outline" onclick="showPhrase('${data.address_local}', '請載我去這裡')">🚕 顯示的士卡</button>`;
-    }
-
-    document.getElementById('detail-modal').classList.add('open');
-}
-
-function closeModal() { document.getElementById('detail-modal').classList.remove('open'); }
-function openMapQuery(addr) { window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`, '_blank'); }
-function copyToClipboard(text) { navigator.clipboard.writeText(text); showToast("已複製"); }
-function showToast(msg) { const t = document.getElementById('toast'); document.getElementById('toast-msg').innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
-function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebar-overlay').classList.toggle('open'); }
-function switchMainPage(pageId, navEl) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + pageId).classList.add('active');
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    if(navEl) navEl.classList.add('active');
-}
-function updateHomeClock() {
-    const options = { timeZone: CONFIG.ui.homeTimezone, hour: '2-digit', minute: '2-digit', hour12: false };
-    const timeString = new Date().toLocaleTimeString('en-GB', options);
-    const clockEl = document.getElementById('home-clock');
-    if(clockEl) clockEl.innerText = `${CONFIG.ui.homeTimeLabel} ${timeString}`;
-}
-function renderShopping(dayKey) {
-    const container = document.getElementById('shopping-container');
-    container.innerHTML = '';
-    const items = scheduleData[dayKey].shopping || [];
-    items.forEach(item => {
-        container.innerHTML += `<div class="shop-item"><input type="checkbox"> <label>${item}</label></div>`;
-    });
-}
-function renderPhrasePage() {
-    const container = document.getElementById('phrases-container'); container.innerHTML = '';
-    PHRASE_DATA.forEach(cat => {
-        container.innerHTML += `<div class="phrase-section-header">${cat.category}</div><div class="phrase-grid">` + 
-        cat.items.map(i => `<div class="phrase-card" onclick="showPhrase('${i.term_primary}', '${i.term_secondary}')"><div class="phrase-primary">${i.term_primary}</div><div class="phrase-secondary">${i.term_secondary}</div></div>`).join('') + `</div>`;
-    });
-}
-function showPhrase(jp, zh) { document.getElementById('overlay-jp').innerText = jp; document.getElementById('overlay-zh').innerText = zh; document.getElementById('phrase-overlay').classList.add('active'); }
-function closePhrase() { document.getElementById('phrase-overlay').classList.remove('active'); }
-function renderInfoPage() {
-    const container = document.getElementById('dynamic-info-content');
-    if(!container) return;
-    let html = `<div class="info-card"><div class="info-header">航班</div>`;
-    TRIP_INFO.flights.forEach(f => {
-        html += `<div style="margin-bottom:10px;"><b>${f.type}</b>: ${f.flight} (${f.dep} ➝ ${f.arr})</div>`;
-    });
-    html += `</div><div class="info-card"><div class="info-header">酒店</div><b>${TRIP_INFO.hotels[0].name}</b><br>${TRIP_INFO.hotels[0].address}</div>`;
-    container.innerHTML = html;
-}
-
-init();
-</script>
-
-<script>
-/** * 🛠️ 核心邏輯腳本 - 確保 Modal 與卡片互動正常
- */
-
-function applyTheme() {
-    const root = document.documentElement;
-    const t = THEME_CONFIG;
-    root.style.setProperty('--accent', t.accentColor);
-    root.style.setProperty('--accent-text', t.accentText);
-    root.style.setProperty('--bg-body', t.backgroundColor);
-    root.style.setProperty('--bg-card', t.cardColor);
-    root.style.setProperty('--text-main', t.textColor);
-    root.style.setProperty('--text-sub', t.textSubColor);
-    root.style.setProperty('--border', t.borderColor);
-    root.style.setProperty('--font-heading', t.fontHeading);
-    root.style.setProperty('--font-body', t.fontBody);
-    if(t.googleFontsUrl) {
-        const link = document.createElement('link'); link.rel = 'stylesheet'; link.href = t.googleFontsUrl; document.head.appendChild(link);
-    }
-}
-
-function generateScheduleData() {
-    const dates = {};
-    const baseDate = new Date(CONFIG.startDate);
-    const weekDays = ["週日", "週一", "週二", "週三", "週四", "週五", "週六"];
-    for(let i=0; i<CONFIG.duration; i++) {
-        const d = new Date(baseDate); d.setDate(baseDate.getDate() + i);
-        const dayKey = `day${i+1}`;
-        const yyyy = d.getFullYear(); const mm = String(d.getMonth() + 1).padStart(2, '0'); const dd = String(d.getDate()).padStart(2, '0');
-        const dailyData = USER_ITINERARY[dayKey] || { events:[], inspiration:[], shopping:[] };
-        dates[dayKey] = {
-            date: `${yyyy}-${mm}-${dd}`, display: dd, weekday: weekDays[d.getDay()],
-            events: dailyData.events || [],
-            inspiration: dailyData.inspiration || [],
-            shopping: dailyData.shopping || []
-        };
-    }
-    return dates;
-}
-
-applyTheme();
-const scheduleData = generateScheduleData();
-let currentDay = "day1";
-let modalMap = null;
-let exchangeRate = 4.3; // 模擬匯率
-
-function init() {
-    document.title = CONFIG.ui.browserTitle;
-    document.getElementById('app-title').innerHTML = CONFIG.ui.headerTitle;
-    renderDateSelector();
-    selectDay('day1');
-    fetchRates(); 
-    renderInfoPage();
-    renderPhrasePage();
-    setInterval(updateHomeClock, 1000);
-}
-
-function renderDateSelector() {
-    const container = document.getElementById('date-selector');
-    container.innerHTML = '';
-    Object.keys(scheduleData).forEach(dayKey => {
-        const day = scheduleData[dayKey];
-        const chip = document.createElement('div');
-        chip.className = `date-chip`;
-        chip.id = `chip-${dayKey}`;
-        chip.onclick = () => selectDay(dayKey, chip);
-        chip.innerHTML = `<span class="day-num">${day.display}</span><span class="day-week">${day.weekday}</span>`;
-        container.appendChild(chip);
-    });
-}
-
-function selectDay(dayKey, chipEl) {
-    currentDay = dayKey;
-    document.querySelectorAll('.date-chip').forEach(c => c.classList.remove('active'));
-    const target = chipEl || document.getElementById(`chip-${dayKey}`);
-    if(target) target.classList.add('active');
-    renderTimeline(dayKey);
-    renderInspiration(dayKey);
-    renderShopping(dayKey);
-}
-
-function renderTimeline(dayKey) {
-    const container = document.getElementById('timeline-container');
-    container.innerHTML = '';
-    const events = scheduleData[dayKey].events;
-    events.forEach((event, idx) => {
-        const item = document.createElement('div');
-        item.className = 'timeline-item';
-        let tags = event.tags.map(t => `<span class="card-tag">${t}</span>`).join('');
-        const colorStyle = event.moodColor ? `border-left-color: ${event.moodColor};` : 'border-left-color: var(--accent);';
-        
-        // 關鍵：將整個 event 對象轉為 JSON 字符串傳遞給 openModal
-        const eventJson = JSON.stringify(event).replace(/"/g, '&quot;');
-        
-        item.innerHTML = `
-            <div class="card" style="${colorStyle}" onclick="openModal(${eventJson})">
-                <div class="card-nav-btn" onclick="event.stopPropagation(); openMapQuery('${event.address}')"><i class="fa-solid fa-location-arrow"></i></div>
-                <span class="card-time">${event.time}</span>
-                <h3 class="card-title">${event.title}</h3>
-                <div class="tags">${tags}</div>
-            </div>`;
-        container.appendChild(item);
-    });
-}
-
-function renderInspiration(dayKey) {
-    const container = document.getElementById('inspiration-container');
-    container.innerHTML = '';
-    const insp = scheduleData[dayKey].inspiration;
-    insp.forEach(item => {
-        const itemJson = JSON.stringify(item).replace(/"/g, '&quot;');
-        container.innerHTML += `
-            <div class="inspire-card" onclick="openModal(${itemJson})">
-                <div class="inspire-badge">${item.tag}</div>
-                <h3 class="inspire-title">${item.title}</h3>
-                <p class="inspire-note">${item.note.substring(0, 30)}...</p>
-            </div>`;
-    });
-}
-
-// 🚀 修正後的 Modal 開啟功能
-function openModal(data) {
-    document.getElementById('modal-title').innerText = data.title;
-    document.getElementById('modal-type').innerText = data.type || "行程";
-    document.getElementById('modal-time').innerText = data.time || "--:--";
-    document.getElementById('modal-address-short').innerText = data.address || "";
-    document.getElementById('modal-note').innerText = data.note || "";
-
-    const actionsContainer = document.getElementById('modal-actions');
-    actionsContainer.innerHTML = '';
-    
-    if(data.address) {
-        actionsContainer.innerHTML += `<button class="btn-action btn-black" onclick="openMapQuery('${data.address}')"><i class="fa-solid fa-location-arrow"></i> Google Maps 導航</button>`;
-        actionsContainer.innerHTML += `<button class="btn-action btn-outline" onclick="copyToClipboard('${data.address_local || data.address}')"><i class="fa-regular fa-copy"></i> 複製地址</button>`;
-    }
-    
-    if(data.address_local) {
-        actionsContainer.innerHTML += `<button class="btn-action btn-outline" onclick="showPhrase('${data.address_local}', '請載我去這裡')">🚕 顯示的士卡</button>`;
-    }
-
-    document.getElementById('detail-modal').classList.add('open');
-    
-    // 地圖小工具
-    const miniMapContainer = document.getElementById('modal-mini-map');
-    miniMapContainer.style.display = 'none'; // 簡化版不載入地圖以提高流暢度，如需地圖可再開啟
-}
-
-function closeModal() {
-    document.getElementById('detail-modal').classList.remove('open');
-}
-
-// 輔助功能
-function openMapQuery(addr) { window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`, '_blank'); }
-function copyToClipboard(text) { navigator.clipboard.writeText(text); showToast("已複製"); }
-function showToast(msg) { const t = document.getElementById('toast'); document.getElementById('toast-msg').innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
-function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebar-overlay').classList.toggle('open'); }
-function switchMainPage(pageId, navEl) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + pageId).classList.add('active');
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    if(navEl) navEl.classList.add('active');
-}
-function updateHomeClock() {
-    const options = { timeZone: CONFIG.ui.homeTimezone, hour: '2-digit', minute: '2-digit', hour12: false };
-    const timeString = new Date().toLocaleTimeString('en-GB', options);
-    document.getElementById('home-clock').innerText = `${CONFIG.ui.homeTimeLabel} ${timeString}`;
-}
-function fetchRates() { document.getElementById('rate-status').innerText = `1 HKD ≈ ${exchangeRate} THB`; }
-function renderShopping(dayKey) {
-    const container = document.getElementById('shopping-container');
-    container.innerHTML = '';
-    const items = scheduleData[dayKey].shopping || [];
-    items.forEach(item => {
-        container.innerHTML += `<div class="shop-item"><input type="checkbox"> <label>${item}</label></div>`;
-    });
-}
-function renderPhrasePage() {
-    const container = document.getElementById('phrases-container'); container.innerHTML = '';
-    PHRASE_DATA.forEach(cat => {
-        container.innerHTML += `<div class="phrase-section-header">${cat.category}</div><div class="phrase-grid">` + 
-        cat.items.map(i => `<div class="phrase-card" onclick="showPhrase('${i.term_primary}', '${i.term_secondary}')"><div class="phrase-primary">${i.term_primary}</div><div class="phrase-secondary">${i.term_secondary}</div></div>`).join('') + `</div>`;
-    });
-}
-function showPhrase(jp, zh) { document.getElementById('overlay-jp').innerText = jp; document.getElementById('overlay-zh').innerText = zh; document.getElementById('phrase-overlay').classList.add('active'); }
-function closePhrase() { document.getElementById('phrase-overlay').classList.remove('active'); }
-
-// 啟動
-init();
-</script>
-
-    
 <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-msg">Action Completed</span></div>
 <header>
 <div>
