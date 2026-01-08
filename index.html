@@ -381,7 +381,6 @@ const USER_ITINERARY = {
 "time": "11:30", "title": "午餐: R-Haan (皇家泰菜)", "type": "美食",
 "address": "Thong Lo Exit 3", "address_local": "ทองหล่อ ซอย 9 ร้านอาหาร",
 "tags": ["米其林二星", "皇家規矩"], "moodColor": "#C5A059",
-1.1rem;
 "note": "【交通】摩托車 3 分鐘。皇家規矩屬金，精緻謝幕。"
 },
 {
@@ -772,9 +771,9 @@ function openMapQuery(address) {
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 const query = encodeURIComponent(address);
 const url = isMobile 
-    ? `https://www.google.com/maps/search/?api=1&query=${query}`
-    : `https://www.google.com/maps/search?q=${query}`;
-window.open(url, '_blank');
+        ? `maps:0?q=${query}` // iOS/Android App 協定
+        : `https://www.google.com/maps/search/?api=1&query=${query}`;
+    window.open(url, '_blank');
 }
 
 function callNumber(num) { window.location.href = `tel:${num}`; }
