@@ -168,291 +168,351 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
 <body>
 
 <script id="USER_DATA_CONFIG">
-// 1. 🎨 主題顏色：北境清冽・金水重塑 (Metal & Water)
+// 1. 🎨 主題顏色 (HKMA Metal & Water Energy)
 const THEME_CONFIG = {
-  accentColor: "#1A2E40", // 深海軍藍：規則、深度、權威
-  accentText: "#FFFFFF",
-  backgroundColor: "#F4F7F5", // 冰川白：視覺降溫
-  cardColor: "#FFFFFF",
-  textColor: "#2D2D2D", // 炭黑：精準
-  textSubColor: "#64748B", // 鐵灰
-  borderColor: "#E2E8F0",
-  // 字體：Playfair Display (標題) 與 Inter (內文)
-  googleFontsUrl: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;700&family=Playfair+Display:wght@600;800&display=swap",
-  fontHeading: '"Playfair Display", "Noto Sans TC", serif',
-  fontBody: '"Inter", "Noto Sans TC", sans-serif'
+    accentColor: "#0F4C75",      // 深海藍 (水：智慧、冷靜、降溫)
+    accentText: "#FFFFFF",       
+    backgroundColor: "#F5F5F0",  // 鉑金灰/米白 (金：質感、秩序)
+    cardColor: "#FFFFFF",        // 純白 (乾淨)
+    textColor: "#2C3E50",        // 鐵灰 (權威、穩重)
+    textSubColor: "#7F8C8D",     // 銀灰 (細節)
+    borderColor: "#D1D5DB",      // 金屬邊框感
+    googleFontsUrl: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Lato:wght@300;400;700&display=swap",
+    fontHeading: '"Cormorant Garamond", serif', // 經典襯線體，象徵傳統與權力
+    fontBody: '"Lato", sans-serif'              // 現代無襯線體，象徵高效與邏輯
 };
 
 // 2. 🗓️ 旅程設定
 const CONFIG = {
-  ui: {
-    browserTitle: "Hokkaido 2026",
-    headerTitle: "HOKKAIDO <span>2026</span>",
-    homeTimezone: "Asia/Hong_Kong",
-    homeTimeLabel: "HKG"
-  },
-  startDate: "2026-06-29", // 週一出發
-  duration: 7
+    ui: {
+        browserTitle: "The Authority Journey",
+        headerTitle: "UBUD <span>METAL</span>", 
+        homeTimezone: "Asia/Hong_Kong",
+        homeTimeLabel: "HKT"
+    },
+    startDate: "2026-09-22", // 週二開始，提早消磁
+    duration: 9              // 擴展至 9 天
 };
 
-// 3. 📍 目的地：以札幌為中心偵測天氣
+// 3. 📍 目的地
 const DESTINATION = {
-  name: "北海道 Hokkaido",
-  lat: 43.0618,
-  lon: 141.3545,
-  timezone: "Asia/Tokyo",
-  currency: "jpy",
-  currencyLabel: "JPY",
-  baseCurrency: "HKD"
+    name: "烏布 Ubud",
+    lat: -8.5069,
+    lon: 115.2625,
+    timezone: "Asia/Makassar",
+    currency: "idr",
+    currencyLabel: "IDR",
+    baseCurrency: "HKD"
 };
 
 // 4. ✈️ 航班與住宿
 const TRIP_INFO = {
-  visa: {
-    type: "日本短期滯在",
-    number: "HKMA-EXEC-001",
-    note: "VJW QR Code 已備份。"
-  },
-  flights: [
-    {
-      type: "去程", flight: "CX580", date: "06/29",
-      dep: "HKG 09:15", arr: "CTS 15:00",
-      note: "無需早起。20°C 乾爽空氣等著您。", bookingRef: "CX-2026-GO"
+    visa: {
+        type: "印尼落地簽 (VoA)",
+        number: "Rp 500,000",
+        note: "已申請 e-VOA，走自動通關"
     },
-    {
-      type: "回程", flight: "CX581", date: "07/05",
-      dep: "CTS 16:30", arr: "HKG 20:55",
-      note: "午後從容起飛，週一俐落復工。", bookingRef: "CX-2026-BACK"
-    }
-  ],
-  hotels: [
-    {
-      name: "小樽旅亭 藏群 (Kuramure)",
-      address: "北海道小樽市朝里川温泉2-685",
-      phone: "+81134515151",
-      note: "全包式 (All Inclusive)。黑車接送。"
-    },
-    {
-      name: "御宿 野乃 札幌薄野",
-      address: "北海道札幌市中央区南4条西4-1",
-      phone: "+81112615489",
-      note: "全館榻榻米。進門即脫鞋。"
-    }
-  ],
-  emergency: [
-    { name: "Wolt (外送)", phone: "App" },
-    { name: "GO (計程車)", phone: "App" },
-    { name: "外交部急難救助", phone: "+81-80-1009-7179" }
-  ]
+    flights: [
+        {
+            type: "去程", flight: "CX785", date: "09/22",
+            dep: "HKG 10:00", arr: "DPS 15:00",
+            note: "商務艙 T1 登機 ｜ 專車司機將在入境大廳舉牌", bookingRef: "CX-HKMA-GO"
+        },
+        {
+            type: "回程", flight: "CX784", date: "09/30",
+            dep: "DPS 16:10", arr: "HKG 21:00",
+            note: "專車送機 ｜ 需預留 2.5 小時", bookingRef: "CX-HKMA-BACK"
+        }
+    ],
+    hotels: [
+        {
+            name: "Tegal Sari Accommodation",
+            address: "Jl. Hanoman, Padang Tegal, Ubud, Bali",
+            phone: "+62361973318",
+            note: "Room: Super Deluxe (Upper Floor) ｜ 結界基地"
+        }
+    ],
+    emergency: [
+        { name: "專屬司機 (WhatsApp)", phone: "預約後填入" },
+        { name: "遊客警察", phone: "+62-361-759-687" },
+        { name: "高端醫療 (BIMC)", phone: "+62-361-3000-911" }
+    ]
 };
 
-// 5. 🗺️ 行程細節 (含 Plan B)
+// 5. 🗺️ 行程細節 (9天能量換軌)
 const USER_ITINERARY = {
-  "day1": {
-    "events": [
-      {
-        "time": "15:00", "title": "抵達新千歲 (CTS)", "type": "交通",
-        "address": "New Chitose Airport", "tags": ["CX580", "入境"], "moodColor": "#2D2D2D",
-        "note": "提取行李。目標：斷開香港公務連結。"
-      },
-      {
-        "time": "16:00", "title": "JR 快速 Airport", "type": "移動",
-        "address": "New Chitose Airport Station", "tags": ["U-Seat"], "moodColor": "#007AFF",
-        "note": "前往小樽築港站。務必加購 U-Seat 指定席 (1,590 JPY)，有冷氣且安靜。"
-      },
-      {
-        "time": "17:30", "title": "Check-in 藏群", "type": "住宿",
-        "address": "北海道小樽市朝里川温泉2-685", "coords": [43.1465, 141.0536],
-        "tags": ["全包式", "清空"], "moodColor": "#1A2E40",
-        "note": "旅館專車接送。換上浴衣，先去 Bar 喝一杯冰鎮大吟釀。"
-      },
-      {
-        "time": "19:00", "title": "旅館旬味懷石", "type": "晚餐",
-        "address": "Kuramure Dining", "tags": ["All-inclusive"], "moodColor": "#B91C1C",
-        "note": "產地直送刺身與時令小菜。餐後至私人圖書館沉浸「金水能量」。"
-      }
-    ],
-    "inspiration": [
-      { "title": "Plan B: 機場溫泉", "tag": "備案", "note": "若 JR 停駛，改住國內線 4F「新千歲機場溫泉」。", "type": "應變" }
-    ],
-    "shopping": ["無 (享受當下)"]
-  },
-  "day2": {
-    "events": [
-      {
-        "time": "10:00", "title": "泉水洗禮 & 放鬆", "type": "體驗",
-        "address": "Kuramure", "tags": ["10/10靜謐"], "moodColor": "#64748B",
-        "note": "躲在旅館內。大浴場深層補充水能量。午餐可吃周邊蕎麥麵。"
-      },
-      {
-        "time": "14:30", "title": "深層精油按摩", "type": "體驗",
-        "address": "Kuramure Spa", "tags": ["預約制", "120mins"], "moodColor": "#1A2E40",
-        "note": "針對肩頸排毒，物理性「清空」。"
-      },
-      {
-        "time": "16:30", "title": "閱讀與整理", "type": "工作",
-        "address": "Kuramure Library", "tags": ["邏輯框架"], "moodColor": "#A2845E",
-        "note": "整理 7 月面試的邏輯框架。晚餐享用主廚特製懷石 (Day 2 菜單)。"
-      }
-    ],
-    "inspiration": [
-      { "title": "Plan B: 小樽藝術村", "tag": "備案", "note": "若太悶，搭接駁車去「似鳥美術館」。冷氣極強，彩繪玻璃極美。", "type": "景點" }
-    ],
-    "shopping": ["無"]
-  },
-  "day3": {
-    "events": [
-      {
-        "time": "11:00", "title": "JR 移動: 往余市", "type": "交通",
-        "address": "Otaru Station", "tags": ["函館本線"], "moodColor": "#2D2D2D",
-        "note": "退房後專車至小樽站。轉乘至余市 (370 JPY)。"
-      },
-      {
-        "time": "11:30", "title": "余市蒸餾所", "type": "考察",
-        "address": "北海道余市郡余市町黒川町7-6", "coords": [43.1884, 140.7834],
-        "tags": ["威士忌", "時間"], "moodColor": "#A2845E",
-        "note": "試飲高年份原酒，感受「時間的力量」。午餐去「柿崎商店」吃海鮮丼。"
-      },
-      {
-        "time": "17:00", "title": "Check-in 御宿野乃", "type": "住宿",
-        "address": "北海道札幌市中央区南4条西4-1", "coords": [43.0556, 141.3533],
-        "tags": ["薄野", "脫鞋"], "moodColor": "#1A2E40",
-        "note": "地鐵「薄野站」4號出口步行2分。全館榻榻米，腳步清爽。"
-      },
-      {
-        "time": "19:30", "title": "居酒屋 富士", "type": "晚餐",
-        "address": "札幌市中央区南5条西4", "tags": ["烤花鯽魚"], "moodColor": "#B91C1C",
-        "note": "真正的高性價比名店。炸雞與烤魚必點。"
-      }
-    ],
-    "inspiration": [
-      { "title": "Plan B: 啤酒博物館", "tag": "雨天", "note": "若余市太遠或下雨，改去札幌啤酒博物館 (札幌站北口搭直達巴士)。", "type": "室內" }
-    ],
-    "shopping": ["余市原酒 (小瓶)", "便利商店零食"]
-  },
-  "day4": {
-    "events": [
-      {
-        "time": "12:00", "title": "午餐: 鮨 一柳", "type": "美食",
-        "address": "札幌市中央区大通西", "coords": [43.0570, 141.3500],
-        "tags": ["Omakase", "精準"], "moodColor": "#B91C1C",
-        "note": "12貫握壽司。性價比之王，透過精準度校準精英氣場。"
-      },
-      {
-        "time": "14:30", "title": "古道具 十一月", "type": "古物",
-        "address": "札幌市中央区南2条西8丁目", "tags": ["選物", "冷靜"], "moodColor": "#A2845E",
-        "note": "尋找一件「鎮定辦公桌」的能量小物。接著可去 Brown Books Vintage。"
-      },
-      {
-        "time": "19:00", "title": "奧芝商店 湯咖哩", "type": "晚餐",
-        "address": "札幌站周邊", "tags": ["蝦湯底"], "moodColor": "#B91C1C",
-        "note": "飽足感強，代謝體內濕氣。回飯店後可享用免費夜鳴拉麵。"
-      }
-    ],
-    "inspiration": [
-      { "title": "Plan B: 近代美術館", "tag": "備案", "note": "若古物店沒開，去北海道立近代美術館 (西18丁目站)。", "type": "藝術" }
-    ],
-    "shopping": ["辦公室能量小物"]
-  },
-  "day5": {
-    "events": [
-      {
-        "time": "12:00", "title": "午餐: 鮨 菜之花", "type": "美食",
-        "address": "札幌市中央区", "tags": ["威嚴感"], "moodColor": "#B91C1C",
-        "note": "職人威嚴感極強的午間握壽司。"
-      },
-      {
-        "time": "14:30", "title": "SHIRO 旗艦店", "type": "購物",
-        "address": "札幌站 JR Tower", "tags": ["香氛", "面試"], "moodColor": "#64748B",
-        "note": "選購「冷冽木質調」香氛，作為 7 月面試的戰袍氣味。"
-      },
-      {
-        "time": "16:30", "title": "506070mansion", "type": "設計",
-        "address": "札幌市北3条東10丁目", "tags": ["計程車"], "moodColor": "#A2845E",
-        "note": "建議搭乘 GO 計程車前往，避開步行流汗。非常有質感的設計店。"
-      },
-      {
-        "time": "19:30", "title": "晚餐: 和牛 備長", "type": "美食",
-        "address": "札幌市中央区南3条西2", "tags": ["白老牛"], "moodColor": "#B91C1C",
-        "note": "頂級白老牛炭火燒烤。直球對決。"
-      }
-    ],
-    "inspiration": [
-      { "title": "Plan B: 大丸百貨", "tag": "外帶", "note": "不想排隊？大丸 B1 買頂級毛蟹便當，回飯店配清酒。", "type": "美食" }
-    ],
-    "shopping": ["SHIRO 香水", "身體乳"]
-  },
-  "day6": {
-    "events": [
-      {
-        "time": "11:00", "title": "Akarenga Terrace 市集", "type": "市集",
-        "address": "札幌市中央区北2条西4", "tags": ["職人", "手作"], "moodColor": "#A2845E",
-        "note": "尋找皮革或木工件。利用「地下步行空間」移動，全程冷氣。"
-      },
-      {
-        "time": "13:30", "title": "午餐: 根室花丸", "type": "美食",
-        "address": "Stellar Place 6F", "tags": ["迴轉壽司"], "moodColor": "#B91C1C",
-        "note": "先去抽號碼牌。性價比極高。"
-      },
-      {
-        "time": "15:30", "title": "JR Tower T38", "type": "景觀",
-        "address": "JR Tower 38F", "tags": ["高空", "戰略"], "moodColor": "#64748B",
-        "note": "安靜俯瞰，寫下回港後的首週工作清單。"
-      },
-      {
-        "time": "19:00", "title": "晚餐: 貴水 (Takami)", "type": "晚餐",
-        "address": "札幌市南6条西3", "tags": ["割烹"], "moodColor": "#B91C1C",
-        "note": "安靜的割烹料理，無表演感。"
-      }
-    ],
-    "inspiration": [
-      { "title": "Plan B: Wolt 外送", "tag": "備案", "note": "若市集人多，留酒店溫泉，叫 Wolt 外送海鮮丼。", "type": "放鬆" }
-    ],
-    "shopping": ["職人皮件"]
-  },
-  "day7": {
-    "events": [
-      {
-        "time": "08:00", "title": "頓宮 蚤之市", "type": "古物",
-        "address": "札幌市中央区南2条東3丁目", "coords": [43.0578, 141.3585],
-        "tags": ["老件", "清晨"], "moodColor": "#A2845E",
-        "note": "清晨清冷空氣中挖寶。回港前的能量定礎。"
-      },
-      {
-        "time": "11:30", "title": "午餐: 拉麵 信玄", "type": "美食",
-        "address": "札幌市南6条西8丁目", "tags": ["信州味噌"], "moodColor": "#B91C1C",
-        "note": "最後一碗拉麵。"
-      },
-      {
-        "time": "14:15", "title": "前往機場 (CTS)", "type": "交通",
-        "address": "New Chitose Airport", "tags": ["CX581"], "moodColor": "#2D2D2D",
-        "note": "JR 快速 Airport (U-Seat)。16:30 起飛，20:55 抵達香港。"
-      }
-    ],
-    "inspiration": [
-      { "title": "Plan B: 機場購物", "tag": "雨天", "note": "若下雨，提早去機場國內線 2F 掃貨 (六花亭、北菓樓)。", "type": "購物" }
-    ],
-    "shopping": ["六花亭 (自用)", "北菓樓"]
-  }
+    // ================= Phase 1: 冷卻消磁 (Water) =================
+    "day1": { // 9/22 Tue - 入水
+        "events": [
+            {
+                "time": "15:00", "title": "抵達：專車接機", "type": "交通",
+                "address": "Ngurah Rai International Airport", "tags": ["專車", "Toyota Innova"], "moodColor": "#2C3E50",
+                "note": "司機舉牌接機。車內冷氣已開強，播放無人聲純音樂。直奔烏布 (約 1.5 hr)。"
+            },
+            {
+                "time": "17:30", "title": "Check-in: Tegal Sari", "type": "住宿",
+                "address": "Jl. Hanoman, Padang Tegal", 
+                "tags": ["結界"], "moodColor": "#0F4C75",
+                "note": "進入房間，關閉工作通知。只喝氣泡水，聽窗外流水聲。"
+            },
+            {
+                "time": "18:30", "title": "晚餐: Rouge - Sushi Bar", "type": "美食",
+                "address": "Jl. Bisma No. 7C", "tags": ["生冷", "滋陰"], "moodColor": "#0F4C75",
+                "note": "紅黑配色爵士吧。必點：生蠔、生魚片、冰鎮 Dry Sake。物理降溫。"
+            }
+        ],
+        "inspiration": [
+            { "title": "Plan B: Pison Ubud", "tag": "TIRED", "type": "輕食", "note": "若太累不想跑遠，飯店旁 Pison 吃鮪魚塔塔 + 椰子水。" }
+        ],
+        "shopping": ["氣泡水", "高品質紅酒"]
+    },
+    "day2": { // 9/23 Wed - 漂浮 (包車日)
+        "events": [
+            {
+                "time": "10:00", "title": "Solace Float", "type": "療癒",
+                "address": "Jl. Monkey Forest", "tags": ["失重", "歸零"], "moodColor": "#0F4C75",
+                "note": "90分鐘鎂鹽漂浮。模擬母體羊水，強制大腦關機，修復神經系統。"
+            },
+            {
+                "time": "12:30", "title": "午餐: Fivelements Sakti", "type": "美食",
+                "address": "Mambal, Abiansemal", "tags": ["河谷", "能量"], "moodColor": "#177263",
+                "note": "【隱世景點】懸在阿勇河上的竹建築。聽著磅礴水聲吃生機飲食 (Plant-based)。"
+            },
+            {
+                "time": "15:30", "title": "Tjampuhan Spa (The Grotto)", "type": "SPA",
+                "address": "Jl. Raya Campuhan", "tags": ["石窟", "水療"], "moodColor": "#0F4C75",
+                "note": "兩河交匯處的半開放石窟。冷熱水交替浸泡，利用岩石導出火氣。"
+            },
+            {
+                "time": "19:00", "title": "晚餐: Room 4 Dessert", "type": "美食",
+                "address": "Jl. Raya Sanggingan", "tags": ["金屬", "結構"], "moodColor": "#B8860B",
+                "note": "甜點殿堂。品嚐具備「結構感」與「精緻度」的甜點套餐，搭配調酒。"
+            }
+        ],
+        "inspiration": [
+            { "title": "Plan B: Mozaic", "tag": "FOOD", "type": "法餐", "note": "若不想吃甜點當正餐，改去旁邊的 Mozaic 吃正統法餐。" }
+        ],
+        "shopping": ["無"]
+    },
+    "day3": { // 9/24 Thu - 聽雨 (定點)
+        "events": [
+            {
+                "time": "09:00", "title": "專車前往: Pyramids of Chi", "type": "交通",
+                "address": "Bentuyung", "tags": ["專車"], "moodColor": "#2C3E50",
+                "note": "前往北邊郊區。"
+            },
+            {
+                "time": "10:00", "title": "Water Healing (聲療)", "type": "療癒",
+                "address": "Pyramids of Chi", "tags": ["聲波", "共振"], "moodColor": "#0F4C75",
+                "note": "建在水池上的金字塔。銅鑼聲波(金)震碎體內淤積壓力。"
+            },
+            {
+                "time": "13:00", "title": "午餐: Hujan Locale", "type": "美食",
+                "address": "Jl. Sri Wedari", "tags": ["雨", "精緻"], "moodColor": "#0F4C75",
+                "note": "名字意為「雨」。殖民風格裝潢，食物精緻清爽。"
+            },
+            {
+                "time": "15:00", "title": "Casa Luna (閱讀)", "type": "休息",
+                "address": "Jl. Raya Ubud", "tags": ["靜心"], "moodColor": "#8B7D6B",
+                "note": "在地下室或花園找個角落，閱讀哲學書籍。遠離電子產品。"
+            },
+            {
+                "time": "18:30", "title": "晚餐: Copper Kitchen", "type": "美食",
+                "address": "Jl. Bisma", "tags": ["金/土"], "moodColor": "#B8860B",
+                "note": "Bisma Eight 屋頂。開闊視野，金屬色調裝潢，安靜優雅。"
+            }
+        ],
+        "inspiration": [
+            { "title": "Plan B: Nusantara", "tag": "FOOD", "type": "印尼菜", "note": "若想體驗更深沉的香料結構，改去 Nusantara。" }
+        ],
+        "shopping": ["哲學書籍"]
+    },
+
+    // ================= Phase 2: 能量轉換 (Moon) =================
+    "day4": { // 9/25 Fri - 滿月重生 (包車日)
+        "events": [
+            {
+                "time": "08:00", "title": "專車: 往東北山區", "type": "交通",
+                "address": "Sebatu", "tags": ["專車"], "moodColor": "#2C3E50",
+                "note": "今日路程較遠，車上備好更換衣物與毛巾。"
+            },
+            {
+                "time": "09:00", "title": "Sebatu 聖泉洗禮 (Genah Melukat)", "type": "體驗",
+                "address": "Pura Dalem Pingit Sebatu", "tags": ["深層", "寒水"], "moodColor": "#0F4C75",
+                "note": "【隱世景點】比一般聖泉寺更隱密、水溫更低。強效洗去燥氣與舊運勢。"
+            },
+            {
+                "time": "12:30", "title": "午餐: Akasha Restaurant", "type": "美食",
+                "address": "Jl. Sinta, Keliki", "tags": ["幾何", "水晶"], "moodColor": "#B8860B",
+                "note": "【能量景點】充滿神聖幾何結構的竹建築。環境高頻，適合補充高我能量。"
+            },
+            {
+                "time": "15:00", "title": "飯店休息/冥想", "type": "休息",
+                "address": "Tegal Sari", "tags": ["蓄能"], "moodColor": "#8B7D6B",
+                "note": "回飯店小睡，為晚上的滿月儀式養精蓄銳。"
+            },
+            {
+                "time": "19:00", "title": "滿月宴: Ambar at Mandapa", "type": "美食",
+                "address": "Ritz-Carlton Reserve, Kedewatan", "tags": ["權威", "頂級"], "moodColor": "#B8860B",
+                "note": "【能量頂點】懸崖酒吧俯瞰阿勇河。點 Gold-infused 調酒，對月舉杯，確立「監管者」身份。"
+            }
+        ],
+        "inspiration": [
+            { "title": "Plan B: Kubu", "tag": "DINNER", "type": "私密", "note": "若想要更封閉的空間，改訂 Kubu 竹籠餐廳 (河邊)。" }
+        ],
+        "shopping": ["無"]
+    },
+
+    // ================= Phase 3: 金水顯化 (Metal) =================
+    "day5": { // 9/26 Sat - 煉金提煉 (包車日)
+        "events": [
+            {
+                "time": "13:00", "title": "初階調香: Svasensa", "type": "活動",
+                "address": "Toya EcoPark, Kenderan", "tags": ["提煉", "金"], "moodColor": "#B8860B",
+                "note": "從繁雜原料中提煉精華。Beginner Class (90mins)。"
+            },
+            {
+                "time": "15:30", "title": "Bambu Indah (下午茶/參觀)", "type": "體驗",
+                "address": "Jl. Baung, Sayan", "tags": ["銅", "竹"], "moodColor": "#B8860B",
+                "note": "【建築靈感】參觀全銅電梯與天然泉水池。感受金屬與自然的完美結合。"
+            },
+            {
+                "time": "19:00", "title": "晚餐: Kebun Bistro", "type": "美食",
+                "address": "Jl. Hanoman", "tags": ["工業風", "紅酒"], "moodColor": "#2C3E50",
+                "note": "法式小酒館。工業風裝潢帶有金屬秩序感，氣氛輕鬆優雅。"
+            }
+        ],
+        "inspiration": [
+            { "title": "Plan B: Room Service", "tag": "RAINY", "type": "外送", "note": "若下雨或不想動，叫 Umah Pizza 松露義大利麵回飯店配紅酒。" }
+        ],
+        "shopping": ["初階香水"]
+    },
+    "day6": { // 9/27 Sun - 鑑賞眼界 (市區)
+        "events": [
+            {
+                "time": "10:00", "title": "古董尋寶: Andong", "type": "逛街",
+                "address": "Jalan Raya Andong", "tags": ["青銅", "石雕"], "moodColor": "#8B7D6B",
+                "note": "搭車至上游往下逛。目標：青銅(Bronze)或石雕擺件，作為未來辦公室鎮物。"
+            },
+            {
+                "time": "13:00", "title": "午餐: Pison Ubud", "type": "美食",
+                "address": "Jl. Hanoman", "tags": ["稻田"], "moodColor": "#177263",
+                "note": "環境安全明亮，食物品質穩定。"
+            },
+            {
+                "time": "15:30", "title": "吠陀占星: Ashish", "type": "玄學",
+                "address": "Jl. Subak Sok Wayah", "tags": ["理性", "規劃"], "moodColor": "#2C3E50",
+                "note": "理性的星盤分析。需步行 15 分鐘入稻田 (若太熱可請司機送到最近入口)。"
+            },
+            {
+                "time": "19:00", "title": "晚餐: Watercress", "type": "美食",
+                "address": "Jl. Monkey Forest", "tags": ["清脆", "水"], "moodColor": "#177263",
+                "note": "食材新鮮脆口，現代風格。"
+            }
+        ],
+        "inspiration": [
+            { "title": "Plan B: Threads of Life", "tag": "ART", "type": "紡織", "note": "若不想算命，改去參觀頂級紡織品博物館店。" }
+        ],
+        "shopping": ["古董鎮紙", "青銅擺件"]
+    },
+    "day7": { // 9/28 Mon - 大師架構 (包車日)
+        "events": [
+            {
+                "time": "10:00", "title": "大師調香: Svasensa Atelier", "type": "活動",
+                "address": "Toya EcoPark", "tags": ["結構", "權威"], "moodColor": "#B8860B",
+                "note": "3小時進階課。深入化學分子結構，調製專屬的「權威之香」。"
+            },
+            {
+                "time": "14:00", "title": "午餐: Sun Sun Warung", "type": "美食",
+                "address": "Jl. Jembawan", "tags": ["家庭", "溫馨"], "moodColor": "#A0522D",
+                "note": "精緻的家庭式印尼菜，平衡上午的腦力消耗。"
+            },
+            {
+                "time": "15:30", "title": "按摩一: Putri Bali Spa 2", "type": "SPA",
+                "address": "Jl. Hanoman", "tags": ["便利", "放鬆"], "moodColor": "#177263",
+                "note": "回到市區，快速消除疲勞。"
+            },
+            {
+                "time": "19:00", "title": "晚餐: Apéritif Restaurant", "type": "美食",
+                "address": "Viceroy Bali", "tags": ["秩序", "完美"], "moodColor": "#2C3E50",
+                "note": "1920年代殖民風格 Fine Dining。極致的秩序與服務。預演高層社交場景。"
+            }
+        ],
+        "inspiration": [
+            { "title": "Plan B: Liap Liap", "tag": "DINNER", "type": "燒烤", "note": "若想輕鬆一點，改去 Liap Liap 吃精緻燒烤。" }
+        ],
+        "shopping": ["大師級香水"]
+    },
+    "day8": { // 9/29 Tue - 鞏固夕陽 (包車日)
+        "events": [
+            {
+                "time": "09:00", "title": "能量讀取: Jero Gede", "type": "玄學",
+                "address": "Keliki", "tags": ["清理", "確認"], "moodColor": "#2C3E50",
+                "note": "最後確認能量場是否乾淨，獲取大運箴言。"
+            },
+            {
+                "time": "13:30", "title": "採買: Bintang Supermarket", "type": "購物",
+                "address": "Jl. Raya Sanggingan", "tags": ["補給"], "moodColor": "#177263",
+                "note": "位於 Sayan 區。購買 Sensatia (精油) 與 Bokashi (藥油)。"
+            },
+            {
+                "time": "15:00", "title": "按摩二: Ubud Traditional Spa", "type": "SPA",
+                "address": "Payogan", "tags": ["極致", "深層"], "moodColor": "#8B7D6B",
+                "note": "Rice Farmer Massage。深層組織梳理，建立身體秩序。"
+            },
+            {
+                "time": "17:30", "title": "夕陽宴: Sayan House", "type": "美食",
+                "address": "Jl. Raya Sayan", "tags": ["絕景", "交融"], "moodColor": "#B8860B",
+                "note": "懸崖日落。日式與拉美融合菜 (水火既濟)。完美的旅程句點。"
+            }
+        ],
+        "inspiration": [
+            { "title": "Plan B: Four Seasons Jala", "tag": "DINNER", "type": "精緻", "note": "若 Sayan House 客滿，旁邊四季飯店的 Jala 也是頂級選擇。" }
+        ],
+        "shopping": ["Sensatia", "Bokashi"]
+    },
+    "day9": { // 9/30 Wed - 歸位
+        "events": [
+            {
+                "time": "09:00", "title": "早餐 & Check-out", "type": "住宿",
+                "address": "Tegal Sari", "tags": ["離去"], "moodColor": "#2C3E50",
+                "note": "將所有戰利品裝箱。保持優雅。"
+            },
+            {
+                "time": "11:00", "title": "專車送機", "type": "交通",
+                "address": "Ngurah Rai Airport", "tags": ["回程"], "moodColor": "#2C3E50",
+                "note": "前往機場，搭乘 CX784。"
+            },
+            {
+                "time": "13:30", "title": "機場免稅店", "type": "購物",
+                "address": "DPS Duty Free", "tags": ["金"], "moodColor": "#B8860B",
+                "note": "購入一支高品質鋼筆或墨鏡，象徵新視野。"
+            }
+        ],
+        "inspiration": [
+            { "title": "Plan B: Lounge", "tag": "WAIT", "type": "休息", "note": "提早入關去貴賓室休息。" }
+        ],
+        "shopping": ["鋼筆", "墨鏡"]
+    }
 };
 
-// 6. 🗣️ 常用短語 (針對日本)
+// 6. 🗣️ 常用短語 (Private Driver Edition)
 const PHRASE_DATA = [
-  {
-    category: "應對與購物",
-    items: [
-      { term_primary: "領収書をください", term_secondary: "請給我收據 (報帳用)", term_pronounce: "Ryoshusho kudasai" },
-      { term_primary: "U-Seat はどこですか", term_secondary: "U-Seat 指定席在哪裡", term_pronounce: "U-Seat wa doko" },
-      { term_primary: "静かな席をお願いします", term_secondary: "請給我安靜的位子", term_pronounce: "Shizukana seki onegai" }
-    ]
-  },
-  {
-    category: "交通",
-    items: [
-      { term_primary: "新千歳空港まで", term_secondary: "去新千歲機場", term_pronounce: "Shin-Chitose made" },
-      { term_primary: "タクシーを呼んでください", term_secondary: "請幫我叫計程車", term_pronounce: "Taxi yonde kudasai" }
-    ]
-  }
+    {
+        category: "專屬司機 (Driver)",
+        items: [
+            { term_primary: "Pak, tolong tunggu di sini", term_secondary: "先生，請在這裡等我", term_pronounce: "Tung-gu di si-ni" },
+            { term_primary: "AC tolong lebih dingin", term_secondary: "冷氣請強一點 (重要)", term_pronounce: "AC le-bih di-ngin" },
+            { term_primary: "Saya mau istirahat", term_secondary: "我想休息(不聊天)", term_pronounce: "Saya mau is-ti-ra-hat" }
+        ]
+    },
+    {
+        category: "餐廳/購物",
+        items: [
+            { term_primary: "Berapa harganya?", term_secondary: "多少錢？", term_pronounce: "Be-ra-pa har-ga-nya" },
+            { term_primary: "Minta Bon / Bill", term_secondary: "請結帳", term_pronounce: "Min-ta Bon" }
+        ]
+    }
 ];
 </script>
     
