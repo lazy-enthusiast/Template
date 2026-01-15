@@ -185,8 +185,8 @@ const THEME_CONFIG = {
 // 2. 🗓️ 旅程設定
 const CONFIG = {
     ui: {
-        browserTitle: "烏布滌新之旅",
-        headerTitle: "烏布滌新之旅", 
+        browserTitle: "The Authority Journey",
+        headerTitle: "UBUD <span>METAL</span>", 
         homeTimezone: "Asia/Hong_Kong",
         homeTimeLabel: "HKT"
     },
@@ -239,7 +239,7 @@ const TRIP_INFO = {
     ]
 };
 
-// 5. 🗺️ 行程細節 (9天能量換軌)
+// 5. 🗺️ 行程細節 (9天高密度完整版)
 const USER_ITINERARY = {
     // ================= Phase 1: 冷卻消磁 (Water) =================
     "day1": { // 9/22 Tue - 入水
@@ -247,7 +247,7 @@ const USER_ITINERARY = {
             {
                 "time": "15:00", "title": "抵達：專車接機", "type": "交通",
                 "address": "Ngurah Rai International Airport", "tags": ["專車", "Toyota Innova"], "moodColor": "#2C3E50",
-                "note": "司機舉牌接機。車內冷氣已開強，播放無人聲純音樂。直奔烏布 (約 1.5 hr)。"
+                "note": "司機舉牌接機。上車後請司機將冷氣開強，播放無人聲純音樂。直奔烏布 (約 1.5 - 2 hr)。"
             },
             {
                 "time": "17:30", "title": "Check-in: Tegal Sari", "type": "住宿",
@@ -258,20 +258,31 @@ const USER_ITINERARY = {
             {
                 "time": "18:30", "title": "晚餐: Rouge - Sushi Bar", "type": "美食",
                 "address": "Jl. Bisma No. 7C", "tags": ["生冷", "滋陰"], "moodColor": "#0F4C75",
-                "note": "紅黑配色爵士吧。必點：生蠔、生魚片、冰鎮 Dry Sake。物理降溫。"
+                "note": "營業時間：12:00-23:00。紅黑配色爵士吧。必點：生蠔、生魚片、冰鎮 Dry Sake。物理降溫。"
             }
         ],
         "inspiration": [
-            { "title": "Plan B: Pison Ubud", "tag": "TIRED", "type": "輕食", "note": "若太累不想跑遠，飯店旁 Pison 吃鮪魚塔塔 + 椰子水。" }
+            { 
+                "title": "備案A: Pison Ubud (輕鬆吃)", 
+                "tag": "FOOD", "type": "美食", 
+                "address": "Jl. Hanoman No. 10X", "open_hours": "07:00-23:00",
+                "note": "若太累不想跑遠，飯店旁走路即達。推薦：Tuna Tartare + 椰子水。" 
+            },
+            { 
+                "title": "備案B: Yoga Barn (陰瑜伽)", 
+                "tag": "TIRED", "type": "活動", 
+                "address": "Jl. Hanoman, Pengosekan", "open_hours": "07:00-21:00",
+                "note": "若想伸展筋骨，步行去參加 19:30 的 Yin Yoga 或 Gong Bath (需官網查課表)。" 
+            }
         ],
         "shopping": ["氣泡水", "高品質紅酒"]
     },
-    "day2": { // 9/23 Wed - 漂浮 (包車日)
+    "day2": { // 9/23 Wed - 漂浮與藝術 (包車日)
         "events": [
             {
                 "time": "10:00", "title": "Solace Float", "type": "療癒",
                 "address": "Jl. Monkey Forest", "tags": ["失重", "歸零"], "moodColor": "#0F4C75",
-                "note": "90分鐘鎂鹽漂浮。模擬母體羊水，強制大腦關機，修復神經系統。"
+                "note": "營業時間：09:00-20:00。預約 90分鐘鎂鹽漂浮。模擬母體羊水，強制大腦關機，修復神經系統。"
             },
             {
                 "time": "12:30", "title": "午餐: Fivelements Sakti", "type": "美食",
@@ -279,22 +290,38 @@ const USER_ITINERARY = {
                 "note": "【隱世景點】懸在阿勇河上的竹建築。聽著磅礴水聲吃生機飲食 (Plant-based)。"
             },
             {
-                "time": "15:30", "title": "Tjampuhan Spa (The Grotto)", "type": "SPA",
+                "time": "15:00", "title": "Tjampuhan Spa (The Grotto)", "type": "SPA",
                 "address": "Jl. Raya Campuhan", "tags": ["石窟", "水療"], "moodColor": "#0F4C75",
-                "note": "兩河交匯處的半開放石窟。冷熱水交替浸泡，利用岩石導出火氣。"
+                "note": "營業時間：10:00-18:00。兩河交匯處的半開放石窟。冷熱水交替浸泡，利用岩石導出火氣。"
+            },
+            {
+                "time": "17:00", "title": "The Blanco Renaissance Museum", "type": "藝術",
+                "address": "Jl. Raya Campuhan", "tags": ["金氣", "權威"], "moodColor": "#B8860B",
+                "note": "營業時間：09:00-17:00。就在 Spa 對面。建築極盡奢華，金屬框架與圓拱門，吸收「貴氣」。"
             },
             {
                 "time": "19:00", "title": "晚餐: Room 4 Dessert", "type": "美食",
                 "address": "Jl. Raya Sanggingan", "tags": ["金屬", "結構"], "moodColor": "#B8860B",
-                "note": "甜點殿堂。品嚐具備「結構感」與「精緻度」的甜點套餐，搭配調酒。"
+                "note": "營業時間：16:00-22:00。甜點殿堂。品嚐具備「結構感」與「精緻度」的甜點套餐，搭配調酒。"
             }
         ],
         "inspiration": [
-            { "title": "Plan B: Mozaic", "tag": "FOOD", "type": "法餐", "note": "若不想吃甜點當正餐，改去旁邊的 Mozaic 吃正統法餐。" }
+            { 
+                "title": "備案A: Neka Art Museum", 
+                "tag": "ART", "type": "藝術", 
+                "address": "Jalan Raya Sanggingan", "open_hours": "09:00-17:00",
+                "note": "若不喜歡 Blanco 的華麗，改來這裡看「馬來克力士劍 (Keris)」收藏，感受銳利的金屬能量。" 
+            },
+            { 
+                "title": "備案B: Mozaic Gastronomy", 
+                "tag": "FOOD", "type": "美食", 
+                "address": "Jl. Raya Sanggingan", "open_hours": "18:00-22:00",
+                "note": "若不想吃甜點當正餐，改去旁邊的 Mozaic 吃正統法餐。" 
+            }
         ],
         "shopping": ["無"]
     },
-    "day3": { // 9/24 Thu - 聽雨 (定點)
+    "day3": { // 9/24 Thu - 聲波與足療 (定點)
         "events": [
             {
                 "time": "09:00", "title": "專車前往: Pyramids of Chi", "type": "交通",
@@ -304,28 +331,44 @@ const USER_ITINERARY = {
             {
                 "time": "10:00", "title": "Water Healing (聲療)", "type": "療癒",
                 "address": "Pyramids of Chi", "tags": ["聲波", "共振"], "moodColor": "#0F4C75",
-                "note": "建在水池上的金字塔。銅鑼聲波(金)震碎體內淤積壓力。"
+                "note": "需預約。建在水池上的金字塔。銅鑼聲波(金)震碎體內淤積壓力。"
             },
             {
                 "time": "13:00", "title": "午餐: Hujan Locale", "type": "美食",
                 "address": "Jl. Sri Wedari", "tags": ["雨", "精緻"], "moodColor": "#0F4C75",
-                "note": "名字意為「雨」。殖民風格裝潢，食物精緻清爽。"
+                "note": "營業時間：12:00-15:00 / 17:30-22:00。名字意為「雨」。殖民風格裝潢，食物精緻清爽。"
             },
             {
-                "time": "15:00", "title": "Casa Luna (閱讀)", "type": "休息",
-                "address": "Jl. Raya Ubud", "tags": ["靜心"], "moodColor": "#8B7D6B",
-                "note": "在地下室或花園找個角落，閱讀哲學書籍。遠離電子產品。"
+                "time": "14:30", "title": "Ubud Art Market 尋寶", "type": "逛街",
+                "address": "Jl. Raya Ubud", "tags": ["青銅", "樂器"], "moodColor": "#B8860B",
+                "note": "營業時間：08:00-17:00。去新改建的市集尋找青銅樂器 (Gamelan 銅片) 或金屬工藝品。"
+            },
+            {
+                "time": "16:00", "title": "Jaens Spa (足部反射)", "type": "SPA",
+                "address": "Jl. Raya Pengosekan", "tags": ["補水", "引火"], "moodColor": "#177263",
+                "note": "營業時間：09:00-21:00。60分鐘 Foot Reflexology。刺激湧泉穴，引火下行。"
             },
             {
                 "time": "18:30", "title": "晚餐: Copper Kitchen", "type": "美食",
-                "address": "Jl. Bisma", "tags": ["金/土"], "moodColor": "#B8860B",
+                "address": "Jl. Bisma (Bisma Eight)", "tags": ["金/土"], "moodColor": "#B8860B",
                 "note": "Bisma Eight 屋頂。開闊視野，金屬色調裝潢，安靜優雅。"
             }
         ],
         "inspiration": [
-            { "title": "Plan B: Nusantara", "tag": "FOOD", "type": "印尼菜", "note": "若想體驗更深沉的香料結構，改去 Nusantara。" }
+            { 
+                "title": "備案A: Paradiso Ubud (看電影)", 
+                "tag": "RELAX", "type": "娛樂", 
+                "address": "Jl. Goutama Selatan", "open_hours": "10:00-22:00",
+                "note": "若不想逛街，來這間有機素食電影院，躺在軟墊上看場電影或紀錄片。" 
+            },
+            { 
+                "title": "備案B: Nusantara", 
+                "tag": "FOOD", "type": "美食", 
+                "address": "Jl. Dewi Sita", "open_hours": "18:00-21:30",
+                "note": "若想體驗更深沉的香料結構，改去 Nusantara。" 
+            }
         ],
-        "shopping": ["哲學書籍"]
+        "shopping": ["青銅工藝品"]
     },
 
     // ================= Phase 2: 能量轉換 (Moon) =================
@@ -337,9 +380,9 @@ const USER_ITINERARY = {
                 "note": "今日路程較遠，車上備好更換衣物與毛巾。"
             },
             {
-                "time": "09:00", "title": "Sebatu 聖泉洗禮 (Genah Melukat)", "type": "體驗",
-                "address": "Pura Dalem Pingit Sebatu", "tags": ["深層", "寒水"], "moodColor": "#0F4C75",
-                "note": "【隱世景點】比一般聖泉寺更隱密、水溫更低。強效洗去燥氣與舊運勢。"
+                "time": "09:00", "title": "Pura Mengening 聖泉洗禮", "type": "體驗",
+                "address": "Tampaksiring", "tags": ["深層", "寒水"], "moodColor": "#0F4C75",
+                "note": "開放時間：08:00-17:00。【隱世景點】清冷泉水 Melukat 儀式。強效洗去燥氣與舊運勢。"
             },
             {
                 "time": "12:30", "title": "午餐: Akasha Restaurant", "type": "美食",
@@ -347,9 +390,14 @@ const USER_ITINERARY = {
                 "note": "【能量景點】充滿神聖幾何結構的竹建築。環境高頻，適合補充高我能量。"
             },
             {
-                "time": "15:00", "title": "飯店休息/冥想", "type": "休息",
-                "address": "Tegal Sari", "tags": ["蓄能"], "moodColor": "#8B7D6B",
-                "note": "回飯店小睡，為晚上的滿月儀式養精蓄銳。"
+                "time": "14:00", "title": "Tegallalang 批發街尋寶", "type": "購物",
+                "address": "Jalan Raya Tegallalang", "tags": ["玻璃", "金屬"], "moodColor": "#B8860B",
+                "note": "這條街是工藝品批發總部。請司機開慢點，看到賣大型玻璃吹製或金屬雕塑的店就停下來看。"
+            },
+            {
+                "time": "15:30", "title": "Karsa Spa (稻田按摩)", "type": "SPA",
+                "address": "Campuhan Ridge Top", "tags": ["稻田", "深層"], "moodColor": "#177263",
+                "note": "營業時間：09:00-19:00。需提前預約。Deep Tissue Massage。在稻田中修復身體。"
             },
             {
                 "time": "19:00", "title": "滿月宴: Ambar at Mandapa", "type": "美食",
@@ -358,21 +406,42 @@ const USER_ITINERARY = {
             }
         ],
         "inspiration": [
-            { "title": "Plan B: Kubu", "tag": "DINNER", "type": "私密", "note": "若想要更封閉的空間，改訂 Kubu 竹籠餐廳 (河邊)。" }
+            { 
+                "title": "備案A: Gunung Kawi Sebatu", 
+                "tag": "TEMP", "type": "景點", 
+                "address": "Sebatu, Tegallalang", "open_hours": "08:00-17:00",
+                "note": "若 Mengening 人多，改來這個更安靜、有鯉魚池的水神廟。" 
+            },
+            { 
+                "title": "備案B: Botanica Day Spa", 
+                "tag": "SPA", "type": "SPA", 
+                "address": "Jl. Raya Sanggingan", "open_hours": "09:00-20:00",
+                "note": "若 Karsa 客滿，改來這裡做 Chakra Balancing Massage。" 
+            }
         ],
-        "shopping": ["無"]
+        "shopping": ["玻璃藝術品", "金屬雕塑"]
     },
 
     // ================= Phase 3: 金水顯化 (Metal) =================
-    "day5": { // 9/26 Sat - 煉金提煉 (包車日)
+    "day5": { // 9/26 Sat - 木金交鋒 (包車日)
         "events": [
             {
-                "time": "13:00", "title": "初階調香: Svasensa", "type": "活動",
+                "time": "09:30", "title": "木雕村: Tony Raka Gallery", "type": "藝術",
+                "address": "Jl. Raya Mas No. 86", "tags": ["金剋木", "權威"], "moodColor": "#8B7D6B",
+                "note": "營業時間：10:00-17:00。南下 Mas Village。欣賞大師級木雕，感受「雕琢成器」的能量。"
+            },
+            {
+                "time": "12:00", "title": "午餐: Embers", "type": "美食",
+                "address": "Jl. Raya Mas (Bisma Eight)", "tags": ["地中海", "農場"], "moodColor": "#A0522D",
+                "note": "位於木雕村附近的高級農場餐廳，節省交通時間。"
+            },
+            {
+                "time": "13:30", "title": "初階調香: Svasensa", "type": "活動",
                 "address": "Toya EcoPark, Kenderan", "tags": ["提煉", "金"], "moodColor": "#B8860B",
                 "note": "從繁雜原料中提煉精華。Beginner Class (90mins)。"
             },
             {
-                "time": "15:30", "title": "Bambu Indah (下午茶/參觀)", "type": "體驗",
+                "time": "16:00", "title": "Bambu Indah (下午茶)", "type": "體驗",
                 "address": "Jl. Baung, Sayan", "tags": ["銅", "竹"], "moodColor": "#B8860B",
                 "note": "【建築靈感】參觀全銅電梯與天然泉水池。感受金屬與自然的完美結合。"
             },
@@ -383,7 +452,17 @@ const USER_ITINERARY = {
             }
         ],
         "inspiration": [
-            { "title": "Plan B: Room Service", "tag": "RAINY", "type": "外送", "note": "若下雨或不想動，叫 Umah Pizza 松露義大利麵回飯店配紅酒。" }
+            { 
+                "title": "備案A: Setia Darma Masks", 
+                "tag": "CULTURE", "type": "博物館", 
+                "address": "Jl. Tegal Bingin, Mas", "open_hours": "08:00-16:00",
+                "note": "面具與人偶之家。若不喜歡現代畫廊，這裡的傳統氛圍更濃厚。" 
+            },
+            { 
+                "title": "備案B: Umah Pizza (外送)", 
+                "tag": "RAINY", "type": "美食", 
+                "address": "Jl. Jembawan", "note": "若太累，回飯店叫 Gojek 外送松露披薩配紅酒。" 
+            }
         ],
         "shopping": ["初階香水"]
     },
@@ -400,9 +479,14 @@ const USER_ITINERARY = {
                 "note": "環境安全明亮，食物品質穩定。"
             },
             {
-                "time": "15:30", "title": "吠陀占星: Ashish", "type": "玄學",
+                "time": "15:00", "title": "吠陀占星: Ashish", "type": "玄學",
                 "address": "Jl. Subak Sok Wayah", "tags": ["理性", "規劃"], "moodColor": "#2C3E50",
                 "note": "理性的星盤分析。需步行 15 分鐘入稻田 (若太熱可請司機送到最近入口)。"
+            },
+            {
+                "time": "17:00", "title": "Blue Stone Botanicals", "type": "購物",
+                "address": "Jl. Dewi Sita", "tags": ["精油", "雨林"], "moodColor": "#177263",
+                "note": "營業時間：09:00-21:00。試聞雨林系列精油，挑選幫助睡眠的氣味。"
             },
             {
                 "time": "19:00", "title": "晚餐: Watercress", "type": "美食",
@@ -411,9 +495,20 @@ const USER_ITINERARY = {
             }
         ],
         "inspiration": [
-            { "title": "Plan B: Threads of Life", "tag": "ART", "type": "紡織", "note": "若不想算命，改去參觀頂級紡織品博物館店。" }
+            { 
+                "title": "備案A: Threads of Life", 
+                "tag": "ART", "type": "購物", 
+                "address": "Jl. Kajeng No.24", "open_hours": "10:00-19:00",
+                "note": "若 Andong 太熱，改來這裡看博物館級的傳統紡織品。" 
+            },
+            { 
+                "title": "備案B: Milk & Madu", 
+                "tag": "FOOD", "type": "美食", 
+                "address": "Jl. Suweta No.3", "open_hours": "07:00-22:00",
+                "note": "若想吃早午餐風格的輕食，這裡是最佳選擇。" 
+            }
         ],
-        "shopping": ["古董鎮紙", "青銅擺件"]
+        "shopping": ["古董鎮紙", "青銅擺件", "助眠精油"]
     },
     "day7": { // 9/28 Mon - 大師架構 (包車日)
         "events": [
@@ -430,7 +525,12 @@ const USER_ITINERARY = {
             {
                 "time": "15:30", "title": "按摩一: Putri Bali Spa 2", "type": "SPA",
                 "address": "Jl. Hanoman", "tags": ["便利", "放鬆"], "moodColor": "#177263",
-                "note": "回到市區，快速消除疲勞。"
+                "note": "營業時間：09:00-21:00。回到市區，快速消除疲勞。"
+            },
+            {
+                "time": "17:00", "title": "The Shampoo Lounge", "type": "美容",
+                "address": "Jl. Monkey Forest", "tags": ["護髮", "儀容"], "moodColor": "#0F4C75",
+                "note": "營業時間：09:00-19:00。預約 Cream Bath。頭部水療護理，為晚上的大餐整理儀容。"
             },
             {
                 "time": "19:00", "title": "晚餐: Apéritif Restaurant", "type": "美食",
@@ -439,7 +539,18 @@ const USER_ITINERARY = {
             }
         ],
         "inspiration": [
-            { "title": "Plan B: Liap Liap", "tag": "DINNER", "type": "燒烤", "note": "若想輕鬆一點，改去 Liap Liap 吃精緻燒烤。" }
+            { 
+                "title": "備案A: Usada Bali", 
+                "tag": "CULTURE", "type": "活動", 
+                "address": "Jl. Sugriwa", "open_hours": "07:00-21:00",
+                "note": "文化中心。若髮廊客滿，可來這裡參加靜心活動或喝杯薑茶。" 
+            },
+            { 
+                "title": "備案B: Liap Liap", 
+                "tag": "DINNER", "type": "美食", 
+                "address": "Jl. Monkey Forest", "open_hours": "11:00-22:00",
+                "note": "若想輕鬆一點，改去吃這家裝潢時尚的印尼燒烤。" 
+            }
         ],
         "shopping": ["大師級香水"]
     },
@@ -451,6 +562,11 @@ const USER_ITINERARY = {
                 "note": "最後確認能量場是否乾淨，獲取大運箴言。"
             },
             {
+                "time": "12:00", "title": "午餐: Moksa", "type": "美食",
+                "address": "Sayan, Ubud", "tags": ["永續", "純淨"], "moodColor": "#177263",
+                "note": "擁有自己永續農場的餐廳。在去超市前先淨化腸胃。"
+            },
+            {
                 "time": "13:30", "title": "採買: Bintang Supermarket", "type": "購物",
                 "address": "Jl. Raya Sanggingan", "tags": ["補給"], "moodColor": "#177263",
                 "note": "位於 Sayan 區。購買 Sensatia (精油) 與 Bokashi (藥油)。"
@@ -458,7 +574,7 @@ const USER_ITINERARY = {
             {
                 "time": "15:00", "title": "按摩二: Ubud Traditional Spa", "type": "SPA",
                 "address": "Payogan", "tags": ["極致", "深層"], "moodColor": "#8B7D6B",
-                "note": "Rice Farmer Massage。深層組織梳理，建立身體秩序。"
+                "note": "營業時間：10:00-22:00。Rice Farmer Massage。深層組織梳理，建立身體秩序。"
             },
             {
                 "time": "17:30", "title": "夕陽宴: Sayan House", "type": "美食",
@@ -467,7 +583,18 @@ const USER_ITINERARY = {
             }
         ],
         "inspiration": [
-            { "title": "Plan B: Four Seasons Jala", "tag": "DINNER", "type": "精緻", "note": "若 Sayan House 客滿，旁邊四季飯店的 Jala 也是頂級選擇。" }
+            { 
+                "title": "備案A: Campuhan Ridge Walk", 
+                "tag": "VIEW", "type": "景點", 
+                "address": "Jl. Raya Campuhan", "open_hours": "全天",
+                "note": "若超市採買很快結束，可請司機載到 Karsa Cafe (步道頂端) 喝杯茶看風景，不用爬山。" 
+            },
+            { 
+                "title": "備案B: Four Seasons Jala", 
+                "tag": "DINNER", "type": "美食", 
+                "address": "Sayan, Ubud", "open_hours": "18:00-22:00",
+                "note": "若 Sayan House 客滿，旁邊四季飯店的 Jala 也是頂級選擇。" 
+            }
         ],
         "shopping": ["Sensatia", "Bokashi"]
     },
@@ -490,7 +617,12 @@ const USER_ITINERARY = {
             }
         ],
         "inspiration": [
-            { "title": "Plan B: Lounge", "tag": "WAIT", "type": "休息", "note": "提早入關去貴賓室休息。" }
+            { 
+                "title": "備案A: Premier Lounge", 
+                "tag": "WAIT", "type": "休息", 
+                "address": "DPS International Departure", "open_hours": "24H",
+                "note": "提早入關去貴賓室休息，保持體力。" 
+            }
         ],
         "shopping": ["鋼筆", "墨鏡"]
     }
