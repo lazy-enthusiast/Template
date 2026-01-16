@@ -168,481 +168,311 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
 <body>
 
 <script id="USER_DATA_CONFIG">
-// 1. 🎨 主題顏色 (HKMA Metal & Water Energy)
+// 1. 🎨 主題顏色：神社靜謐 (Zen) x 現代沈穩
 const THEME_CONFIG = {
-    accentColor: "#0F4C75",      // 深海藍 (水：智慧、冷靜、降溫)
-    accentText: "#FFFFFF",       
-    backgroundColor: "#F5F5F0",  // 鉑金灰/米白 (金：質感、秩序)
-    cardColor: "#FFFFFF",        // 純白 (乾淨)
-    textColor: "#2C3E50",        // 鐵灰 (權威、穩重)
-    textSubColor: "#7F8C8D",     // 銀灰 (細節)
-    borderColor: "#D1D5DB",      // 金屬邊框感
-    googleFontsUrl: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Lato:wght@300;400;700&display=swap",
-    fontHeading: '"Cormorant Garamond", serif', // 經典襯線體，象徵傳統與權力
-    fontBody: '"Lato", sans-serif'              // 現代無襯線體，象徵高效與邏輯
+    accentColor: "#D4AF37",      // 神社金 (象徵光之道)
+    accentText: "#FFFFFF",       // 強調文字色
+    backgroundColor: "#F7F9FC",  // 極簡灰白
+    cardColor: "#FFFFFF",        // 卡片底色
+    textColor: "#1a2e47",        // 博多灣深藍
+    textSubColor: "#5e6c7e",     // 次要文字 (深灰藍)
+    borderColor: "#B6A0C2",      // 紫藤灰
+    googleFontsUrl: "https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap",
+    fontHeading: '"Zen Kaku Gothic New", sans-serif',
+    fontBody: '"Zen Kaku Gothic New", sans-serif'
 };
 
 // 2. 🗓️ 旅程設定
 const CONFIG = {
     ui: {
-        browserTitle: "烏布滌新之旅",
-        headerTitle: "烏布滌新之旅", 
+        browserTitle: "Fukuoka Zen Trip",
+        headerTitle: "FUKUOKA <span>REWARD</span>",
         homeTimezone: "Asia/Hong_Kong",
-        homeTimeLabel: "HKT"
+        homeTimeLabel: "HKG"
     },
-    startDate: "2026-09-22", // 週二開始，提早消磁
-    duration: 9              // 擴展至 9 天
+    startDate: "2026-02-14", 
+    duration: 7
 };
 
-// 3. 📍 目的地
+// 3. 📍 目的地：福岡
 const DESTINATION = {
-    name: "烏布 Ubud",
-    lat: -8.5069,
-    lon: 115.2625,
-    timezone: "Asia/Makassar",
-    currency: "idr",
-    currencyLabel: "IDR",
+    name: "福岡 Fukuoka",
+    lat: 33.5902, 
+    lon: 130.4207,
+    timezone: "Asia/Tokyo",
+    currency: "jpy",
+    currencyLabel: "JPY",
     baseCurrency: "HKD"
 };
 
 // 4. ✈️ 航班與住宿
 const TRIP_INFO = {
     visa: {
-        type: "印尼落地簽 (VoA)",
-        number: "Rp 500,000",
-        note: "已申請 e-VOA，走自動通關"
+        type: "Visit Japan Web",
+        number: "QR Code Ready",
+        note: "二月是祭典與折扣季，請備妥離線截圖。"
     },
     flights: [
         {
-            type: "去程", flight: "CX785", date: "09/22",
-            dep: "HKG 10:00", arr: "DPS 15:00",
-            note: "商務艙 T1 登機 ｜ 專車司機將在入境大廳舉牌", bookingRef: "CX-HKMA-GO"
+            type: "去程", flight: "UO6XX", date: "02/14",
+            dep: "HKG 12:xx", arr: "FUK 17:10",
+            note: "T2 登機 / 提早到機場", bookingRef: "HK EXPRESS"
         },
         {
-            type: "回程", flight: "CX784", date: "09/30",
-            dep: "DPS 16:10", arr: "HKG 21:00",
-            note: "專車送機 ｜ 需預留 2.5 小時", bookingRef: "CX-HKMA-BACK"
+            type: "回程", flight: "UO669", date: "02/20",
+            dep: "FUK 16:05", arr: "HKG 19:xx",
+            note: "14:00 前抵達機場，最後採買大福。", bookingRef: "HK EXPRESS"
         }
     ],
     hotels: [
         {
-            name: "Tegal Sari Accommodation",
-            address: "Jl. Hanoman, Padang Tegal, Ubud, Bali",
-            phone: "+62361973318",
-            note: "Room: Super Deluxe (Upper Floor) ｜ 結界基地"
+            name: "Hotel Wing International 博多新幹線口",
+            address: "福岡市博多区博多駅東1-17-17",
+            phone: "+81924310489",
+            note: "⚠️ 關鍵：必須走「筑紫口」(Chikushi)，出站右轉沿大馬路直走4分鐘。"
         }
     ],
     emergency: [
-        { name: "專屬司機 (WhatsApp)", phone: "預約後填入" },
-        { name: "遊客警察", phone: "+62-361-759-687" },
-        { name: "高端醫療 (BIMC)", phone: "+62-361-3000-911" }
+        { name: "警察局", phone: "110" },
+        { name: "救護車/火警", phone: "119" },
+        { name: "外交部急難救助", phone: "+886-800-085-095" }
     ]
 };
 
-// 5. 🗺️ 行程細節 (9天高密度完整版)
+// 5. 🗺️ 每日詳細行程與 Modal 內容
 const USER_ITINERARY = {
-    // ================= Phase 1: 冷卻消磁 (Water) =================
-    "day1": { // 9/22 Tue - 入水
+    "day1": {
         "events": [
             {
-                "time": "15:00", "title": "抵達：專車接機", "type": "交通",
-                "address": "Ngurah Rai International Airport", "tags": ["專車", "Toyota Innova"], "moodColor": "#2C3E50",
-                "note": "司機舉牌接機。上車後請司機將冷氣開強，播放無人聲純音樂。直奔烏布 (約 1.5 - 2 hr)。"
+                "time": "18:15", "title": "Check-in: Hotel Wing", "type": "住宿",
+                "address": "Hotel Wing International Hakata Shinkansen-guchi", 
+                "phone": "+81924310489", "price": "已預約", "open_hours": "24H",
+                "coords": [33.5905, 130.4250],
+                "tags": ["筑紫口", "放行李"], "moodColor": "#000",
+                "note": "抵達飯店稍作休息，換上輕便鞋子準備出發吃飯。"
             },
             {
-                "time": "17:30", "title": "Check-in: Tegal Sari", "type": "住宿",
-                "address": "Jl. Hanoman, Padang Tegal", 
-                "tags": ["結界"], "moodColor": "#0F4C75",
-                "note": "進入房間，關閉工作通知。只喝氣泡水，聽窗外流水聲。"
+                "time": "18:45", "title": "晚餐：博多牛腸鍋 前田屋", "type": "美食",
+                "address": "Hakata Motsunabe Maedaya Hakata", "address_local": "福岡市博多区博多駅東2-1-24",
+                "phone": "+81924828558", "price": "¥4,000~", "open_hours": "11:00-23:00",
+                "tags": ["美食優先", "暖胃"], "moodColor": "#d63345",
+                "note": "第一餐先吃飽！必點味噌牛腸鍋、和牛薄切。這家對獨遊者非常友善。"
             },
             {
-                "time": "18:30", "title": "晚餐: Rouge - Sushi Bar", "type": "美食",
-                "address": "Jl. Bisma No. 7C", "tags": ["生冷", "滋陰"], "moodColor": "#0F4C75",
-                "note": "營業時間：12:00-23:00。紅黑配色爵士吧。必點：生蠔、生魚片、冰鎮 Dry Sake。物理降溫。"
+                "time": "20:30", "title": "散步購物：Yodobashi & 超市", "type": "購物",
+                "address": "Yodobashi Hakata", "phone": "+81924711010", 
+                "price": "依消費", "open_hours": "09:30-22:00",
+                "tags": ["營業至22:00", "生活用品"], "moodColor": "#D4AF37",
+                "note": "吃飽消化。逛 3F 戶外用品區看高品質保溫瓶或器皿。最後去 MaxValu 超市買博多甘王草莓。"
             }
         ],
         "inspiration": [
-            { 
-                "title": "備案A: Pison Ubud (輕鬆吃)", 
-                "tag": "FOOD", "type": "美食", 
-                "address": "Jl. Hanoman No. 10X", "open_hours": "07:00-23:00",
-                "note": "若太累不想跑遠，飯店旁走路即達。推薦：Tuna Tartare + 椰子水。" 
-            },
-            { 
-                "title": "備案B: Yoga Barn (陰瑜伽)", 
-                "tag": "TIRED", "type": "活動", 
-                "address": "Jl. Hanoman, Pengosekan", "open_hours": "07:00-21:00",
-                "note": "若想伸展筋骨，步行去參加 19:30 的 Yin Yoga 或 Gong Bath (需官網查課表)。" 
-            }
+            { "title": "原定：住吉酒販 (Deitos)", "tag": "SAKE", "note": "若想買第一支酒，這裡開到 21:00。", "type": "購物", "address": "Hakata Deitos Annex" },
+            { "title": "備案：Don Quijote 中洲", "tag": "LATE", "note": "若精力充沛，這裡 24 小時營業。", "type": "購物", "address": "Don Quijote Nakasu" }
         ],
-        "shopping": ["氣泡水", "高品質紅酒"]
+        "shopping": ["甘王草莓", "象印/Tiger日本製保溫瓶", "休足時間"]
     },
-    "day2": { // 9/23 Wed - 漂浮與藝術 (包車日)
+    "day2": {
         "events": [
             {
-                "time": "10:00", "title": "Solace Float", "type": "療癒",
-                "address": "Jl. Monkey Forest", "tags": ["失重", "歸零"], "moodColor": "#0F4C75",
-                "note": "營業時間：09:00-20:00。預約 90分鐘鎂鹽漂浮。模擬母體羊水，強制大腦關機，修復神經系統。"
+                "time": "09:00", "title": "護國神社 蚤之市", "type": "市集",
+                "address": "Gokoku Shrine Fukuoka", "price": "免費", "open_hours": "09:00-16:00",
+                "coords": [33.5786, 130.3807],
+                "tags": ["昭和古物", "掏寶"], "moodColor": "#B6A0C2",
+                "note": "尋找昭和復古玻璃杯、餐具或飾品。森林氣場很棒。"
             },
             {
-                "time": "12:30", "title": "午餐: Fivelements Sakti", "type": "美食",
-                "address": "Mambal, Abiansemal", "tags": ["河谷", "能量"], "moodColor": "#177263",
-                "note": "【隱世景點】懸在阿勇河上的竹建築。聽著磅礴水聲吃生機飲食 (Plant-based)。"
+                "time": "13:30", "title": "城島酒藏びらき (酒祭)", "type": "體驗",
+                "address": "Kurume Jojima", "price": "¥1,500 (套票)", "open_hours": "09:30-16:00",
+                "tags": ["一年一度", "清酒祭"], "moodColor": "#D4AF37",
+                "note": "買試飲券，感受日本傳統祭典。搭配現烤海鮮非常療癒。"
             },
             {
-                "time": "15:00", "title": "Tjampuhan Spa (The Grotto)", "type": "SPA",
-                "address": "Jl. Raya Campuhan", "tags": ["石窟", "水療"], "moodColor": "#0F4C75",
-                "note": "營業時間：10:00-18:00。兩河交匯處的半開放石窟。冷熱水交替浸泡，利用岩石導出火氣。"
-            },
-            {
-                "time": "17:00", "title": "The Blanco Renaissance Museum", "type": "藝術",
-                "address": "Jl. Raya Campuhan", "tags": ["金氣", "權威"], "moodColor": "#B8860B",
-                "note": "營業時間：09:00-17:00。就在 Spa 對面。建築極盡奢華，金屬框架與圓拱門，吸收「貴氣」。"
-            },
-            {
-                "time": "19:00", "title": "晚餐: Room 4 Dessert", "type": "美食",
-                "address": "Jl. Raya Sanggingan", "tags": ["金屬", "結構"], "moodColor": "#B8860B",
-                "note": "營業時間：16:00-22:00。甜點殿堂。品嚐具備「結構感」與「精緻度」的甜點套餐，搭配調酒。"
+                "time": "17:30", "title": "晚餐：鳥鶏研究団", "type": "美食",
+                "address": "Torikai Hakata", "phone": "+81922609556", 
+                "price": "¥5,000~", "open_hours": "17:30-23:00",
+                "tags": ["現代燒鳥", "職人"], "moodColor": "#d63345",
+                "note": "享受高品質燒鳥。必點 KSB 柏炸雞。"
             }
         ],
         "inspiration": [
-            { 
-                "title": "備案A: Neka Art Museum", 
-                "tag": "ART", "type": "藝術", 
-                "address": "Jalan Raya Sanggingan", "open_hours": "09:00-17:00",
-                "note": "若不喜歡 Blanco 的華麗，改來這裡看「馬來克力士劍 (Keris)」收藏，感受銳利的金屬能量。" 
-            },
-            { 
-                "title": "備案B: Mozaic Gastronomy", 
-                "tag": "FOOD", "type": "美食", 
-                "address": "Jl. Raya Sanggingan", "open_hours": "18:00-22:00",
-                "note": "若不想吃甜點當正餐，改去旁邊的 Mozaic 吃正統法餐。" 
-            }
+            { "title": "備案：六本松 蔦屋書店", "tag": "CAFE", "note": "就在市集旁，下雨的最佳躲避處。", "type": "放鬆", "address": "Ropponmatsu 421" }
         ],
-        "shopping": ["無"]
+        "shopping": ["昭和玻璃杯", "城島限定地酒"]
     },
-    "day3": { // 9/24 Thu - 聲波與足療 (定點)
+    "day3": {
         "events": [
             {
-                "time": "09:00", "title": "專車前往: Pyramids of Chi", "type": "交通",
-                "address": "Bentuyung", "tags": ["專車"], "moodColor": "#2C3E50",
-                "note": "前往北邊郊區。"
+                "time": "10:30", "title": "太宰府天滿宮", "type": "參拜",
+                "address": "Dazaifu Tenmangu", "price": "免費", "open_hours": "06:00-19:00",
+                "tags": ["學問之神", "梅花"], "moodColor": "#D4AF37",
+                "note": "二月梅花盛開。摸摸御神牛補金運，吃現烤梅枝餅。"
             },
             {
-                "time": "10:00", "title": "Water Healing (聲療)", "type": "療癒",
-                "address": "Pyramids of Chi", "tags": ["聲波", "共振"], "moodColor": "#0F4C75",
-                "note": "需預約。建在水池上的金字塔。銅鑼聲波(金)震碎體內淤積壓力。"
+                "time": "12:30", "title": "竈門神社 (良緣)", "type": "祈福",
+                "address": "Kamado Shrine", "price": "巴士 ¥100", "open_hours": "08:30-18:00",
+                "coords": [33.5317, 130.5562],
+                "tags": ["紅線", "美學建築"], "moodColor": "#d63345",
+                "note": "求姻緣聖地。這裡的御守設計如精品，值得收藏。"
             },
             {
-                "time": "13:00", "title": "午餐: Hujan Locale", "type": "美食",
-                "address": "Jl. Sri Wedari", "tags": ["雨", "精緻"], "moodColor": "#0F4C75",
-                "note": "營業時間：12:00-15:00 / 17:30-22:00。名字意為「雨」。殖民風格裝潢，食物精緻清爽。"
-            },
-            {
-                "time": "14:30", "title": "Ubud Art Market 尋寶", "type": "逛街",
-                "address": "Jl. Raya Ubud", "tags": ["青銅", "樂器"], "moodColor": "#B8860B",
-                "note": "營業時間：08:00-17:00。去新改建的市集尋找青銅樂器 (Gamelan 銅片) 或金屬工藝品。"
-            },
-            {
-                "time": "16:00", "title": "Jaens Spa (足部反射)", "type": "SPA",
-                "address": "Jl. Raya Pengosekan", "tags": ["補水", "引火"], "moodColor": "#177263",
-                "note": "營業時間：09:00-21:00。60分鐘 Foot Reflexology。刺激湧泉穴，引火下行。"
-            },
-            {
-                "time": "18:30", "title": "晚餐: Copper Kitchen", "type": "美食",
-                "address": "Jl. Bisma (Bisma Eight)", "tags": ["金/土"], "moodColor": "#B8860B",
-                "note": "Bisma Eight 屋頂。開闊視野，金屬色調裝潢，安靜優雅。"
+                "time": "17:00", "title": "🔮 占卜酒吧 WIND AGE", "type": "神秘學",
+                "address": "Minami Fukuoka Driver's School", "phone": "+81925961313", 
+                "price": "¥3,000~", "open_hours": "19:00-24:00",
+                "tags": ["IG預約", "隱世"], "moodColor": "#7E57C2",
+                "note": "位於駕訓班內的秘密酒吧。體驗塔羅占卜與氣場調酒。"
             }
         ],
         "inspiration": [
-            { 
-                "title": "備案A: Paradiso Ubud (看電影)", 
-                "tag": "RELAX", "type": "娛樂", 
-                "address": "Jl. Goutama Selatan", "open_hours": "10:00-22:00",
-                "note": "若不想逛街，來這間有機素食電影院，躺在軟墊上看場電影或紀錄片。" 
-            },
-            { 
-                "title": "備案B: Nusantara", 
-                "tag": "FOOD", "type": "美食", 
-                "address": "Jl. Dewi Sita", "open_hours": "18:00-21:30",
-                "note": "若想體驗更深沉的香料結構，改去 Nusantara。" 
-            }
+            { "title": "原定：博多湯 (二日市)", "tag": "SPA", "note": "若想泡湯，這裡是 1300 年古湯。", "type": "溫泉", "address": "Hakata Yu" },
+            { "title": "備案：九州國立博物館", "tag": "QUIET", "note": "安靜、氣勢磅礡的空間。", "type": "文化", "address": "Kyushu National Museum" }
         ],
-        "shopping": ["青銅工藝品"]
+        "shopping": ["竈門神社結緣御守", "梅枝餅"]
     },
-
-    // ================= Phase 2: 能量轉換 (Moon) =================
-    "day4": { // 9/25 Fri - 滿月重生 (包車日)
+    "day4": {
         "events": [
             {
-                "time": "08:00", "title": "專車: 往東北山區", "type": "交通",
-                "address": "Sebatu", "tags": ["專車"], "moodColor": "#2C3E50",
-                "note": "今日路程較遠，車上備好更換衣物與毛巾。"
+                "time": "10:00", "title": "麒麟啤酒福岡工廠", "type": "體驗",
+                "address": "Kirin Beer Park Fukuoka", "phone": "+81946232132", 
+                "price": "¥500", "open_hours": "09:30-15:30",
+                "tags": ["見學", "試飲"], "moodColor": "#FBC02D",
+                "note": "需官網預約。享受新鮮出廠啤酒與成吉思汗烤肉午餐。"
             },
             {
-                "time": "09:00", "title": "Pura Mengening 聖泉洗禮", "type": "體驗",
-                "address": "Tampaksiring", "tags": ["深層", "寒水"], "moodColor": "#0F4C75",
-                "note": "開放時間：08:00-17:00。【隱世景點】清冷泉水 Melukat 儀式。強效洗去燥氣與舊運勢。"
+                "time": "14:30", "title": "🛍️ 全日購物：天神 PARCO & Solaria", "type": "購物",
+                "address": "Fukuoka Parco", "phone": "+81922357000", 
+                "price": "折扣季", "open_hours": "10:00-20:30",
+                "tags": ["United Tokyo", "Mizuiro"], "moodColor": "#d63345",
+                "note": "主力進攻！PARCO 3F United Tokyo (100%日本製)、Solaria 3F Mizuiro ind (氣質極簡)。"
             },
             {
-                "time": "12:30", "title": "午餐: Akasha Restaurant", "type": "美食",
-                "address": "Jl. Sinta, Keliki", "tags": ["幾何", "水晶"], "moodColor": "#B8860B",
-                "note": "【能量景點】充滿神聖幾何結構的竹建築。環境高頻，適合補充高我能量。"
+                "time": "16:30", "title": "🛍️ 天神地下街：Tabio & 皮件", "type": "購物",
+                "address": "Tenjin Underground Shopping Center", "price": "依消費", "open_hours": "10:00-20:00",
+                "tags": ["手工襪", "PORCO ROSSO"], "moodColor": "#8D6E63",
+                "note": "挑選 Tabio 日本製手工襪與 PORCO ROSSO 職人皮革包。"
             },
             {
-                "time": "14:00", "title": "Tegallalang 批發街尋寶", "type": "購物",
-                "address": "Jalan Raya Tegallalang", "tags": ["玻璃", "金屬"], "moodColor": "#B8860B",
-                "note": "這條街是工藝品批發總部。請司機開慢點，看到賣大型玻璃吹製或金屬雕塑的店就停下來看。"
-            },
-            {
-                "time": "15:30", "title": "Karsa Spa (稻田按摩)", "type": "SPA",
-                "address": "Campuhan Ridge Top", "tags": ["稻田", "深層"], "moodColor": "#177263",
-                "note": "營業時間：09:00-19:00。需提前預約。Deep Tissue Massage。在稻田中修復身體。"
-            },
-            {
-                "time": "19:00", "title": "滿月宴: Ambar at Mandapa", "type": "美食",
-                "address": "Ritz-Carlton Reserve, Kedewatan", "tags": ["權威", "頂級"], "moodColor": "#B8860B",
-                "note": "【能量頂點】懸崖酒吧俯瞰阿勇河。點 Gold-infused 調酒，對月舉杯，確立「監管者」身份。"
+                "time": "18:30", "title": "晚餐：濱田屋 水炊鍋", "type": "美食",
+                "address": "Hakata Mizutaki Hamadaya", "phone": "+81924096898", 
+                "price": "¥6,000~", "open_hours": "11:00-22:00",
+                "tags": ["膠原蛋白", "雞湯"], "moodColor": "#1a2e47",
+                "note": "回博多站用餐，方便放戰利品。雞湯非常鮮甜。"
             }
         ],
         "inspiration": [
-            { 
-                "title": "備案A: Gunung Kawi Sebatu", 
-                "tag": "TEMP", "type": "景點", 
-                "address": "Sebatu, Tegallalang", "open_hours": "08:00-17:00",
-                "note": "若 Mengening 人多，改來這個更安靜、有鯉魚池的水神廟。" 
-            },
-            { 
-                "title": "備案B: Botanica Day Spa", 
-                "tag": "SPA", "type": "SPA", 
-                "address": "Jl. Raya Sanggingan", "open_hours": "09:00-20:00",
-                "note": "若 Karsa 客滿，改來這裡做 Chakra Balancing Massage。" 
-            }
+            { "title": "原定：樂水園 (抹茶)", "tag": "ZEN", "note": "若逛累了，可去喝抹茶靜心。", "type": "放鬆", "address": "Rakusuien" },
+            { "title": "原定：住吉神社", "tag": "ZEN", "note": "避靜好去處。", "type": "參拜", "address": "Sumiyoshi Shrine" }
         ],
-        "shopping": ["玻璃藝術品", "金屬雕塑"]
+        "shopping": ["日本製羊毛外套", "Tabio手工縫製襪", "皮革通勤包"]
     },
-
-    // ================= Phase 3: 金水顯化 (Metal) =================
-    "day5": { // 9/26 Sat - 木金交鋒 (包車日)
+    "day5": {
         "events": [
             {
-                "time": "09:30", "title": "木雕村: Tony Raka Gallery", "type": "藝術",
-                "address": "Jl. Raya Mas No. 86", "tags": ["金剋木", "權威"], "moodColor": "#8B7D6B",
-                "note": "營業時間：10:00-17:00。南下 Mas Village。欣賞大師級木雕，感受「雕琢成器」的能量。"
+                "time": "09:30", "title": "南藏院 (金運臥佛)", "type": "參拜",
+                "address": "Nanzoin Temple", "price": "免費", "open_hours": "09:00-16:30",
+                "coords": [33.6186, 130.5727],
+                "tags": ["世界最大", "山靈"], "moodColor": "#D4AF37",
+                "note": "感受大佛的震撼。領取金運御守，寫護摩木。"
             },
             {
-                "time": "12:00", "title": "午餐: Embers", "type": "美食",
-                "address": "Jl. Raya Mas (Bisma Eight)", "tags": ["地中海", "農場"], "moodColor": "#A0522D",
-                "note": "位於木雕村附近的高級農場餐廳，節省交通時間。"
+                "time": "15:00", "title": "🛍️ 質感家居：B.B.B. POTTERS", "type": "購物",
+                "address": "B.B.B. POTTERS", "phone": "+81927392080", 
+                "price": "依消費", "open_hours": "11:00-20:00",
+                "tags": ["藥院", "波佐見燒"], "moodColor": "#8D6E63",
+                "note": "挑選業務用等級的高品質餐具與職人毛巾。非常實用。"
             },
             {
-                "time": "13:30", "title": "初階調香: Svasensa", "type": "活動",
-                "address": "Toya EcoPark, Kenderan", "tags": ["提煉", "金"], "moodColor": "#B8860B",
-                "note": "從繁雜原料中提煉精華。Beginner Class (90mins)。"
-            },
-            {
-                "time": "16:00", "title": "Bambu Indah (下午茶)", "type": "體驗",
-                "address": "Jl. Baung, Sayan", "tags": ["銅", "竹"], "moodColor": "#B8860B",
-                "note": "【建築靈感】參觀全銅電梯與天然泉水池。感受金屬與自然的完美結合。"
-            },
-            {
-                "time": "19:00", "title": "晚餐: Kebun Bistro", "type": "美食",
-                "address": "Jl. Hanoman", "tags": ["工業風", "紅酒"], "moodColor": "#2C3E50",
-                "note": "法式小酒館。工業風裝潢帶有金屬秩序感，氣氛輕鬆優雅。"
+                "time": "17:00", "title": "💆🏻‍♀️ 獎勵：Dry Head Spa", "type": "放鬆",
+                "address": "Goku no Kimochi Fukuoka", "price": "¥6,000~", "open_hours": "10:00-21:00",
+                "tags": ["大名區", "腦部按摩"], "moodColor": "#1a2e47",
+                "note": "在大名區逛完古著後，直接來這裡放鬆。對抗疲勞神器。"
             }
         ],
         "inspiration": [
-            { 
-                "title": "備案A: Setia Darma Masks", 
-                "tag": "CULTURE", "type": "博物館", 
-                "address": "Jl. Tegal Bingin, Mas", "open_hours": "08:00-16:00",
-                "note": "面具與人偶之家。若不喜歡現代畫廊，這裡的傳統氛圍更濃厚。" 
-            },
-            { 
-                "title": "備案B: Umah Pizza (外送)", 
-                "tag": "RAINY", "type": "美食", 
-                "address": "Jl. Jembawan", "note": "若太累，回飯店叫 Gojek 外送松露披薩配紅酒。" 
-            }
+            { "title": "備案：福岡亞洲美術館", "tag": "ART", "note": "若這天想走文藝路線，可取代購物。", "type": "文化", "address": "Fukuoka Asian Art Museum" },
+            { "title": "小酌：Fukuoka Craft", "tag": "BEER", "note": "按完頭去喝一杯精釀。", "type": "微醺", "address": "Fukuoka Craft Brewing" }
         ],
-        "shopping": ["初階香水"]
+        "shopping": ["日本製職人毛巾", "波佐見燒餐具"]
     },
-    "day6": { // 9/27 Sun - 鑑賞眼界 (市區)
+    "day6": {
         "events": [
             {
-                "time": "10:00", "title": "古董尋寶: Andong", "type": "逛街",
-                "address": "Jalan Raya Andong", "tags": ["青銅", "石雕"], "moodColor": "#8B7D6B",
-                "note": "搭車至上游往下逛。目標：青銅(Bronze)或石雕擺件，作為未來辦公室鎮物。"
+                "time": "10:30", "title": "🧪 調香：MY ONLY FRAGRANCE", "type": "體驗",
+                "address": "My Only Fragrance Fukuoka", "price": "¥5,000~", "open_hours": "預約制",
+                "tags": ["專屬香水", "能量"], "moodColor": "#B6A0C2",
+                "note": "調製屬於您的氣味。名字標籤可選中/日/英。"
             },
             {
-                "time": "13:00", "title": "午餐: Pison Ubud", "type": "美食",
-                "address": "Jl. Hanoman", "tags": ["稻田"], "moodColor": "#177263",
-                "note": "環境安全明亮，食物品質穩定。"
+                "time": "14:30", "title": "🌟 宮地嶽神社：光之道祭典首日", "type": "能量",
+                "address": "Miyajidake Shrine", "price": "特別席 ¥5,000", "open_hours": "夕陽祭時間",
+                "coords": [33.7806, 130.4852],
+                "tags": ["癸亥日", "大海水能量"], "moodColor": "#FFA000",
+                "note": "2/19 祭典首日！癸亥日水能量最強。抵達後請即刻換取『特別祈願席』。"
             },
             {
-                "time": "15:00", "title": "吠陀占星: Ashish", "type": "玄學",
-                "address": "Jl. Subak Sok Wayah", "tags": ["理性", "規劃"], "moodColor": "#2C3E50",
-                "note": "理性的星盤分析。需步行 15 分鐘入稻田 (若太熱可請司機送到最近入口)。"
+                "time": "17:55", "title": "光之道：巔峰時刻", "type": "絕景",
+                "address": "宮地嶽神社 階梯", "price": "無價", "tags": ["金水匯聚"], "moodColor": "#FFFFFF",
+                "note": "感受夕陽直通大海的震撼。是極佳的身心癒合時刻。"
             },
             {
-                "time": "17:00", "title": "Blue Stone Botanicals", "type": "購物",
-                "address": "Jl. Dewi Sita", "tags": ["精油", "雨林"], "moodColor": "#177263",
-                "note": "營業時間：09:00-21:00。試聞雨林系列精油，挑選幫助睡眠的氣味。"
-            },
-            {
-                "time": "19:00", "title": "晚餐: Watercress", "type": "美食",
-                "address": "Jl. Monkey Forest", "tags": ["清脆", "水"], "moodColor": "#177263",
-                "note": "食材新鮮脆口，現代風格。"
+                "time": "20:30", "title": "晚餐：牛腸鍋 一利 (Ichitaka)", "type": "美食",
+                "address": "Ichitaka Hakata", "phone": "+81924096500", 
+                "price": "¥5,000~", "open_hours": "17:00-23:00",
+                "tags": ["慶功", "胡麻鯖魚"], "moodColor": "#d63345",
+                "note": "祭典結束後回博多慶功。這家店的胡麻鯖魚非常地道。"
             }
         ],
         "inspiration": [
-            { 
-                "title": "備案A: Threads of Life", 
-                "tag": "ART", "type": "購物", 
-                "address": "Jl. Kajeng No.24", "open_hours": "10:00-19:00",
-                "note": "若 Andong 太熱，改來這裡看博物館級的傳統紡織品。" 
-            },
-            { 
-                "title": "備案B: Milk & Madu", 
-                "tag": "FOOD", "type": "美食", 
-                "address": "Jl. Suweta No.3", "open_hours": "07:00-22:00",
-                "note": "若想吃早午餐風格的輕食，這裡是最佳選擇。" 
-            }
+            { "title": "備案：宮地濱海灘", "tag": "WATER", "note": "若神社人太多，走到海邊看夕陽入海。", "type": "風景", "address": "Miyajihama Beach" }
         ],
-        "shopping": ["古董鎮紙", "青銅擺件", "助眠精油"]
+        "shopping": ["光之道限定御守 (金運)", "專屬能量香水"]
     },
-    "day7": { // 9/28 Mon - 大師架構 (包車日)
+    "day7": {
         "events": [
             {
-                "time": "10:00", "title": "大師調香: Svasensa Atelier", "type": "活動",
-                "address": "Toya EcoPark", "tags": ["結構", "權威"], "moodColor": "#B8860B",
-                "note": "3小時進階課。深入化學分子結構，調製專屬的「權威之香」。"
+                "time": "10:00", "title": "🛍️ 最後補貨：AMU PLAZA", "type": "購物",
+                "address": "AMU PLAZA Hakata", "open_hours": "10:00-20:00", "price": "依消費",
+                "tags": ["中川政七", "最後採買"], "moodColor": "#d63345",
+                "note": "1F 中川政七買高品質花布巾。到地下一樓買鈴懸草莓大福。"
             },
             {
-                "time": "14:00", "title": "午餐: Sun Sun Warung", "type": "美食",
-                "address": "Jl. Jembawan", "tags": ["家庭", "溫馨"], "moodColor": "#A0522D",
-                "note": "精緻的家庭式印尼菜，平衡上午的腦力消耗。"
+                "time": "11:30", "title": "博多百年蔵 (百年酒造)", "type": "體驗",
+                "address": "Ishikura Brewery", "phone": "+81926335100", 
+                "price": "免費", "open_hours": "11:00-19:00",
+                "tags": ["歷史", "地酒"], "moodColor": "#D4AF37",
+                "note": "參觀百年歷史酒造。買最後一份伴手禮。"
             },
             {
-                "time": "15:30", "title": "按摩一: Putri Bali Spa 2", "type": "SPA",
-                "address": "Jl. Hanoman", "tags": ["便利", "放鬆"], "moodColor": "#177263",
-                "note": "營業時間：09:00-21:00。回到市區，快速消除疲勞。"
-            },
-            {
-                "time": "17:00", "title": "The Shampoo Lounge", "type": "美容",
-                "address": "Jl. Monkey Forest", "tags": ["護髮", "儀容"], "moodColor": "#0F4C75",
-                "note": "營業時間：09:00-19:00。預約 Cream Bath。頭部水療護理，為晚上的大餐整理儀容。"
-            },
-            {
-                "time": "19:00", "title": "晚餐: Apéritif Restaurant", "type": "美食",
-                "address": "Viceroy Bali", "tags": ["秩序", "完美"], "moodColor": "#2C3E50",
-                "note": "1920年代殖民風格 Fine Dining。極致的秩序與服務。預演高層社交場景。"
+                "time": "12:30", "title": "午餐：鮨割烹 やま中", "type": "美食",
+                "address": "Sushi Yamanaka JR Hakata City", "phone": "+81924096688", 
+                "price": "¥5,000~", "open_hours": "11:00-22:00",
+                "tags": ["頂級壽司", "獎勵"], "moodColor": "#1a2e47",
+                "note": "用最好的壽司畫下句點。感謝自己這一趟的努力。"
             }
         ],
         "inspiration": [
-            { 
-                "title": "備案A: Usada Bali", 
-                "tag": "CULTURE", "type": "活動", 
-                "address": "Jl. Sugriwa", "open_hours": "07:00-21:00",
-                "note": "文化中心。若髮廊客滿，可來這裡參加靜心活動或喝杯薑茶。" 
-            },
-            { 
-                "title": "備案B: Liap Liap", 
-                "tag": "DINNER", "type": "美食", 
-                "address": "Jl. Monkey Forest", "open_hours": "11:00-22:00",
-                "note": "若想輕鬆一點，改去吃這家裝潢時尚的印尼燒烤。" 
-            }
+            { "title": "備案：Nana's Green Tea", "tag": "SWEET", "note": "最後的抹茶時光。", "type": "甜點", "address": "JR Hakata City 9F" },
+            { "title": "甜點：鈴懸", "tag": "SWEET", "note": "一定要買草莓大福帶上飛機吃。", "type": "伴手禮", "address": "Suzukake Hakata" }
         ],
-        "shopping": ["大師級香水"]
-    },
-    "day8": { // 9/29 Tue - 鞏固夕陽 (包車日)
-        "events": [
-            {
-                "time": "09:00", "title": "能量讀取: Jero Gede", "type": "玄學",
-                "address": "Keliki", "tags": ["清理", "確認"], "moodColor": "#2C3E50",
-                "note": "最後確認能量場是否乾淨，獲取大運箴言。"
-            },
-            {
-                "time": "12:00", "title": "午餐: Moksa", "type": "美食",
-                "address": "Sayan, Ubud", "tags": ["永續", "純淨"], "moodColor": "#177263",
-                "note": "擁有自己永續農場的餐廳。在去超市前先淨化腸胃。"
-            },
-            {
-                "time": "13:30", "title": "採買: Bintang Supermarket", "type": "購物",
-                "address": "Jl. Raya Sanggingan", "tags": ["補給"], "moodColor": "#177263",
-                "note": "位於 Sayan 區。購買 Sensatia (精油) 與 Bokashi (藥油)。"
-            },
-            {
-                "time": "15:00", "title": "按摩二: Ubud Traditional Spa", "type": "SPA",
-                "address": "Payogan", "tags": ["極致", "深層"], "moodColor": "#8B7D6B",
-                "note": "營業時間：10:00-22:00。Rice Farmer Massage。深層組織梳理，建立身體秩序。"
-            },
-            {
-                "time": "17:30", "title": "夕陽宴: Sayan House", "type": "美食",
-                "address": "Jl. Raya Sayan", "tags": ["絕景", "交融"], "moodColor": "#B8860B",
-                "note": "懸崖日落。日式與拉美融合菜 (水火既濟)。完美的旅程句點。"
-            }
-        ],
-        "inspiration": [
-            { 
-                "title": "備案A: Campuhan Ridge Walk", 
-                "tag": "VIEW", "type": "景點", 
-                "address": "Jl. Raya Campuhan", "open_hours": "全天",
-                "note": "若超市採買很快結束，可請司機載到 Karsa Cafe (步道頂端) 喝杯茶看風景，不用爬山。" 
-            },
-            { 
-                "title": "備案B: Four Seasons Jala", 
-                "tag": "DINNER", "type": "美食", 
-                "address": "Sayan, Ubud", "open_hours": "18:00-22:00",
-                "note": "若 Sayan House 客滿，旁邊四季飯店的 Jala 也是頂級選擇。" 
-            }
-        ],
-        "shopping": ["Sensatia", "Bokashi"]
-    },
-    "day9": { // 9/30 Wed - 歸位
-        "events": [
-            {
-                "time": "09:00", "title": "早餐 & Check-out", "type": "住宿",
-                "address": "Tegal Sari", "tags": ["離去"], "moodColor": "#2C3E50",
-                "note": "將所有戰利品裝箱。保持優雅。"
-            },
-            {
-                "time": "11:00", "title": "專車送機", "type": "交通",
-                "address": "Ngurah Rai Airport", "tags": ["回程"], "moodColor": "#2C3E50",
-                "note": "前往機場，搭乘 CX784。"
-            },
-            {
-                "time": "13:30", "title": "機場免稅店", "type": "購物",
-                "address": "DPS Duty Free", "tags": ["金"], "moodColor": "#B8860B",
-                "note": "購入一支高品質鋼筆或墨鏡，象徵新視野。"
-            }
-        ],
-        "inspiration": [
-            { 
-                "title": "備案A: Premier Lounge", 
-                "tag": "WAIT", "type": "休息", 
-                "address": "DPS International Departure", "open_hours": "24H",
-                "note": "提早入關去貴賓室休息，保持體力。" 
-            }
-        ],
-        "shopping": ["鋼筆", "墨鏡"]
+        "shopping": ["中川政七花布巾", "鈴懸草莓大福", "免稅店清酒"]
     }
 };
 
-// 6. 🗣️ 常用短語 (Private Driver Edition)
+// 6. 🗣️ 常用短語
 const PHRASE_DATA = [
     {
-        category: "專屬司機 (Driver)",
+        category: "購物品質",
         items: [
-            { term_primary: "Pak, tolong tunggu di sini", term_secondary: "先生，請在這裡等我", term_pronounce: "Tung-gu di si-ni" },
-            { term_primary: "AC tolong lebih dingin", term_secondary: "冷氣請強一點 (重要)", term_pronounce: "AC le-bih di-ngin" },
-            { term_primary: "Saya mau istirahat", term_secondary: "我想休息(不聊天)", term_pronounce: "Saya mau is-ti-ra-hat" }
+            { term_primary: "日本製ですか？", term_secondary: "這是日本製嗎?", term_pronounce: "Nihon-sei desu ka?" },
+            { term_primary: "セール対象ですか？", term_secondary: "這個有打折嗎?", term_pronounce: "Seeru taishou desu ka?" },
+            { term_primary: "これを試着したいです", term_secondary: "我想試穿這個", term_pronounce: "Kore shichaku shitai" }
         ]
     },
     {
-        category: "餐廳/購物",
+        category: "能量與祭典",
         items: [
-            { term_primary: "Berapa harganya?", term_secondary: "多少錢？", term_pronounce: "Be-ra-pa har-ga-nya" },
-            { term_primary: "Minta Bon / Bill", term_secondary: "請結帳", term_pronounce: "Min-ta Bon" }
+            { term_primary: "特別祈願をしたいです", term_secondary: "我想參加特別祈願 (換位)", term_pronounce: "Tokubetsu kigan shitai" },
+            { term_primary: "写真をとってもいいですか", term_secondary: "可以拍照嗎?", term_pronounce: "Shashin totte ii?" }
         ]
     }
 ];
