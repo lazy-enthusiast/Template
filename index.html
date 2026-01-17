@@ -195,7 +195,7 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
 <script id="USER_DATA_CONFIG">
 // 1. 🎨 能量配色：北水定風波 (Ice, Deep Water, Antique Gold)
 const THEME_CONFIG = {
-  accentColor: "#1B262C", // 深海藍：權威、壬水能量
+  accentColor: "#1B262C", // 深海藍：權威、監管深度、壬水
   accentText: "#FFFFFF",
   backgroundColor: "#F0F4F8", // 冰川白：理智降溫
   cardColor: "#FFFFFF",
@@ -265,12 +265,12 @@ const TRIP_INFO = {
   ],
   emergency: [
     { name: "道南巴士", phone: "0142-75-2351" },
-    { name: "MK 計程車", phone: "011-820-0100" },
+    { name: "中央巴士", phone: "011-231-0500" },
     { name: "外交部急難救助", phone: "+81-80-1009-7179" }
   ]
 };
 
-// 5. 🗺️ 詳細行程 (含一日三餐 & Plan B)
+// 5. 🗺️ 詳細行程 (已執行 Day 4/5 對調，強調公共交通)
 const USER_ITINERARY = {
   "day1": {
     "events": [
@@ -282,7 +282,7 @@ const USER_ITINERARY = {
       {
         "time": "16:00", "title": "道南巴士 (直達)", "type": "移動",
         "address": "New Chitose Airport Domestic Terminal", "tags": ["巴士"], "moodColor": "#5C6B73",
-        "note": "📍 乘車處：國內線 2 號或 29 號月台\n🚌 路線：往「洞爺湖溫泉」\n⏱️ 下車：終點站 (步行2分鐘到飯店)\n💰 費用：約 1,200 JPY"
+        "note": "📍 乘車處：國內線 2 號或 29 號月台\n🚌 路線：往「洞爺湖溫泉」\n⏱️ 下車：終點站 (步行 2 分鐘到飯店)\n💡 備註：無需轉車，最適合調整心境。"
       },
       {
         "time": "19:00", "title": "晚餐：旅館割烹", "type": "晚餐",
@@ -291,7 +291,7 @@ const USER_ITINERARY = {
       }
     ],
     "inspiration": [
-      { "title": "Plan B: 交通延誤", "tag": "風控", "note": "若因大雨 JR/巴士停駛，直接在機場搭計程車至千歲市內「Portom International」住宿一晚，明日再出發。", "type": "備案" }
+      { "title": "Plan B: 交通延誤", "tag": "風控", "note": "若因大雨巴士停駛，改搭 JR 快速 Airport 至「南千歲」，轉特急北斗至「洞爺站」，再搭計程車進溫泉區。", "type": "備案" }
     ],
     "shopping": ["機場清酒", "入浴劑"]
   },
@@ -305,7 +305,7 @@ const USER_ITINERARY = {
       {
         "time": "10:00", "title": "湖畔 Pitch 練習", "type": "能量",
         "address": "Toyako Lakeside", "tags": ["步行", "定礎"], "moodColor": "#1B262C",
-        "note": "能量任務：靜水深流。\n沿著湖畔步道，對著平靜水面進行面試演練。"
+        "note": "能量任務：靜水深流。\n沿著湖畔步道慢走，對著平靜水面進行面試演練。全日步行。"
       },
       {
         "time": "12:30", "title": "午餐：Wakasaimo 仙堂庵", "type": "午餐",
@@ -314,13 +314,13 @@ const USER_ITINERARY = {
         "note": "📍 交通：沿湖畔步行 12 分鐘。\n🍱 推薦：「噴火灣海鮮定食」。\n🪟 特色：餐廳窗景正對湖水，能量極佳。"
       },
       {
-        "time": "19:00", "title": "晚餐：季節懷石", "type": "晚餐",
-        "address": "The Lake Suite", "tags": ["已含"], "moodColor": "#B4A18F",
-        "note": "續住菜單更換。專注品味食材原味。"
+        "time": "15:30", "title": "館內礦物 SPA", "type": "放鬆",
+        "address": "The Lake Suite Spa", "tags": ["預約制"], "moodColor": "#1B262C",
+        "note": "重點按壓肩頸，釋放壓力。\n晚餐於旅館內享用季節懷石 (菜單更換)。"
       }
     ],
     "inspiration": [
-      { "title": "Plan B: 雨天備案", "tag": "風控", "note": "若下雨無法散步，改在房內進行「山入水」冥想：想像自己如山一般沉入湖底，穩固不動。或預約館內 SPA。", "type": "室內" }
+      { "title": "Plan B: 雨天備案", "tag": "風控", "note": "若下雨無法散步，改在房內進行「山入水」冥想：想像自己如山一般沉入湖底，穩固不動。", "type": "室內" }
     ],
     "shopping": ["Wakasaimo 蕃薯甜點"]
   },
@@ -329,18 +329,18 @@ const USER_ITINERARY = {
       {
         "time": "09:30", "title": "移動：往札幌", "type": "交通",
         "address": "JR Toya Station", "tags": ["特急北斗"], "moodColor": "#5C6B73",
-        "note": "1. 旅館接駁車 ➔ JR 洞爺站。\n2. JR 特急北斗號 (1號月台) ➔ 札幌站 (約 2 小時)。"
+        "note": "1. 旅館接駁車 ➔ JR 洞爺站。\n2. JR 特急北斗號 (1號月台) ➔ 札幌站 (約 2 小時)。\n3. 抵達後寄放行李於車站或飯店。"
       },
       {
         "time": "12:30", "title": "午餐：鮨 一柳", "type": "午餐",
         "address": "札幌市中央区南4条西4", "coords": [43.0565, 141.3530],
         "tags": ["Omakase", "金"], "moodColor": "#B4A18F",
-        "note": "📍 交通：札幌站南口步行 8 分鐘。\n🍣 攻略：高 ROI 午間套餐，需事前預約。\n💼 任務：觀察板前的精準動作，校準氣場。"
+        "note": "📍 交通：札幌站南口步行 8 分鐘 (或地鐵至薄野站)。\n🍣 攻略：觀察板前師傅的精準動作，校準氣場。"
       },
       {
         "time": "15:00", "title": "調香 1：MoonLeaf", "type": "體驗",
         "address": "札幌市中央区大通", "tags": ["定力", "水"], "moodColor": "#1B262C",
-        "note": "能量任務：內在定力調配。\n調製一款名為「定力」的精油。"
+        "note": "能量任務：內在定力調配。\n調製一款名為「定力」的精油。步行可達古道具店「十一月」。"
       },
       {
         "time": "19:00", "title": "晚餐：居酒屋 富士", "type": "晚餐",
@@ -356,43 +356,14 @@ const USER_ITINERARY = {
   "day4": {
     "events": [
       {
-        "time": "08:15", "title": "移動：砂川奪標戰", "type": "交通",
-        "address": "Sapporo Station", "tags": ["特急Lilac"], "moodColor": "#B4A18F",
-        "note": "能量任務：精準執行。\n1. 08:30 札幌站 (7/8月台) 特急 Lilac 5號 ➔ 09:23 砂川站。\n2. 09:35 站前巴士 (中央巴士上砂川線) ➔ 「豊沼小学校」下車。"
-      },
-      {
-        "time": "10:00", "title": "調香 2：SHIRO 工廠", "type": "體驗",
-        "address": "北海道砂川市豊沼町54-1", "coords": [43.5186, 141.9210],
-        "tags": ["整理券", "金"], "moodColor": "#1B262C",
-        "note": "現場領取整理券。製作專屬「冰點」香氣，強化金屬性決斷力。"
-      },
-      {
-        "time": "12:00", "title": "午餐：SHIRO CAFE", "type": "午餐",
-        "address": "SHIRO Factory", "tags": ["健康"], "moodColor": "#F0F4F8",
-        "note": "工廠內享用健康蔬食，維持下午精神清爽。"
-      },
-      {
-        "time": "19:00", "title": "晚餐：Molière", "type": "晚餐",
-        "address": "札幌市中央区宮ヶ丘2丁目1-1", "coords": [43.0538, 141.3175],
-        "tags": ["三星", "法式"], "moodColor": "#B4A18F",
-        "note": "📍 交通：地鐵東西線「圓山公園站」4 號出口步行 10 分鐘。\n🍽️ 體驗：北海道食材的巔峰演繹。"
-      }
-    ],
-    "inspiration": [
-      { "title": "Plan B: 交通脫班", "tag": "風控", "note": "若錯過砂川站前巴士，直接在車站搭計程車至工廠 (約 1,500 JPY)。若 Molière 沒訂到，改訂「L'Auberge de l'Ill Sapporo」。", "type": "交通" }
-    ],
-    "shopping": ["SHIRO 砂川限定"]
-  },
-  "day5": {
-    "events": [
-      {
         "time": "09:00", "title": "移動：小樽余市", "type": "交通",
-        "address": "Otaru Station", "tags": ["JR"], "moodColor": "#5C6B73",
-        "note": "09:00 札幌站 (1號月台) 快速 Airport ➔ 小樽站 (4號月台轉乘) ➔ 余市站。"
+        "address": "Otaru Station", "tags": ["JR", "巴士"], "moodColor": "#5C6B73",
+        "note": "能量任務：土金相生 (余市的土，小樽的金)。\n09:00 札幌站 (1號月台) 快速 Airport ➔ 小樽站 (4號月台轉乘) ➔ 余市站。"
       },
       {
         "time": "12:00", "title": "午餐：柿崎商店", "type": "午餐",
-        "address": "余市町黒川町7-10", "tags": ["海鮮丼", "高ROI"], "moodColor": "#B4A18F",
+        "address": "余市町黒川町7-10", "coords": [43.1884, 140.7834],
+        "tags": ["海鮮丼", "高ROI"], "moodColor": "#B4A18F",
         "note": "📍 交通：余市站步行 2 分鐘。\n🦀 攻略：產地直供，點「海膽丼」或「烤魚定食」。"
       },
       {
@@ -403,13 +374,43 @@ const USER_ITINERARY = {
       {
         "time": "19:00", "title": "晚餐：和牛 備長", "type": "晚餐",
         "address": "札幌市中央区南3条西2", "tags": ["炭火", "白老牛"], "moodColor": "#B4A18F",
-        "note": "從酒店步行 6 分鐘。直球對決的美味，補充蛋白質與火能量。"
+        "note": "從酒店步行 6 分鐘。直球對決的美味，補充蛋白質。"
       }
     ],
     "inspiration": [
       { "title": "Plan B: 行程太趕", "tag": "風控", "note": "若在余市停留太久，取消下午祝津調香，改去小樽運河區的「北一硝子」感受玻璃工藝 (金/火能量)。", "type": "調整" }
     ],
-    "shopping": ["余市蘋果汁"]
+    "shopping": ["余市蘋果汁", "余市威士忌"]
+  },
+  "day5": {
+    "events": [
+      {
+        "time": "08:15", "title": "移動：砂川奪標戰", "type": "交通",
+        "address": "Sapporo Station", "tags": ["特急Lilac", "精準"], "moodColor": "#B4A18F",
+        "note": "能量任務：志在必得 (Shrio)。\n1. 08:30 札幌站 (7/8月台) 特急 Lilac 5號 ➔ 09:23 砂川站。\n2. 09:35 站前巴士 (中央巴士上砂川線) ➔ 「豊沼小学校」下車。\n3. 步行 3 分鐘抵達工廠。"
+      },
+      {
+        "time": "10:00", "title": "調香 2：SHIRO 工廠", "type": "體驗",
+        "address": "北海道砂川市豊沼町54-1", "coords": [43.5186, 141.9210],
+        "tags": ["整理券", "金"], "moodColor": "#1B262C",
+        "note": "現場領取整理券。製作專屬「冰點」香氣，強化金屬性決斷力。"
+      },
+      {
+        "time": "12:00", "title": "午餐：SHIRO CAFE", "type": "午餐",
+        "address": "SHIRO Factory", "tags": ["健康"], "moodColor": "#F0F4F8",
+        "note": "工廠內享用健康蔬食 (小松菜與酒粕披薩)，維持下午精神清爽。"
+      },
+      {
+        "time": "19:00", "title": "晚餐：Molière", "type": "晚餐",
+        "address": "札幌市中央区宮ヶ丘2丁目1-1", "coords": [43.0538, 141.3175],
+        "tags": ["三星", "法式"], "moodColor": "#B4A18F",
+        "note": "📍 交通：地鐵東西線「圓山公園站」4 號出口步行 10 分鐘 (穿越公園)。\n🍽️ 體驗：北海道食材的巔峰演繹。"
+      }
+    ],
+    "inspiration": [
+      { "title": "Plan B: 交通脫班", "tag": "風控", "note": "若錯過砂川站前巴士，砂川站前有排班計程車 (約 1,500 JPY)。若 Molière 沒訂到，改訂「L'Auberge de l'Ill Sapporo」。", "type": "交通" }
+    ],
+    "shopping": ["SHIRO 砂川限定"]
   },
   "day6": {
     "events": [
@@ -417,7 +418,7 @@ const USER_ITINERARY = {
         "time": "10:30", "title": "莫埃來沼公園", "type": "能量",
         "address": "札幌市東区モエレ沼公園1-1", "coords": [43.1232, 141.4286],
         "tags": ["幾何", "大局"], "moodColor": "#F0F4F8",
-        "note": "能量任務：幾何格局，定稿演練。\n📍 交通：地鐵東豐線「環狀通東站」2 號出口 ➔ 轉 [東61] 巴士 ➔ 「莫埃來沼公園東口」。"
+        "note": "能量任務：幾何格局，定稿演練。\n📍 交通：地鐵東豐線「環狀通東站」2 號出口 ➔ 轉 [東61] 巴士 (往中沼小学校) ➔ 「莫埃來沼公園東口」下車。"
       },
       {
         "time": "13:30", "title": "午餐：蕎麥 喜雨", "type": "午餐",
@@ -440,17 +441,17 @@ const USER_ITINERARY = {
       {
         "time": "08:00", "title": "頓宮 蚤之市", "type": "收官",
         "address": "札幌市中央区南2条東3丁目", "tags": ["古物", "定心"], "moodColor": "#B4A18F",
-        "note": "能量任務：王者收官。\n📍 交通：地鐵東西線「巴士中心前站」6 號出口步行 3 分鐘。"
+        "note": "能量任務：王者收官。\n📍 交通：地鐵東西線「巴士中心前站」6 號出口步行 3 分鐘 (或從薄野步行 15 分鐘)。"
       },
       {
         "time": "12:00", "title": "午餐：拉麵 信玄", "type": "午餐",
         "address": "札幌市南6条西8丁目", "tags": ["味噌", "排隊"], "moodColor": "#1B262C",
-        "note": "薄野本店步行可達。濃郁信州味噌。\n若排隊太長，直接前往機場，改吃機場內「一幻拉麵」。"
+        "note": "薄野本店步行可達。濃郁信州味噌。\n備註：若排隊太長，直接前往機場，改吃機場內「一幻拉麵」。"
       },
       {
         "time": "14:15", "title": "前往機場 (CTS)", "type": "交通",
         "address": "New Chitose Airport", "tags": ["CX581", "歸來"], "moodColor": "#5C6B73",
-        "note": "JR 快速 Airport (U-Seat)。\n16:30 起飛，20:55 抵達香港。"
+        "note": "JR 快速 Airport (U-Seat)。\n16:30 起飛，20:55 抵達香港。王者歸來。"
       }
     ],
     "inspiration": [
@@ -486,8 +487,7 @@ const PHRASE_DATA = [
     ]
   }
 ];
-</script>
-    
+</script>    
     <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-msg">Action Completed</span></div>
 <header>
 <div>
