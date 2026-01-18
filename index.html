@@ -193,15 +193,8 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
 <body>
 
 <script id="USER_DATA_CONFIG">
-/**
- * 🇹🇭 曼谷金水涅槃：首長級職涯定礎之旅 (2026 最終定稿版)
- * 核心策略：
- * 1. 【強金定礎】利用 MOCA、調香、米其林二星確立監管者架構。
- * 2. 【大水洗塵】利用昭披耶河、漂浮體驗、三度 SPA 潤澤戊戌燥土。
- * 3. 【主場優勢】將大部分行程鎖定在 Thong Lo 區，極大化資源分配效率。
- */
 
-// 1. 🎨 視覺主題 (深海藍與香檳金 - 納金水能量)
+// 1. 🎨 視覺主題 (Deep Ocean & Champagne - 納金水)
 const THEME_CONFIG = {
   accentColor: "#C5A059",        // 香檳金
   accentText: "#0F172A",         // 深海藍底金字
@@ -218,8 +211,8 @@ const THEME_CONFIG = {
 // 2. 🗓️ 旅程設定
 const CONFIG = {
   ui: {
-    browserTitle: "BKK Strategic Trip",
-    headerTitle: "BKK <span>STRATEGY</span>",
+    browserTitle: "曼谷金水涅槃",
+    headerTitle: "曼谷金水涅槃",
     homeTimezone: "Asia/Hong_Kong",
     homeTimeLabel: "HKG"
   },
@@ -242,72 +235,86 @@ const DESTINATION = {
 const TRIP_INFO = {
   visa: { type: "香港護照 (免簽)", note: "有效期需超過 6 個月" },
   flights: [
-    { type: "去程", flight: "CX755", date: "04/03", dep: "09:25 HKG", arr: "11:30 BKK", note: "國泰航空 T1" },
-    { type: "回程", flight: "CX706", date: "04/07", dep: "16:25 BKK", arr: "20:25 HKG", note: "13:50抵達機場" }
+    { type: "去程", flight: "CX755", date: "04/03", dep: "09:25 HKG", arr: "11:30 BKK" },
+    { type: "回程", flight: "CX706", date: "04/07", dep: "16:25 BKK", arr: "20:25 HKG" }
   ],
-  hotels: [{ name: "IR-ON Hotel", address: "10/10 Sukhumvit 36, Thong Lo", phone: "+6620740806" }],
-  emergency: [
-    { name: "旅遊警察", phone: "1155" },
-    { name: "外交部救援", phone: "+66-81-666-4006" }
-  ]
+  hotels: [{ name: "IR-ON Hotel", address: "10/10 Sukhumvit 36, Thong Lo", phone: "+6620740806" }]
 };
 
-// 5. 🗺️ 最終優化行程 (整合所有更新)
+// 5. 🗺️ 最終極致行程 (含靈感後備方案)
 const USER_ITINERARY = {
   "day1": {
+    "title": "Day 1: 排除雜質，精確開局",
     "events": [
-      { "time": "12:30", "title": "午餐: Supanniga (Thong Lo)", "tags": ["結構泰菜", "潤燥"], "note": "點冰鎮氣泡水液化燥土。建立首日秩序，避開泰奶。" },
+      { "time": "12:30", "title": "午餐: Supanniga (Thong Lo)", "tags": ["結構泰菜", "潤燥"], "note": "練習資源分配。點冰鎮氣泡水液化燥土。建立首日秩序。" },
       { "time": "14:30", "title": "調香: Craftfeteria (Centralworld)", "tags": ["Siam區", "結構建立"], "note": "【Perfume Bar】挑選代表政策執行力的基底。練習在商場繁雜中持守精準嗅覺。" },
-      { "time": "16:30", "title": "SPA: Asia Herb Association (Thong Lo)", "tags": ["按摩 I", "洗塵"], "note": "【首場潤澤】液化飛行燥氣與市區熱量。讓身心進入接收模式。" },
-      { "time": "19:30", "title": "晚餐: R-Haan (米其林二星)", "tags": ["皇家秩序", "強金能量"], "note": "就在 Thong Lo。享受皇家規矩，避免橫跨曼谷的體力損耗。*需預約。" }
+      { "time": "16:30", "title": "SPA: Asia Herb Association (Thong Lo)", "tags": ["按摩 I", "洗塵"], "note": "【首場潤澤】液化飛行燥氣。讓身心進入接收模式，避免首日過熱。" },
+      { "time": "19:30", "title": "晚餐: R-Haan (米其林二星)", "tags": ["皇家秩序", "強金"], "note": "就在 Thong Lo。享受精確到毫釐的規矩，避免橫跨曼谷的體力損耗。" }
+    ],
+    "inspiration_notes": [
+      { "title": "後備方案: EmSphere 購物觀摩", "note": "若 Centralworld 人潮過多，可改往 Phrom Phong 站的 EmSphere。觀察其前衛的商業結構（金屬感極強），這對理解「新興市場准入政策」有視覺上的啟發。" }
     ]
   },
   "day2": {
+    "title": "Day 2: 權威定礎，戰略風向",
     "events": [
-      { "time": "10:00", "title": "職人調香: Erb Bespoke", "tags": ["皇室級", "權威"], "note": "確立第二層嗅覺結界：首長的優雅與威懾力。推薦：岩蘭草與檀香基底。" },
+      { "time": "10:00", "title": "職人調香: Erb Bespoke (Gaysorn)", "tags": ["皇室級", "權威"], "note": "確立第二層嗅覺結界。推薦：岩蘭草與檀香基底，強化首長級威懾力。" },
       { "time": "13:00", "title": "午餐: Copper Beyond Buffet", "tags": ["資產儲備", "社交定力"], "note": "【首長配額制】主攻頂級蛋白質，在熱鬧環境中持守進食節奏與風度。" },
-      { "time": "15:00", "title": "戰略諮詢: Ging Astro", "tags": ["酒店大堂", "風險報告"], "note": "【主場諮詢】針對 7 月面試與職位轉動進行諮詢。聆聽關於「變動」的戰略建議。" },
-      { "time": "17:00", "title": "後備: Jim Thompson House", "tags": ["泰絲", "木火美學"], "note": "若算命後尚有餘裕，可前往觀察泰絲之光澤。若疲累則留在飯店沉澱。" },
-      { "time": "19:30", "title": "晚餐: Canvas (藝術料理)", "tags": ["視覺金", "秩序"], "note": "在畫作般的料理中找尋邏輯。餐後直接回飯店，完美鎖住全天能量。" }
+      { "time": "15:00", "title": "算命諮詢: Ging Astro (酒店大堂)", "tags": ["主場優勢", "風險報告"], "note": "【核心諮詢】針對 7 月面試進行諮詢。聽取關於「變動與權威」的深度戰略建議。" },
+      { "time": "19:30", "title": "晚餐: Canvas (藝術料理)", "tags": ["視覺金", "秩序感"], "note": "就在飯店附近。在畫作般的料理中找尋邏輯。餐後步行回飯店，完美鎖住氣場。" }
+    ],
+    "inspiration_notes": [
+      { "title": "後備方案: Jim Thompson House", "note": "若算命後尚有餘裕，可前往參觀泰絲藝術。觀察絲綢的韌性（柔中帶剛），這正是高階官員面對質詢時應有的姿態。" }
     ]
   },
   "day3": {
+    "title": "Day 3: 功德積累，潤澤命局",
     "events": [
-      { "time": "10:30", "title": "二哥豐廟 (警局直達)", "tags": ["肅殺之金", "利官運"], "note": "宣告目標。供奉黑咖啡。練習在複雜環境中直擊核心。" },
-      { "time": "12:30", "title": "午餐: POTONG (普通大藥房)", "tags": ["精準監管", "五行平衡"], "note": "百年藥房改建。練習將行政素材提煉成決策藥方。*需提前預約。" },
-      { "time": "14:30", "title": "積福: 義德善堂 (捐棺)", "tags": ["功德水", "轉運"], "note": "積累功德水以化解命格淤塞。24 小時開放。" },
-      { "time": "16:00", "title": "SPA: Asia Herb Association (Thong Lo)", "tags": ["按摩 II", "預熱漂浮"], "note": "第二場按摩。為明日的漂浮體驗排毒，保持身體柔軟與彈性。" },
-      { "time": "19:00", "title": "晚餐: North (泰北料理)", "tags": ["洋房環境", "沈穩定力"], "note": "在安靜別墅享用晚宴，展現高級主管的優雅氣場。避開唐人街燥氣。" }
+      { "time": "10:30", "title": "二哥豐廟 (警局直達)", "tags": ["肅殺金", "利官運"], "note": "宣告目標。供奉黑咖啡。練習在複雜環境中直擊核心。" },
+      { "time": "12:30", "title": "午餐: POTONG (普通大藥房)", "tags": ["精準監管", "五行平衡"], "note": "百年藥房改建。練習將行政素材提煉成決策藥方。*務必提前預約。" },
+      { "time": "14:30", "title": "積福: 義德善堂 (捐棺)", "tags": ["功德水", "轉運"], "note": "積累功德水以化解命格淤塞。這是在面試高位前最重要的「負債清理」。" },
+      { "time": "16:00", "title": "SPA: Asia Herb Association (Thong Lo)", "tags": ["按摩 II", "預熱漂浮"], "note": "第二場按摩。為明日的漂浮體驗排毒，保持身體柔軟與彈性能量。" },
+      { "time": "19:00", "title": "晚餐: North (泰北料理)", "tags": ["洋房環境", "沈穩定力"], "note": "在安靜別墅享用晚宴，展現沈穩氣場。完全避開鬧區噪音。" }
+    ],
+    "inspiration_notes": [
+      { "title": "後備方案: Blue Whale Cafe (舊城區)", "note": "若 POTONG 後需要沈澱，前往這間全藍色調（大水能量）的咖啡館。大面積的藍色能強效壓制燥火，助您冷靜思考面試策略。" }
     ]
   },
   "day4": {
+    "title": "Day 4: 金水涅槃，架構重生",
     "events": [
-      { "time": "10:00", "title": "MOCA 當代藝術館 (深度研讀)", "tags": ["強金架構", "面試演習"], "note": "【核心】在白色空間研讀 HKMA 政策文件。將條文框架刻入靈魂骨架。" },
-      { "time": "13:00", "title": "河畔學習: 文華東方/Iconsiam", "tags": ["水能內化"], "note": "【輕食】看著昭披耶河流動，練習政策條文的靈活運用。為漂浮保持腹部空靈。" },
-      { "time": "15:30", "title": "Theta State Float (無重力漂浮)", "tags": ["靈魂重塑", "涅槃"], "note": "在鹽水中將政策與潛意識融合。徹底釋放行政壓力，完成蜕變。" },
-      { "time": "19:00", "title": "晚餐: Nusara (河畔加冕)", "tags": ["鄭王廟", "水之巔峰"], "note": "【戰略位移】漂浮後直視大河能量。體悟權威與流動的真諦。" },
+      { "time": "10:00", "title": "MOCA 當代藝術館 (帶政策文件)", "tags": ["強金架構", "深度研讀"], "note": "【核心演習】在白色純淨空間研讀 HKMA 文件。將法規框架刻入靈魂骨架。" },
+      { "time": "13:00", "title": "河畔學習: Iconsiam 7F / 文華東方", "tags": ["水能內化"], "note": "【只吃輕食】看著昭披耶河流動，練習政策條文的靈活解釋與運用。保持腹部空靈。" },
+      { "time": "15:30", "title": "Theta State Float (無重力漂浮)", "tags": ["靈魂重塑", "真空涅槃"], "note": "【涅槃點】在鹽水中釋放行政壓力。完成從「執行官」到「監管架構師」的蛻變。" },
+      { "time": "19:00", "title": "晚餐: Nusara (河畔加冕)", "tags": ["鄭王廟", "水之巔峰"], "note": "【加冕時刻】漂浮後直視大河能量用餐。體悟權威與流動的真諦。" },
       { "time": "21:30", "title": "微醺: The Bamboo Bar", "tags": ["老錢風", "權威眼神"], "note": "河畔收官。點一杯 Gin & Tonic，練習在嘈雜中保持沈默的威懾力。" }
+    ],
+    "inspiration_notes": [
+      { "title": "後備方案: Iconsiam Enigma 私人影院", "note": "若體力不足以漫步河岸，去 Iconsiam 頂級影院靜坐 2 小時。在極度私密且低溫（強金）的環境中，進行最後的腦內面試模擬。" }
     ]
   },
   "day5": {
+    "title": "Day 5: 規則制定，平安歸港",
     "events": [
-      { "time": "09:30", "title": "SPA: Asia Herb (Thong Lo) - 最終回潤", "tags": ["按摩 III", "水能護盾"], "note": "【收官指令】出發前的最後補水。建議足部按摩。液化潛在焦慮。" },
+      { "time": "09:30", "title": "SPA: Asia Herb (Thong Lo) - 最終回潤", "tags": ["按摩 III", "水能護盾"], "note": "【收官指令】出發前最後補水。液化潛在焦慮，為飛行與未來面試儲備動能。" },
       { "time": "11:30", "title": "謝幕午餐: GAA (Thong Lo)", "tags": ["重新定義", "強金結構"], "note": "【破局者】享受打破常規的二星印度菜。帶著「定義規則」的氣場回港。" },
-      { "time": "13:50", "title": "前往機場 (BKK)", "tags": ["平安歸港", "奪權就職"], "note": "從 Thong Lo 飯店出發。您的氣場已重新鍛造。七月，金管局見。" }
+      { "time": "13:50", "title": "前往機場 (BKK)", "tags": ["平安歸港"], "note": "從飯店出發。您的氣場已由曼谷的精確與潤澤重新鍛造。七月，金管局見。" }
+    ],
+    "inspiration_notes": [
+      { "title": "後備方案: Masatake 皮革手作 (Thong Lo)", "note": "若想在午餐前再進行一次微型專注訓練，可預約 1 小時皮件封邊體驗。這種對極致細節的處理，能將您的心氣收束得更緊實。" }
     ]
   }
 };
 
-// 6. 🗣️ 常用短語 (首長版)
+// 🗣️ 常用短語 (首長版)
 const PHRASE_DATA = [
   { category: "飲食潤燥", items: [
     { term_primary: "ไม่เอาผักชี", term_secondary: "不要香菜！", term_pronounce: "Mai Ao Phak Chi" },
-    { term_primary: "ไม่เผ็ด", term_secondary: "不要辣", term_pronounce: "Mai Phet" },
-    { term_primary: "น้ำเปล่าเย็นๆ", term_secondary: "冰純淨水", term_pronounce: "Nam Plao Yen Yen" }
+    { term_primary: "ไม่เผ็ด", term_secondary: "不要辣", term_pronounce: "Mai Phet" }
   ]},
   { category: "專業需求", items: [
     { term_primary: "เบาๆ หน่อย", term_secondary: "輕一點 (按摩)", term_pronounce: "Bao Bao Noi" },
-    { term_primary: "ขอใบเสร็จด้วย", term_secondary: "請給我收據", term_pronounce: "Khor Bai Set Duay" }
+    { term_primary: "ขอใบเสร็จด้วย", term_secondary: "請給我收據 (報帳用)", term_pronounce: "Khor Bai Set Duay" }
   ]}
 ];
 </script>
