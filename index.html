@@ -270,28 +270,28 @@ const TRIP_INFO = {
   ]
 };
 
-// 5. 🗺️ 詳細行程 (已移除 SHIRO，新增調香作品細節)
+// 5. 🗺️ 詳細行程 (已包含所有細節、Modal攻略、Plan B)
 const USER_ITINERARY = {
   "day1": {
     "events": [
       {
         "time": "15:00", "title": "抵達新千歲 (CTS)", "type": "交通",
         "address": "New Chitose Airport", "tags": ["入境", "壬水"], "moodColor": "#1B262C",
-        "note": "能量任務：焦慮斷層。\n入境後請至國內線 2F 購買「大吟釀」清酒。"
+        "note": "能量任務：焦慮斷層。\n入境後請至國內線 2F 購買高品質「大吟釀」清酒。\n準備卸下公務武裝。"
       },
       {
         "time": "16:00", "title": "道南巴士 (直達)", "type": "移動",
         "address": "New Chitose Airport Domestic Terminal", "tags": ["巴士"], "moodColor": "#5C6B73",
-        "note": "📍 乘車處：國內線 2 號或 29 號月台\n🚌 路線：往「洞爺湖溫泉」\n⏱️ 下車：終點站 (步行 2 分鐘到飯店)\n💡 備註：無需轉車，最適合調整心境。"
+        "note": "📍 乘車處：國內線 2 號 或 29 號月台\n🚌 路線：往「洞爺湖溫泉」\n⏱️ 車程：約 2 小時\n💡 攻略：直達終點站，下車步行 2 分鐘即達旅館。"
       },
       {
         "time": "19:00", "title": "晚餐：旅館割烹", "type": "晚餐",
         "address": "The Lake Suite Dining", "tags": ["房費已含"], "moodColor": "#B4A18F",
-        "note": "在地食材懷石料理。\n餐後請在房內，面對湖景小酌清酒，將面試前的火氣卸入湖中。"
+        "note": "在地食材懷石料理。\n餐後入房，第一件事：推開窗面對洞爺湖，將面試前的火氣卸入湖中。"
       }
     ],
     "inspiration": [
-      { "title": "Plan B: 交通延誤", "tag": "風控", "note": "若錯過巴士，改搭 JR 快速 Airport 至「南千歲」，轉特急北斗號至「洞爺站」，聯繫旅館接駁。", "type": "備案" }
+      { "title": "Plan B: 錯過巴士", "tag": "風控", "note": "若錯過巴士，改搭 JR 快速 Airport 至「南千歲」，轉特急北斗號至「洞爺站」，再搭旅館預約接駁車。", "type": "交通" }
     ],
     "shopping": ["機場大吟釀", "入浴劑"]
   },
@@ -308,15 +308,15 @@ const USER_ITINERARY = {
         "note": "能量任務：靜水深流。\n在無遮擋的棧道，練習 3 分鐘 Pitch，讓聲音與水頻共振。"
       },
       {
-        "time": "12:30", "title": "午餐：Wakasaimo 仙堂庵", "type": "午餐",
+        "time": "12:30", "title": "午餐：Wakasaimo 2F", "type": "午餐",
         "address": "北海道虻田郡洞爺湖町洞爺湖温泉54 2F", "coords": [42.5663, 140.8275],
         "tags": ["高ROI", "窗景"], "moodColor": "#B4A18F",
-        "note": "📍 交通：沿湖畔步行 12 分鐘。\n🍱 推薦：噴火灣海鮮定食。\n🪟 特色：窗景正對湖水，視野開闊。"
+        "note": "📍 交通：沿湖畔步行 12 分鐘。\n🍱 推薦：Wakasaimo 本舖 2F「噴火灣海鮮定食」。\n🪟 特色：窗景正對湖水，視野開闊。"
       },
       {
         "time": "15:30", "title": "館內深度 SPA", "type": "放鬆",
         "address": "The Lake Suite Spa", "tags": ["預約制"], "moodColor": "#1B262C",
-        "note": "重點釋放肩頸壓力。\n晚餐於旅館內享用。"
+        "note": "重點釋放肩頸壓力。\n晚餐於旅館內享用懷石料理。"
       }
     ],
     "inspiration": [
@@ -338,14 +338,14 @@ const USER_ITINERARY = {
         "note": "📍 交通：札幌站南口步行 8 分鐘。\n🍣 攻略：高 ROI 午間套餐，需事前預約。\n🔴 Plan B：若無位，改去「壽司善」。"
       },
       {
-        "time": "15:00", "title": "調香：MoonLeaf", "type": "作品",
+        "time": "15:00", "title": "MoonLeaf 調香", "type": "作品",
         "address": "札幌市中央区大通", "tags": ["Theia", "金屬感"], "moodColor": "#1B262C",
         "note": "⚗️ 作品：《Theia》\n🧪 關鍵：挑戰前衛結構，加入 8%-10% 番紅花 (Saffron) 對應金屬感。"
       },
       {
         "time": "19:00", "title": "晚餐：居酒屋 富士", "type": "晚餐",
         "address": "札幌市中央区南5条西4", "tags": ["在地"], "moodColor": "#1B262C",
-        "note": "📍 交通：從野乃飯店步行 4 分鐘。\n🐟 必點：烤花鯽魚。"
+        "note": "📍 交通：從野乃飯店步行 4 分鐘。\n🐟 必點：烤花鯽魚、炸雞。"
       }
     ],
     "inspiration": [
@@ -356,9 +356,9 @@ const USER_ITINERARY = {
   "day4": {
     "events": [
       {
-        "time": "10:30", "title": "調香：SOSO (PARCO)", "type": "作品",
+        "time": "10:30", "title": "SOSO 調香", "type": "作品",
         "address": "札幌 PARCO", "tags": ["Eirene", "平靜"], "moodColor": "#1B262C",
-        "note": "⚗️ 作品：《Eirene》\n🧪 關鍵：白樺與薄荷，打造絕對的冷靜。\n📍 交通：酒店步行 8 分鐘。"
+        "note": "⚗️ 作品：《Eirene》\n🧪 關鍵：白樺與薄荷，打造絕對的冷靜。\n📍 交通：酒店步行 8 分鐘至 PARCO。"
       },
       {
         "time": "12:30", "title": "午餐：蕎麥 喜雨", "type": "午餐",
@@ -366,7 +366,7 @@ const USER_ITINERARY = {
         "note": "📍 交通：從 PARCO 步行 6 分鐘。\n🍜 特色：冷冽有勁的手打蕎麥。"
       },
       {
-        "time": "14:30", "title": "調香：Aroma College", "type": "作品",
+        "time": "14:30", "title": "Aroma College 調香", "type": "作品",
         "address": "札幌市中央区", "tags": ["Mnemosyne", "權威"], "moodColor": "#1B262C",
         "note": "⚗️ 作品：《Mnemosyne》\n🧪 關鍵：指定醫療級鳶尾花根 (Iris Root) 與蝦夷松 (Ezo Pine)。"
       },
@@ -378,7 +378,7 @@ const USER_ITINERARY = {
       }
     ],
     "inspiration": [
-      { "title": "Plan B: 預約額滿", "tag": "風控", "note": "若 Aroma College 滿員，改去「札幌市資料館」，感受舊上訴院石造建築的肅穆氣場。", "type": "建築" }
+      { "title": "Plan B: 預約額滿", "tag": "風控", "note": "若 Aroma College 滿員，改去「札幌市資料館」，感受舊上訴院石造法院的肅穆氣場。", "type": "建築" }
     ],
     "shopping": ["無 (專注於調香成品)"]
   },
@@ -415,13 +415,13 @@ const USER_ITINERARY = {
       {
         "time": "10:30", "title": "古道具 十一月", "type": "選物",
         "address": "札幌市中央区南2条西8丁目", "tags": ["老件", "定心"], "moodColor": "#B4A18F",
-        "note": "尋找一件適合放在辦公桌上的能量物件。"
+        "note": "尋找一件適合放在辦公桌上的能量物件 (文鎮或銅件)。"
       },
       {
         "time": "13:00", "title": "莫埃來沼公園", "type": "能量",
         "address": "札幌市東区モエレ沼公園1-1", "coords": [43.1232, 141.4286],
         "tags": ["幾何", "大局"], "moodColor": "#F0F4F8",
-        "note": "能量任務：幾何格局。\n📍 交通：地鐵東豐線「環狀通東站」2 號出口 ➔ 轉 [東61] 巴士 ➔ 「莫埃來沼公園東口」。\n玻璃金字塔下思考政策框架。"
+        "note": "能量任務：幾何格局，定稿演練。\n📍 交通：地鐵東豐線「環狀通東站」2 號出口 ➔ 轉 [東61] 巴士 ➔ 「莫埃來沼公園東口」下車。\n在玻璃金字塔下思考政策框架。"
       },
       {
         "time": "19:00", "title": "晚餐：貴水 (Takami)", "type": "晚餐",
@@ -439,12 +439,12 @@ const USER_ITINERARY = {
       {
         "time": "08:00", "title": "頓宮 蚤之市", "type": "收官",
         "address": "札幌市中央区南2条東3丁目", "tags": ["古物", "銅件"], "moodColor": "#B4A18F",
-        "note": "能量任務：王者收官。\n📍 交通：地鐵東西線「巴士中心前站」6 號出口步行 3 分鐘。\n🎯 目標：選一件小銅件或石質文鎮。"
+        "note": "能量任務：王者收官。\n📍 交通：地鐵東西線「巴士中心前站」6 號出口步行 3 分鐘。\n🎯 目標：選一件小銅件，作為面試桌上的能量支點。"
       },
       {
         "time": "12:00", "title": "午餐：北之味 俱樂部", "type": "午餐",
         "address": "New Chitose Airport", "tags": ["最後補給"], "moodColor": "#1B262C",
-        "note": "機場內享用午餐。隨後採購。"
+        "note": "機場內享用午餐。隨後採購 (六花亭、利尻昆布)。"
       },
       {
         "time": "14:15", "title": "前往機場 (CTS)", "type": "交通",
@@ -455,7 +455,7 @@ const USER_ITINERARY = {
     "inspiration": [
       { "title": "Plan B: 蚤之市休市", "tag": "風控", "note": "若市集因雨取消，改去機場國內線 3F 觀察工業設計與建築結構。", "type": "觀察" }
     ],
-    "shopping": ["文鎮", "六花亭"]
+    "shopping": ["文鎮", "六花亭", "利尻昆布"]
   }
 };
 
@@ -464,9 +464,9 @@ const PHRASE_DATA = [
   {
     category: "交通與導航",
     items: [
-      { term_primary: "この電車は [砂川] に止まりますか？", term_secondary: "這班車停 [砂川] 嗎？", term_pronounce: "Kono densha wa [Sunagawa] ni tomarimasu ka?" },
       { term_primary: "バスの乗り場はどこですか？", term_secondary: "請問巴士站在哪裡？", term_pronounce: "Basu no noriba wa doko desu ka?" },
-      { term_primary: "そこまで歩いてどのくらい？", term_secondary: "步行到那裡大約多久？", term_pronounce: "Soko made aruite dono kurai?" }
+      { term_primary: "そこまで歩いてどのくらい？", term_secondary: "步行到那裡大約多久？", term_pronounce: "Soko made aruite dono kurai?" },
+      { term_primary: "この電車は [砂川] に止まりますか？", term_secondary: "這班車停 [砂川] 嗎？", term_pronounce: "Kono densha wa [Sunagawa] ni tomarimasu ka?" }
     ]
   },
   {
