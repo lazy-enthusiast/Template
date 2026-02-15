@@ -193,15 +193,15 @@ nav.bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: var(
 <body>
 
 <script id="USER_DATA_CONFIG">
-// 1. 🎨 系統設計
+// 🎨 視覺與系統設定：維持「宮地嶽金色」主題與穩定字體
 const THEME_CONFIG = {
-    accentColor: "#D4AF37",      // 神社金
+    accentColor: "#D4AF37",
     accentText: "#FFFFFF",
-    backgroundColor: "#F7F9FC",  
+    backgroundColor: "#F7F9FC",
     cardColor: "#FFFFFF",
-    textColor: "#1a2e47",        
+    textColor: "#1a2e47",
     textSubColor: "#5e6c7e",
-    borderColor: "#B6A0C2",      
+    borderColor: "#B6A0C2",
     googleFontsUrl: "https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap",
     fontHeading: '"Zen Kaku Gothic New", sans-serif',
     fontBody: '"Zen Kaku Gothic New", sans-serif'
@@ -214,142 +214,71 @@ const CONFIG = {
         homeTimezone: "Asia/Hong_Kong",
         homeTimeLabel: "HKG"
     },
-    startDate: "2026-02-14", 
+    startDate: "2026-02-14",
     duration: 7
 };
 
-const DESTINATION = {
-    name: "福岡 Fukuoka",
-    lat: 33.5902, lon: 130.4207,
-    timezone: "Asia/Tokyo",
-    currency: "jpy", currencyLabel: "JPY", baseCurrency: "HKD"
-};
-
-const TRIP_INFO = {
-    visa: { type: "Visit Japan Web", number: "QR Ready", note: "入境與免稅必備。2月適逢折扣季人潮較多。" },
-    flights: [
-        { type: "去程", flight: "UO6XX", date: "02/14", dep: "HKG 12:xx", arr: "FUK 17:10", note: "T2 登機" },
-        { type: "回程", flight: "UO669", date: "02/20", dep: "FUK 16:05", arr: "HKG 19:xx", note: "14:00 須抵達機場櫃台" }
-    ],
-    hotels: [
-        { name: "Hotel Wing 博多新幹線口", address: "福岡市博多区博多駅東1-17-17", phone: "+81924310489", note: "博多站『筑紫口』步行 4 分鐘。" }
-    ]
-};
-
 const USER_ITINERARY = {
-    "day1": {
-        "events": [
-            { "time": "17:10", "title": "抵達福岡空港 (FUK)", "type": "交通", "address": "福岡空港國際線", "price": "巴士 ¥270", "tags": ["2號月台"], "moodColor": "#1a2e47", 
-                "note": "【交通指南】入境後出航廈大門，左前方『2 號乘車處』搭乘往博多站的機場直達巴士。在『博多駅筑紫口』下車。" },
-            { "time": "18:15", "title": "Check-in: Hotel Wing", "type": "住宿", "address": "福岡市博多区博多駅東1-17-17", "phone": "+81924310489", "price": "已預約", "tags": ["筑紫口"], "moodColor": "#000", 
-                "note": "【交通指南】下巴士後面向車站右轉，沿大馬路直走約 4 分鐘，過第一個紅綠燈右手邊即是。" },
-            { "time": "18:45", "title": "晚餐：博多牛腸鍋 前田屋", "type": "美食", "address": "福岡市博多区博多駅東2-1-24", "phone": "+81924828558", "price": "¥4,000~", "tags": ["味噌口味"], "moodColor": "#d63345", 
-                "note": "【交通指南】飯店門口左轉步行 5 分鐘。必須提前預約。首晚暖胃必吃。" },
-            { "time": "20:30", "title": "晚酌採購：MaxValu 超市", "type": "購物", "address": "博多駅筑紫口周邊", "price": "依消費", "tags": ["甘王草莓"], "moodColor": "#D4AF37", 
-                "note": "買博多甘王草莓與九州限定啤酒（如產土）回飯店晚酌。" }
-        ],
-        "shopping": ["甘王草莓", "日本製保溫瓶"]
-    },
-    "day2": {
-        "events": [
-            { "time": "08:30", "title": "早餐：牛舌定食 たんや", "type": "美食", "address": "博多一番街 B1", "price": "¥800", "tags": ["福岡最強早餐"], "moodColor": "#D4AF37", 
-                "note": "【交通指南】步行至博多車站 B1『博多一番街』。烤牛舌山藥泥定食。" },
-            { "time": "10:00", "title": "禪意巡禮：大濠公園日本庭園", "type": "放鬆", "address": "中央区大濠公園1-7", "price": "¥250", "open_hours": "09:00-17:00", "tags": ["純淨能量"], "moodColor": "#4CAF50", 
-                "note": "【交通指南】博多站搭地鐵七隈線（3號月台）至『六本松站』。2 號出口步行 8 分鐘抵達。" },
-            { "time": "12:30", "title": "午餐：六本松 蔦屋輕食", "type": "美食", "address": "Ropponmatsu 421", "price": "¥1,500", "tags": ["設計感"], "moodColor": "#1a2e47", 
-                "note": "【交通指南】由日本庭園步行回到六本松站旁 Ropponmatsu 421 大樓 2 樓。" },
-            { "time": "14:00", "title": "🍶 酒藏祭：城島酒藏びらき", "type": "體驗", "address": "久留米市城島町", "price": "接駁車 ¥210", "open_hours": "09:30-16:00", "tags": ["金水能量", "官網指引"], "moodColor": "#D4AF37", 
-                "note": "【交通指南】1. 六本松搭地鐵回博多。 2. 搭 JR 鹿兒島本線（快速）至『荒木站』（注意：久留米下一站）。 3. 荒木站前搭乘專屬接駁車（單程 ¥210）。今日最後一天，能量最熱烈。" },
-            { "time": "18:30", "title": "晚餐：鳥鶏研究團 (精品燒鳥)", "type": "美食", "address": "博多区博多駅前4-18-19", "phone": "+81922609556", "price": "¥5,500", "tags": ["現代職人"], "moodColor": "#d63345", 
-                "note": "【交通指南】JR 回博多站由『博多口』出站，步行 8 分鐘。必須預約。炭火燒鳥配大吟釀。" }
-        ],
-        "shopping": ["城島限定酒"]
-    },
     "day3": {
         "events": [
-            { "time": "09:30", "title": "早餐：西鐵福岡站輕食", "type": "美食", "address": "西鐵福岡(天神)站", "price": "¥1,000", "tags": ["西鐵線"], "moodColor": "#1a2e47", 
-                "note": "【交通指南】地鐵博多搭至『天神站』。步行至西鐵站 1-2 號月台搭『旅人號』特急。" },
-            { "time": "10:30", "title": "太宰府天滿宮", "type": "參拜", "address": "太宰府市", "price": "免費", "tags": ["梅花", "學問"], "moodColor": "#D4AF37", 
-                "note": "【交通指南】搭西鐵太宰府線至終點。出站步行 5 分。摸銅牛補金運，吃梅枝餅。" },
-            { "time": "14:00", "title": "竈門神社 (良緣/美學)", "type": "祈福", "address": "太宰府市内山883", "price": "巴士 ¥100", "open_hours": "08:30-18:00", "tags": ["設計感"], "moodColor": "#d63345", 
-                "note": "【交通指南】太宰府站前搭巴士『まほろば号』，在『內山』下車。領取設計款「結緣紅線」。" },
-            { "time": "17:30", "title": "🔮 占卜酒吧 WIND AGE", "type": "神秘學", "address": "大野城市下大利3-2-20", "phone": "+81925961313", "price": "¥3,500", "tags": ["命運"], "moodColor": "#7E57C2", 
-                "note": "【交通指南】搭巴士回太宰府站 -> 西鐵至『下大利站』步行 5 分。必須 IG 預約。位於駕訓班內。" },
-            { "time": "20:30", "title": "晚餐：Shin-Shin 拉麵", "type": "美食", "address": "博多駅內 Deitos 2F", "price": "¥980", "tags": ["博多經典"], "moodColor": "#1a2e47", 
-                "note": "西鐵回天神，轉地鐵/JR回博多。博多站 2F 拉麵街道。" }
-        ],
-        "shopping": ["結緣紅線御守"]
+            { "time": "10:30", "title": "太宰府天滿宮", "type": "參拜", "address": "太宰府市", "tags": ["梅花", "能量平衡"], "moodColor": "#D4AF37", 
+                "note": "【交通】西鐵天神站搭『旅人號』。今日以精神能量補充為主，不排購物，讓嗅覺充分休息。" },
+            { "time": "14:00", "title": "竈門神社", "type": "祈福", "address": "太宰府市内山883", "tags": ["現代美學", "良緣"], "moodColor": "#d63345", 
+                "note": "【交通】太宰府站前搭『まほろば号』。買完結緣紅線後可在設計感十足的授與所靜坐。" },
+            { "time": "18:00", "title": "🔮 WIND AGE 占卜酒吧", "type": "神秘學", "address": "大野城市下大利3-2-20", "tags": ["塔羅對話"], "moodColor": "#7E57C2", 
+                "note": "【交通】西鐵下大利站步行 5 分。已預約。在微醺與塔羅中尋找《Chasma》的靈魂意象。" }
+        ]
     },
     "day4": {
         "events": [
-            { "time": "10:00", "title": "🍺 啤酒見學：麒麟工廠", "type": "體驗", "address": "朝倉市馬田3601", "phone": "+81946232132", "price": "¥500", "tags": ["現釀試飲"], "moodColor": "#FBC02D", 
-                "note": "【交通指南】JR博多站搭至『基山站』，轉甘木鐵道至『太刀洗站』。步行 15 分。必須官網預約。" },
-            { "time": "14:30", "title": "🌿 精油站1：Hands 博多店", "type": "採購", "address": "JR博多站 4F", "phone": "+81924135109", "price": "實惠", "tags": ["yuica"], "moodColor": "#4CAF50", 
-                "note": "【交通指南】博多站博多口方向進入 Amu Plaza 4 樓。\n【採購攻略】首推 **yuica (結香)** 日本森林精油。外國人享 10% 退稅。" },
-            { "time": "16:00", "title": "🌿 精油站2：Maison de l'Aroma", "type": "採購", "address": "福岡市中央区大名1-13-16", "phone": "+81927150556", "price": "中高價", "open_hours": "11:00-19:00", "tags": ["稀有原精"], "moodColor": "#7E57C2", 
-                "note": "【交通指南】博多站搭地鐵機場線（2號月台）至『天神站』。由 **6 號出口** (有電梯) 步行 10 分鐘進入大名。\n【採購攻略】物色在一般櫃位找不到的**植物原精 (Absolute)**。適合尋找靈魂之水。" },
-            { "time": "17:30", "title": "🌿 精油站3：RICCA aroma atelier", "type": "採購", "address": "中央区白金1-11-20", "price": "高級", "tags": ["職人巔峰"], "moodColor": "#D4AF37", 
-                "note": "【交通指南】大名區域建議搭計程車 (約 ¥1,000/8分鐘) 最便捷。若搭地鐵，走回天神站搭七隈線至『藥院站』步行 8 分。\n【採購攻略】慶祝 《Chasma》 誕生。採購具備「生命力」的 **100% 天然精油**。" },
-            { "time": "19:30", "title": "🏆 慶祝晚餐：GohGan", "type": "美食", "address": "博多区住吉1-2-82", "phone": "+81922633055", "price": "¥8,000~", "tags": ["慶功"], "moodColor": "#000", 
-                "note": "【交通指南】藥院區步行 12 分抵達中洲 010 BUILDING。預約制。為成就乾杯。" }
-        ],
-        "shopping": ["yuica精油", "植物原精"]
+            { "time": "10:00", "title": "🍺 麒麟啤酒 福岡工廠", "type": "體驗", "address": "朝倉市馬田3601", "tags": ["現釀生啤"], "moodColor": "#FBC02D", 
+                "note": "【交通】JR博多站搭至『基山站』轉甘木鐵道。結束後喝完三杯試飲即撤，不作過多停留。" },
+            { "time": "14:30", "title": "🌿 精油站1：Hands 博多店", "type": "採購", "address": "JR博多站 Amu Plaza 4F", "tags": ["yuica", "退稅"], "moodColor": "#4CAF50", 
+                "note": "【位置】直接在博多站內上樓。買齊 yuica (結香) 系列。此處為大型商場，快速補貨後可先回飯店放下戰利品。" },
+            { "time": "16:30", "title": "🌿 精油站2：THE ABRAM", "type": "採購", "address": "博多区古門戸町4-12", "tags": ["九州和精油"], "moodColor": "#4CAF50", 
+                "note": "【交通】地鐵中洲川端站 **7 號出口** 步行 5 分。重點：博多雪松、福岡絲柏。感受九州森林的木質力量。" }
+        ]
     },
     "day5": {
         "events": [
-            { "time": "09:30", "title": "南藏院 (青銅臥佛能量)", "type": "參拜", "address": "篠栗町1035", "price": "免費", "tags": ["山靈能量"], "moodColor": "#D4AF37", 
-                "note": "【交通指南】博多站搭 JR 篠栗線（8 號月台）至『城戶南藏院前站』。出站步行 3 分鐘。" },
-            { "time": "13:30", "title": "🌿 精油站4：THE ABRAM", "type": "採購", "address": "博多区古門戸町4-12", "phone": "+81922631551", "price": "中價", "tags": ["九州和精油"], "moodColor": "#4CAF50", 
-                "note": "【交通指南】JR回博多，地鐵機場線至『中洲川端站』 7 號出口步行 5 分。\n【採購攻略】重點採購九州產**博多雪松、福岡絲柏**。木能量平衡金水之旅。" },
-            { "time": "14:30", "title": "🌿 精油站5：生活の木 專門店", "type": "採購", "address": "中央区天神2-11-3 ソラリア 1F", "phone": "+81927815227", "price": "標竿品質", "tags": ["日本の香り"], "moodColor": "#B6A0C2", 
-                "note": "【交通指南】地鐵至『天神站』。Solaria Stage 1 樓。重點採購**「日本の香り」系列**（如高知柚子）。" },
-            { "time": "15:30", "title": "🛍️ 選品：B.B.B. POTTERS", "type": "購物", "address": "中央区薬院1-8-8", "price": "依預算", "tags": ["日本製"], "moodColor": "#8D6E63", 
-                "note": "【交通指南】天神搭地鐵七隈線至『藥院站』。步行 5 分。選購高品質日本製餐具。" },
-            { "time": "16:30", "title": "Abeki (視覺禪意咖啡)", "type": "放鬆", "address": "中央区薬院1-12-28", "price": "¥1,500", "tags": ["味覺聖殿"], "moodColor": "#000", 
-                "note": "【交通指南】B.B.B. POTTERS 步行 3 分。白色空間。必點起司蛋糕，感受極致靜謐。" },
-            { "time": "17:30", "title": "💆🏻‍♀️ 獎勵：Dry Head Spa", "type": "放鬆", "address": "大名區域", "price": "¥6,500", "tags": ["腦壓釋放"], "moodColor": "#1a2e47", 
-                "note": "【交通指南】由藥院步行 12 分回大名。預約『悟空のきもち』。徹底放鬆腦部。" }
-        ],
-        "shopping": ["單方精油", "職人餐具"]
+            { "time": "10:00", "title": "南藏院 (森林洗鼻)", "type": "參拜", "address": "篠栗町", "tags": ["山林能量"], "moodColor": "#4CAF50", 
+                "note": "【交通】JR 城戶南藏院前。在森林中深呼吸，為下午的高強度試聞重整嗅覺。" },
+            { "time": "14:00", "title": "🌿 靈魂核心：Maison de l'Aroma", "type": "採購", "address": "中央区大名1-13-16 4F", "tags": ["花卉原精", "Absolute"], "moodColor": "#7E57C2", 
+                "note": "【位置】天神站 **6 號出口** (電梯) 步行 10 分。位於『展望ビル』4 樓。專攻稀有原精。此處環境安靜，請預留充足時間與氣味對話。" },
+            { "time": "16:30", "title": "🌿 職人巔峰：RICCA aroma atelier", "type": "採購", "address": "中央区白金1-11-20", "tags": ["天然100%", "松下老師"], "moodColor": "#D4AF37", 
+                "note": "【交通】建議從大名搭計程車 (約 ¥1,000) 直達。與松下老師交流植物生命力。這是最後一家專業店，採購完畢後可直接前往晚餐。" },
+            { "time": "19:30", "title": "🏆 慶祝晚餐：GohGan", "type": "美食", "address": "博多区住吉1-2-82", "tags": ["慶功"], "moodColor": "#000", 
+                "note": "【位置】中洲 010 BUILDING。慶祝《Chasma》素材採購完成。" }
+        ]
     },
     "day6": {
         "events": [
-            { "time": "10:30", "title": "前往福間：光之道祭典首日", "type": "交通", "address": "福津市宮司元町7-1", "price": "JR ¥480", "tags": ["癸亥日"], "moodColor": "#1a2e47", 
-                "note": "【交通指南】JR 博多站（2 號月台）搭乘往小倉方向的「快速」列車至『福間站』。出站轉搭『5 號』臨時巴士。" },
-            { "time": "11:30", "title": "🌟 核心：申請特別祈願席", "type": "能量", "address": "宮地嶽神社 祈願受付", "price": "祈願 ¥5,000", "tags": ["VIP 視野"], "moodColor": "#FFA000", 
-                "note": "【交通指南】抵達神社後直衝祈願受付所。申請『夕日の祭 特別祈願』獲取觀賞席。" },
-            { "time": "17:55", "title": "絕景時刻：光之道", "type": "絕景", "address": "特別席位", "price": "無價", "tags": ["金水相生"], "moodColor": "#FFFFFF", 
-                "note": "金色陽光直通大海，能量最純淨的一刻。洗滌靈魂的療癒頂點。" },
-            { "time": "20:30", "title": "晚餐：牛腸鍋 一利 (Ichitaka)", "type": "美食", "address": "博多駅東2-4-14", "phone": "+81924096500", "price": "¥5,500", "tags": ["慶功宴"], "moodColor": "#d63345", 
-                "note": "搭巴士回福間站，轉 JR 回博多站。筑紫口步行 5 分鐘。必點胡麻鯖魚配冰生啤。" }
-        ],
-        "shopping": ["限定金運御守"]
+            { "time": "12:00", "title": "🌟 巔峰：宮地嶽神社", "type": "能量", "address": "福津市", "tags": ["光之道祭典"], "moodColor": "#FFA000", 
+                "note": "【交通】JR 福間站轉巴士。今日全心感受夕陽能量，不排任何行程。申請特別祈願席。" }
+        ]
     },
     "day7": {
         "events": [
-            { "time": "10:30", "title": "最後補貨：AMU PLAZA", "type": "購物", "address": "JR博多City", "price": "依預算", "tags": ["最後時光"], "moodColor": "#d63345", 
-                "note": "行李寄飯店。1F 中川政七買花布巾包裹精油。B1 買鈴懸草莓大福帶上飛機。" },
-            { "time": "11:30", "title": "🍶 酒造最後巡禮：百年蔵", "type": "體驗", "address": "博多区堅粕1-30-1", "phone": "+81926335100", "price": "免費", "tags": ["歷史酒造"], "moodColor": "#D4AF37", 
-                "note": "【交通指南】從博多站搭計程車 (約 ¥1,000) 最舒適。買最後清酒。" },
-            { "time": "12:30", "title": "🏆 終章：頂級 Omakase", "type": "美食", "address": "JR博多City 9F / 鮨 さかい", "phone": "+81924096688", "price": "¥6,000~", "tags": ["圓滿"], "moodColor": "#1a2e47", 
-                "note": "【預約】必須預約。用頂級壽司為旅程劃下圓滿句點。" },
-            { "time": "14:15", "title": "前往機場 (歸程)", "type": "交通", "address": "博多巴士總站 1F 11號月台", "price": "¥270", "tags": ["回港"], "moodColor": "#1a2e47", 
-                "note": "11 號月台搭直達巴士。帶著能量回港。16:05 起飛。" }
-        ],
-        "shopping": ["中川政七花布巾", "鈴懸草莓大福"]
+            { "time": "12:30", "title": "終章：頂級 Omakase 鮨 さかい", "type": "美食", "address": "JR博多City 9F", "tags": ["圓滿"], "moodColor": "#1a2e47", 
+                "note": "【交通】博多站內 9 樓。已預約。用味覺的高峰為旅程收尾。" },
+            { "time": "14:15", "title": "前往機場 (歸程)", "type": "交通", "address": "博多總站 11 號月台", "tags": ["回港"], "moodColor": "#1a2e47", 
+                "note": "帶著滿載的福袋、精油與能量回港。16:05 起飛。" }
+        ]
     }
 };
 
 const PHRASE_DATA = [
     {
-        category: "精油與品質",
+        category: "精油專業用語",
         items: [
             { term_primary: "原精（アブソリュート）はありますか？", term_secondary: "有原精嗎?", term_pronounce: "Abusoryuuto wa arimasu ka?" },
-            { term_primary: "日本の香りの精油は？", term_secondary: "有日本產精油嗎?", term_pronounce: "Nihon no kaori no seiyu wa?" }
+            { term_primary: "日本の香りの精油は？", term_secondary: "有日本產精油嗎?", term_pronounce: "Nihon no kaori no seiyu wa?" },
+            { term_primary: "テスターを試してもいいですか？", term_secondary: "可以試聞嗎?", term_pronounce: "Tesutaa o tameshimite mo ii desu ka?" }
         ]
     }
 ];
 </script>
+
 
 
     
