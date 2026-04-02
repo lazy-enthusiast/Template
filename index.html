@@ -229,184 +229,200 @@ const TRIP_INFO = {
         { type: "去程", code: "CX755", date: "04/03", time: "09:25 HKG ➝ 11:30 BKK", note: "國泰 T1" },
         { type: "回程", code: "CX706", date: "04/07", time: "16:25 BKK ➝ 20:25 HKG", note: "13:50 須抵達機場" }
     ],
-    hotel: { 
-        name: "IR-ON Hotel", 
-        address: "10/10 Sukhumvit 36, Bangkok", 
-        phone: "+6620740806",
-        note: "飯店提供往返 BTS Thong Lo (E6) 的免費 Tuk-tuk 接駁。" 
-    }
+    hotels: [
+        { name: "IR-ON Hotel (Confirmed)", address: "10/10 Sukhumvit 36, Bangkok", phone: "+6620740806", note: "Sukhumvit 36 巷內設計旅店。" }
+    ],
+    emergency: [
+        { name: "旅遊警察", phone: "1155" },
+        { name: "IR-ON 飯店接駁電話", phone: "+6620740806" }
+    ]
 };
 
 const USER_ITINERARY = {
     "day1": {
         "events": [
             { 
-                "time": "11:30", "title": "抵達 BKK ➝ 飯店安置", "type": "交通", 
-                "note": "1. ARL 坐 6 站至 Phaya Thai。2. 轉 BTS 坐 8 站至 Thong Lo。3. Exit 2 下樓打電話給飯店接駁。",
+                "time": "11:30", "title": "抵達曼谷 (BKK)", "type": "交通", 
+                "tags": ["ARL轉BTS"], 
+                "note": "1. 機場 B1 搭機場快線(ARL)坐 6 站至 Phaya Thai (A8)。\n2. 經連通道轉 BTS 往 Kheha 方向坐 8 站至 Thong Lo (E6)。\n3. 從 2 號出口下樓撥打飯店安排 Tuk-tuk 或步行 8 分鐘。",
                 "transport": "ARL ➝ BTS Thong Lo Exit 2" 
             },
             { 
-                "time": "14:30", "title": "午餐: Supanniga (Thong Lo)", "type": "美食", "address": "160/11 Sukhumvit 55",
-                "note": "【已延後預約】點冰鎮氣泡水液化燥土。飯店接駁至 BTS ➝ 跨天橋至 Exit 3 ➝ 入 Soi 55 步行 5 分鐘。",
-                "transport": "BTS Thong Lo Exit 3" 
+                "time": "14:30", "title": "午餐: Supanniga Eating Room", "type": "美食", 
+                "tags": ["結構泰菜", "延後預約"], 
+                "note": "飯店接駁至 BTS Thong Lo ➝ 橫跨天橋至 Exit 3 ➝ 進入 Soi 55 步行 5 分鐘（或路口搭紅色小巴士於 Soi 6 下車）。點冰鎮氣泡水液化燥土。",
+                "transport": "BTS Thong Lo Exit 3 ➝ Soi 55" 
             },
             { 
-                "time": "16:30", "title": "採購 I: Hong Huat", "type": "採購", "coords": [13.7431, 100.5033],
-                "note": "重點: 小茉莉原精、沉香。BTS 至 Asok 轉 MRT 往 Lak Song 坐 3 站至 Wat Mangkon。Exit 1 步行 8 分鐘。",
+                "time": "16:30", "title": "採購 I: Hong Huat (ฮงฮวด)", "type": "採購", 
+                "tags": ["小茉莉原精", "沉香"], "coords": [13.7431, 100.5033],
+                "note": "BTS Thong Lo 往 Phaya Thai 坐 2 站至 Asok (E4) ➝ 站內轉 MRT 藍線往 Lak Song 坐 3 站至 Wat Mangkon (BL25)。從 1 號出口出站步行 8 分鐘。",
                 "transport": "MRT Wat Mangkon Exit 1" 
             },
             { 
-                "time": "18:30", "title": "SPA: Asia Herb (Benchasiri Shop)", "type": "放鬆", "coords": [13.7311, 100.5678],
-                "note": "首場洗塵。MRT 坐 3 站回 Sukhumvit 轉 BTS 坐 1 站至 Phrom Phong。Exit 6 步行 3 分鐘。",
+                "time": "18:30", "title": "SPA: Asia Herb (Benchasiri Shop)", "type": "放鬆", 
+                "tags": ["按摩 I", "洗塵"], "coords": [13.7311, 100.5678],
+                "note": "回 MRT Wat Mangkon 往 Bang Sue 坐 3 站至 Sukhumvit (BL22) ➝ 轉 BTS Asok 往 Kheha 坐 1 站至 Phrom Phong (E5)。從 6 號出口出站，沿公園步行 3 分鐘。",
                 "transport": "BTS Phrom Phong Exit 6" 
             },
             { 
-                "time": "20:30", "title": "晚餐: Vientiane Kitchen", "type": "美食", "address": "8 Sukhumvit Soi 36",
-                "note": "【飯店圓心戰略】就在飯店同一條巷子。東北烤雞與糯米飯，溫暖木能量補給。*Walk-in 可。",
-                "transport": "從飯店步行 2 分鐘" 
+                "time": "20:30", "title": "晚餐: Khao Ekkamai", "type": "美食", 
+                "tags": ["一星", "已預約"], 
+                "note": "BTS Phrom Phong 往 Kheha 坐 2 站至 Ekkamai (E7)。從 1 號出口出站，進入 Soi 63 步行 12 分鐘或搭摩托車直達 Soi 10。",
+                "transport": "BTS Ekkamai Exit 1" 
             }
         ],
-        "inspiration": [
-            { "title": "補給: Big C Rama 4", "tag": "超市", "note": "大型旗艦超市。從飯店 Soi 36 巷底步行 10 分鐘或 Tuk-tuk 前往。購置水果乾糧首選。", "type": "採購" },
-            { "title": "逃逸: EmSphere 冷氣防護", "tag": "備案", "note": "若舊城區太熱，直接在 BTS Phrom Phong 下車進百貨。小眾香氛專櫃集中地。", "type": "休息" }
-        ]
+        "inspiration": [{ "title": "🌬️ 任性逃逸：EmSphere 百貨", "tag": "備案", "note": "若舊城區太熱，放棄採購。直接在 BTS Phrom Phong 進入 EmSphere。冷氣極強，在幾何美學中冷靜思緒。", "type": "休息" }]
     },
     "day2": {
         "events": [
             { 
-                "time": "10:00", "title": "採購 II: Tropicalife", "type": "採購", "address": "111/1 Soi Sukhumvit 63",
-                "note": "重點: 生薑精油。索取 GC/MS 報告。BTS 往東坐 1 站至 Ekkamai。Exit 1 步行 3 分鐘。",
+                "time": "10:00", "title": "採購 II: Tropicalife (Ekkamai)", "type": "採購", 
+                "tags": ["GC/MS"], 
+                "note": "飯店接駁至 BTS Thong Lo ➝ 往 Kheha 坐 1 站至 Ekkamai (E7) ➝ 1 號出口出站步行 3 分鐘。",
                 "transport": "BTS Ekkamai Exit 1" 
             },
             { 
-                "time": "11:30", "title": "採購 III: Botany Essence", "type": "採購", "coords": [13.7589, 100.5661],
-                "note": "回 BTS Ekkamai 至 Asok 轉 MRT 往 Bang Sue 坐 2 站至 Phra Ram 9。Exit 3 直通 G Tower。",
+                "time": "11:30", "title": "採購 III: Botany Essence", "type": "採購", 
+                "tags": ["CO2萃取"], "coords": [13.7589, 100.5661],
+                "note": "回 BTS Ekkamai 往 Phaya Thai 坐 3 站至 Asok ➝ 轉 MRT 藍線往 Bang Sue 坐 2 站至 Phra Ram 9 (BL20)。從 3 號出口直通 G Tower 區域。",
                 "transport": "MRT Phra Ram 9 Exit 3" 
             },
             { 
-                "time": "13:00", "title": "午餐: Copper Beyond Buffet", "type": "美食", "address": "Gaysorn Amarin 2F",
-                "note": "已預約。定力演習。MRT 坐 2 站回 Sukhumvit 轉 BTS 坐 3 站至 Chit Lom。Exit 6 Skywalk 直達。",
+                "time": "13:00", "title": "午餐: Copper Beyond Buffet", "type": "美食", 
+                "tags": ["已預約"], 
+                "note": "MRT Phra Ram 9 往 Lak Song 坐 2 站回 Sukhumvit ➝ 轉 BTS Asok 往 Phaya Thai 坐 3 站至 Chit Lom (E1)。從 6 號出口經 Skywalk 直達 Gaysorn Amarin 2F。",
                 "transport": "BTS Chit Lom Exit 6" 
             },
             { 
-                "time": "15:00", "title": "戰略諮詢: Ging Astro", "type": "靈性",
-                "note": "已預約飯店大堂。針對 7 月轉職進行風險評估。沈澱數據後的直覺能量。",
-                "transport": "回飯店大堂" 
+                "time": "15:00", "title": "戰略諮詢: Ging Astro (占星)", "type": "靈性", 
+                "tags": ["已預約"], 
+                "note": "BTS Chit Lom 坐 5 站回 Thong Lo (E6) ➝ 從 2 號出口下樓，由飯店接駁 Tuk-tuk 回大堂。沈澱數據後的直覺能量。",
+                "transport": "BTS Thong Lo Exit 2" 
             },
             { 
-                "time": "19:30", "title": "晚餐: Taling Pling (Soi 34)", "type": "美食", "address": "25 Sukhumvit Soi 34",
-                "note": "【飯店圓心戰略】飯店隔壁巷子，環境清幽有秩序。瑪莎曼咖哩補氣。*Walk-in 成功率高。",
-                "transport": "飯店出巷口跨天橋至對面 Soi 34 步行 5 分鐘" 
+                "time": "19:30", "title": "晚餐: Haoma (綠星一星)", "type": "美食", 
+                "tags": ["重生主題"], 
+                "note": "飯店接駁至 BTS Thong Lo ➝ 往 Phaya Thai 坐 1 站至 Phrom Phong (E5)。從 5 號出口出站，步行 12 分鐘進入 Soi 31。",
+                "transport": "BTS Phrom Phong Exit 5" 
             }
         ],
-        "inspiration": [
-            { "title": "備案: Kub Kao' Kub Pla", "tag": "穩定", "note": "Market Place Thonglor 內。高品質連鎖泰菜，穩定且冷氣足。Thong Lo Soi 4。", "type": "美食" }
-        ]
+        "inspiration": [{ "title": "🌬️ 任性逃逸：Central World", "tag": "備案", "note": "若移動太累，放棄 Rama 9。在 BTS Chit Lom 的 Central World 消失。有極靜試香空間，為面試挑選「威懾力香氣」。", "type": "休息" }]
     },
     "day3": {
         "events": [
             { 
-                "time": "10:30", "title": "二哥豐廟 (警局頂樓)", "type": "祈福",
-                "note": "宣告目標。BTS 往西至 Asok 轉 MRT 往 Lak Song 坐 3 站至 Wat Mangkon。Exit 1 步行 8 分鐘。",
+                "time": "10:30", "title": "二哥豐廟 (警局頂樓)", "type": "祈福", 
+                "tags": ["肅殺之金"], 
+                "note": "BTS Thong Lo 至 Asok 轉 MRT 藍線往 Lak Song 坐 3 站至 Wat Mangkon (BL25)。從 1 號出口出站，沿 Phlap Phla Chai 路步行 8 分鐘。",
                 "transport": "MRT Wat Mangkon Exit 1" 
             },
             { 
-                "time": "12:30", "title": "午餐: The Local", "type": "美食", "address": "32 Soi Sukhumvit 23",
-                "note": "已預約。老派洋房，建制派秩序感。回 MRT Wat Mangkon 坐 3 站至 Sukhumvit。Exit 3 步行 8 分鐘。",
+                "time": "12:30", "title": "午餐: The Local", "type": "美食", 
+                "tags": ["老派洋房", "已預約"], 
+                "note": "回 MRT Wat Mangkon 往 Bang Sue 坐 3 站至 Sukhumvit (BL22)。從 3 號出口出站，沿 Soi 23 步行 8 分鐘。",
                 "transport": "MRT Sukhumvit Exit 3" 
             },
             { 
-                "time": "14:30", "title": "積福: 義德善堂 (捐棺)", "type": "積福", "coords": [13.7335, 100.5284],
-                "note": "化解命格淤塞。回 MRT Sukhumvit 往 Lak Song 坐 4 站至 Sam Yan。Exit 1 出站即達。",
+                "time": "14:30", "title": "積福: 義德善堂 (捐棺)", "type": "積福", 
+                "tags": ["化解淤塞"], "coords": [13.7335, 100.5284],
+                "note": "回 MRT Sukhumvit 往 Lak Song 坐 4 站至 Sam Yan (BL26)。從 1 號出口出站即達。",
                 "transport": "MRT Sam Yan Exit 1" 
             },
             { 
-                "time": "17:00", "title": "SPA: Asia Herb (Benchasiri Shop)", "type": "放鬆",
-                "note": "二度補水。MRT 坐 4 站回 Sukhumvit 轉 BTS 坐 1 站至 Phrom Phong。Exit 6 步行 3 分鐘。",
+                "time": "17:00", "title": "SPA: Asia Herb (Benchasiri Shop)", "type": "放鬆", 
+                "tags": ["按摩 II"], 
+                "note": "MRT Sam Yan 往 Bang Sue 坐 4 站回 Sukhumvit ➝ 轉 BTS Asok 往 Kheha 坐 1 站至 Phrom Phong (E5)。從 6 號出口出站步行 3 分鐘。",
                 "transport": "BTS Phrom Phong Exit 6" 
             },
             { 
-                "time": "19:30", "title": "晚餐: North (北泰料理)", "type": "美食", "address": "8 Sukhumvit Soi 33 Alley",
-                "note": "【已付訂金】泰北香料具有穿透力的熱能。SPA 後步行 8 分鐘入 Soi 33。",
-                "transport": "步行至 Soi 33" 
+                "time": "19:30", "title": "晚餐: North (泰北料理)", "type": "美食", 
+                "tags": ["訂金已付"], 
+                "note": "離開 SPA 後走 3 分鐘回 BTS Phrom Phong 站內 ➝ 橫跨天橋至 Exit 5 下樓 ➝ 沿 Soi 33 步行 8 分鐘入巷。泰北香料具有穿透力的熱能。",
+                "transport": "BTS Phrom Phong Exit 5" 
             }
-        ]
+        ],
+        "inspiration": [{ "title": "🌬️ 任性逃逸：Sam Yan Mitrtown", "tag": "備案", "note": "若舊城區熱浪太強，留在 Sam Yan Mitrtown (Exit 2) 24h 區吹冷氣看書。定力修煉也是官運一部分。", "type": "休息" }]
     },
     "day4": {
         "events": [
             { 
-                "time": "10:00", "title": "政策研讀: Open House", "type": "學習",
-                "note": "空中圖書館研讀 HKMA 文件。BTS 往西坐 4 站至 Phloen Chit。Exit 5 直通百貨 6 樓。",
+                "time": "10:00", "title": "研讀: Open House", "type": "學習", 
+                "tags": ["政策內化"], 
+                "note": "BTS Thong Lo 往 Phaya Thai 坐 4 站至 Phloen Chit (E2)。從 5 號出口經百貨連通道直接進入 6 樓空中圖書館。",
                 "transport": "BTS Phloen Chit Exit 5" 
             },
             { 
-                "time": "13:00", "title": "採購 IV: Iconsiam (SookSiam)", "type": "採購",
-                "note": "採購普萊(Plai)精油。BTS 坐 2 站至 Siam 轉 Silom 線坐 5 站至 Saphan Taksin。Exit 2 轉接駁船。",
+                "time": "13:00", "title": "採購 IV: Iconsiam (SookSiam)", "type": "採購", 
+                "tags": ["普萊精油"], 
+                "note": "BTS Phloen Chit 坐 2 站至 Siam ➝ 轉 Silom 線往 Bang Wa 坐 5 站至 Saphan Taksin (S6)。從 2 號出口至碼頭搭 Iconsiam 免費接駁船。",
                 "transport": "Saphan Taksin ➝ 船" 
             },
             { 
-                "time": "14:30", "title": "貓咪療癒: Mohu Mohu Cat Cafe", "type": "放鬆", "address": "Si Phraya Rd",
-                "note": "深度清理殘留寒意。船回碼頭 轉 BTS 坐 2 站至 Chong Nonsi (S3) ➝ 短程的士避熱。",
+                "time": "14:30", "title": "貓咪療癒: Mohu Mohu Cat Cafe", "type": "放鬆", 
+                "tags": ["深度清理"], 
+                "note": "搭船回碼頭 ➝ 步行回 BTS Saphan Taksin 坐 2 站至 Chong Nonsi ➝ 轉搭短程計程車(避熱)或步行。感受救助貓的平靜頻率。",
                 "transport": "BTS Chong Nonsi" 
             },
             { 
-                "time": "16:00", "title": "SPA: Asia Herb (Benchasiri Shop)", "type": "放鬆",
-                "note": "【最終包裹】維持在同一店。從貓咖至 MRT Sam Yan 坐 4 站回 Sukhumvit 轉 BTS 至 Phrom Phong。Exit 6。",
-                "transport": "BTS Phrom Phong Exit 6" 
+                "time": "16:00", "title": "SPA: Asia Herb (Sukhumvit 24 Shop)", "type": "放鬆", 
+                "tags": ["涅槃時段"], 
+                "note": "從貓咖走至 MRT Sam Yan 往 Bang Sue 坐 4 站至 Sukhumvit ➝ 轉 BTS Asok 坐 1 站至 Phrom Phong (E5)。從 4 號出口下樓進入 Soi 24 步行 2 分鐘。",
+                "transport": "BTS Phrom Phong Exit 4" 
             },
             { 
-                "time": "19:30", "title": "晚餐: Gedhawa (Soi 35)", "type": "美食", "address": "24 Sukhumvit Alley 35",
-                "note": "【飯店圓心戰略】鄰近 SPA。北泰手作感。Exit 3 步行 5 分鐘。吃完坐 1 站捷運回房。",
-                "transport": "BTS Phrom Phong Exit 3" 
+                "time": "19:00", "title": "晚餐: View ARUN", "type": "美食", 
+                "tags": ["加冕時刻"], "coords": [13.7456, 100.4908],
+                "note": "回 BTS Phrom Phong 至 Asok 轉 MRT 藍線往 Lak Song 坐 9 站至 Sanam Chai (BL31)。從 1 號出口 (Museum Siam) 出站步行 5 分鐘抵達。",
+                "transport": "MRT Sanam Chai Exit 1" 
             }
         ],
-        "inspiration": [
-            { "title": "備案: Sit and Wonder", "tag": "REST", "note": "BTS Thong Lo 旁。安靜、冷氣強。Soi 57。", "type": "美食" },
-            { "title": "逃逸: Iconsiam 隔窗看河", "tag": "靜修", "note": "若河水太曬，留在 Iconsiam 高層咖啡廳透過窗戶吸取水能量。", "type": "風景" }
-        ]
+        "inspiration": [{ "title": "🌬️ 任性逃逸：Iconsiam 室內河景", "tag": "備案", "note": "若步行太累，留在 Iconsiam 高樓層咖啡廳 Coffee Beans by Dao 隔窗看河。不必接觸熱氣也能吸收水能量。", "type": "風景" }]
     },
     "day5": {
         "events": [
             { 
-                "time": "09:30", "title": "採購 V: Chemipan (Nawamin)", "type": "採購",
-                "note": "重點: 蓮花原精。BTS 坐 1 站至 Ekkamai。Exit 3 下樓搭巴士 71 或 501 路。",
-                "transport": "Ekkamai Exit 3 ➝ Bus" 
+                "time": "09:30", "title": "採購 V: Chemipan (Nawamin)", "type": "採購", 
+                "tags": ["化工考察"], 
+                "note": "BTS Thong Lo 往 Kheha 坐 1 站至 Ekkamai (E7)。從 3 號出口下樓搭巴士 71 或 501 路往 Nawamin (預留 45 分鐘)。若體力不足可改去 Ekkamai 代理點。",
+                "transport": "Ekkamai Exit 3 ➝ Bus 71/501" 
             },
             { 
-                "time": "11:30", "title": "謝幕午餐: Paste Bangkok", "type": "美食", "address": "3F, Gaysorn Village",
-                "note": "已預約。用掌控物質本質的氣場平安歸港。搭巴士回 BTS 坐至 Chit Lom。Exit 6 直達。",
+                "time": "11:30", "title": "謝幕午餐: Paste", "type": "美食", 
+                "tags": ["掌控氣場", "已預約"], 
+                "note": "搭巴士回 BTS Ekkamai 往 Phaya Thai 坐 6 站至 Chit Lom (E1)。從 6 號出口經 Skywalk 直達 Gaysorn Village 3F。用化學級精確重構古法。",
                 "transport": "BTS Chit Lom Exit 6" 
             },
             { 
-                "time": "14:15", "title": "前往機場 (BKK)", "type": "交通",
-                "note": "涅槃完成。回港加冕。BTS 至 Phaya Thai 轉機場快線 (ARL)。",
+                "time": "14:15", "title": "前往機場 (BKK)", "type": "交通", 
+                "tags": ["歸港"], 
+                "note": "BTS Chit Lom 往 Phaya Thai 坐 3 站至 Phaya Thai (N3) ➝ 站內轉機場快線 (ARL) 直達機場。涅槃完成，回港加冕。",
                 "transport": "ARL Phaya Thai" 
             }
         ],
-        "inspiration": [
-            { "title": "逃逸: Hands and Heart (Soi 38)", "tag": "禪意", "note": "放棄遠程。在飯店對面咖啡廳整理嗅覺筆記，定力是最好的收尾。", "type": "休息" }
-        ]
+        "inspiration": [{ "title": "🌬️ 任性逃逸：Thong Lo 極簡咖啡", "tag": "備案", "note": "放棄 Nawamin。在飯店附近 Hands and Heart 整理嗅覺筆記。這份定力是歸港前最好的儀式。", "type": "休息" }]
     }
 };
 
 const PHRASE_DATA = [
     {
-        category: "專業與採購",
+        category: "專業採購",
         items: [
-            { term_primary: "ขอใบรับรอง COA", term_secondary: "請提供 COA 分析證書", term_pronounce: "Khor Bai Rub Rong" },
-            { term_primary: "สกัดแบบ CO2 หรือไม่?", term_secondary: "這是 CO2 萃取的嗎？", term_pronounce: "Sa-gat baep CO2?" },
-            { term_primary: "น้ำมันหอมระเหยแท้", term_secondary: "100% 純精油", term_pronounce: "Nam-man Hom" }
+            { term_primary: "ขอใบรับรอง COA", term_secondary: "請提供分析證書 (COA)", term_pronounce: "Khor Bai Rub Rong COA" },
+            { term_primary: "สกัดแบบ CO2 หรือไม่?", term_secondary: "這是 CO2 萃取的嗎？", term_pronounce: "Sa-gat baep CO2 mai?" },
+            { term_primary: "น้ำมันหอมระเหยแท้", term_secondary: "100% 純精油", term_pronounce: "Nam-man Hom Ra-hoei" }
         ]
     },
     {
-        category: "需求與交通",
+        category: "交通與需求",
         items: [
+            { term_primary: "ทางออกที่เท่าไหร่?", term_secondary: "在哪一個出口？", term_pronounce: "Thang-ok tee-tao-rai?" },
             { term_primary: "ไม่เอาผักชี", term_secondary: "不要香菜！", term_pronounce: "Mai Ao Phak Chi" },
-            { term_primary: "ไปสถานีที่ใกล้ที่สุด", term_secondary: "請帶我去最近的車站", term_pronounce: "Pai Sa-tha-nee" }
+            { term_primary: "ไปสถานีรถไฟฟ้าที่ใกล้ที่สุด", term_secondary: "請載我去最近的捷運站", term_pronounce: "Pai Sa-tha-nee tee Klai tee-sut" }
         ]
     }
 ];
-</script>   
+</script>    
     
     <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-msg">Action Completed</span></div>
 <header>
